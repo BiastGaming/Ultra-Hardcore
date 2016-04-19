@@ -38,6 +38,7 @@ import com.leontg77.ultrahardcore.commands.basic.SetspawnCommand;
 import com.leontg77.ultrahardcore.commands.basic.SkullCommand;
 import com.leontg77.ultrahardcore.commands.basic.StaffChatCommand;
 import com.leontg77.ultrahardcore.commands.basic.TextCommand;
+import com.leontg77.ultrahardcore.commands.basic.ViewDistanceCommand;
 import com.leontg77.ultrahardcore.commands.game.BoardCommand;
 import com.leontg77.ultrahardcore.commands.game.ChatCommand;
 import com.leontg77.ultrahardcore.commands.game.ConfigCommand;
@@ -237,12 +238,13 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 		cmds.add(new SkullCommand());
 		cmds.add(new StaffChatCommand());
 		cmds.add(new TextCommand());
+		cmds.add(new ViewDistanceCommand(plugin));
 		
 		// game
 		cmds.add(new BoardCommand(arena, game, board));
 		cmds.add(new ChatCommand(game));
 		cmds.add(new ConfigCommand(plugin, game, gui, feat, scen));
-		cmds.add(new EndCommand(plugin, data, timer, settings, game, scen, board, teams, spec, gui, firework, manager));
+		cmds.add(new EndCommand(plugin, data, timer, settings, game, feat, scen, board, teams, spec, gui, firework, manager));
 		cmds.add(new HelpopCommand(plugin, spec));
 		cmds.add(new MatchpostCommand(game));
 		cmds.add(new MUCoordsCommand(game, timer));
