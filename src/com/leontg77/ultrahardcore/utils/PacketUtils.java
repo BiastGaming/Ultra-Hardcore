@@ -1,12 +1,18 @@
 package com.leontg77.ultrahardcore.utils;
 
 import java.lang.reflect.Field;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Main;
 
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
@@ -30,19 +36,36 @@ public class PacketUtils {
 	 * 
 	 * @param player the player.
 	 */
-	public static void setTabList(Player player, Game game) {
+	public static void setTabList(Player player, Main plugin, Game game) {
 		if (game.isRecordedRound()) {
 	        return;
 		}
+        
+		Format date = new SimpleDateFormat("HH:mm:ss 'UTC'", Locale.US); 
+		String dateStr = date.format(new Date());
+		
+		ChatColor color;
+		double tps = plugin.getTps();
+		
+		if (tps == 20.0) {
+            color = ChatColor.GREEN;
+        } else if (tps >= 17 && tps <= 23) {
+            color = ChatColor.GREEN;
+        } else if (tps >= 14 && tps <= 26) {
+            color = ChatColor.GOLD;
+        } else {
+            color = ChatColor.RED;
+        }
 		
 		IChatBaseComponent headerJSON = ChatSerializer.a(
-	      	"{text:'§4§lArctic UHC§r §8- §a§o@ArcticUHC§r\n"
-	      	+ "§7Follow us for games and updates!\n'}"
+	      	"{text:'§4§lArctic UHC§r §8- §a§o@ArcticUHC§r\n" +
+	    	"§7Follow us for games and updates!\n" +
+	    	"\n§7TPS: " + color + tps + " §8- §7Your ping: §a" + plugin.getUser(player).getPing() + " §8- §7Time: §a" + dateStr + "\n'}"
 	    );
 
 		String gamemode = game.getAdvancedTeamSize(false, true).replaceAll("-", "§8-§7") + game.getScenarios().replaceAll(",", "§8,§7");
 		String teamsize = game.getTeamSize().toLowerCase();
-	        
+		
 		IChatBaseComponent footerJSON = ChatSerializer.a(
 			"{text:'\n§7" + gamemode + (!teamsize.startsWith("no") && !teamsize.startsWith("open") ? 
 			"\n§4Host §8» §a" + game.getHost() : "") + "'}"
