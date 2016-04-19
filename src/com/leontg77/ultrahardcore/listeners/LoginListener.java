@@ -103,7 +103,7 @@ public class LoginListener implements Listener {
 		
 		user.saveFile();
 		
-		PacketUtils.setTabList(player, game);
+		PacketUtils.setTabList(player, plugin, game);
 		player.setNoDamageTicks(0);
 
 		spec.hideSpectators(player);
