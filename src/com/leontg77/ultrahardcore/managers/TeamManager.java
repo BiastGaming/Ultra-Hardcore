@@ -304,6 +304,10 @@ public class TeamManager {
 		}
 		
 		for (String li : color) {
+			tempColorList.add(li + "§n§m");
+		}
+		
+		for (String li : color) {
 			tempColorList.add(li + "§l§o§n");
 		}
 		
