@@ -99,6 +99,7 @@ public class PermissionsManager {
 		perm.setPermission("uhc.parkour", true);
 		perm.setPermission("uhc.combatlog", true);
 		perm.setPermission("uhc.mucoords", true);
+		perm.setPermission("uhc.viewdistance", true);
 		
 		// spectator perms, they can only use them if they're spectating.
 		perm.setPermission("uhc.spectate", true);
@@ -176,6 +177,7 @@ public class PermissionsManager {
 		perm.setPermission("uhc.pregen", true);
 		perm.setPermission("uhc.border.set", true);
 		perm.setPermission("uhc.world", true);
+		perm.setPermission("uhc.viewdistance.set", true);
 		
 		for (Scenario scen : manager.getScenarios()) {
 			perm.setPermission("uhc." + scen.getName().toLowerCase(), true);
