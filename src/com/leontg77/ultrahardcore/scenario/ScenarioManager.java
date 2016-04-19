@@ -187,6 +187,7 @@ public class ScenarioManager {
 		scenarios.add(new LAFS(game, teams));
 		scenarios.add(new Landmines(plugin, game, spec));
 		scenarios.add(new Lootcrates(plugin, game));
+		scenarios.add(new LWCM(game, teams));
 		scenarios.add(new MeleeFun(plugin));
 		scenarios.add(new Moles(plugin, this, teams, spec));
 		scenarios.add(new MonstersInc(scatter));
@@ -205,6 +206,7 @@ public class ScenarioManager {
 		scenarios.add(new Pyrophobia(plugin));
 		scenarios.add(new RewardingLongshots());
 		scenarios.add(new RewardingLongshotsPlus());
+		scenarios.add(new SelfDiagnosis(plugin, game, board));
 		scenarios.add(new SharedHealth(plugin, game, teams));
 		scenarios.add(new SkyClean());
 		scenarios.add(new Skyhigh(plugin, game));
