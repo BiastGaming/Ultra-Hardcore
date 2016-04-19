@@ -123,7 +123,7 @@ public class Main extends JavaPlugin {
 		spec = new SpecManager(this, teams);
 		parkour = new Parkour(this, settings, spec);
 		
-		game = new Game(settings, gui, board, spec);
+		game = new Game(this, settings, gui, board, spec);
 		
 		scatter = new ScatterManager(this, teams, game);	
 
