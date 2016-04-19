@@ -22,6 +22,7 @@ import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
+import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
  * DeathSentence scenario class
@@ -29,7 +30,7 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class DeathSentence extends Scenario implements CommandExecutor, Listener {
-	private static final String PREFIX = "§7Death Sentence §8» §7";
+	private static final String PREFIX = "§7Death Sentence §8» §c";
 	
 	private final Main plugin;
 	private final Game game;
@@ -75,9 +76,11 @@ public class DeathSentence extends Scenario implements CommandExecutor, Listener
 					}
 					
 					if (time.get(online.getUniqueId()) <= 0.0) {
-						online.sendMessage(PREFIX + "You had no more life minutes.");
+						PlayerUtils.broadcast(PREFIX + online.getName() + " ran out of lifefile.");
+						online.sendMessage();
 						online.setHealth(0);
 					} else {
+						online.sendMessage(PREFIX + "You lost 1 minute of your lifetime.");
 						time.put(online.getUniqueId(), time.get(online.getUniqueId()) - 1);
 					}
 				}
@@ -94,6 +97,11 @@ public class DeathSentence extends Scenario implements CommandExecutor, Listener
 		}
 		
 		Player player = event.getPlayer();
+		
+		if (!game.getPlayers().contains(player)) {
+			return;
+		}
+		
 		Block block = event.getBlock();
 
 		if (!time.containsKey(player.getUniqueId())) {
@@ -102,12 +110,15 @@ public class DeathSentence extends Scenario implements CommandExecutor, Listener
 		
 		switch (block.getType()) {
 		case IRON_ORE:
+			player.sendMessage(PREFIX + "You gained 0.5 more minutes of lifetime.");
 			time.put(player.getUniqueId(), time.get(player.getUniqueId()) + 0.5);
 			break;
 		case GOLD_ORE:
+			player.sendMessage(PREFIX + "You gained 2 more minutes of lifetime.");
 			time.put(player.getUniqueId(), time.get(player.getUniqueId()) + 2);
 			break;
 		case DIAMOND_ORE:
+			player.sendMessage(PREFIX + "You gained 5 more minutes of lifetime.");
 			time.put(player.getUniqueId(), time.get(player.getUniqueId()) + 5);
 			break;
 		default:
@@ -122,6 +133,11 @@ public class DeathSentence extends Scenario implements CommandExecutor, Listener
 		}
 
 		Player player = event.getPlayer();
+		
+		if (!game.getPlayers().contains(player)) {
+			return;
+		}
+		
 		Block block = event.getBlock();
 
 		if (!time.containsKey(player.getUniqueId())) {
@@ -132,6 +148,7 @@ public class DeathSentence extends Scenario implements CommandExecutor, Listener
 		case IRON_ORE:
 		case GOLD_ORE:
 		case DIAMOND_ORE:
+			player.sendMessage(PREFIX + "You cannot place this to gain more time.");
 			event.setCancelled(true);
 			break;
 		default:
@@ -148,17 +165,25 @@ public class DeathSentence extends Scenario implements CommandExecutor, Listener
 		Player player = event.getEntity();
 		Player killer = player.getKiller();
 		
+		if (!game.getWorlds().contains(player.getWorld())) {
+			return;
+		}
+		
+		player.sendMessage(PREFIX + "Looks like your Death Sentence came unexpectedly...");
+		
 		if (killer == null) {
 			return;
 		}
 
+		if (!game.getWorlds().contains(killer.getWorld())) {
+			return;
+		}
+		
 		if (!time.containsKey(killer.getUniqueId())) {
 			time.put(killer.getUniqueId(), 10.0);
 		}
 		
 		time.put(killer.getUniqueId(), time.get(killer.getUniqueId()) + 10);
-		
-		player.sendMessage(PREFIX + "Looks like your Death Sentence came unexpectedly...");
 	}
 
 	@Override
@@ -180,7 +205,18 @@ public class DeathSentence extends Scenario implements CommandExecutor, Listener
 			return true;
 		}
 		
-		player.sendMessage(PREFIX + "You have §c" + time.get(player.getUniqueId()) + " minute(s)§7 remaining.");
+		double timeL = time.get(player.getUniqueId());
+		ChatColor color;
+		
+		if (timeL <= 2) {
+			color = ChatColor.RED;
+		} else if (timeL < 10) {
+			color = ChatColor.YELLOW;
+		} else {
+			color = ChatColor.GREEN;
+		}
+		
+		player.sendMessage(PREFIX + "§fYou have " + color + (timeL == 1 ? "1 minute" : timeL + " minutes") + " minute §7remaining.");
 		return true;
 	}
 }
