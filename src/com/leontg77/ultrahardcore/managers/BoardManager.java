@@ -121,7 +121,7 @@ public class BoardManager {
 		}
 		
 		if (game.isRecordedRound()) {
-			kills.setDisplayName("Kills");
+			kills.setDisplayName("§8» §6" + game.getRRName() + "§8 «");
 		} else {
 			kills.setDisplayName("§4Arctic §8» §7§o" + game.getHost().substring(0, Math.min(game.getHost().length(), 13)) + "§r");
 		}
