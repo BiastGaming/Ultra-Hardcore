@@ -27,7 +27,14 @@ import com.leontg77.ultrahardcore.User.Stat;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.events.GameEndEvent;
+import com.leontg77.ultrahardcore.feature.FeatureManager;
+import com.leontg77.ultrahardcore.feature.health.HardcoreHeartsFeature;
+import com.leontg77.ultrahardcore.feature.scoreboard.SidebarResetFeature;
+import com.leontg77.ultrahardcore.feature.tablist.HeartsOnTabFeature;
+import com.leontg77.ultrahardcore.feature.tablist.TabHealthColorFeature;
 import com.leontg77.ultrahardcore.gui.GUIManager;
+import com.leontg77.ultrahardcore.gui.guis.ConfigGUI;
+import com.leontg77.ultrahardcore.gui.guis.GameInfoGUI;
 import com.leontg77.ultrahardcore.gui.guis.HallOfFameGUI;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.FireworkManager;
@@ -52,8 +59,9 @@ public class EndCommand extends UHCCommand {
 	
 	private final Settings settings;
 	private final Game game;
-	
+
 	private final ScenarioManager scen;
+	private final FeatureManager feat;
 
 	private final BoardManager board;
 	private final TeamManager teams;
@@ -64,7 +72,7 @@ public class EndCommand extends UHCCommand {
 	private final FireworkManager firework;
 	private final WorldManager manager;
 	
-	public EndCommand(Main plugin, Data data, Timer timer, Settings settings, Game game, ScenarioManager scen, BoardManager board, TeamManager teams, SpecManager spec, GUIManager gui, FireworkManager firework, WorldManager manager) {
+	public EndCommand(Main plugin, Data data, Timer timer, Settings settings, Game game, FeatureManager feat, ScenarioManager scen, BoardManager board, TeamManager teams, SpecManager spec, GUIManager gui, FireworkManager firework, WorldManager manager) {
 		super("end", "<winners>");
 		
 		this.plugin = plugin;
@@ -74,8 +82,9 @@ public class EndCommand extends UHCCommand {
 		
 		this.settings = settings;
 		this.game = game;
-		
+
 		this.scen = scen;
+		this.feat = feat;
 		
 		this.board = board;
 		this.teams = teams;
@@ -132,14 +141,14 @@ public class EndCommand extends UHCCommand {
 		Date date = new Date();
 
 		FileUtils.updateUserFiles(plugin);
-		
-		int matchcount = 1;
-		
-		if (settings.getHOF().contains(host) && settings.getHOF().contains(host + ".games")) {
-			matchcount = settings.getHOF().getConfigurationSection(host + ".games").getKeys(false).size() + 1;
-		}
 
 		if (!game.isRecordedRound()) {
+			int matchcount = 1;
+			
+			if (settings.getHOF().contains(host) && settings.getHOF().contains(host + ".games")) {
+				matchcount = settings.getHOF().getConfigurationSection(host + ".games").getKeys(false).size() + 1;
+			}
+			
 			settings.getHOF().set(host + ".games." + matchcount + ".date", dateFormat.format(date));
 			settings.getHOF().set(host + ".games." + matchcount + ".winners", winners);
 			settings.getHOF().set(host + ".games." + matchcount + ".kills", totalKills);
@@ -176,12 +185,23 @@ public class EndCommand extends UHCCommand {
 		State.setState(State.NOT_RUNNING);
 		firework.startFireworkShow();
 
-		Bukkit.getServer().setIdleTimeout(60);
+		Bukkit.setIdleTimeout(60);
 
 		game.setScenarios("games running");
 		game.setMatchPost("none");
 		game.setMaxPlayers(Bukkit.getMaxPlayers());
 		game.setTeamSize("No");
+		
+		feat.getFeature(SidebarResetFeature.class).enable(settings);
+		feat.getFeature(TabHealthColorFeature.class).disable(settings);
+		feat.getFeature(HeartsOnTabFeature.class).disable(settings);
+		feat.getFeature(HardcoreHeartsFeature.class).enable(settings);
+		
+		game.setRecordedRound(false);
+		game.setRRName("N/A");
+
+		gui.getGUI(GameInfoGUI.class).update();
+		gui.getGUI(ConfigGUI.class).update();
 		
 		teams.getSavedTeams().clear();
 
