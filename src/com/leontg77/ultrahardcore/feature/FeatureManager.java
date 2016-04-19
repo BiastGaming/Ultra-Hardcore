@@ -31,6 +31,7 @@ import com.leontg77.ultrahardcore.feature.health.HealthRegenFeature;
 import com.leontg77.ultrahardcore.feature.horses.HorseArmorFeature;
 import com.leontg77.ultrahardcore.feature.horses.HorseFeature;
 import com.leontg77.ultrahardcore.feature.horses.HorseHealingFeature;
+import com.leontg77.ultrahardcore.feature.other.TabUpdaterFeature;
 import com.leontg77.ultrahardcore.feature.pearl.PearlDamageFeature;
 import com.leontg77.ultrahardcore.feature.portal.EndFeature;
 import com.leontg77.ultrahardcore.feature.portal.NetherFeature;
@@ -193,6 +194,9 @@ public class FeatureManager {
 		addFeature(new HorseArmorFeature());
 		addFeature(new HorseFeature());
 		addFeature(new HorseHealingFeature());
+		
+		// other
+		addFeature(new TabUpdaterFeature(plugin, game));
 		
 		// pearl
 		addFeature(new PearlDamageFeature(settings));
