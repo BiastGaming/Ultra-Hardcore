@@ -20,6 +20,10 @@ import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.scenario.scenarios.Paranoia;
+import com.leontg77.ultrahardcore.scenario.scenarios.SelfDiagnosis;
+import com.leontg77.ultrahardcore.scenario.scenarios.TeamHealth;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -38,16 +42,18 @@ public class TeamCommand extends UHCCommand {
 	private static final String ADMIN_PERM = "uhc.team.admin";
 	
 	private final Game game;
+	private final ScenarioManager scen;
 	
 	private final BoardManager board;
 	private final TeamManager teams;
 	
 	public static final String PREFIX = "§4Team §8» §7";
 	
-	public TeamCommand(Game game, BoardManager board, TeamManager teams) {
+	public TeamCommand(Game game, BoardManager board, TeamManager teams, ScenarioManager scen) {
 		super("team", "");
-		
+
 		this.game = game;
+		this.scen = scen;
 
 		this.board = board;
 		this.teams = teams;
@@ -123,7 +129,11 @@ public class TeamCommand extends UHCCommand {
 					continue;
 				} 
 				
-				teammates.append(ChatColor.GREEN + teammate.getName() + " §8(" + NumberUtils.makePercent(teammate.getHealth()) + "%§8)");
+				if (scen.getScenario(TeamHealth.class).isEnabled() || scen.getScenario(SelfDiagnosis.class).isEnabled() || scen.getScenario(Paranoia.class).isEnabled()) {
+					teammates.append(ChatColor.GREEN + teammate.getName());
+				} else {
+					teammates.append(ChatColor.GREEN + teammate.getName() + " §8(" + NumberUtils.makePercent(teammate.getHealth()) + "%§8)");
+				}
 			}
 
 			sender.sendMessage(Main.ARROW + "Team Kills: §a" + teamkills);
