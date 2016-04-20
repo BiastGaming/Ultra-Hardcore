@@ -1,17 +1,18 @@
 package com.leontg77.ultrahardcore.commands.spectate;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.managers.SpecManager;
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Spec and staff chat command class.
@@ -40,7 +41,7 @@ public class SpecAndStaffChatCommand extends UHCCommand {
             return false;
         }
 
-        String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
+        String message = Joiner.on(' ').join(args);
 
         for (Player online : Bukkit.getOnlinePlayers()) {
             if (!predicate.apply(online)) {
@@ -50,7 +51,13 @@ public class SpecAndStaffChatCommand extends UHCCommand {
             online.sendMessage(PREFIX + sender.getName() + "§8: §f" + message);
         }
 
-        Bukkit.getLogger().info(PREFIX + sender.getName() + "§8: §f" + message);
+		message = message.replaceAll("§l", "");
+		message = message.replaceAll("§o", "");
+		message = message.replaceAll("§r", "§f");
+		message = message.replaceAll("§m", "");
+		message = message.replaceAll("§n", "");
+		
+		Bukkit.getLogger().info(PREFIX + sender.getName() + "§8: §f" + message);
         return true;
     }
 
