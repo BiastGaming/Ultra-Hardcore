@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -560,7 +561,9 @@ public class Game {
 	 * @return True if it is, false otherwise.
 	 */
 	public String getRRName() {
-		return settings.getConfig().getString("recordedround.name", "N/A");
+		String name = settings.getConfig().getString("recordedround.name", "N/A");
+		
+		return ChatColor.translateAlternateColorCodes('&', name);
 	}
 
 	/**
