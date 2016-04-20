@@ -37,6 +37,10 @@ public class PMMinedOresCommand extends UHCCommand {
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) throws CommandException {
+		if (args.equals(args)) {
+			throw new CommandException("This feature has been disabled until future notice.");
+		}
+		
 		if (!(sender instanceof Player)) {
 			throw new CommandException("Only players can send their ore count to their team.");
 		}
