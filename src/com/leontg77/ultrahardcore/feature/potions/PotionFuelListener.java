@@ -50,13 +50,13 @@ public class PotionFuelListener implements Listener {
 	// cancel hoppers moving the item into the stand
 	@EventHandler(ignoreCancelled = true)
 	public void on(InventoryMoveItemEvent event) {
-		final Inventory dest = event.getDestination();
+		Inventory dest = event.getDestination();
 		
 		if (dest.getType() != InventoryType.BREWING) {
 			return;
 		}
 		
-		final ItemStack item = event.getItem();
+		ItemStack item = event.getItem();
 
 		if (disabled.contains(item.getType())) {
 			event.setCancelled(true);
@@ -66,14 +66,14 @@ public class PotionFuelListener implements Listener {
 	// stop dragging over the fuel slot
 	@EventHandler(ignoreCancelled = true)
 	public void on(InventoryDragEvent event) {
-		final Inventory inv = event.getInventory();
+		Inventory inv = event.getInventory();
 		
 		if (inv.getType() != InventoryType.BREWING) {
 			return;
 		}
 
-		final Player player = (Player) event.getWhoClicked();
-		final ItemStack item = event.getOldCursor();
+		Player player = (Player) event.getWhoClicked();
+		ItemStack item = event.getOldCursor();
 		
 		// if it's not a disabled type do nothing
 		if (!disabled.contains(item.getType())) {
@@ -91,8 +91,8 @@ public class PotionFuelListener implements Listener {
 	// cancel click events going into the stand
 	@EventHandler(ignoreCancelled = true)
 	public void on(InventoryClickEvent event) {
-		final Inventory clickedInv = event.getClickedInventory();
-		final Inventory inv = event.getInventory();
+		Inventory clickedInv = event.getClickedInventory();
+		Inventory inv = event.getInventory();
 		
 		if (inv.getType() != InventoryType.BREWING)
 			return;
@@ -107,7 +107,7 @@ public class PotionFuelListener implements Listener {
 			return;
 		}
 
-		final InventoryType clicked = clickedInv.getType();
+		InventoryType clicked = clickedInv.getType();
 
 		// get any relevant stack to check the type of based on the action took
 		Optional<ItemStack> relevant = Optional.absent();
