@@ -18,23 +18,29 @@ import org.bukkit.scoreboard.Team;
 
 import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.feature.FeatureManager;
+import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
  * Compensation scenario class
  * 
- * @author TheRCPanda, modified by LeonTG77
+ * @author LeonTG77
  */
 public class Compensation extends Scenario implements Listener {
-	private final TeamManager teams;
 	private final Arena arena;
 	
-	public Compensation(Arena arena, TeamManager teams) {
-		super("Compensation", "When a player on a team dies, the player's max health is divided up and added to the max health of the player's teammates. The extra health received will regenerate in 30 seconds.");
+	private final FeatureManager feat;
+	private final TeamManager teams;
 	
-		this.teams = teams;
+	public Compensation(Arena arena, TeamManager teams, FeatureManager feat) {
+		super("Compensation", "When a player on a team dies, the player's max health is divided up and added to the max health of the player's teammates. The extra health received will regenerate in 30 seconds.");
+
 		this.arena = arena;
+
+		this.teams = teams;
+		this.feat = feat;
 	}
 	
 	@EventHandler
@@ -93,7 +99,7 @@ public class Compensation extends Scenario implements Listener {
     }
 
     @EventHandler
-    public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
+    public void on(PlayerItemConsumeEvent event) {
 		if (!State.isState(State.INGAME)) {
 			return;
 		}
@@ -101,18 +107,25 @@ public class Compensation extends Scenario implements Listener {
     	Player player = event.getPlayer();
     	ItemStack item = event.getItem();
 
-        if (item.getType() != Material.GOLDEN_APPLE) {
+    	if (item == null) {
+    		return;
+    	}
+    												   
+        if (item.getType() != Material.GOLDEN_APPLE || item.getDurability() == 1) {
         	return;
         }
         
+        GoldenHeadsFeature ghead = feat.getFeature(GoldenHeadsFeature.class);
+        
         player.removePotionEffect(PotionEffectType.REGENERATION);
+        int ticks;
+        
+        if (ghead.isGoldenHead(item)) {
+        	ticks = (int) ((player.getMaxHealth() * (ghead.getHealAmount() / 10)) * 25);
+        } else {
+        	ticks = (int) ((player.getMaxHealth() * 0.2) * 25);
+        }
 
-        double ticks = (player.getMaxHealth() / 5) * 25;
-        int ticksRounded = (int) ticks;
-
-        double excessHealth = ticks - ticksRounded;
-
-        player.setHealth(player.getHealth() + excessHealth);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, ticksRounded, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, ticks, 1));
     }
 }
