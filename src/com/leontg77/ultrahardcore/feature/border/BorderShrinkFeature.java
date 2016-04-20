@@ -14,6 +14,7 @@ import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.events.MeetupEvent;
 import com.leontg77.ultrahardcore.events.PvPEnableEvent;
 import com.leontg77.ultrahardcore.feature.Feature;
+import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
@@ -125,6 +126,8 @@ public class BorderShrinkFeature extends Feature implements Listener {
 		if (currentTask != null) {
 			return;
 		}
+		
+		PlayerUtils.broadcast(Main.BORDER_PREFIX + "The border starts shrinking in §a" + DateUtils.advancedTicksToString(timeToNextShrink) + "§7.");
 		
 		currentTask = new BorderRunnable(game, timeToNextShrink);
 		currentTask.runTaskTimer(plugin, 20, 20);
