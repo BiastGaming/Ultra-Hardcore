@@ -12,17 +12,22 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.events.FinalHealEvent;
+import com.leontg77.ultrahardcore.feature.FeatureManager;
+import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
- * 100Hearts scenario class
+ * 100Hearts scenario class.
  * 
  * @author LeonTG77
  */
 public class HundredHearts extends Scenario implements Listener {
+	private final FeatureManager feat;
 
-	public HundredHearts() {
+	public HundredHearts(FeatureManager feat) {
 		super("100Hearts", "Everyone has 100 hearts, golden apples heal 20% of your max health.");
+		
+		this.feat = feat;
 	}
 
 	@Override
@@ -48,8 +53,8 @@ public class HundredHearts extends Scenario implements Listener {
 		}
 	}
 
-	@EventHandler
-    public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
+    @EventHandler
+    public void on(PlayerItemConsumeEvent event) {
 		if (!State.isState(State.INGAME)) {
 			return;
 		}
@@ -57,18 +62,25 @@ public class HundredHearts extends Scenario implements Listener {
     	Player player = event.getPlayer();
     	ItemStack item = event.getItem();
 
-        if (item.getType() != Material.GOLDEN_APPLE) {
+    	if (item == null) {
+    		return;
+    	}
+    												   
+        if (item.getType() != Material.GOLDEN_APPLE || item.getDurability() == 1) {
         	return;
         }
         
+        GoldenHeadsFeature ghead = feat.getFeature(GoldenHeadsFeature.class);
+        
         player.removePotionEffect(PotionEffectType.REGENERATION);
+        int ticks;
+        
+        if (ghead.isGoldenHead(item)) {
+        	ticks = (int) ((player.getMaxHealth() * (ghead.getHealAmount() / 10)) * 25);
+        } else {
+        	ticks = (int) ((player.getMaxHealth() * 0.2) * 25);
+        }
 
-        double ticks = (player.getMaxHealth() / 5) * 25;
-        int ticksRounded = (int) ticks;
-
-        double excessHealth = ticks - ticksRounded;
-
-        player.setHealth(player.getHealth() + excessHealth);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, ticksRounded, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, ticks, 1));
     }
 }
