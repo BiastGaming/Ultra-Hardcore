@@ -13,7 +13,6 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,10 +24,11 @@ import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.Vector;
 
 import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
+import com.leontg77.ultrahardcore.utils.BlockUtils;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
 
 /**
@@ -56,12 +56,8 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 	    
 	    this.plugin = plugin;
 	}
-
-	@Override
-	public void onDisable() {}
-
-	@Override
-	public void onEnable() {}
+	
+	private final Random rand = new Random();
 
 	@EventHandler
 	public void onPlayerBucketFill(PlayerBucketFillEvent event) {
@@ -94,12 +90,16 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 	}
 
 	@EventHandler
-	public void LeavesDecayEvent(LeavesDecayEvent event) {
-		Random r = new Random();
+	public void on(LeavesDecayEvent event) {
+		if (!State.isState(State.INGAME)) {
+			return;
+		}
 		
-		if (r.nextInt(100) < 2) {
-			Item item = event.getBlock().getWorld().dropItem(event.getBlock().getLocation().add(0.5, 0.7, 0.5), new ItemStack(Material.SUGAR_CANE, 1 + r.nextInt(1)));
-			item.setVelocity(new Vector(0, 0.2, 0));
+		Block block = event.getBlock();
+		Location loc = block.getLocation().add(0.5, 0.7, 0.5);
+		
+		if (rand.nextInt(100) < 2) {
+			BlockUtils.dropItem(loc, new ItemStack(Material.SUGAR_CANE, 1 + rand.nextInt(1)));
 		}
 	}
 
