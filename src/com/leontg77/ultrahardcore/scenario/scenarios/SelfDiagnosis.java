@@ -6,7 +6,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.managers.BoardManager;
-import com.leontg77.ultrahardcore.protocol.FakeHealth;
+import com.leontg77.ultrahardcore.protocol.HealthUpdatePacketAdapter;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
@@ -15,7 +15,7 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77 & D4mnX
  */
 public class SelfDiagnosis extends Scenario {
-	private final FakeHealth fakeHP;
+	private final HealthUpdatePacketAdapter fakeHP;
 	
 	private final BoardManager board;
 	private final Game game;
@@ -30,7 +30,7 @@ public class SelfDiagnosis extends Scenario {
 	public SelfDiagnosis(Main plugin, Game game, BoardManager board) {
 		super("SelfDiagnosis", "It's unable to see your own and opponent's health.");
 		
-		this.fakeHP = new FakeHealth(plugin);
+		this.fakeHP = new HealthUpdatePacketAdapter(plugin);
 		
 		this.board = board;
 		this.game = game;
