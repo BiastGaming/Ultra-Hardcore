@@ -1,6 +1,5 @@
 package com.leontg77.ultrahardcore.commands.spectate;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -30,13 +29,7 @@ public class SpecChatCommand extends UHCCommand {
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (!(sender instanceof Player)) {
-			throw new CommandException("Only players can talk in the spectator chat.");
-		}
-		
-        Player player = (Player) sender;
-        
-		if (!spec.isSpectating(player)) {
+		if (sender instanceof Player && !spec.isSpectating((Player) sender)) {
 			throw new CommandException("You can only do this while spectating.");
 		}
 		
@@ -44,7 +37,7 @@ public class SpecChatCommand extends UHCCommand {
         	return false;
         } 
         
-        String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
+        String message = Joiner.on(' ').join(args);
         
         for (Player online : Bukkit.getOnlinePlayers()) {
         	if (!spec.isSpectating(online)) {
@@ -53,6 +46,14 @@ public class SpecChatCommand extends UHCCommand {
         	
         	online.sendMessage(PREFIX + sender.getName() + "§8: §f" + message);
         }
+
+		message = message.replaceAll("§l", "");
+		message = message.replaceAll("§o", "");
+		message = message.replaceAll("§r", "§f");
+		message = message.replaceAll("§m", "");
+		message = message.replaceAll("§n", "");
+		
+		Bukkit.getLogger().info(PREFIX + sender.getName() + "§8: §f" + message);
 		return true;
 	}
 
