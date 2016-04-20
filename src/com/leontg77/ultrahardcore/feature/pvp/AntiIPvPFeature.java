@@ -17,6 +17,8 @@ import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.feature.Feature;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.scenario.scenarios.Bow;
 import com.leontg77.ultrahardcore.utils.NameUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -27,16 +29,18 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class AntiIPvPFeature extends Feature implements Listener {
 	private static final String PREFIX = "§8[§4§liPvP§8] §7";
-	
+
+	private final ScenarioManager scen;
     private final Game game;
 
 	private final TeamManager manager;
     private final SpecManager spec;
 
-	public AntiIPvPFeature(Game game, TeamManager manager, SpecManager spec) {
+	public AntiIPvPFeature(Game game, TeamManager manager, SpecManager spec, ScenarioManager scen) {
 		super("Anti-iPvP", "Disable all players to indirect damage other players before pvp.");
-		
+
 		this.game = game;
+		this.scen = scen;
 		
 		this.manager = manager;
 		this.spec = spec;
@@ -60,7 +64,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
         }
         
         // if pvp is enabled we want them to be able to iPvP
-        if (player.getWorld().getPVP()) {
+        if (player.getWorld().getPVP() || scen.getScenario(Bow.class).isEnabled()) {
         	return;
         }
     
@@ -72,7 +76,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
 			return;
     	}
 		
-		player.sendMessage(PREFIX + "iPvP is not allowed before PvP.");
+		player.sendMessage(PREFIX + "iPvP is currently disallowed.");
 		player.sendMessage(PREFIX + "Stop iPvPing now or staff will take action.");
 		
     	event.setCancelled(true);
@@ -93,7 +97,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
         }
         
         // if pvp is enabled we want them to be able to iPvP
-        if (player.getWorld().getPVP()) {
+        if (player.getWorld().getPVP() || scen.getScenario(Bow.class).isEnabled()) {
         	return;
         }
         
@@ -102,7 +106,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
     	}
     	
     	if (isSuffocation(player, event) || isDamageBlock(player, event)) {
-			player.sendMessage(PREFIX + "iPvP is not allowed before PvP.");
+			player.sendMessage(PREFIX + "iPvP is currently disallowed.");
 			player.sendMessage(PREFIX + "Stop iPvPing now or staff will take action.");
 			
         	event.setCancelled(true);
@@ -124,7 +128,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
         }
         
         // if pvp is enabled we want them to be able to iPvP
-        if (player.getWorld().getPVP()) {
+        if (player.getWorld().getPVP() || scen.getScenario(Bow.class).isEnabled()) {
         	return;
         }
         
@@ -133,7 +137,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
     	}
         
     	if (isSpleef(player, event) || isBreakSuffocation(player, event)) {
-			player.sendMessage(PREFIX + "iPvP is not allowed before PvP.");
+			player.sendMessage(PREFIX + "iPvP is currently disallowed.");
 			player.sendMessage(PREFIX + "Stop iPvPing now or staff will take action.");
 			
         	event.setCancelled(true);
