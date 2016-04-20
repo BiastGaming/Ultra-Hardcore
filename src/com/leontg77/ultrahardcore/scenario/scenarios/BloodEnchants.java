@@ -16,15 +16,12 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class BloodEnchants extends Scenario implements Listener {
 	
+	/**
+	 * BloodEnchants class constructor.
+	 */
 	public BloodEnchants() {
 		super("BloodEnchants", "When you enchant any item for any amount of levels, you take half a heart of damage.");
 	}
-
-	@Override
-	public void onDisable() {}
-
-	@Override
-	public void onEnable() {}
 
 	@EventHandler
 	public void on(EnchantItemEvent event) {
@@ -32,8 +29,7 @@ public class BloodEnchants extends Scenario implements Listener {
 			return;
 		}
 		
-		final Player player = event.getEnchanter();
-    	
+		Player player = event.getEnchanter();
 		PlayerUtils.damage(player, 1);
 	}
 }
