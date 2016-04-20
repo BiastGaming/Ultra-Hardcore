@@ -25,7 +25,7 @@ public class LWCM extends Scenario implements Listener {
 	private final Game game;
 	
 	public LWCM(Game game, TeamManager teams) {
-		super("LWCM", "This is a mix of \"Soul Brothers\" and \"LAFS\". Half of the players would be scattered in one world, and the other half would be scattered in the other world just like soul brothers. But instead of having teams, people would come as solos.");
+		super("LWCM", "This is a mix of \"Soul Brothers\" and \"LAFS\". Half of the players would be scattered in one world, and the other half would be scattered in the other world just like soul brothers. But instead of having teams, people would come as solos. The twist from LAFS is that when say for example: Player 1 is at X: 245 Y: 41 Z: -245 in World 1. When Player 2 randomly walks within 20 blocks radius of those coords in the other world, Player 1 and Player 2 would be put on a team. And just like in soul brothers, after a certain time the teams would be scattered together in World 3.");
 		
 		this.teams = teams;
 		this.game = game;
