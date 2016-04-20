@@ -8,7 +8,6 @@ import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -84,7 +83,7 @@ public class MobRatesFeature extends Feature implements Listener {
 		final Random rand = new Random();
 		
 		if (State.isState(State.INGAME) || State.isState(State.ENDING)) {
-			if (timer.getMeetup() <= 0 || (timer.getTimeSinceStart() < 2 && entity instanceof Monster)) {
+			if (timer.getMeetup() <= 0) {
 				switch (reason) { 
 				case CHUNK_GEN:
 				case DEFAULT:
