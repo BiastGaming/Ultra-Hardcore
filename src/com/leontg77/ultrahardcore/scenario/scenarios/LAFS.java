@@ -14,7 +14,7 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
- * LAFS scenario class
+ * LAFS scenario class.
  * 
  * @author LeonTG77
  */
@@ -24,18 +24,18 @@ public class LAFS extends Scenario implements Listener {
 	private final TeamManager teams;
 	private final Game game;
 
+	/**
+	 * LAFS class constructor.
+	 * 
+	 * @param game The game class.
+	 * @param teams The team manager class.
+	 */
 	public LAFS(Game game, TeamManager teams) {
 		super("LAFS", "Stands for love at first sight, you team with the first player you see in the game, in order to get on a team with them right click the player.");
 		
 		this.teams = teams;
 		this.game = game;
 	}
-
-	@Override
-	public void onDisable() {}
-
-	@Override
-	public void onEnable() {}
 	
 	@EventHandler
 	public void on(PlayerInteractEntityEvent event) {
@@ -74,6 +74,6 @@ public class LAFS extends Scenario implements Listener {
 		teams.joinTeam(team, clicked);
 		teams.joinTeam(team, player);
 		
-		PlayerUtils.broadcast(PREFIX + "§a" + player.getName() + " §7and§a " + clicked.getName() + " §7has found each other.");
+		PlayerUtils.broadcast(PREFIX + "§a" + player.getName() + " §7and§a " + clicked.getName() + " §7has found each other and are now teamed.");
 	}
 }
