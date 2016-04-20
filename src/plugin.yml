@@ -216,6 +216,8 @@ commands:
     description: Generate the big crack.
   bl:
     description: View the biomeparanoia colors.
+  cobble:
+    description: Generate the cobble world scenario.
   ore:
     description: View the current blood cycle ore.
   addcaptain:
@@ -234,8 +236,14 @@ commands:
     description: View the current damage type.
   dtime:
     description: View how long you got left of your life.
+  flood:
+    description: Generate the flooded scenario.
   genie:
     description: Genie command, check usage.
+  glassify:
+    description: Generate the glass world scenario.
+  invert:
+    description: Generate the inverted dimentions scenario.
   kings:
     description: Manage kings.
   molehelp:
@@ -261,6 +269,8 @@ commands:
     description: Bid on a player.
   slimecrack:
     description: Generate the SlimyCrack.
+  snowday:
+    description: Generate the snowday scenario.
   slist:
     description: View what effects people have.
   super:
