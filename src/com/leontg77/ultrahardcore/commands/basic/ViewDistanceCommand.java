@@ -21,7 +21,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class ViewDistanceCommand extends UHCCommand implements Listener {
-    private int viewDistance = 6;
+    private int viewDistance = Bukkit.getViewDistance();
 
 	public ViewDistanceCommand(Main plugin) {
 		super("viewdistance", "<distance>");
