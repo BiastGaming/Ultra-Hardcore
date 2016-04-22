@@ -347,7 +347,7 @@ public class ScatterManager {
 	 * @param radius the maximum radius to scatter.
 	 * @param count the amount of scatter locations needed.
 	 * 
-	 * @return A list of vaild scatter locations.
+	 * @return A list of valid scatter locations.
 	 */
 	public List<Location> findScatterLocations(World world, int radius, int count) {
 		final List<Location> locs = new ArrayList<Location>();
@@ -393,10 +393,10 @@ public class ScatterManager {
 	}
 
 	/**
-	 * Check if the given location is a vaild scatter location.
+	 * Check if the given location is a valid scatter location.
 	 * 
 	 * @param loc the location.
-	 * @return True if its vaild, false otherwise.
+	 * @return True if its valid, false otherwise.
 	 */
 	private boolean isValid(Location loc) {
 		loc.setY(loc.getWorld().getHighestBlockYAt(loc));
