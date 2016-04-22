@@ -81,8 +81,6 @@ public class LocationUtils {
 	 * 
 	 * @param loc the location.
 	 * @return True if it is, false otherwise.
-	 * 
-	 * @author ghowden
 	 */
 	public static boolean isOutsideOfBorder(Location loc) {
         WorldBorder border = loc.getWorld().getWorldBorder();

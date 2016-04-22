@@ -240,8 +240,6 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
 	 * 
 	 * @param loc the location.
 	 * @return the block face.
-	 * 
-	 * @author ghowden
 	 */
 	public static BlockFace getBlockDirection(Location loc) {
         double rotation = (loc.getYaw() + 180) % 360;
