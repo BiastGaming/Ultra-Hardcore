@@ -14,7 +14,8 @@ import com.comphenix.protocol.wrappers.WrappedDataWatcher;
  * Fake Health protocol class.
  * 
  * @author ghowden
- * @see https://github.com/UltraSoftcore/hiddenhealth/blob/master/src/main/java/gg/uhc/hiddenhealth/HealthUpdatePacketAdapter.java
+ * @see https://github.com/UltraSoftcore/hiddenhealth/blob/1.1/src/main/java/gg/uhc/hiddenhealth/HealthUpdatePacketAdapter.java
+ * @see licenses/hiddenhealth
  */
 public class HealthUpdatePacketAdapter extends PacketAdapter {
 	// the packet identifier for 0x06 Update Health, also contains hunger + saturation

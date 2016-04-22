@@ -33,8 +33,6 @@ public class DateUtils {
     /**
      * Converts the seconds to hours, minutes and seconds.
      *
-     * @author ghowden, modified by LeonTG77
-     *
      * @param ticks the number of seconds
      * @return The converted version.
      */

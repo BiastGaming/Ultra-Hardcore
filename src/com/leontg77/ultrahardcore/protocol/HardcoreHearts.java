@@ -14,6 +14,8 @@ import com.leontg77.ultrahardcore.Main;
  * This class manages the hardcore hearts feature.
  *
  * @author ghowden
+ * @see https://github.com/Eluinhost/UHC/blob/1.1.0/src/main/java/gg/uhc/uhc/modules/health/HardcoreHeartsModule.java
+ * @see licenses/UHC
  */
 public class HardcoreHearts extends PacketAdapter {
 	private final ProtocolManager manager;
