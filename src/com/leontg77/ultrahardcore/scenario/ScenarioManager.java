@@ -136,15 +136,20 @@ public class ScenarioManager {
 		scenarios.add(new BigCrack(plugin));
 		scenarios.add(new BiomeParanoia(plugin, spec));
 		scenarios.add(new Birds(timer));
+		scenarios.add(new BlastMining(plugin, game));
 		scenarios.add(new Blitz(plugin, timer, game));
 		scenarios.add(new Blocked());
 		scenarios.add(new BlockRush());
+		scenarios.add(new BloodAnvils());
 		scenarios.add(new BloodCycle(plugin));
 		scenarios.add(new BloodDiamonds());
 		scenarios.add(new BloodEnchants());
+		scenarios.add(new BloodEnchantsPlus());
 		scenarios.add(new BloodLapis());
 		scenarios.add(new Bombers());
+		scenarios.add(new Bow());
 		scenarios.add(new BowFighters());
+		scenarios.add(new Bowless());
 		scenarios.add(new Captains(plugin, teams, spec));
 		scenarios.add(new CarrotCombo());
 		scenarios.add(new CatsEyes());
@@ -152,8 +157,9 @@ public class ScenarioManager {
 		scenarios.add(new ChunkApocalypse(plugin));
 		scenarios.add(new Cloud9(plugin, game));
 		scenarios.add(new Cobblehaters());
+		scenarios.add(new CobbleWorld(plugin));
 		scenarios.add(new Coco(plugin));
-		scenarios.add(new Compensation(arena, teams));
+		scenarios.add(new Compensation(arena, teams, feat));
 		scenarios.add(new Cripple());
 		scenarios.add(new Cryophobia(plugin, game));
 		scenarios.add(cc);
@@ -170,8 +176,11 @@ public class ScenarioManager {
 //		scenarios.add(new EnchantParanoia()); // TODO: Enchanted Books
 		scenarios.add(new Entropy(plugin, game));
 		scenarios.add(new Fallout(plugin, game));
+		scenarios.add(new Fireless());
+		scenarios.add(new Flooded(plugin, game));
 		scenarios.add(new FlowerPower());
 		scenarios.add(new Genie());
+		scenarios.add(new GlassWorld(plugin, game));
 		scenarios.add(new Goldless(cc));
 		scenarios.add(new GoldRush());
 		scenarios.add(new GoneFishing());
@@ -179,9 +188,10 @@ public class ScenarioManager {
 		scenarios.add(new GoodGamePlus(plugin, game));
 		scenarios.add(new GoToHell(plugin, settings, feat));
 		scenarios.add(new Halloween(plugin, game));
-		scenarios.add(new HundredHearts());
+		scenarios.add(new HundredHearts(feat));
 		scenarios.add(new InfiniteEnchanter());
 		scenarios.add(new Inventors());
+		scenarios.add(new InvertedDimentions(plugin));
 		scenarios.add(new Kings(plugin, teams));
 		scenarios.add(new Krenzinator());
 		scenarios.add(new LAFS(game, teams));
@@ -212,7 +222,9 @@ public class ScenarioManager {
 		scenarios.add(new Skyhigh(plugin, game));
 		scenarios.add(new SlaveMarket(plugin, teams));
 		scenarios.add(new SlimyCrack(plugin));
+		scenarios.add(new Snowday(plugin, game));
 		scenarios.add(new Superheroes(plugin, teams));
+		scenarios.add(new Swingers(game, teams));
 		scenarios.add(new Switcheroo());
 		scenarios.add(new TeamHealth(plugin, game, board, teams));
 		scenarios.add(new Timber());
