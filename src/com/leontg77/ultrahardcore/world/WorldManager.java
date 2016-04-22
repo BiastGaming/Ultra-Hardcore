@@ -113,6 +113,8 @@ public class WorldManager {
 		border.setDamageBuffer(0);
 		border.setCenter(x, z);
 		
+		world.setSpawnFlags(false, true);
+		
 		world.save();
 	}
 	
