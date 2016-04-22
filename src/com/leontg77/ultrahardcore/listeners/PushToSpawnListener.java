@@ -60,12 +60,12 @@ public class PushToSpawnListener implements Listener {
             return;
         }
 
-        if (velocityY > 3) {
+        if (velocityY >= 2.5) {
             return;
         }
 
         // No matter what, increase velocity by 3
-        velocity.setY(velocityY + 3);
+        velocity.setY(velocityY + 2.5);
 
         Location spawn = plugin.getSpawn();
         spawn.setY(to.getY());
@@ -80,9 +80,13 @@ public class PushToSpawnListener implements Listener {
         Vector horizontalPushingVector = new Vector(inverseX, 0, inverseZ).normalize().multiply(horizontalPushingSpeed);
         velocity.add(horizontalPushingVector);
 
-        player.setVelocity(velocity);
+        try {
+            player.setVelocity(velocity);
+        } catch (Throwable e) {
+        	return;
+        }
         
-        player.playSound(to, Sound.GHAST_FIREBALL, 1, 1);
+        player.getWorld().playSound(to, Sound.GHAST_FIREBALL, 1, 1);
         playEffect(to);
     }
 	
