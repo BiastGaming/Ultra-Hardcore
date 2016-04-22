@@ -169,7 +169,7 @@ public class Snowday extends Scenario implements Listener, CommandExecutor {
 				Location loc = locs.remove(locs.size() - 1);
 				Chunk chunk = world.getChunkAt(loc);
 				
-				for (int y = 55; y <= 128; y++) {
+				for (int y = 128; y >= 55 ; y--) {
 					for (int x = 0; x < 16; x++) {
 						for (int z = 0; z < 17; z++) {
 							Block block = chunk.getBlock(x, y, z);
@@ -196,7 +196,7 @@ public class Snowday extends Scenario implements Listener, CommandExecutor {
 							case LEAVES:
 							case LEAVES_2:
 								if (block.getRelative(BlockFace.UP).getType() == Material.AIR) {
-									block.setType(Material.SNOW);
+									block.getRelative(BlockFace.UP).setType(Material.SNOW);
 								}
 								break;
 							default:
