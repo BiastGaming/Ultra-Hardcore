@@ -1,6 +1,5 @@
 package com.leontg77.ultrahardcore.commands.basic;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.command.CommandSender;
@@ -27,7 +26,7 @@ public class StaffChatCommand extends UHCCommand {
         	return false;
         } 
         
-    	String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
+    	String message = Joiner.on(' ').join(args);
 		PlayerUtils.broadcast(PREFIX + sender.getName() + "§8: §f" + message, "uhc.staff");
 		return true;
 	}
