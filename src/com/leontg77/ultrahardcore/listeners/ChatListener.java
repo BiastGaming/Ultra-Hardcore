@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -58,7 +59,6 @@ public class ChatListener implements Listener {
 		if (VoteCommand.isRunning() && (message.equalsIgnoreCase("y") || message.equalsIgnoreCase("n"))) {
 			if (!game.getPlayers().contains(player)) {
 				player.sendMessage(ChatColor.RED + "You can only vote while playing the game.");
-				event.setCancelled(true);
 				return;
 			}
 			
@@ -96,7 +96,7 @@ public class ChatListener implements Listener {
 			}
 		}
 		
-		if (user.getRank().getLevel() > Rank.SPEC.getLevel()) {
+		if (user.getRank().getLevel() > Rank.SPEC.getLevel() && !game.isRecordedRound()) {
 			messageAndColor = "§f%s";
 		}
     	
@@ -253,4 +253,24 @@ public class ChatListener implements Listener {
   			return;
   		}
   	}
+	
+	@EventHandler(priority = EventPriority.MONITOR)
+    public void onFinal(AsyncPlayerChatEvent event) {
+		Player sender = event.getPlayer();
+		String toSend = String.format(event.getFormat(), sender.getName(), event.getMessage());
+		
+		event.setCancelled(true);
+		
+		for (Player player : event.getRecipients()) {
+			player.sendMessage(toSend);
+		}
+
+		toSend = toSend.replaceAll("§l", "");
+		toSend = toSend.replaceAll("§o", "");
+		toSend = toSend.replaceAll("§r", "§f");
+		toSend = toSend.replaceAll("§m", "");
+		toSend = toSend.replaceAll("§n", "");
+		
+		Bukkit.getLogger().info(toSend);
+	}
 }
