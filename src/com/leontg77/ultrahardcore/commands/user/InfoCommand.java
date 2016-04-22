@@ -85,9 +85,6 @@ public class InfoCommand extends UHCCommand {
 		sender.sendMessage("§8» §7UUID: §6" + user.getFile().getString("uuid"));
 		sender.sendMessage("§8» §7IP: §6" + (sender.hasPermission("uhc.info.ip") ? user.getFile().getString("ip") : "§m" + user.getFile().getString("ip", "Unknown").replaceAll("[0-9]", "#")));
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
-		sender.sendMessage("§8» §7Banned: §6" + banMessage);
-		sender.sendMessage("§8» §7Muted: §6" + muteMessage);
-		sender.sendMessage("§8» §m--------------------------------------§8 «");
 		sender.sendMessage("§8» §7First Joined: §6" + date.format(new Date(user.getFile().getLong("firstjoined"))));
 		sender.sendMessage("§8» §7Last login: §6" + DateUtils.formatDateDiff(user.getFile().getLong("lastlogin")));
 		sender.sendMessage("§8» §7Last logout: §6" + (lastlogout == -1l ? "§cHasn't logged out" : DateUtils.formatDateDiff(lastlogout)));
@@ -102,6 +99,9 @@ public class InfoCommand extends UHCCommand {
 			sender.sendMessage("§8» §c" + alt);
 		}
 		
+		sender.sendMessage("§8» §m--------------------------------------§8 «");
+		sender.sendMessage("§8» §7Banned: §6" + banMessage);
+		sender.sendMessage("§8» §7Muted: §6" + muteMessage);
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
 		return true;
 	}
