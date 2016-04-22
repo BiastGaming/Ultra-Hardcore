@@ -60,7 +60,7 @@ public class ButcherCommand extends UHCCommand {
 		try {
 			type = EntityType.valueOf(args[0].toUpperCase());
 		} catch (Exception e) {
-			throw new CommandException("'" + args[0] + "' is not a vaild entity type.");
+			throw new CommandException("'" + args[0] + "' is not a valid entity type.");
 		}
 		
 		for (World world : Bukkit.getWorlds()) {

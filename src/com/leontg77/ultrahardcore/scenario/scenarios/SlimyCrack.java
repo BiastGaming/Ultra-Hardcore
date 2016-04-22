@@ -89,7 +89,7 @@ public class SlimyCrack extends Scenario implements Listener, CommandExecutor {
         try {
             width = Integer.parseInt(args[0]);
         } catch (Exception e) {
-        	player.sendMessage(ChatColor.RED + args[0] + " is not an vaild width.");
+        	player.sendMessage(ChatColor.RED + args[0] + " is not an valid width.");
             return true;
         }
 
@@ -98,7 +98,7 @@ public class SlimyCrack extends Scenario implements Listener, CommandExecutor {
         try {
             length = Integer.parseInt(args[1]);
         } catch (Exception e) {
-        	player.sendMessage(ChatColor.RED + args[1] + " is not an vaild length.");
+        	player.sendMessage(ChatColor.RED + args[1] + " is not an valid length.");
             return true;
         }
 
@@ -107,7 +107,7 @@ public class SlimyCrack extends Scenario implements Listener, CommandExecutor {
         try {
             speed = Integer.parseInt(args[2]);
         } catch (Exception e) {
-        	player.sendMessage(ChatColor.RED + args[2] + " is not an vaild speed.");
+        	player.sendMessage(ChatColor.RED + args[2] + " is not an valid speed.");
             return true;
         }
 

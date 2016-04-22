@@ -48,7 +48,7 @@ public class GamemodeCommand extends UHCCommand {
 		}
 		
 		if (mode == null) {
-			throw new CommandException("'" + args[0] + "' is not a vaild gamemode.");
+			throw new CommandException("'" + args[0] + "' is not a valid gamemode.");
 		}
 		
 		if (args.length == 1) {

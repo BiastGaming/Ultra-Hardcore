@@ -148,7 +148,7 @@ public class ConfigCommand extends UHCCommand {
 			try {
 				border = BorderShrink.valueOf(args[1].toUpperCase());
 			} catch (Exception e) {
-				throw new CommandException("'" + args[1] + "' is not a vaild border shink.");
+				throw new CommandException("'" + args[1] + "' is not a valid border shink.");
 			}
 			
 			if (border == BorderShrink.NEVER) {
@@ -171,7 +171,7 @@ public class ConfigCommand extends UHCCommand {
 			try {
 				rule = StalkingRule.valueOf(args[1].toUpperCase());
 			} catch (Exception e) {
-				throw new CommandException("'" + args[1] + "' is not a vaild stalking rule.");
+				throw new CommandException("'" + args[1] + "' is not a valid stalking rule.");
 			}
 
 			PlayerUtils.broadcast(Main.PREFIX + "Stalking is now " + rule.getMessage());

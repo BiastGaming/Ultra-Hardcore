@@ -75,7 +75,7 @@ public class Parser {
 		try {
 			return Integer.parseInt(parse);
 		} catch (Exception e) {
-			throw new CommandException("'" + parse + "' is not a vaild " + criteria + ".");
+			throw new CommandException("'" + parse + "' is not a valid " + criteria + ".");
 		}
 	}
 	
@@ -92,7 +92,7 @@ public class Parser {
 		try {
 			return Double.parseDouble(parse);
 		} catch (Exception e) {
-			throw new CommandException("'" + parse + "' is not a vaild " + criteria + ".");
+			throw new CommandException("'" + parse + "' is not a valid " + criteria + ".");
 		}
 	}
 	
@@ -109,7 +109,7 @@ public class Parser {
 		try {
 			return Long.parseLong(parse);
 		} catch (Exception e) {
-			throw new CommandException("'" + parse + "' is not a vaild " + criteria + ".");
+			throw new CommandException("'" + parse + "' is not a valid " + criteria + ".");
 		}
 	}
 	
@@ -126,7 +126,7 @@ public class Parser {
 		try {
 			return Float.parseFloat(parse);
 		} catch (Exception e) {
-			throw new CommandException("'" + parse + "' is not a vaild " + criteria + ".");
+			throw new CommandException("'" + parse + "' is not a valid " + criteria + ".");
 		}
 	}
 	

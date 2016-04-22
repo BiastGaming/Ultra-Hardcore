@@ -48,7 +48,7 @@ public class GiveallCommand extends UHCCommand {
 		}
 		
 		if (material == null) {
-			throw new CommandException("'" + args[0] + "' is not a vaild item.");
+			throw new CommandException("'" + args[0] + "' is not a valid item.");
 		}
 		
 		if (args.length > 1) {

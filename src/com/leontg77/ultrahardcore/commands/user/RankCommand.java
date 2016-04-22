@@ -44,7 +44,7 @@ public class RankCommand extends UHCCommand {
 		try {
 			rank = Rank.valueOf(args[1].toUpperCase());
 		} catch (Exception e) {
-			throw new CommandException("'" + args[1] + "' is not an vaild rank.");
+			throw new CommandException("'" + args[1] + "' is not an valid rank.");
 		}
 		
 		PlayerUtils.broadcast(Main.PREFIX + "§6" + target.getName() + " §7has been given §a" + NameUtils.capitalizeString(rank.name(), false) + " §7rank.");

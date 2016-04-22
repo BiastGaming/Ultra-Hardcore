@@ -83,7 +83,7 @@ public class ChunkApocalypse extends Scenario implements Listener, CommandExecut
 		try {
 			radius = Integer.parseInt(args[0]);
 		} catch (Exception e) {
-			player.sendMessage(ChatColor.RED + args[0] + " is not an vaild radius.");
+			player.sendMessage(ChatColor.RED + args[0] + " is not an valid radius.");
 			return true;
 		}
 		
