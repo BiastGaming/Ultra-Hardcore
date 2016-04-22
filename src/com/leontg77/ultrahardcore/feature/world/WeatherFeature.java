@@ -10,6 +10,9 @@ import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.feature.Feature;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.scenario.scenarios.Flooded;
+import com.leontg77.ultrahardcore.scenario.scenarios.Snowday;
 
 /**
  * Weather feature class.
@@ -18,19 +21,25 @@ import com.leontg77.ultrahardcore.feature.Feature;
  */
 public class WeatherFeature extends Feature implements Listener {
 	private final Game game;
-
+	
+	private final ScenarioManager scen;
 	private final Timer timer;
 
-	public WeatherFeature(Timer timer, Game game) {
+	public WeatherFeature(Game game, Timer timer, ScenarioManager scen) {
 		super("Weather", "Disable thunder storms completly and disable rain before pvp and after meetup.");
 
-		this.timer = timer;
 		this.game = game;
+		
+		this.timer = timer;
+		this.scen = scen;
 	}
 
 	@EventHandler
 	public void on(WeatherChangeEvent event) {
 		if (!event.toWeatherState()) {
+			if (scen.getScenario(Flooded.class).isEnabled() || scen.getScenario(Snowday.class).isEnabled()) {
+				event.setCancelled(true);
+			}
 			return;
 		}
 		
@@ -46,6 +55,10 @@ public class WeatherFeature extends Feature implements Listener {
 			return;
 		}
 
+		if (scen.getScenario(Flooded.class).isEnabled() || scen.getScenario(Snowday.class).isEnabled()) {
+			return;
+		}
+		
 		if (timer.getMeetup() <= 0) {
 			event.setCancelled(true);
 			return;
