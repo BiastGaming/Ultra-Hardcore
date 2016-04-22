@@ -34,7 +34,7 @@ public class PlayerUtils {
 	 * @param name The name.
 	 * @return the offline player.
 	 */
-	public static OfflinePlayer getOfflinePlayer(final String name) {
+	public static OfflinePlayer getOfflinePlayer(String name) {
 		return Bukkit.getOfflinePlayer(name);
 	}
 	
@@ -53,7 +53,7 @@ public class PlayerUtils {
 	 * @param message the message.
 	 * @param permission the permission.
 	 */
-	public static void broadcast(String message, final String permission) {
+	public static void broadcast(String message, String permission) {
 		for (Player online : Bukkit.getOnlinePlayers()) {
 			if (permission != null && !online.hasPermission(permission)) {
 				continue;
@@ -79,11 +79,11 @@ public class PlayerUtils {
 	 * @param player The player to damage.
 	 * @param amount The amount of damage.
 	 */
-	public static void damage(final Player player, final double amount) {
-		final EntityDamageEvent event = new EntityDamageEvent(player, DamageCause.CUSTOM, amount);
+	public static void damage(Player player, double amount) {
+		EntityDamageEvent event = new EntityDamageEvent(player, DamageCause.CUSTOM, amount);
 		
 		Bukkit.getPluginManager().callEvent(event);
-		player.damage(amount);
+		player.damage(event.getDamage());
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class PlayerUtils {
 	 * @param distance the distance.
 	 * @return A list of entites nearby.
 	 */
-	public static List<Entity> getNearby(final Location loc, final double distance) {
+	public static List<Entity> getNearby(Location loc, double distance) {
 		final List<Entity> list = new ArrayList<Entity>();
 		
 		for (Entity entity : loc.getWorld().getEntities()) {
