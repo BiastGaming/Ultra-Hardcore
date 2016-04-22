@@ -216,9 +216,9 @@ public class FeatureManager {
 		addFeature(new Tier2PotionFeature(listener));
 		
 		// pvp
-		addFeature(new AntiIPvPFeature(game, team, spec));
-		addFeature(new LongshotFeature(game, scen));
-		addFeature(new ShootHealthFeature(plugin, game, scen));
+		addFeature(new AntiIPvPFeature(game, team, spec, scen));
+		addFeature(new LongshotFeature(game, scen, team));
+		addFeature(new ShootHealthFeature(plugin, game, scen, team));
 		addFeature(new StalkingFeature(settings));
 		
 		// rainbow
@@ -251,7 +251,7 @@ public class FeatureManager {
 		// world
 		addFeature(new BigTreesInForestsFeature());
 		addFeature(new JungleTempleFeature(plugin));
-		addFeature(new WeatherFeature(timer, game));
+		addFeature(new WeatherFeature(game, timer, scen));
 		addFeature(new WorldUpdaterFeature(plugin));
 		
 		// xp
