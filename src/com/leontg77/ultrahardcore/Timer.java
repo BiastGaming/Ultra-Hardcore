@@ -33,6 +33,7 @@ import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.Astrophobia;
+import com.leontg77.ultrahardcore.scenario.scenarios.DragonRush;
 import com.leontg77.ultrahardcore.scenario.scenarios.Kings;
 import com.leontg77.ultrahardcore.scenario.scenarios.SlaveMarket;
 import com.leontg77.ultrahardcore.utils.DateUtils;
@@ -277,7 +278,11 @@ public class Timer {
 				PlayerUtils.broadcast("§8» §m---------------------------------§8 «");
 				PlayerUtils.broadcast(Main.PREFIX + "The game has started!");
 				PlayerUtils.broadcast(Main.PREFIX + "PvP will be enabled in: §a" + game.getPvP() + " minutes.");
-				PlayerUtils.broadcast(Main.PREFIX + "Meetup is in: §a" + game.getMeetup() + " minutes.");
+				if (scen.getScenario(DragonRush.class).isEnabled()) {
+					PlayerUtils.broadcast(Main.PREFIX + "The dragon wins after: §a" + game.getMeetup() + " minutes.");
+				} else {
+					PlayerUtils.broadcast(Main.PREFIX + "Meetup is in: §a" + game.getMeetup() + " minutes.");
+				}
 				PlayerUtils.broadcast("§8» §m---------------------------------§8 «");
 
 				Bukkit.getPluginManager().registerEvents(spec.getSpecInfo(), plugin);
@@ -433,17 +438,18 @@ public class Timer {
 					for (World world : game.getWorlds()) {
 						world.setPVP(true);
 					}
-					return;
 				}
 				
 				if (meetup == 0) {
 					PlayerUtils.broadcast(ChatColor.DARK_GRAY + "»»»»»»»»»»»»»»»«««««««««««««««");
 					PlayerUtils.broadcast(" ");
-					PlayerUtils.broadcast(ChatColor.RED + " Meetup is now, head to 0,0!");
+					if (scen.getScenario(DragonRush.class).isEnabled()) {
+						PlayerUtils.broadcast(ChatColor.RED + " The time has run out and the dragon has won!");
+					} else {
+						PlayerUtils.broadcast(ChatColor.RED + " Meetup is now, head to 0,0!");
+					}
 					PlayerUtils.broadcast(" ");
 					PlayerUtils.broadcast(ChatColor.DARK_GRAY + "»»»»»»»»»»»»»»»«««««««««««««««");
-					
-					Bukkit.getPluginManager().callEvent(new MeetupEvent());
 					
 					for (Player online : Bukkit.getOnlinePlayers()) {
 						online.playSound(online.getLocation(), Sound.WITHER_DEATH, 1, 1);
@@ -452,25 +458,37 @@ public class Timer {
 					for (World world : game.getWorlds()) {
 						world.setThundering(false);
 						world.setStorm(false);
+					}
 
-						if (!scen.getScenario(Astrophobia.class).isEnabled()) {
+					if (!scen.getScenario(Astrophobia.class).isEnabled()) {
+						for (World world : game.getWorlds()) {
 							world.setGameRuleValue("doDaylightCycle", "false");
 							world.setTime(6000);
 						}
+						
+						PlayerUtils.broadcast(Main.PREFIX + "Permaday has been activated.");
 					}
+					
+					Bukkit.getPluginManager().callEvent(new MeetupEvent());
 				}
 				
 				if (meetup > 0) {
 					String meetupToString = String.valueOf(meetup);
 					
 					if (meetupToString.equals("1") || meetupToString.endsWith("5") || meetupToString.endsWith("0")) {
-						PlayerUtils.broadcast(Main.PREFIX + "Meetup is in §a" + DateUtils.advancedTicksToString(meetup * 60) + "§7.");
-						
-						for (Player online : Bukkit.getOnlinePlayers()) {
-							online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 0);
+						if (scen.getScenario(DragonRush.class).isEnabled()) {
+							PlayerUtils.broadcast(Main.PREFIX + "The dragon wins in §a" + DateUtils.advancedTicksToString(meetup * 60) + "§7.");
+						} else {
+							PlayerUtils.broadcast(Main.PREFIX + "Meetup is in §a" + DateUtils.advancedTicksToString(meetup * 60) + "§7.");
 						}
 						
-						if (meetupToString.equals("1")) {
+						if (pvp != 0) {
+							for (Player online : Bukkit.getOnlinePlayers()) {
+								online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 0);
+							}
+						}
+						
+						if (meetupToString.equals("1") && !scen.getScenario(DragonRush.class).isEnabled()) {
 							PlayerUtils.broadcast(Main.PREFIX + "Start preparing to head to 0,0.");
 							return;
 						}
@@ -488,9 +506,11 @@ public class Timer {
 					if (pvpToString.equals("1") || pvpToString.endsWith("5") || pvpToString.endsWith("0")) {
 						PlayerUtils.broadcast(Main.PREFIX + "PvP will be enabled in §a" + DateUtils.advancedTicksToString(pvp * 60) + "§7.");
 						PlayerUtils.broadcast(Main.PREFIX + "Reminder: Stalking is " + feat.getFeature(StalkingFeature.class).getStalkingRule().getMessage().toLowerCase() + "§7.");
-						
-						for (Player online : Bukkit.getOnlinePlayers()) {
-							online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 0);
+
+						if (pvp != 0) {
+							for (Player online : Bukkit.getOnlinePlayers()) {
+								online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 0);
+							}
 						}
 					}
 				}
@@ -548,7 +568,11 @@ public class Timer {
 					}
 					
 					for (Player online : Bukkit.getOnlinePlayers()) {
-						PacketUtils.sendAction(online, "§7Meetup is in §8» §a" + DateUtils.ticksToString(meetupInSeconds));
+						if (scen.getScenario(DragonRush.class).isEnabled()) {
+							PacketUtils.sendAction(online, "§7Dragon wins in §8» §a" + DateUtils.ticksToString(meetupInSeconds));
+						} else {
+							PacketUtils.sendAction(online, "§7Meetup is in §8» §a" + DateUtils.ticksToString(meetupInSeconds));
+						}
 					}
 				} else {
 					if (TimerCommand.isRunning()) {
@@ -556,7 +580,11 @@ public class Timer {
 					}
 					
 					for (Player online : Bukkit.getOnlinePlayers()) {
-						PacketUtils.sendAction(online, "§8» §6Meetup is now! §8«");
+						if (scen.getScenario(DragonRush.class).isEnabled()) {
+							PacketUtils.sendAction(online, "§8» §6The dragon has won! §8«");
+						} else {
+							PacketUtils.sendAction(online, "§8» §6Meetup is now! §8«");
+						}
 					}
 				}
 			}
