@@ -265,7 +265,7 @@ public class User {
 		Set<String> altList = new HashSet<String>();
 		
 		String thisName = config.getString("username", "none1");
-		String thisIP = config.getString("ip", "none1");
+		List<String> thisIP = config.getStringList("ips");
 		
 		BanList banlist = Bukkit.getBanList(Type.NAME);
 		
