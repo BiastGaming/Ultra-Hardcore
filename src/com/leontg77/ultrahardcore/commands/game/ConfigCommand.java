@@ -399,14 +399,22 @@ public class ConfigCommand extends UHCCommand {
 				return true;
 			}
 			
-			World world = Bukkit.getWorld(args[1]);
+			List<String> worlds = new ArrayList<String>();
 			
-			if (world == null) {
-				throw new CommandException("'" + args[1] + "' is not an existing world.");
+			for (int i = 1; i < args.length; i++) {
+				World world = Bukkit.getWorld(args[i]);
+				
+				if (world == null) {
+					throw new CommandException("'" + args[i] + "' is not an existing world.");
+				}
+				
+				worlds.add(world.getName());
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "The game will now be played in '§a" + world.getName() + "§7'.");
-			game.setWorld(world.getName());
+			String worldList = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
+			
+			PlayerUtils.broadcast(Main.PREFIX + "The game will now be played in '§a" + worldList.replaceAll(" ", "§7, §a") + "§7'.");
+			game.setWorld(worlds.toArray(new String[worlds.size()]));
 			break;
 		default:
 			return true;
