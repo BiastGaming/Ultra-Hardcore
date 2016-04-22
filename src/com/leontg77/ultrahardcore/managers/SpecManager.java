@@ -46,7 +46,7 @@ public class SpecManager {
 	 * @param teams The team manager class.
 	 */
 	public SpecManager(Main plugin, TeamManager teams) {
-		this.specInfo = new SpecInfo(plugin, this);
+		this.specInfo = new SpecInfo(plugin, this, teams);
 		
 		this.plugin = plugin;
 		this.teams = teams;
