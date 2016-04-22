@@ -99,7 +99,7 @@ public class Flooded extends Scenario implements CommandExecutor, Listener {
 		
 		ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
 		EnchantmentStorageMeta meta = (EnchantmentStorageMeta) book.getItemMeta();
-		meta.addEnchant(Enchantment.DEPTH_STRIDER, 3, true);
+		meta.addStoredEnchant(Enchantment.DEPTH_STRIDER, 3, true);
 		book.setItemMeta(meta);
 		
 		for (Player online : game.getPlayers()) {
