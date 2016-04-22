@@ -317,7 +317,7 @@ public class GameInfoGUI extends GUI implements Listener {
 		commandsMeta.setOwner("MHF_Exclamation");
 		commandsMeta.setDisplayName("§8» §6Useful commands §8«");
 		lore.add(" ");
-		lore.add("§a/uhc §8» §7§oView this menu :o");
+		lore.add("§a/uhc §8» §7§oView this menu, omg!");
 		lore.add("§a/helpop §8» §7§oAsk for help by the staff.");
 		lore.add("§a/list §8» §7§oView online players.");
 		lore.add(" ");
@@ -464,8 +464,8 @@ public class GameInfoGUI extends GUI implements Listener {
 		lore.add("§8» §7Horses: " + (feat.getFeature(HorseFeature.class).isEnabled() ? "§aEnabled." : "§cDisabled."));
 		if (feat.getFeature(HorseFeature.class).isEnabled()) {
 			lore.add(" ");
-			lore.add("§8» §7Horse Healing: " + (feat.getFeature(HorseHealingFeature.class).isEnabled() ? "§aEnabled." : "§cDisabled."));
 			lore.add("§8» §7Horse Armor: " + (feat.getFeature(HorseArmorFeature.class).isEnabled() ? "§aEnabled." : "§cDisabled."));
+			lore.add("§8» §7Horse Healing: " + (feat.getFeature(HorseHealingFeature.class).isEnabled() ? "§aEnabled." : "§cDisabled."));
 		}
 		lore.add(" ");
 		horseMeta.setLore(lore);
