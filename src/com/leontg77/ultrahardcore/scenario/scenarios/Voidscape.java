@@ -86,7 +86,7 @@ public class Voidscape extends Scenario implements CommandExecutor, Listener {
 		}
 		
 		if (args.length < 2) {
-			sender.sendMessage(PREFIX + "Usage: /voidscape <world> <radius>");
+			sender.sendMessage(PREFIX + "Usage: /voidscape <world> <diameter>");
 			return true;
 		}
 		
@@ -97,10 +97,10 @@ public class Voidscape extends Scenario implements CommandExecutor, Listener {
 			return true;
 		}
 		
-		int radius;
+		int diameter;
 		
 		try {
-			radius = parseInt(args[1]);
+			diameter = parseInt(args[1], "diameter") / 2;
 		} catch (Exception ex) {
 			sender.sendMessage(ChatColor.RED + ex.getMessage());
 			return true;
@@ -108,8 +108,8 @@ public class Voidscape extends Scenario implements CommandExecutor, Listener {
 		
 		locs.clear();
 		
-		for (int x = -1 * radius; x < radius; x += 16) {
-			for (int z = -1 * radius; z < radius; z += 16) {
+		for (int x = -1 * diameter; x < diameter; x += 16) {
+			for (int z = -1 * diameter; z < diameter; z += 16) {
 				locs.add(new Location(world, x, 1, z));
 			}
 		}
