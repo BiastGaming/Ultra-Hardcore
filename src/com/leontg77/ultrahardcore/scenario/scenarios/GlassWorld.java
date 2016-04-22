@@ -55,7 +55,7 @@ public class GlassWorld extends Scenario implements Listener, CommandExecutor {
 	 * @param game The game class.
 	 */
 	public GlassWorld(Main plugin, Game game) {
-		super("GlassWorld", "All grass blocks are replaced with green glass, all dirt blocks are replaced with brown grass blocks, all stone is replaced with gray glass, sand is replaced with yellow glass, nether rack is replaced with red glass and all bedrock is replaced by black glass, mining the glass still gives the dirt/cobblestone it should however the bedrock glass is not breakable. Leaves will also drop sugar canes.");
+		super("GlassWorld", "All grass blocks are replaced with green glass, all dirt blocks are replaced with brown glass blocks, all stone is replaced with gray glass, sand is replaced with yellow glass, nether rack is replaced with red glass and all bedrock is replaced by black glass, mining the glass still gives the dirt/cobblestone it should however the bedrock glass is not breakable. Leaves will also drop sugar canes.");
 		
 		this.plugin = plugin;
 		this.game = game;
