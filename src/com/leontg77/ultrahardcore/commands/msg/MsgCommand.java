@@ -13,9 +13,11 @@ import org.bukkit.entity.Player;
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.utils.DateUtils;
+import com.leontg77.ultrahardcore.utils.NameUtils;
 
 /**
  * Msg command class
@@ -72,14 +74,14 @@ public class MsgCommand extends UHCCommand {
         
         String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
                
-        player.sendMessage("§8[§a§ome §8-> §a§o" + target.getName() + "§8] §7" + message);
+        player.sendMessage("§8[§a§ome §8-> §a§o" + name(target) + "§8] §7" + message);
 		msg.put(player.getName(), target.getName());
 		
 		if (tUser.isIgnoring(player)) {
 			return true;
 		}
 		
-    	target.sendMessage("§8[§a§o" + player.getName() + " §8-> §a§ome§8] §7" + message);
+    	target.sendMessage("§8[§a§o" + name(player) + " §8-> §a§ome§8] §7" + message);
     	msg.put(target.getName(), player.getName());
 		return true;
     }
@@ -87,5 +89,15 @@ public class MsgCommand extends UHCCommand {
 	@Override
 	public List<String> tabComplete(CommandSender sender, String[] args) {
 		return allVisiblePlayers(sender);
+	}
+	
+	private String name(Player player) {
+		User user = plugin.getUser(player);
+		
+		if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+			return "§8(" + user.getRankColor() + NameUtils.capitalizeString(user.getRank().name(), true) + "§8) §f§o" + player.getName();
+		}
+		
+		return player.getName();
 	}
 }

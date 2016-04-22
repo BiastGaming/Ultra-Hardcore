@@ -1,6 +1,5 @@
 package com.leontg77.ultrahardcore.commands.msg;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -11,9 +10,11 @@ import org.bukkit.entity.Player;
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.utils.DateUtils;
+import com.leontg77.ultrahardcore.utils.NameUtils;
 
 /**
  * Reply command class
@@ -74,16 +75,16 @@ public class ReplyCommand extends UHCCommand {
     		player.sendMessage(ChatColor.RED + "'" + target.getName() + "' is muted and won't be able to respond.");
     	}
     	
-        String msg = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
+        String msg = Joiner.on(' ').join(args);
 
-        sender.sendMessage("§8[§a§ome §8-> §a§o" + target.getName() + "§8] §7" + msg);
+        sender.sendMessage("§8[§a§ome §8-> §a§o" + name(target) + "§8] §7" + msg);
     	MsgCommand.msg.put(player.getName(), target.getName());
 		
 		if (tUser.isIgnoring(player)) {
 			return true;
 		}
 
-    	target.sendMessage("§8[§a§o" + sender.getName() + " §8-> §a§ome§8] §7" + msg);
+    	target.sendMessage("§8[§a§o" + name(player) + " §8-> §a§ome§8] §7" + msg);
     	MsgCommand.msg.put(target.getName(), player.getName());
 		return true;
     }
@@ -91,5 +92,15 @@ public class ReplyCommand extends UHCCommand {
 	@Override
 	public List<String> tabComplete(CommandSender sender, String[] args) {
 		return allVisiblePlayers(sender);
+	}
+	
+	private String name(Player player) {
+		User user = plugin.getUser(player);
+		
+		if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+			return "§8(" + user.getRankColor() + NameUtils.capitalizeString(user.getRank().name(), true) + "§8) §f§o" + player.getName();
+		}
+		
+		return player.getName();
 	}
 }
