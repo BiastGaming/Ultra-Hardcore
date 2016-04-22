@@ -23,6 +23,7 @@ import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.feature.portal.NetherFeature;
 import com.leontg77.ultrahardcore.gui.GUIManager;
+import com.leontg77.ultrahardcore.listeners.AnvilListener;
 import com.leontg77.ultrahardcore.listeners.ChatListener;
 import com.leontg77.ultrahardcore.listeners.LoginListener;
 import com.leontg77.ultrahardcore.listeners.LogoutListener;
@@ -141,7 +142,7 @@ public class Main extends JavaPlugin {
 	
 	public static final String NO_PERMISSION_MESSAGE = "§cYou don't have permission.";
  
-	public static final String BORDER_PREFIX = "§bBorder §8» §7";
+	public static final String BORDER_PREFIX = "§cBorder §8» §7";
 	public static final String ALERT_PREFIX = "§6Alert §8» §7";
 	public static final String STAFF_PREFIX = "§cStaff §8» §7";
 	public static final String SPEC_PREFIX = "§5Spec §8» §7";
@@ -173,7 +174,6 @@ public class Main extends JavaPlugin {
 		getLogger().info("The plugin was created by LeonTG77.");
 
 		game.setTimer(timer);
-		
 		State.setSettings(settings);
 		
 		counter.enable();
@@ -205,6 +205,7 @@ public class Main extends JavaPlugin {
 		PluginManager manager = Bukkit.getPluginManager(); 
 		
 		// register all listeners.
+		manager.registerEvents(new AnvilListener(this), this);
 		manager.registerEvents(new ChatListener(this, game, teams, spec), this);
 		manager.registerEvents(new LoginListener(this, game, settings, spec, scatter, perm), this);
 		manager.registerEvents(new LogoutListener(this, game, gui, spec, perm), this);
