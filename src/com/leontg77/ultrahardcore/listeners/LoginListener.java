@@ -2,6 +2,7 @@ package com.leontg77.ultrahardcore.listeners;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 import org.bukkit.BanEntry;
 import org.bukkit.BanList;
@@ -89,9 +90,18 @@ public class LoginListener implements Listener {
 		User user = plugin.getUser(player);
 		Date date = new Date();
 		
-		user.getFile().set("ip", player.getAddress().getAddress().getHostAddress());
+		String IPAdress = player.getAddress().getAddress().getHostAddress();
+
+		user.getFile().set("ip", IPAdress);
 		user.getFile().set("uuid", player.getUniqueId().toString());
 		user.getFile().set("lastlogin", date.getTime());
+		
+		List<String> IPS = user.getFile().getStringList("ips");
+		
+		if (!IPS.contains(IPAdress)) {
+			IPS.add(IPAdress);
+			user.getFile().set("ips", IPS);
+		}
 
 		String oldName = user.getFile().getString("username", "none");
 
@@ -99,6 +109,13 @@ public class LoginListener implements Listener {
 		if (!oldName.equals(player.getName())) {
 			PlayerUtils.broadcast(Main.PREFIX + "§a" + player.getName() + " §7was previously known as §a" + oldName + "§7.");
 			user.getFile().set("username", player.getName());
+			
+			List<String> oldNames = user.getFile().getStringList("oldnames");
+			
+			if (!oldNames.contains(oldName)) {
+				oldNames.add(oldName);
+				user.getFile().set("oldnames", oldNames);
+			}
 		}
 		
 		user.saveFile();
@@ -271,8 +288,8 @@ public class LoginListener implements Listener {
 			return;
 		}
 		
-		if (Bukkit.getOnlinePlayers().size() >= game.getMaxPlayers()) {
-			if (!game.isRecordedRound()) {
+		if (plugin.getOnlineCount() >= game.getMaxPlayers()) {
+			if (!game.isRecordedRound() && (!State.isState(State.INGAME) || !State.isState(State.SCATTER))) {
 				if (player.isWhitelisted() || player.isOp()) {
 					event.allow();
 					return;
