@@ -13,6 +13,7 @@ import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.Paranoia;
+import com.leontg77.ultrahardcore.scenario.scenarios.SelfDiagnosis;
 import com.leontg77.ultrahardcore.scenario.scenarios.TeamHealth;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 
@@ -32,7 +33,7 @@ public class HealthCommand extends UHCCommand {
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (scen.getScenario(Paranoia.class).isEnabled() || scen.getScenario(TeamHealth.class).isEnabled()) {
+		if (scen.getScenario(Paranoia.class).isEnabled() || scen.getScenario(SelfDiagnosis.class).isEnabled() || scen.getScenario(TeamHealth.class).isEnabled()) {
 			throw new CommandException("/h is disabled in this gamemode.");
 		}
 		
