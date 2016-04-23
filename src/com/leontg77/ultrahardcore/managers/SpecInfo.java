@@ -304,11 +304,11 @@ public class SpecInfo implements Listener {
 				int duration = effect.getDuration() / 20;
 				
 				if (duration > 0) {
-					broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7N§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.ticksToString(duration) + "§8]");
+					broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7D§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.ticksToString(duration) + "§8]");
 					continue;
 				}
 				
-				broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7N§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8]");
+				broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7D§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8]");
 			}
 			return;
 		default:
@@ -484,7 +484,7 @@ public class SpecInfo implements Listener {
 					String distance = NumberUtils.formatDouble(killer.getLocation().distance(player.getLocation()));
 					String kHealth = NumberUtils.makePercent(killer.getHealth()).substring(2) + "%";
 					
-					broadcast("§8(§cPvP§8) §7" + name(killer) + "§8 -§7M§8» §7" + name(player) + " §8[§a" + kHealth + " §8» §a" + pHealth + "§8] [§6" + taken + "§8] [§7§oD: §c§o" + distance + "§8]");
+					broadcast("§8(§cPvP§8) §7" + name(killer) + "§8 -§7M§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8] [§7§oD: §c§o" + distance + "§8]");
 					return;
 				}
 				
@@ -498,13 +498,13 @@ public class SpecInfo implements Listener {
 						String kHealth = NumberUtils.makePercent(shooter.getHealth()).substring(2) + "%";
 						
 						if (proj instanceof Arrow) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7B§8» §7" + name(player) + " §8[§a" + kHealth + " §8» §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7B§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (proj instanceof Snowball) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7S§8» §7" + name(player) + " §8[§a" + kHealth + " §8» §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7S§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (proj instanceof Egg) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7E§8» §7" + name(player) + " §8[§a" + kHealth + " §8» §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7E§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (!(proj instanceof FishHook)) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7???§8» §7" + name(player) + " §8[§a" + kHealth + " §8» §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7???§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						}
 						return;
 					} 
