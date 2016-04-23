@@ -109,7 +109,7 @@ public class LocationUtils {
         WorldBorder border = loc.getWorld().getWorldBorder();
         Location centre = border.getCenter();
 
-        Location pos = loc.subtract(centre);
+        Location pos = loc.clone().subtract(centre);
 
         double size = border.getSize() / 2;
         double bufferSize = size - buffer;
