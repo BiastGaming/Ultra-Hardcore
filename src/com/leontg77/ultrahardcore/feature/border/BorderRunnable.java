@@ -82,9 +82,9 @@ public class BorderRunnable extends BukkitRunnable {
 				return;
 			}
 			
-			PlayerUtils.broadcast(Main.BORDER_PREFIX + "Next shrink is in §a10§7 minutes.");
+			PlayerUtils.broadcast(Main.BORDER_PREFIX + "Next shrink is in §a15§7 minutes.");
 			
-			next = 600;
+			next = 900;
 			break;
 		}
 	}
