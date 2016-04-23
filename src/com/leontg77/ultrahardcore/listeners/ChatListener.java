@@ -254,7 +254,7 @@ public class ChatListener implements Listener {
   		}
   	}
 	
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onFinal(AsyncPlayerChatEvent event) {
 		Player sender = event.getPlayer();
 		String toSend = String.format(event.getFormat(), sender.getName(), event.getMessage());
