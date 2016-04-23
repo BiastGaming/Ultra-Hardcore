@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.google.common.collect.ImmutableSet;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
 
 /**
@@ -45,8 +46,8 @@ public class SpecManager {
 	 * @param plugin The main class.
 	 * @param teams The team manager class.
 	 */
-	public SpecManager(Main plugin, TeamManager teams) {
-		this.specInfo = new SpecInfo(plugin, this, teams);
+	public SpecManager(Main plugin, TeamManager teams, ScenarioManager scen) {
+		this.specInfo = new SpecInfo(plugin, this, teams, scen);
 		
 		this.plugin = plugin;
 		this.teams = teams;
