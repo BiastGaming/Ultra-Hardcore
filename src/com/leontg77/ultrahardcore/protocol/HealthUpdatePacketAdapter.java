@@ -40,9 +40,6 @@ public class HealthUpdatePacketAdapter extends PacketAdapter {
             if (event.getPacket().getFloat().read(0) > 0) {
                 event.getPacket().getFloat().write(0, 20f);
             }
-            
-            event.getPacket().getIntegers().write(0, 20);
-            event.getPacket().getFloat().write(1, 5f);
             return;
         }
 
