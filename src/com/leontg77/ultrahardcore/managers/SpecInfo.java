@@ -23,6 +23,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -41,10 +42,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
 import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.scenario.scenarios.Paranoia;
+import com.leontg77.ultrahardcore.utils.BlockUtils;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.EntityUtils;
 import com.leontg77.ultrahardcore.utils.NameUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
+import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
  * SpecInfo class for all the specinfo broadcasting.
@@ -59,17 +64,21 @@ public class SpecInfo implements Listener {
 	private final TeamManager teams;
 	private final SpecManager spec;
 	
+	private final ScenarioManager scen;
+	
 	/**
 	 * SpecInfo class constructor.
 	 * 
 	 * @param plugin The main class.
 	 * @param spec The spectator manager class.
 	 */
-	public SpecInfo(Main plugin, SpecManager spec, TeamManager teams) {
+	public SpecInfo(Main plugin, SpecManager spec, TeamManager teams, ScenarioManager scen) {
 		this.plugin = plugin;
 		
 		this.teams = teams;
 		this.spec = spec;
+		
+		this.scen = scen;
 	}
 	
 	// first string is the player name, then the ore type and the integer is the amount of that type.
@@ -93,7 +102,7 @@ public class SpecInfo implements Listener {
 				continue;
 			}
 			
-			if (!isOre(type)) {
+			if (type != Material.DIAMOND_ORE && type != Material.GOLD_ORE) {
 				continue;
 			}
 			
@@ -103,16 +112,6 @@ public class SpecInfo implements Listener {
 		return total.get(player.getName());
 	}
 
-	/**
-	 * Check if the given material is an ore.
-	 * 
-	 * @param ore The material checking.
-	 * @return True if its an ore, false otherwise.
-	 */
-	private boolean isOre(Material ore) {
-		return ore == Material.DIAMOND_ORE || ore == Material.GOLD_ORE || ore == Material.IRON_ORE;
-	}
-	
 	/**
 	 * Broadcast the given message to all people with specinfo.
 	 * 
@@ -152,7 +151,7 @@ public class SpecInfo implements Listener {
 		Location loc = block.getLocation();
 		Material type = block.getType();
 		
-		if (!isOre(type)) {
+		if (type != Material.DIAMOND_ORE && type != Material.GOLD_ORE) {
 			return;
 		}
 		
@@ -160,29 +159,48 @@ public class SpecInfo implements Listener {
 			return;
 		}
 		
-		int amount = 0;
+		Set<Block> vein = new HashSet<Block>();
+		BlockUtils.getVein(loc.getBlock(), vein);
 		
-		for (int x = loc.getBlockX() - 2; x <= loc.getBlockX() + 2; x++) {
-			for (int y = loc.getBlockY() - 2; y <= loc.getBlockY() + 2; y++) {
-				for (int z = loc.getBlockZ() - 2; z <= loc.getBlockZ() + 2; z++) {
-					Block locBlock = loc.getWorld().getBlockAt(x, y, z);
-					
-					if (locBlock.getType().equals(type)) {
-						locs.add(locBlock.getLocation());
-						amount++;
-					}
-				}
-			}
+		int amount = vein.size();
+		
+		for (Block ore : vein) {	
+			locs.add(ore.getLocation());
 		}
 		
 		Map<Material, Integer> total = getTotal(player);
 		total.put(type, total.get(type) + amount);
 		
-		if (block.getType() == Material.GOLD_ORE) {
-			broadcast(name(player) + " §8» §6Gold §8[§7V: §6" + amount + "§8] [§7T: §6" + total.get(type) + "§8]");
-		} 
-		else if (block.getType() == Material.DIAMOND_ORE) {
-			broadcast(name(player) + " §8» §bDiamonds §8[§7V: §b" + amount + "§8] [§7T: §b" + total.get(type) + "§8]");
+		Paranoia para = scen.getScenario(Paranoia.class);
+		
+		if (para.isEnabled()) {
+			if (block.getType() == Material.DIAMOND_ORE) {
+				PlayerUtils.broadcast(Paranoia.PREFIX + player.getName() + "§f found §b" + (amount == 1 ? "1 diamond" : amount + " diamonds") + " §fat " + para.location(loc));
+			} 
+			else if (block.getType() == Material.GOLD_ORE) {
+				PlayerUtils.broadcast(Paranoia.PREFIX + player.getName() + "§f found §6" + amount + " gold §fat " + para.location(loc));
+			}
+		} else {
+			if (block.getType() == Material.GOLD_ORE) {
+				broadcast(name(player) + " §8» §6Gold §8[§7V: §6" + amount + "§8] [§7T: §6" + total.get(type) + "§8]");
+			} 
+			else if (block.getType() == Material.DIAMOND_ORE) {
+				broadcast(name(player) + " §8» §bDiamonds §8[§7V: §b" + amount + "§8] [§7T: §b" + total.get(type) + "§8]");
+			}
+		}
+	}
+	
+	@EventHandler(ignoreCancelled = true)
+	public void on(BlockPlaceEvent event) {
+		Block block = event.getBlock();
+		Location loc = block.getLocation();
+		
+		if (locs.contains(loc)) {
+			return;
+		}
+		
+		if (block.getType() == Material.DIAMOND_ORE || block.getType() == Material.GOLD_ORE) {
+			locs.add(loc);
 		}
 	}
 
