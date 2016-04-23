@@ -31,6 +31,10 @@ public class ViewDistanceCommand extends UHCCommand implements Listener {
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) throws CommandException {
+		if (args.equals(args)) {
+			throw new CommandException("This feature has been disabled until future notice.");
+		}
+		
 		if (args.length == 0 || !sender.hasPermission(getPermission() + ".set")) {
 			throw new CommandException(Main.PREFIX + "Current view distance: §a" + viewDistance + " §7chunks.");
 		}
