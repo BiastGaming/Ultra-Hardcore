@@ -1,8 +1,10 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -35,13 +37,12 @@ public class Timber extends Scenario implements Listener {
 			return;
 		}
 
-		block = block.getRelative(BlockFace.UP);
+		Set<Block> vein = new HashSet<Block>();
+		BlockUtils.getVein(block, vein);
 		
-		while (block.getType() == Material.LOG || block.getType() == Material.LOG_2) {
-			BlockUtils.blockBreak(null, block);
-			block.breakNaturally();
-			
-			block = block.getRelative(BlockFace.UP);
+		for (Block ore : vein) {	
+			BlockUtils.blockBreak(null, ore);
+			ore.breakNaturally();
 		}
 	}
 }
