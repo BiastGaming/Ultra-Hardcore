@@ -81,9 +81,13 @@ public class DeathMessageFeature extends Feature implements Listener {
 		}
 		
 		ItemStack item = killer.getItemInHand();
+
+		String shotDistance = "";
 		
-		double distance = killer.getLocation().distance(player.getLocation());
-		String shotDistance = " §8(§6" + NumberUtils.formatDouble(distance) + " §7blocks§8)";
+		if (player.getWorld().equals(killer.getWorld())) {
+			double distance = killer.getLocation().distance(player.getLocation());
+			shotDistance = " §8(§6" + NumberUtils.formatDouble(distance) + " §7blocks§8)";
+		}
 		
 		if (item == null || !item.hasItemMeta() || !item.getItemMeta().hasDisplayName() || !deathMessage.contains(killer.getName()) || (!deathMessage.contains("slain") && !deathMessage.contains("shot"))) {
 			if (deathMessage.contains("shot")) {
