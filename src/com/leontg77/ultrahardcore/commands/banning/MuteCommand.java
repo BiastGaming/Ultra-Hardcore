@@ -104,6 +104,7 @@ public class MuteCommand extends UHCCommand {
 			toReturn.add("Spamming");
 			toReturn.add("Death Wishes");
 			toReturn.add("Death Treats");
+			toReturn.add("Not speaking english in the chat");
 		}
 		
 		return toReturn;
