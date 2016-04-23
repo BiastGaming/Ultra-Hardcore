@@ -121,7 +121,7 @@ public class Main extends JavaPlugin {
 		HOF = new HOFManager(this);	
 		gui = new GUIManager(this);
 		
-		spec = new SpecManager(this, teams);
+		spec = new SpecManager(this, teams, scen);
 		parkour = new Parkour(this, settings, spec);
 		
 		game = new Game(this, settings, gui, board, spec);
