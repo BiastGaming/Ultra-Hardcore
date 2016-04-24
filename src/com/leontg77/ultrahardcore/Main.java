@@ -304,7 +304,7 @@ public class Main extends JavaPlugin {
 	 * @return the data instance for the player.
 	 */
 	public User getUser(Player player) {
-		return new User(this, game, gui, perm, player, player.getUniqueId().toString());
+		return new User(this, game, gui, perm, scen, player.getUniqueId().toString());
 	}
 
 	/**
@@ -322,7 +322,7 @@ public class Main extends JavaPlugin {
 			throw new CommandException("'" + offline.getName() + "' has never joined this server.");
 		}
 		
-		return new User(this, game, gui, perm, offline.getPlayer(), offline.getUniqueId().toString());
+		return new User(this, game, gui, perm, scen, offline.getUniqueId().toString());
 	}
 	
 	private final File folder = new File(getDataFolder() + File.separator + "users" + File.separator);
