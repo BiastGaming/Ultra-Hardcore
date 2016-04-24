@@ -75,8 +75,6 @@ import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.protocol.EnchantPreview;
 import com.leontg77.ultrahardcore.protocol.HardcoreHearts;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
-import com.leontg77.ultrahardcore.scenario.scenarios.AchievementHunters;
-import com.leontg77.ultrahardcore.scenario.scenarios.VengefulSpirits;
 
 /**
  * Scenario management class.
@@ -186,7 +184,7 @@ public class FeatureManager {
 		
 		// health
 		addFeature(new AbsorptionFeature(plugin));
-		addFeature(new GoldenHeadsFeature(plugin, settings, arena, game, scen.getScenario(AchievementHunters.class), scen.getScenario(VengefulSpirits.class)));
+		addFeature(new GoldenHeadsFeature(plugin, settings, arena, game, scen));
 		addFeature(new HardcoreHeartsFeature(plugin, heart));
 		addFeature(new HealthRegenFeature());
 		
