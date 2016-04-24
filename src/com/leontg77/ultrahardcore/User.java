@@ -27,6 +27,8 @@ import org.bukkit.potion.PotionEffect;
 import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.gui.guis.GameInfoGUI;
 import com.leontg77.ultrahardcore.managers.PermissionsManager;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.scenario.scenarios.Moles;
 import com.leontg77.ultrahardcore.utils.FileUtils;
 
 /**
@@ -38,14 +40,14 @@ import com.leontg77.ultrahardcore.utils.FileUtils;
  */
 public class User {
 	public static File folder;
-	
-	private final Player player;
 	private final String uuid;
 	
 	private final Main plugin;
 	private final Game game;
-	
+
 	private final PermissionsManager perm;
+	private final ScenarioManager scen;
+	
 	private final GUIManager gui;
 	
 	private FileConfiguration config;
@@ -56,17 +58,18 @@ public class User {
 	 * <p>
 	 * This will set up the data for the player and create missing data.
 	 */
-	protected User(Main plugin, Game game, GUIManager gui, PermissionsManager perm, Player player, String uuid) {
+	protected User(Main plugin, Game game, GUIManager gui, PermissionsManager perm, ScenarioManager scen, String uuid) {
 		folder = new File(plugin.getDataFolder() + File.separator + "users" + File.separator);
 		
-        this.player = player;
         this.uuid = uuid;
         
 		this.plugin = plugin;
 		this.game = game;
-        
-		this.gui = gui;
+
 		this.perm = perm;
+		this.scen = scen;
+		
+		this.gui = gui;
 		
         if (!plugin.getDataFolder().exists()) {
         	plugin.getDataFolder().mkdir();
@@ -90,6 +93,8 @@ public class User {
         config = YamlConfiguration.loadConfiguration(file);
         
         if (creating) {
+        	Player player = Bukkit.getPlayer(uuid);
+        	
         	if (player != null) {
             	config.set("username", player.getName());
             	config.set("uuid", player.getUniqueId().toString());
@@ -121,6 +126,12 @@ public class User {
 	 * @return the players ping
 	 */
 	public int getPing() {
+    	Player player = Bukkit.getPlayer(uuid);
+    	
+    	if (player == null) {
+    		return -1;
+    	}
+    	
 		final CraftPlayer craft = (CraftPlayer) player;
 		
 		return craft.getHandle().ping;
@@ -141,7 +152,7 @@ public class User {
 	 * @return The player class.
 	 */
 	public Player getPlayer() {
-		return player;
+    	return Bukkit.getPlayer(uuid);
 	}
 	
 	/**
@@ -201,7 +212,9 @@ public class User {
 		GameInfoGUI info = gui.getGUI(GameInfoGUI.class);
 		
 		info.updateStaff();
-		
+
+    	Player player = Bukkit.getPlayer(uuid);
+    	
 		if (player != null) {
 			perm.removePermissions(player);
 			perm.addPermissions(player);
@@ -466,6 +479,10 @@ public class User {
 	 * @return <code>true</code> if the player is muted, <code>false</code> otherwise.
 	 */
 	public boolean isMuted() {
+		if (scen.getScenario(Moles.class).isEnabled()) {
+			return false;
+		}
+		
 		Date date = new Date();
 		
 		// if the mute isnt permanent (perm == -1) and their mute time experied, return false and unmute.
@@ -587,6 +604,12 @@ public class User {
 	 * Reset the players effects.
 	 */
     public void resetEffects() {
+    	Player player = Bukkit.getPlayer(uuid);
+    	
+    	if (player == null) {
+    		return;
+    	}
+    	
         Collection<PotionEffect> effects = player.getActivePotionEffects();
 
         for (PotionEffect effect : effects) {
@@ -598,6 +621,12 @@ public class User {
 	 * Reset the players health.
 	 */
     public void resetHealth() {
+    	Player player = Bukkit.getPlayer(uuid);
+    	
+    	if (player == null) {
+    		return;
+    	}
+    	
         player.setHealth(player.getMaxHealth());
     }
 
@@ -605,6 +634,12 @@ public class User {
 	 * Reset the players food.
 	 */
     public void resetFood() {
+    	Player player = Bukkit.getPlayer(uuid);
+    	
+    	if (player == null) {
+    		return;
+    	}
+    	
         player.setSaturation(5.0F);
         player.setExhaustion(0F);
         player.setFoodLevel(20);
@@ -614,6 +649,12 @@ public class User {
 	 * Reset the players xp.
 	 */
     public void resetExp() {
+    	Player player = Bukkit.getPlayer(uuid);
+    	
+    	if (player == null) {
+    		return;
+    	}
+    	
         player.setTotalExperience(0);
         player.setLevel(0);
         player.setExp(0F);
@@ -623,13 +664,19 @@ public class User {
 	 * Reset the players inventory.
 	 */
     public void resetInventory() {
-    	final PlayerInventory inv = player.getInventory();
+    	Player player = Bukkit.getPlayer(uuid);
+    	
+    	if (player == null) {
+    		return;
+    	}
+    	
+    	PlayerInventory inv = player.getInventory();
 
         inv.clear();
         inv.setArmorContents(null);
         player.setItemOnCursor(new ItemStack(Material.AIR));
 
-        final InventoryView openInventory = player.getOpenInventory();
+        InventoryView openInventory = player.getOpenInventory();
         
         if (openInventory.getType() == InventoryType.CRAFTING) {
             openInventory.getTopInventory().clear();
