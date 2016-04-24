@@ -139,7 +139,7 @@ public class SpecInfo implements Listener {
 		if (team == null) {
 			return ChatColor.WHITE + player.getName();
 		} else {
-			return team.getPrefix() + player.getName();
+			return team.getPrefix() + player.getName() + team.getSuffix();
 		}
 	}
 
@@ -464,11 +464,25 @@ public class SpecInfo implements Listener {
 
 	private void on(final Player player, final EntityDamageByEntityEvent event) {
 		final double oldHealth = player.getHealth();
+		final Entity damager = event.getDamager();
+		
+		String dis = null;
+		
+		if (damager instanceof Player) {
+			Player killer = (Player) damager;
+			
+			if (spec.isSpectating(killer)) {
+				return;
+			}
+
+			dis = NumberUtils.formatDouble(killer.getLocation().distance(player.getLocation()));
+		}
+		
+		final String distance = dis;
 		
 		new BukkitRunnable() {
 			public void run() {
 				double damage = oldHealth - player.getHealth();
-				Entity damager = event.getDamager();
 
 				String pHealth = NumberUtils.makePercent(player.getHealth()).substring(2) + "%";
 				String taken = NumberUtils.makePercent(damage).substring(2) + "%";
@@ -481,7 +495,6 @@ public class SpecInfo implements Listener {
 						return;
 					}
 
-					String distance = NumberUtils.formatDouble(killer.getLocation().distance(player.getLocation()));
 					String kHealth = NumberUtils.makePercent(killer.getHealth()).substring(2) + "%";
 					
 					broadcast("§8(§cPvP§8) §7" + name(killer) + "§8 -§7M§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8] [§7§oD: §c§o" + distance + "§8]");

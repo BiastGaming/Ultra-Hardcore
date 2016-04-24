@@ -53,7 +53,7 @@ public class ChatListener implements Listener {
 		String message = event.getMessage();
 		Team team = teams.getTeam(player);
 	
-		String name = (team == null || spec.isSpectating(player) ? "§f%s" : team.getPrefix() + "%s");
+		String name = (team == null || spec.isSpectating(player) ? "§f%s" : team.getPrefix() + "%s" + team.getSuffix());
 		String messageAndColor = name.startsWith("§f") ? "§7%s" : "§f%s";
 		
 		if (VoteCommand.isRunning() && (message.equalsIgnoreCase("y") || message.equalsIgnoreCase("n"))) {
@@ -142,7 +142,11 @@ public class ChatListener implements Listener {
 		}
 		
 		if (user.getRank() == Rank.HOST) {
-    		event.setFormat("§8[§4Host§8] " + name + " §8» " + messageAndColor);
+			if (game.getHost().equals(player.getName())) {
+	    		event.setFormat("§8[§4§lThe Host§8] " + name + " §8» " + messageAndColor);
+			} else {
+	    		event.setFormat("§8[§4Host§8] " + name + " §8» " + messageAndColor);
+			}
 			return;
 		}
 		

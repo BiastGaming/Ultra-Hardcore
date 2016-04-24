@@ -15,9 +15,11 @@ import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.feature.Feature;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.scenario.scenarios.Anonymous;
 import com.leontg77.ultrahardcore.scenario.scenarios.Paranoia;
 import com.leontg77.ultrahardcore.scenario.scenarios.SelfDiagnosis;
 import com.leontg77.ultrahardcore.scenario.scenarios.TeamHealth;
+import com.leontg77.ultrahardcore.scenario.scenarios.WTFIPTG;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 
 /**
@@ -47,7 +49,7 @@ public class ShootHealthFeature extends Feature implements Listener {
 		Entity attacked = event.getEntity();
 		Entity attacker = event.getDamager();
 		
-    	if (game.isRecordedRound() || scen.getScenario(TeamHealth.class).isEnabled() || scen.getScenario(SelfDiagnosis.class).isEnabled() || scen.getScenario(Paranoia.class).isEnabled()) {
+    	if (game.isRecordedRound() || scen.getScenario(TeamHealth.class).isEnabled() || scen.getScenario(SelfDiagnosis.class).isEnabled() || scen.getScenario(Paranoia.class).isEnabled() || scen.getScenario(WTFIPTG.class).isEnabled() || scen.getScenario(Anonymous.class).isEnabled()) {
 			return;
 		}
     	
@@ -88,7 +90,7 @@ public class ShootHealthFeature extends Feature implements Listener {
 		if (team == null) {
 			return ChatColor.WHITE + player.getName();
 		} else {
-			return team.getPrefix() + player.getName();
+			return team.getPrefix() + player.getName() + team.getSuffix();
 		}
 	}
 }
