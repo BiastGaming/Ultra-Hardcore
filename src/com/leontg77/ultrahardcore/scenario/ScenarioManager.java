@@ -119,6 +119,7 @@ public class ScenarioManager {
 		scenarios.add(new Achievements(game));
 		scenarios.add(new AgarIO(plugin, game));
 		scenarios.add(new AloneTogether(plugin, game, teams));
+		scenarios.add(new Anonymous(plugin, spec));
 		scenarios.add(new Armageddon(plugin, game));
 		scenarios.add(new Assassins(timer, game));
 		scenarios.add(new AssaultAndBattery(game, teams));
@@ -191,7 +192,7 @@ public class ScenarioManager {
 		scenarios.add(new HundredHearts(feat));
 		scenarios.add(new InfiniteEnchanter());
 		scenarios.add(new Inventors());
-		scenarios.add(new InvertedDimentions(plugin));
+		scenarios.add(new InvertedDimensions(plugin));
 		scenarios.add(new Kings(plugin, teams));
 		scenarios.add(new Krenzinator());
 		scenarios.add(new LAFS(game, teams));
@@ -206,6 +207,7 @@ public class ScenarioManager {
 		scenarios.add(new NightmareMode());
 		scenarios.add(new NoFall());
 		scenarios.add(new NoSprint());
+		scenarios.add(new OneNineCooldown(plugin));
 		scenarios.add(new Overcook(plugin, game));
 		scenarios.add(new Paranoia(game, board));
 		scenarios.add(new PeriodOfResistance(plugin));
@@ -236,6 +238,7 @@ public class ScenarioManager {
 		scenarios.add(new VengefulSpirits(settings, feat));
 		scenarios.add(new Voidscape(plugin));
 		scenarios.add(new Webcage(game));
+		scenarios.add(new WTFIPTG(plugin, spec, board));
 		
 		plugin.getLogger().info("All scenarios has been setup.");
 	}
