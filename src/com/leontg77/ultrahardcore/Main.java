@@ -1,8 +1,8 @@
 package com.leontg77.ultrahardcore;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -297,7 +297,7 @@ public class Main extends JavaPlugin {
 		return loc;
 	}
 	
-	private final List<User> users = new ArrayList<User>();
+	private final Map<UUID, User> users = new HashMap<UUID, User>();
 	
 	/**
 	 * Gets the data of the given player.
@@ -307,15 +307,13 @@ public class Main extends JavaPlugin {
 	 * @param player the player.
 	 * @return the data instance for the player.
 	 */
-	public User getUser(Player player) {
-		for (User user : users) {
-			if (player.getUniqueId().toString().equalsIgnoreCase(user.getUUID())) {
-				return user;
-			}
+	public User getUser(Player player) {	
+		if (users.containsKey(player.getUniqueId())) {
+			return users.get(player.getUniqueId());
 		}
 		
 		User user = new User(this, game, gui, perm, scen, player.getUniqueId().toString());
-		users.add(user);
+		users.put(player.getUniqueId(), user);
 		return user;
 	}
 
@@ -334,14 +332,12 @@ public class Main extends JavaPlugin {
 			throw new CommandException("'" + offline.getName() + "' has never joined this server.");
 		}
 
-		for (User user : users) {
-			if (offline.getUniqueId().toString().equalsIgnoreCase(user.getUUID())) {
-				return user;
-			}
+		if (users.containsKey(offline.getUniqueId())) {
+			return users.get(offline.getUniqueId());
 		}
 		
 		User user = new User(this, game, gui, perm, scen, offline.getUniqueId().toString());
-		users.add(user);
+		users.put(offline.getUniqueId(), user);
 		return user;
 	}
 	
