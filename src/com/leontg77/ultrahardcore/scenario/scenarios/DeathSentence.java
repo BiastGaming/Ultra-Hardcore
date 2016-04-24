@@ -77,7 +77,6 @@ public class DeathSentence extends Scenario implements CommandExecutor, Listener
 					
 					if (time.get(online.getUniqueId()) <= 0.0) {
 						PlayerUtils.broadcast(PREFIX + online.getName() + " ran out of lifefile.");
-						online.sendMessage();
 						online.setHealth(0);
 					} else {
 						online.sendMessage(PREFIX + "You lost 1 minute of your lifetime.");
