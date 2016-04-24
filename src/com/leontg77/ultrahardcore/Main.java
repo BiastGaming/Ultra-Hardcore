@@ -1,11 +1,10 @@
 package com.leontg77.ultrahardcore;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
-
-import com.leontg77.ultrahardcore.listeners.PushToSpawnListener;
-import net.minecraft.server.v1_8_R3.MinecraftServer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -29,6 +28,7 @@ import com.leontg77.ultrahardcore.listeners.LoginListener;
 import com.leontg77.ultrahardcore.listeners.LogoutListener;
 import com.leontg77.ultrahardcore.listeners.PlayerListener;
 import com.leontg77.ultrahardcore.listeners.ProtectionListener;
+import com.leontg77.ultrahardcore.listeners.PushToSpawnListener;
 import com.leontg77.ultrahardcore.listeners.SpectatorListener;
 import com.leontg77.ultrahardcore.listeners.StatsListener;
 import com.leontg77.ultrahardcore.listeners.WorldListener;
@@ -52,6 +52,8 @@ import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
 import com.leontg77.ultrahardcore.world.antistripmine.listener.ChunkPopulateListener;
 import com.leontg77.ultrahardcore.world.antistripmine.listener.WorldInitListener;
 import com.leontg77.ultrahardcore.world.biomeswap.BiomeSwap;
+
+import net.minecraft.server.v1_8_R3.MinecraftServer;
 
 /**
  * Main class of the UHC plugin.
@@ -295,6 +297,8 @@ public class Main extends JavaPlugin {
 		return loc;
 	}
 	
+	private final List<User> users = new ArrayList<User>();
+	
 	/**
 	 * Gets the data of the given player.
 	 * <p>
@@ -304,7 +308,15 @@ public class Main extends JavaPlugin {
 	 * @return the data instance for the player.
 	 */
 	public User getUser(Player player) {
-		return new User(this, game, gui, perm, scen, player.getUniqueId().toString());
+		for (User user : users) {
+			if (player.getUniqueId().toString().equalsIgnoreCase(user.getUUID())) {
+				return user;
+			}
+		}
+		
+		User user = new User(this, game, gui, perm, scen, player.getUniqueId().toString());
+		users.add(user);
+		return user;
 	}
 
 	/**
@@ -321,8 +333,16 @@ public class Main extends JavaPlugin {
 		if (!fileExist(offline.getUniqueId())) {
 			throw new CommandException("'" + offline.getName() + "' has never joined this server.");
 		}
+
+		for (User user : users) {
+			if (offline.getUniqueId().toString().equalsIgnoreCase(user.getUUID())) {
+				return user;
+			}
+		}
 		
-		return new User(this, game, gui, perm, scen, offline.getUniqueId().toString());
+		User user = new User(this, game, gui, perm, scen, offline.getUniqueId().toString());
+		users.add(user);
+		return user;
 	}
 	
 	private final File folder = new File(getDataFolder() + File.separator + "users" + File.separator);
