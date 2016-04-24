@@ -1,5 +1,7 @@
 package com.leontg77.ultrahardcore.feature.health;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -31,8 +33,10 @@ import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.feature.ToggleableFeature;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.AchievementHunters;
 import com.leontg77.ultrahardcore.scenario.scenarios.VengefulSpirits;
+import com.leontg77.ultrahardcore.scenario.scenarios.WTFIPTG;
 
 /**
  * Golden head feature class.
@@ -52,13 +56,14 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
 
 	private final AchievementHunters ach;
 	private final VengefulSpirits spirit;
+	private final WTFIPTG wtf;
 	
 	private final Arena arena;
 	private final Game game;
 	
     private int healAmount;
 
-	public GoldenHeadsFeature(Main plugin, Settings settings, Arena arena, Game game, AchievementHunters ach, VengefulSpirits spirit) {
+	public GoldenHeadsFeature(Main plugin, Settings settings, Arena arena, Game game, ScenarioManager scen) {
 		super("Golden Heads", "Crafted like a golden apple just with a head in the middle and heals more hearts.");
 
 		final ShapedRecipe recipe = new ShapedRecipe(new ItemStack(Material.GOLDEN_APPLE, 1))
@@ -78,8 +83,9 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
 		this.plugin = plugin;
 		this.settings = settings;
 
-		this.spirit = spirit;
-		this.ach = ach;
+		this.spirit = scen.getScenario(VengefulSpirits.class);
+		this.ach = scen.getScenario(AchievementHunters.class);
+		this.wtf = scen.getScenario(WTFIPTG.class);
 		
 		this.arena = arena;
 		this.game = game;
@@ -145,7 +151,13 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
 				
 			    skull.setSkullType(SkullType.PLAYER);
 			    skull.setRotation(getBlockDirection(player.getLocation()));
-			    skull.setOwner(player.getName());
+			    
+			    if (wtf.isEnabled()) {
+				    skull.setOwner(UUID.randomUUID().toString());
+			    } else {
+				    skull.setOwner(player.getName());
+			    }
+			    
 			    skull.update();
 			    
 			    block.setData((byte) 0x1, true);
