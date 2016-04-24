@@ -124,6 +124,8 @@ public class LoginListener implements Listener {
 		player.setNoDamageTicks(0);
 
 		spec.hideSpectators(player);
+		
+		String joinMsg = event.getJoinMessage();
 		event.setJoinMessage(null);
 		
 		if (player.isDead()) {
@@ -150,7 +152,9 @@ public class LoginListener implements Listener {
 					PlayerUtils.broadcast(Main.PREFIX + "§c" + player.getName() + " §7might be an alt of§8: " + alts.substring(1, alts.length() - 1) + "§8.", "uhc.staff");
 				}
 				
-				PlayerUtils.broadcast("§8[§a+§8] " + user.getRankColor() + player.getName() + " §7joined. §8(§a" + plugin.getOnlineCount() + "§8/§a" + game.getMaxPlayers() + "§8)");
+				if (joinMsg != null) {
+					PlayerUtils.broadcast("§8[§a+§8] " + user.getRankColor() + player.getName() + " §7joined. §8(§a" + plugin.getOnlineCount() + "§8/§a" + game.getMaxPlayers() + "§8)");
+				}
 				
 				if (user.isNew()) {
 					File folder = new File(plugin.getDataFolder() + File.separator + "users" + File.separator);
@@ -345,7 +349,7 @@ public class LoginListener implements Listener {
 			
 			if (player.hasPermission("uhc.prelist") && !game.isRecordedRound()) {
 				if (!game.preWhitelists() && !State.isState(State.INGAME)) {
-					event.disallow(Result.KICK_WHITELIST, "§4Pre-whitelist has is currently disabled!\n\n" + event.getKickMessage());
+					event.disallow(Result.KICK_WHITELIST, "§4Pre-whitelist is currently disabled!\n\n" + event.getKickMessage());
 					return;
 				}
 				

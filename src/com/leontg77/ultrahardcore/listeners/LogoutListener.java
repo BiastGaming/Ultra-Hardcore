@@ -60,17 +60,18 @@ public class LogoutListener implements Listener {
 		
 		user.getFile().set("lastlogout", date.getTime());
 		user.saveFile();
-		
-		user.setLastLoc(null);
-		
+
 		perm.removePermissions(player);
+		user.setLastLoc(null);
+
+		String leaveMsg = event.getQuitMessage();
 		event.setQuitMessage(null);
 		
 		if (player.isInsideVehicle()) {
 			player.leaveVehicle(); // sometimes dead players will take horses with them when they log out for some reason...
 		}
 		
-		if (!spec.isSpectating(player)) {
+		if (!spec.isSpectating(player) && leaveMsg != null) {
 			PlayerUtils.broadcast("§8[§c-§8] " + user.getRankColor() + player.getName() + " §7left. §8(§a" + (plugin.getOnlineCount() - 1) + "§8/§a" + game.getMaxPlayers() + "§8)");
 		}
 
