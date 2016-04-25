@@ -1,7 +1,9 @@
 package com.leontg77.ultrahardcore;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -11,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -165,6 +168,27 @@ public class Main extends JavaPlugin {
 		} catch (Exception e) {
 			getLogger().warning("Could not reset biomes!");
 		}
+		
+		if (State.isState(State.NOT_RUNNING)) {
+  			for (File cFile : User.folder.listFiles()) {
+  				FileConfiguration conf = YamlConfiguration.loadConfiguration(cFile);
+  				
+  				if (!conf.contains("uuid")) {
+  					cFile.delete();
+  					continue;
+  				}
+  				
+  				if (conf.contains("locs")) {
+  	  				conf.set("locs", null);
+  				}
+
+  				try {
+					conf.save(cFile);
+				} catch (Exception e) {
+					continue;
+				}
+  			}
+		}
 	}
 	
 	@Override
@@ -312,7 +336,7 @@ public class Main extends JavaPlugin {
 			return users.get(player.getUniqueId());
 		}
 		
-		User user = new User(this, game, gui, perm, scen, player.getUniqueId().toString());
+		User user = new User(this, game, gui, perm, scen, player.getUniqueId());
 		users.put(player.getUniqueId(), user);
 		return user;
 	}
@@ -336,7 +360,7 @@ public class Main extends JavaPlugin {
 			return users.get(offline.getUniqueId());
 		}
 		
-		User user = new User(this, game, gui, perm, scen, offline.getUniqueId().toString());
+		User user = new User(this, game, gui, perm, scen, offline.getUniqueId());
 		users.put(offline.getUniqueId(), user);
 		return user;
 	}
