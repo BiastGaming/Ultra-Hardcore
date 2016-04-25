@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.BanList;
 import org.bukkit.BanList.Type;
@@ -40,7 +41,7 @@ import com.leontg77.ultrahardcore.utils.FileUtils;
  */
 public class User {
 	public static File folder;
-	private final String uuid;
+	private final UUID uuid;
 	
 	private final Main plugin;
 	private final Game game;
@@ -58,7 +59,7 @@ public class User {
 	 * <p>
 	 * This will set up the data for the player and create missing data.
 	 */
-	protected User(Main plugin, Game game, GUIManager gui, PermissionsManager perm, ScenarioManager scen, String uuid) {
+	protected User(Main plugin, Game game, GUIManager gui, PermissionsManager perm, ScenarioManager scen, UUID uuid) {
 		folder = new File(plugin.getDataFolder() + File.separator + "users" + File.separator);
 		
         this.uuid = uuid;
@@ -89,7 +90,7 @@ public class User {
         		plugin.getLogger().severe(ChatColor.RED + "Could not create " + uuid + ".yml!");
         	}
         }
-               
+        
         config = YamlConfiguration.loadConfiguration(file);
         
         if (creating) {
@@ -143,6 +144,11 @@ public class User {
 	 * @return True if he hasn't, false otherwise.
 	 */
 	public boolean isNew() {
+		if (creating) {
+			creating = false;
+			return true;
+		}
+		
 		return creating;
 	}
 	
@@ -161,7 +167,7 @@ public class User {
 	 * @return The uuid.
 	 */
 	public String getUUID() {
-		return uuid;
+		return uuid.toString();
 	}
 	
 	/**
@@ -191,6 +197,8 @@ public class User {
 		} catch (Exception e) {
     		plugin.getLogger().severe(ChatColor.RED + "Could not save " + file.getName() + "!");
 		}
+		
+        config = YamlConfiguration.loadConfiguration(file);
 	}
 	
 	/**
@@ -278,15 +286,15 @@ public class User {
 		Set<String> altList = new HashSet<String>();
 		
 		String thisName = config.getString("username", "none1");
-		List<String> thisIP = config.getStringList("ips");
+		List<String> thisIPs = config.getStringList("ips");
 		
 		BanList banlist = Bukkit.getBanList(Type.NAME);
 		
 		for (FileConfiguration file : FileUtils.getUserFiles()) {
 			String name = file.getString("username", "none2");
-			String IP = file.getString("ip", "none2");
-			
-			if (!thisIP.equals(IP)) {
+			List<String> otherIPs = file.getStringList("ips");
+		
+			if (!thisIPs.stream().anyMatch(otherIPs::contains)) {
 				continue;
 			}
 			
@@ -326,6 +334,8 @@ public class User {
 		config.set("locs.death.x", loc.getX());
 		config.set("locs.death.y", loc.getY());
 		config.set("locs.death.z", loc.getZ());
+		config.set("locs.death.yaw", loc.getYaw());
+		config.set("locs.death.pitch", loc.getPitch());
         saveFile();
 	}
 	
@@ -348,8 +358,10 @@ public class User {
 		double x = config.getDouble("locs.death.x");
 		double y = config.getDouble("locs.death.y");
 		double z = config.getDouble("locs.death.z");
+		float yaw = (float) config.getDouble("locs.death.yaw", 0);
+		float pitch = (float) config.getDouble("locs.death.pitch", 0);
 		
-		Location loc = new Location(world, x, y, z);
+		Location loc = new Location(world, x, y, z, yaw, pitch);
 		
 		return loc;
 	}
