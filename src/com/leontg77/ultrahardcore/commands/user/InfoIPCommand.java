@@ -32,7 +32,7 @@ public class InfoIPCommand extends UHCCommand {
 		sender.sendMessage(Main.PREFIX + "Players with the IP: §a" + adress);
         
 		for (FileConfiguration file : FileUtils.getUserFiles()) {
-			if (!file.getString("ip", "none").equals(adress)) {
+			if (!file.getStringList("ips").contains(adress)) {
 				continue;
 			}
 			
