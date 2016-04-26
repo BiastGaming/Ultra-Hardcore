@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.events.PvPEnableEvent;
@@ -22,14 +23,16 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class GoToHell extends Scenario implements Listener {
 	private final Main plugin;
+	private final Game game;
 	
 	private final FeatureManager feat;
 	private final Settings settings;
 	
-	public GoToHell(Main plugin, Settings settings, FeatureManager feat) {
+	public GoToHell(Main plugin, Game game, Settings settings, FeatureManager feat) {
 		super("GoToHell", "After 45 minutes you have to be in the nether or else you take 0.5 hearts of damage every 30 seconds");
 		
 		this.plugin = plugin;
+		this.game = game;
 		
 		this.settings = settings;
 		this.feat = feat;
@@ -55,7 +58,7 @@ public class GoToHell extends Scenario implements Listener {
 	public void on(PvPEnableEvent event) {
 		task = new BukkitRunnable() {
 			public void run() {
-				for (Player online : Bukkit.getOnlinePlayers()) {
+				for (Player online : game.getPlayers()) {
 					Environment env = online.getWorld().getEnvironment();
 					
 					if (env == Environment.NETHER) {
