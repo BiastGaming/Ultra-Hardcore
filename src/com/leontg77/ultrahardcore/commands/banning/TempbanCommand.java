@@ -16,6 +16,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Main;
@@ -24,23 +25,27 @@ import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils.PunishmentType;
 
 /**
  * Tempban command class.
  * 
  * @author LeonTG77
  */
-public class TempbanCommand extends UHCCommand {	
+public class TempbanCommand extends UHCCommand {
 	private final BoardManager board;
+	private final Main plugin;
 
 	/**
 	 * Tempban command class constructor.
 	 * 
 	 * @param board The board manager class.
 	 */
-	public TempbanCommand(BoardManager board) {
+	public TempbanCommand(Main plugin, BoardManager board) {
 		super("tempban", "<player> <time> <reason>");
-		
+
+		this.plugin = plugin;
 		this.board = board;
 	}
 
@@ -59,6 +64,8 @@ public class TempbanCommand extends UHCCommand {
 		String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 2, args.length));
 
     	if (target == null) {
+	    	PunishUtils.savePunishment(plugin.getUser(PlayerUtils.getOfflinePlayer(args[0])), PunishmentType.TEMPBAN, new Date(), message + " (" + args[1] + ")");
+	    	
 			PlayerUtils.broadcast(Main.PREFIX + "§6" + args[0] + " §7has been temp-banned for §a" + message + "§7. §8(§a" + DateUtils.formatDateDiff(time) + "§8)");
 			
     		list.addBan(args[0], message, date, sender.getName());
@@ -66,7 +73,7 @@ public class TempbanCommand extends UHCCommand {
             return true;
 		}
     	
-    	if (target.hasPermission("uhc.staff") && !sender.hasPermission("uhc.tempban.bypass")) {
+    	if (target.hasPermission("uhc.staff")) {
 	    	throw new CommandException("You can't temp-ban this player.");
     	}
 		
@@ -80,22 +87,19 @@ public class TempbanCommand extends UHCCommand {
     	
     	PlayerDeathEvent event = new PlayerDeathEvent(target, new ArrayList<ItemStack>(), 0, null);
 		Bukkit.getPluginManager().callEvent(event);
-    	
-    	Block block = target.getLocation().getBlock();
 		
-		block.setType(Material.AIR);
-		block = block.getRelative(BlockFace.UP);
-		block.setType(Material.AIR);
+    	new BukkitRunnable() {
+			public void run() {
+		    	Block block = target.getLocation().getBlock();
+		    	
+				block.setType(Material.AIR);
+				block = block.getRelative(BlockFace.UP);
+				block.setType(Material.AIR);
+			}
+		}.runTaskLater(plugin, 2);
 		
-		target.kickPlayer(
-		"§8» §7You have been §4temp-banned §7from §6Arctic UHC §8«" +
-		"\n" + 
-		"\n§cReason §8» §7" + ban.getReason() +
-		"\n§cBanned by §8» §7" + ban.getSource() +
-		"\n§cExpires in §8» §7" + DateUtils.formatDateDiff(time) +
-		"\n" +
-		"\n§8» §7If you would like to appeal, DM our twitter §a@ArcticUHC §8«"
-		);
+    	target.kickPlayer(String.format(PunishUtils.getTempbanReasonFormat(), ban.getReason(), ban.getSource(), DateUtils.formatDateDiff(time)));
+    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.TEMPBAN, new Date(), message + " (" + args[1] + ")");
 		return true;
 	}
 

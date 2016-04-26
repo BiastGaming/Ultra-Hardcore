@@ -2,6 +2,7 @@ package com.leontg77.ultrahardcore.commands.banning;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -13,6 +14,8 @@ import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils.PunishmentType;
 
 /**
  * Kick command class.
@@ -20,9 +23,12 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class KickCommand extends UHCCommand {	
+	private final Main plugin;
 
-	public KickCommand() {
+	public KickCommand(Main plugin) {
 		super("kick", "<player> <reason>");
+		
+		this.plugin = plugin;
 	}
 
 	@Override
@@ -59,7 +65,7 @@ public class KickCommand extends UHCCommand {
 			return true;
 		}
     	
-    	Player target = Bukkit.getServer().getPlayer(args[0]);
+    	Player target = Bukkit.getPlayer(args[0]);
 		
     	if (target == null) {
     		throw new CommandException("'" + args[0] + "' is not online.");
@@ -67,6 +73,7 @@ public class KickCommand extends UHCCommand {
     	
     	PlayerUtils.broadcast(Main.PREFIX + "§6" + target.getName() + " §7has been kicked for §a" + message, "uhc.kick");
     	target.kickPlayer(message);
+    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.KICK, new Date(), message);
 		return true;
 	}
 

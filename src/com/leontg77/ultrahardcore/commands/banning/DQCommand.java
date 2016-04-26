@@ -1,6 +1,7 @@
 package com.leontg77.ultrahardcore.commands.banning;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -13,6 +14,8 @@ import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils.PunishmentType;
 
 /**
  * DQ command class.
@@ -21,15 +24,17 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class DQCommand extends UHCCommand {	
 	private final BoardManager board;
+	private final Main plugin;
 
 	/**
 	 * DQ command class constructor.
 	 * 
 	 * @param board The board manager class.
 	 */
-	public DQCommand(BoardManager board) {
+	public DQCommand(Main plugin, BoardManager board) {
 		super("dq", "<player> <reason>");
-		
+
+		this.plugin = plugin;
 		this.board = board;
 	}
 
@@ -49,7 +54,7 @@ public class DQCommand extends UHCCommand {
 	    	throw new CommandException("'" + args[0] + "' is not online.");
 		}
     	
-    	if (target.hasPermission("uhc.staff") && !sender.hasPermission(getPermission() + ".bypass")) {
+    	if (target.hasPermission("uhc.staff")) {
 	    	throw new CommandException("You can't dq this player.");
     	}
 		
@@ -62,16 +67,9 @@ public class DQCommand extends UHCCommand {
     	
     	target.setWhitelisted(false);
     	target.setHealth(0);
-		
-    	target.kickPlayer(
-    	"§8» §7You have been §cdisqualified §7from this game §8«" +
-    	"\n" + 
-    	"\n§cReason §8» §7" + message + 
-    	"\n§cDQ'ed by §8» §7" + sender.getName() + 
-    	"\n" + 
-    	"\n§8» §7Don't worry, this is not a perma ban. §8«"
-    	);
-    	
+
+    	target.kickPlayer(String.format(PunishUtils.getDQReasonFormat(), message, sender.getName()));
+    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.DISQUALIFY, new Date(), message);
 		return true;
 	}
 
