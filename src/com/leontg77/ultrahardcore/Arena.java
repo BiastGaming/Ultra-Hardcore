@@ -107,7 +107,7 @@ public class Arena {
 		plugin.getLogger().info("The arena has been setup.");
 	}
 
-	private BukkitRunnable borderTask;
+//	private BukkitRunnable borderTask;
 	private BukkitRunnable regenTask;
 	
 	/**
@@ -119,7 +119,7 @@ public class Arena {
 		World world = Bukkit.getWorld("arena");
 		
 		if (world != null) {
-			world.getWorldBorder().setSize(200);
+			world.getWorldBorder().setSize(400);
 		}
 		
 		Bukkit.getPluginManager().registerEvents(listener, plugin);
@@ -137,7 +137,7 @@ public class Arena {
 			game.setArenaBoard(true);
 		}
 		
-		setScore("§8» §9§oNext Reset ", -30);
+		setScore("§8» §9§oNext Reset ", 30);
 
 		if (regenTask == null) {
 			regenTask = new BukkitRunnable() {
@@ -146,7 +146,7 @@ public class Arena {
 				public void run() {
 					time--;
 
-					setScore("§8» §9§oNext Reset ", (int) (time / 60));
+					setScore("§8» §9§oNext Reset ", (int) ((time / 60) + 1));
 					
 					switch (time) {
 					case 900:
@@ -183,23 +183,23 @@ public class Arena {
 			regenTask.runTaskTimer(plugin, 20, 20);
 		}
 
-		if (borderTask == null) {
-			borderTask = new BukkitRunnable() {
-				public void run() {
-					World world = Bukkit.getWorld("arena");
-					
-					if (world == null) {
-						return;
-					}
-					
-					int newRadius = Math.min(40 + (players.size() * 10), 400);
-					
-					world.getWorldBorder().setSize(newRadius, 25); // Thanks @D4mnX for this
-				}
-			};
-			
-			borderTask.runTaskTimer(plugin, 600, 600);
-		}
+//		if (borderTask == null) {
+//			borderTask = new BukkitRunnable() {
+//				public void run() {
+//					World world = Bukkit.getWorld("arena");
+//					
+//					if (world == null) {
+//						return;
+//					}
+//					
+//					int newRadius = Math.min(40 + (players.size() * 10), 400);
+//					
+//					world.getWorldBorder().setSize(newRadius, 25); // Thanks @D4mnX for this
+//				}
+//			};
+//			
+//			borderTask.runTaskTimer(plugin, 600, 600);
+//		}
 	}
 	
 	/**
@@ -254,11 +254,11 @@ public class Arena {
 			regenTask.cancel();
 		}
 
-		if (borderTask != null) {
-			borderTask.cancel();
-		}
-		
-		borderTask = null;
+//		if (borderTask != null) {
+//			borderTask.cancel();
+//		}
+//		
+//		borderTask = null;
 		regenTask = null;
 	}
 	
@@ -416,6 +416,11 @@ public class Arena {
 		
 		for (int i = 0; i < 36; i++) {
 			if (!user.getFile().contains("hotbar." + i)) {
+				giveDefaultKit(player);
+				return;
+			}
+			
+			if (user.getFile().getConfigurationSection("hotbar." + i) == null) {
 				giveDefaultKit(player);
 				return;
 			}
