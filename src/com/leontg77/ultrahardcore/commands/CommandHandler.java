@@ -217,12 +217,12 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 		cmds.add(new HotbarCommand(plugin, arena));
 		
 		// banning
-		cmds.add(new BanCommand(board));
+		cmds.add(new BanCommand(plugin, board));
 		cmds.add(new BanIPCommand(board));
-		cmds.add(new DQCommand(board));
-		cmds.add(new KickCommand());
+		cmds.add(new DQCommand(plugin, board));
+		cmds.add(new KickCommand(plugin));
 		cmds.add(new MuteCommand(plugin));
-		cmds.add(new TempbanCommand(board));
+		cmds.add(new TempbanCommand(plugin, board));
 		cmds.add(new UnbanCommand());
 		cmds.add(new UnbanIPCommand());
 		
