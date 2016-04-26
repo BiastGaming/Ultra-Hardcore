@@ -187,7 +187,7 @@ public class ScenarioManager {
 		scenarios.add(new GoneFishing());
 		scenarios.add(new GoodGame(game));
 		scenarios.add(new GoodGamePlus(plugin, game));
-		scenarios.add(new GoToHell(plugin, settings, feat));
+		scenarios.add(new GoToHell(plugin, game, settings, feat));
 		scenarios.add(new Halloween(plugin, game));
 		scenarios.add(new HundredHearts(feat));
 		scenarios.add(new InfiniteEnchanter());
