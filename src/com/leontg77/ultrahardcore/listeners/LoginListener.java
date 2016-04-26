@@ -31,6 +31,7 @@ import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils;
 
 /**
  * Login listener class.
@@ -92,7 +93,6 @@ public class LoginListener implements Listener {
 		
 		String IPAdress = player.getAddress().getAddress().getHostAddress();
 
-		user.getFile().set("ip", IPAdress);
 		user.getFile().set("uuid", player.getUniqueId().toString());
 		user.getFile().set("lastlogin", date.getTime());
 		
@@ -252,15 +252,11 @@ public class LoginListener implements Listener {
 				BanEntry ban = name.getBanEntry(player.getName());
 				PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + player.getName() + " §7tried to join while being " + (ban.getExpiration() == null ? "banned" : "temp-banned") + " for:§c " + ban.getReason(), "uhc.staff");
 				
-				event.setKickMessage(
-				"§8» §7You have been §4" + (ban.getExpiration() == null ? "banned" : "temp-banned") + " §7from §6Arctic UHC §8«" +
-				"\n" + 
-				"\n§cReason §8» §7" + ban.getReason() +
-				"\n§cBanned by §8» §7" + ban.getSource() + (ban.getExpiration() == null ? "" : "" +
-				"\n§cExpires in §8» §7" + DateUtils.formatDateDiff(ban.getExpiration().getTime())) +
-				"\n" +
-				"\n§8» §7If you would like to appeal, DM our twitter §a@ArcticUHC §8«"
-				);
+				if (ban.getExpiration() == null) {
+					event.setKickMessage(String.format(PunishUtils.getBanReasonFormat(), ban.getReason(), ban.getSource()));
+				} else {
+					event.setKickMessage(String.format(PunishUtils.getTempbanReasonFormat(), ban.getReason(), ban.getSource(), DateUtils.formatDateDiff(ban.getExpiration().getTime())));
+				}
 			}
 			else if (ip.getBanEntry(IP) != null) {
 				if (player.isOp()) {
@@ -271,15 +267,8 @@ public class LoginListener implements Listener {
 
 				BanEntry ban = ip.getBanEntry(IP);
 				PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + player.getName() + " §7tried to join while being IP-banned for:§c " + ban.getReason(), "uhc.staff");
-				
-				event.setKickMessage(
-				"§8» §7You have been §4IP banned §7from §6Arctic UHC §8«" +
-				"\n" + 
-				"\n§cReason §8» §7" + ban.getReason() +
-				"\n§cBanned by §8» §7" + ban.getSource() + 
-				"\n" +
-				"\n§8» §7If you would like to appeal, DM our twitter §a@ArcticUHC §8«"
-				);
+
+				event.setKickMessage(String.format(PunishUtils.getIPBanReasonFormat(), ban.getReason(), ban.getSource()));
 			}
 			else {
 				event.allow();
