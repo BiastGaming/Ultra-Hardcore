@@ -112,6 +112,10 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 			return;
 		}
 		
+		if (event.getBucket() == Material.LAVA_BUCKET) {
+			return;
+		}
+		
 		Block blockClicked = event.getBlockClicked();
 		Block block = blockClicked.getRelative(event.getBlockFace());
 		
@@ -166,16 +170,10 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 			return;
 		}
 		
-		Player player = event.getPlayer();
 		Block block = event.getBlock();
 
-		if (block.getType() == Material.LAPIS_ORE && rand.nextInt(10) < 3) {
-			BlockUtils.blockBreak(player, block);
-			BlockUtils.degradeDurabiliy(player);
+		if (block.getType() == Material.LAPIS_ORE || block.getType() == Material.REDSTONE_ORE || block.getType() == Material.GLOWING_REDSTONE_ORE) {
 			BlockUtils.dropItem(block.getLocation().add(0.5, 0.7, 0.5), new ItemStack(Material.OBSIDIAN));
-			
-			event.setCancelled(true);
-			block.setType(Material.AIR);
 		}
 	}
 
@@ -274,6 +272,12 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 								case SOUL_SAND:
 									block.setType(Material.SAND);
 									break;
+								case NETHER_BRICK:
+									block.setType(Material.WOOD);
+									break;
+								case NETHER_FENCE:
+									block.setType(Material.FENCE);
+									break;
 								case STATIONARY_LAVA:
 								case LAVA:
 								case BARRIER:
@@ -301,7 +305,14 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 									block.setType(Material.NETHERRACK);
 									break;
 								case SAND:
+								case SANDSTONE:
 									block.setType(Material.SOUL_SAND);
+									break;
+								case WOOD:
+									block.setType(Material.NETHER_BRICK);
+									break;
+								case FENCE:
+									block.setType(Material.NETHER_FENCE);
 									break;
 								case STATIONARY_WATER:
 								case WATER:
