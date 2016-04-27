@@ -1,10 +1,6 @@
 package com.leontg77.ultrahardcore.utils;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import org.bukkit.ChatColor;
 
@@ -62,15 +58,35 @@ public class PunishUtils {
 		;
 	}
 	
-	public static void savePunishment(User user, PunishmentType type, Date date, String punishReason) {
-		List<String> list = user.getFile().getStringList("punishmentlist");
-		Format dateFormat = new SimpleDateFormat("dd/MM/yyyy '@' HH:mm", Locale.US); 
+	public static void savePunishment(User user, PunishmentType type, String punishReason, Date to) {
+		int count = 1;
 		
-		String format = "§8(" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + punishReason + " §8» §7" + dateFormat.format(date);
-		
-		if (!list.contains(format)) {
-			list.add(format);
-			user.getFile().set("punishmentlist", list);
+		if (user.getFile().contains("punishments")) {
+			count = user.getFile().getConfigurationSection("punishments").getKeys(false).size() + 1;
+		}
+
+		user.getFile().set("punishments." + count + ".type", type.name());
+		user.getFile().set("punishments." + count + ".reason", punishReason);
+		user.getFile().set("punishments." + count + ".created", new Date().getTime());
+		user.getFile().set("punishments." + count + ".expires", to == null ? -1l : to.getTime());
+		user.saveFile();
+	}
+	
+	public static void setPunishmentExpireToNow(User user, PunishmentType type, long oldExpire) {
+		if (!user.getFile().contains("punishments")) {
+			return;
+		}
+
+		for (String punish : user.getFile().getConfigurationSection("punishments").getKeys(false)) {
+			if (!user.getFile().getString("punishments." + punish + ".type", "none").equals(type.name())) {
+				continue;
+			}
+			
+			if (user.getFile().getLong("punishments." + punish + ".expires", -2l) == oldExpire) {
+				user.getFile().set("punishments." + punish + ".expires", new Date().getTime());
+				user.saveFile();
+				break;
+			}
 		}
 	}
 	
