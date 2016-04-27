@@ -223,7 +223,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 		cmds.add(new KickCommand(plugin));
 		cmds.add(new MuteCommand(plugin));
 		cmds.add(new TempbanCommand(plugin, board));
-		cmds.add(new UnbanCommand());
+		cmds.add(new UnbanCommand(plugin));
 		cmds.add(new UnbanIPCommand());
 		
 		// basic
@@ -270,8 +270,8 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 		cmds.add(new TpsCommand(plugin));
 		
 		// msg
-		cmds.add(new MsgCommand(plugin));
-		cmds.add(new ReplyCommand(plugin));
+		cmds.add(new MsgCommand(plugin, scen));
+		cmds.add(new ReplyCommand(plugin, scen));
 		
 		// player
 		cmds.add(new ClearInvCommand(plugin));
