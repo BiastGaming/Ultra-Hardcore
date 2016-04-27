@@ -19,6 +19,8 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.CommandHandler;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
@@ -45,6 +47,8 @@ import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.protocol.EnchantPreview;
 import com.leontg77.ultrahardcore.protocol.HardcoreHearts;
 import com.leontg77.ultrahardcore.protocol.OnlineCount;
+import com.leontg77.ultrahardcore.protocol.PingConcealer;
+import com.leontg77.ultrahardcore.protocol.SaturationConcealer;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.ubl.UBLListener;
@@ -228,7 +232,11 @@ public class Main extends JavaPlugin {
 		
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
+		ProtocolManager protocol = ProtocolLibrary.getProtocolManager();
 		PluginManager manager = Bukkit.getPluginManager(); 
+
+		protocol.addPacketListener(new SaturationConcealer(this));
+		protocol.addPacketListener(new PingConcealer(this));
 		
 		// register all listeners.
 		manager.registerEvents(new AnvilListener(this), this);
@@ -329,14 +337,14 @@ public class Main extends JavaPlugin {
 	 * If the data doesn't exist it will create a new data file and threat the player as a newly joined one.
 	 * 
 	 * @param player the player.
-	 * @return the data instance for the player.
+	 * @return The data instance for the player.
 	 */
 	public User getUser(Player player) {	
 		if (users.containsKey(player.getUniqueId())) {
 			return users.get(player.getUniqueId());
 		}
 		
-		User user = new User(this, game, gui, perm, scen, player.getUniqueId());
+		User user = new User(this, game, gui, perm, player.getUniqueId());
 		users.put(player.getUniqueId(), user);
 		return user;
 	}
@@ -347,7 +355,7 @@ public class Main extends JavaPlugin {
 	 * If the data doesn't exist it will create a new data file and threat the player as a newly joined one.
 	 * 
 	 * @param offline the offline player.
-	 * @return the data instance for the player.
+	 * @return The data instance for the player.
 	 * 
 	 * @throws CommandException If the offline player has never joined this server.
 	 */
@@ -360,7 +368,7 @@ public class Main extends JavaPlugin {
 			return users.get(offline.getUniqueId());
 		}
 		
-		User user = new User(this, game, gui, perm, scen, offline.getUniqueId());
+		User user = new User(this, game, gui, perm, offline.getUniqueId());
 		users.put(offline.getUniqueId(), user);
 		return user;
 	}
