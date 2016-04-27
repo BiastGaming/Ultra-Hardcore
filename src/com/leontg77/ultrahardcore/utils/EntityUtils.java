@@ -2,7 +2,11 @@ package com.leontg77.ultrahardcore.utils;
 
 import java.util.Set;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Skeleton.SkeletonType;
+import org.bukkit.entity.Zombie;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -41,11 +45,11 @@ public class EntityUtils {
 	/**
 	 * Get the MC name for the given entity type.
 	 * 
-	 * @param type The type wanting to check.
+	 * @param entity The entity wanting to check.
 	 * @return The MC name of the type.
 	 */
-	public static String getMobName(final EntityType type) {
-		switch (type) {
+	public static String getMobName(Entity entity) {
+		switch (entity.getType()) {
 		case ARMOR_STAND:
 			return "Armor Stand";
 		case ARROW:
@@ -143,7 +147,11 @@ public class EntityUtils {
 		case SILVERFISH:
 			return "Silverfish";
 		case SKELETON:
-			return "Skeleton";
+			if (((Skeleton) entity).getSkeletonType() == SkeletonType.WITHER) {
+				return "Wither Skeleton";
+			} else {
+				return "Skeleton";
+			}
 		case SLIME:
 			return "Slime";
 		case SMALL_FIREBALL:
@@ -167,13 +175,17 @@ public class EntityUtils {
 		case WITHER:
 			return "Wither";
 		case WITHER_SKULL:
-			return "Wither";
+			return "Wither Skull";
 		case WOLF:
 			return "Wolf";
 		case ZOMBIE:
-			return "Zombie";
+			if (((Zombie) entity).isBaby()) {
+				return "Baby Zombie";
+			} else {
+				return "Zombie";
+			}
 		default:
-			return "???" + NameUtils.capitalizeString(type.name(), true);
+			return "???" + NameUtils.capitalizeString(entity.getType().name(), true);
 		}
 	}
 }
