@@ -2,6 +2,7 @@
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Rank;
@@ -47,6 +49,18 @@ public class PermissionsManager {
 	public Map<UUID, PermissionAttachment> getPermissions() {
 		return ImmutableMap.copyOf(permissions);
 	}
+	
+	/**
+	 * A list of all the uuids of the ubl courtroom members.
+	 */
+	private static final Set<String> UBL_COMMITEE_UUIDS = ImmutableSet.of(
+		"c83eeaab-fe2f-4c22-9e81-d0c3034fb4c4", // sperlo
+		"2795d93f-788c-42ea-a2e7-d1f373e1f9ec", // joe
+		"cf47d532-6346-4384-bcf9-cfd5e5a15d57", // ratchet
+		"89100481-4b71-4f9e-8ed2-cbb52a2f9510", // nintendo
+		"0444f904-0490-4793-a8b0-2448c0569ee2", // joris
+		"01f4fabc-beeb-46ea-8858-c593711a5688" // fazed
+	);
 	
 	/**
 	 * Handle the permissions for the given player.
@@ -111,7 +125,7 @@ public class PermissionsManager {
 		perm.setPermission("uhc.back", true);
 		perm.setPermission("uhc.specandstaffchat", true);
 		
-		if (player.getUniqueId().toString().equals("2795d93f-788c-42ea-a2e7-d1f373e1f9ec") || player.getUniqueId().toString().equals("cf47d532-6346-4384-bcf9-cfd5e5a15d57")) {
+		if (UBL_COMMITEE_UUIDS.contains(player.getUniqueId().toString())) {
 			perm.setPermission("uhc.prelist", true);
 			perm.setPermission("uhc.info.ip", true);
 			perm.setPermission("uhc.info", true);
@@ -136,6 +150,8 @@ public class PermissionsManager {
 		perm.setPermission("uhc.cantignore", true);
 		perm.setPermission("uhc.ac", true);
 		perm.setPermission("uhc.ban", true);
+		perm.setPermission("uhc.banip", true);
+		perm.setPermission("uhc.unban", true);
 		perm.setPermission("uhc.dq", true);
 		perm.setPermission("uhc.broadcast", true);
 		perm.setPermission("uhc.fly", true);
