@@ -43,24 +43,43 @@ public class PacketUtils {
         
 		Format date = new SimpleDateFormat("HH:mm:ss 'UTC'", Locale.US); 
 		String dateStr = date.format(new Date());
-		
-		ChatColor color;
+
 		double tps = plugin.getTps();
+		ChatColor color;
 		
-		if (tps == 20.0) {
+		if (tps >= 21) {
+    		color = ChatColor.GRAY;
+    	} else if (tps == 20.0) {
             color = ChatColor.GREEN;
-        } else if (tps >= 17 && tps <= 23) {
+        } else if (tps >= 17) {
             color = ChatColor.GREEN;
-        } else if (tps >= 14 && tps <= 26) {
+        } else if (tps >= 14) {
             color = ChatColor.GOLD;
         } else {
             color = ChatColor.RED;
         }
 		
+		int ping = plugin.getUser(player).getPing();
+		ChatColor pingColor;
+		
+		if (ping < 0) { 
+			pingColor = ChatColor.RED;
+		} else if (ping < 75) { 
+			pingColor = ChatColor.GREEN;
+		} else if (ping < 150) { 
+			pingColor = ChatColor.DARK_GREEN;
+		} else if (ping < 250) { 
+			pingColor = ChatColor.GOLD;
+		} else if (ping < 400) { 
+			pingColor = ChatColor.RED;
+		} else { 
+			pingColor = ChatColor.DARK_RED;
+		}
+			
 		IChatBaseComponent headerJSON = ChatSerializer.a(
 	      	"{text:'§4§lArctic UHC§r §8- §a§o@ArcticUHC§r\n" +
 	    	"§7Follow us for games and updates!\n" +
-	    	"\n§7TPS: " + color + tps + " §8- §7Your ping: §a" + plugin.getUser(player).getPing() + " §8- §7Time: §a" + dateStr + "\n'}"
+	    	"\n§7TPS: " + color + (tps >= 21 ? "§cCatching up after lag" : tps) + " §8- §7Your ping: §a" + pingColor + (ping == 0 ? "§cNot calculated" : ping) + " §8- §7Time: §a" + dateStr + "\n'}"
 	    );
 
 		String gamemode = game.getAdvancedTeamSize(false, true).replaceAll("-", "§8-§7") + game.getScenarios().replaceAll(",", "§8,§7");

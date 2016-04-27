@@ -60,7 +60,10 @@ public class MsCommand extends UHCCommand {
 		
 		if (ping < 0) { 
 			color = ChatColor.RED;
-			status = "Wat..?";
+			status = "???";
+		} else if (ping < 11) { 
+			color = ChatColor.GREEN;
+			status = "Amazing";
 		} else if (ping < 75) { 
 			color = ChatColor.GREEN;
 			status = "Good";

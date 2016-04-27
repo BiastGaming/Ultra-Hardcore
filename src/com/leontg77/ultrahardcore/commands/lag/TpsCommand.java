@@ -43,15 +43,18 @@ public class TpsCommand extends UHCCommand {
 		
 		ChatColor color;
 		String status;
-		
-		if (tps == 20.0) {
+
+    	if (tps > 21) {
+    		status = "The server is catching up the TPS from lag";
+    		color = ChatColor.GRAY;
+    	} else if (tps == 20.0) {
             status = "Perfect";
             color = ChatColor.GREEN;
-        } else if (tps >= 17 && tps <= 23) {
-            status = "All Good";
+        } else if (tps >= 17) {
+            status = "Good";
             color = ChatColor.GREEN;
-        } else if (tps >= 14 && tps <= 26) {
-            status = "Small Hiccup";
+        } else if (tps >= 14) {
+            status = "Lagging a bit";
             color = ChatColor.GOLD;
         } else {
             status = "Struggling";
