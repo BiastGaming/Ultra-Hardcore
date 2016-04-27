@@ -16,6 +16,8 @@ import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.scenario.scenarios.Moles;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.NameUtils;
 
@@ -25,12 +27,14 @@ import com.leontg77.ultrahardcore.utils.NameUtils;
  * @author LeonTG77
  */
 public class MsgCommand extends UHCCommand {
+	private final ScenarioManager scen;
 	private final Main plugin;
 	
-	public MsgCommand(Main plugin) {
+	public MsgCommand(Main plugin, ScenarioManager scen) {
 		super("msg", "<player> <message>");
 		
 		this.plugin = plugin;
+		this.scen = scen;
 	}
 	
 	public static Map<String, String> msg = new HashMap<String, String>();
@@ -49,7 +53,7 @@ public class MsgCommand extends UHCCommand {
         	return false;
         }
 		
-    	if (user.isMuted()) {
+    	if (user.isMuted() && !scen.getScenario(Moles.class).isEnabled()) {
     		player.sendMessage(Main.PREFIX + "You have been muted for: §a" + user.getMutedReason());
 			
 			if (user.getMuteExpiration() == null) {

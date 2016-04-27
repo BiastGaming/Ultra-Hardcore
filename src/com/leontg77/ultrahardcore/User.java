@@ -28,8 +28,6 @@ import org.bukkit.potion.PotionEffect;
 import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.gui.guis.GameInfoGUI;
 import com.leontg77.ultrahardcore.managers.PermissionsManager;
-import com.leontg77.ultrahardcore.scenario.ScenarioManager;
-import com.leontg77.ultrahardcore.scenario.scenarios.Moles;
 import com.leontg77.ultrahardcore.utils.FileUtils;
 
 /**
@@ -47,7 +45,6 @@ public class User {
 	private final Game game;
 
 	private final PermissionsManager perm;
-	private final ScenarioManager scen;
 	
 	private final GUIManager gui;
 	
@@ -59,7 +56,7 @@ public class User {
 	 * <p>
 	 * This will set up the data for the player and create missing data.
 	 */
-	protected User(Main plugin, Game game, GUIManager gui, PermissionsManager perm, ScenarioManager scen, UUID uuid) {
+	protected User(Main plugin, Game game, GUIManager gui, PermissionsManager perm, UUID uuid) {
 		folder = new File(plugin.getDataFolder() + File.separator + "users" + File.separator);
 		
         this.uuid = uuid;
@@ -68,7 +65,6 @@ public class User {
 		this.game = game;
 
 		this.perm = perm;
-		this.scen = scen;
 		
 		this.gui = gui;
 		
@@ -491,10 +487,6 @@ public class User {
 	 * @return <code>true</code> if the player is muted, <code>false</code> otherwise.
 	 */
 	public boolean isMuted() {
-		if (scen.getScenario(Moles.class).isEnabled()) {
-			return false;
-		}
-		
 		Date date = new Date();
 		
 		// if the mute isnt permanent (perm == -1) and their mute time experied, return false and unmute.

@@ -13,6 +13,8 @@ import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.scenario.scenarios.Moles;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.NameUtils;
 
@@ -22,12 +24,14 @@ import com.leontg77.ultrahardcore.utils.NameUtils;
  * @author LeonTG77
  */
 public class ReplyCommand extends UHCCommand {
+	private final ScenarioManager scen;
 	private final Main plugin;
 
-	public ReplyCommand(Main plugin) {
+	public ReplyCommand(Main plugin, ScenarioManager scen) {
 		super("reply", "<message>");
-		
+
 		this.plugin = plugin;
+		this.scen = scen;
 	}
 
 	@Override
@@ -44,7 +48,7 @@ public class ReplyCommand extends UHCCommand {
         	return false;
         }
 		
-    	if (user.isMuted()) {
+    	if (user.isMuted() && !scen.getScenario(Moles.class).isEnabled()) {
 			sender.sendMessage(Main.PREFIX + "You have been muted for: §a" + user.getMutedReason());
 			
 			if (user.getMuteExpiration() == null) {
