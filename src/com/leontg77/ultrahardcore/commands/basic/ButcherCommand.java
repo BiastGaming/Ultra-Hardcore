@@ -63,18 +63,25 @@ public class ButcherCommand extends UHCCommand {
 			throw new CommandException("'" + args[0] + "' is not a valid entity type.");
 		}
 		
+		Entity entity = null;
+		
 		for (World world : Bukkit.getWorlds()) {
     		for (Entity mob : world.getEntities()) {
 				if (!mob.getType().equals(type)) {
 					continue;
 				}
 				
+				entity = mob;
 				mob.remove();
 				amount++;
     		}
        	}
     	
-		sender.sendMessage(Main.PREFIX + "Killed §6" + amount + " §7" + EntityUtils.getMobName(type).toLowerCase() + "s.");
+		if (amount < 1 || entity == null) {
+			throw new CommandException("There were no mobs to kill.");
+		}
+		
+		sender.sendMessage(Main.PREFIX + "Killed §6" + amount + " §7" + EntityUtils.getMobName(entity).toLowerCase() + "s.");
 		return true;
 	}
 

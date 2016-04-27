@@ -524,7 +524,7 @@ public class SpecInfo implements Listener {
 						
 					if (proj.getShooter() instanceof LivingEntity) {
 						LivingEntity entity = (LivingEntity) proj.getShooter();
-						broadcast("§8(§5PvE§8) §7" + name(player) + "§8 «- §d" + EntityUtils.getMobName(entity.getType()) + " §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
+						broadcast("§8(§5PvE§8) §7" + name(player) + "§8 «- §d" + EntityUtils.getMobName(entity) + " §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
 						return;
 					}
 					
@@ -533,7 +533,7 @@ public class SpecInfo implements Listener {
 				} 
 
 				Entity entity = event.getDamager();
-				broadcast("§8(§5PvE§8) §7" + name(player) + "§8 «- §d" + EntityUtils.getMobName(entity.getType()) + " §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
+				broadcast("§8(§5PvE§8) §7" + name(player) + "§8 «- §d" + EntityUtils.getMobName(entity) + " §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
 			}
 		}.runTaskLater(plugin, 1);
 	}
