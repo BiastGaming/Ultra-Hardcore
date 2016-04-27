@@ -188,7 +188,7 @@ public class Timer {
 			public void run() {
 				GameInfoGUI info = gui.getGUI(GameInfoGUI.class);
 				
-				for (Player online : Bukkit.getOnlinePlayers()) {
+				for (Player online : game.getPlayers()) {
 					online.openInventory(info.get());
 				}
 			}
@@ -196,25 +196,25 @@ public class Timer {
 
 		new BukkitRunnable() {
 			public void run() {
-				PlayerUtils.broadcast(Main.PREFIX + "Remember to use §a/uhc §7for all game information.");
+				PlayerUtils.broadcast(Main.PREFIX + "This is a §a" + game.getAdvancedTeamSize(false, true) + game.getScenarios());
 			}
 		}.runTaskLater(plugin, 250);
 
 		new BukkitRunnable() {
 			public void run() {
-				PlayerUtils.broadcast(Main.PREFIX + "If you have a question and §a/uhc§7 didn't help, ask in §a/helpop");
+				PlayerUtils.broadcast(Main.PREFIX + "Use §a/scen §7to view scenario information about this game.");
 			}
 		}.runTaskLater(plugin, 300);
 
 		new BukkitRunnable() {
 			public void run() {
-				PlayerUtils.broadcast(Main.PREFIX + "To find the matchpost, use §a/post");
+				PlayerUtils.broadcast(Main.PREFIX + "If you want to find the matchpost, use §a/post");
 			}
 		}.runTaskLater(plugin, 350);
 
 		new BukkitRunnable() {
 			public void run() {
-				PlayerUtils.broadcast(Main.PREFIX + "This is a §a" + game.getAdvancedTeamSize(false, true) + game.getScenarios());
+				PlayerUtils.broadcast(Main.PREFIX + "If you have any questions, use §a/uhc§7! If that didn't help ask us with §a/helpop§7!");
 			}
 		}.runTaskLater(plugin, 400);
 
@@ -225,7 +225,7 @@ public class Timer {
 					online.playSound(online.getLocation(), Sound.SUCCESSFUL_HIT, 1, 0);
 				}
 				
-				PlayerUtils.broadcast(Main.PREFIX + "Game starting in §45.");
+				PlayerUtils.broadcast(Main.PREFIX + "The game starting in §45.");
 			}
 		}.runTaskLater(plugin, 500);
 		
@@ -236,7 +236,7 @@ public class Timer {
 					online.playSound(online.getLocation(), Sound.SUCCESSFUL_HIT, 1, 0);
 				}
 				
-				PlayerUtils.broadcast(Main.PREFIX + "Game starting in §c4.");
+				PlayerUtils.broadcast(Main.PREFIX + "The game starting in §c4.");
 			}
 		}.runTaskLater(plugin, 520);
 		
@@ -247,7 +247,7 @@ public class Timer {
 					online.playSound(online.getLocation(), Sound.SUCCESSFUL_HIT, 1, 0);
 				}
 				
-				PlayerUtils.broadcast(Main.PREFIX + "Game starting in §63.");
+				PlayerUtils.broadcast(Main.PREFIX + "The game starting in §63.");
 			}
 		}.runTaskLater(plugin, 540);
 
@@ -258,7 +258,7 @@ public class Timer {
 					online.playSound(online.getLocation(), Sound.SUCCESSFUL_HIT, 1, 0);
 				}
 				
-				PlayerUtils.broadcast(Main.PREFIX + "Game starting in §e2.");
+				PlayerUtils.broadcast(Main.PREFIX + "The game starting in §e2.");
 			}
 		}.runTaskLater(plugin, 560);
 
@@ -269,14 +269,14 @@ public class Timer {
 					online.playSound(online.getLocation(), Sound.SUCCESSFUL_HIT, 1, 0);
 				}
 				
-				PlayerUtils.broadcast(Main.PREFIX + "Game starting in §a1.");
+				PlayerUtils.broadcast(Main.PREFIX + "The game starting in §a1.");
 			}
 		}.runTaskLater(plugin, 580);
 		
 		new BukkitRunnable() {
 			public void run() {
 				PlayerUtils.broadcast("§8» §m---------------------------------§8 «");
-				PlayerUtils.broadcast(Main.PREFIX + "The game has started!");
+				PlayerUtils.broadcast(Main.PREFIX + "The game has started, Good luck & Have Fun!");
 				PlayerUtils.broadcast(Main.PREFIX + "PvP will be enabled in: §a" + game.getPvP() + " minutes.");
 				if (scen.getScenario(DragonRush.class).isEnabled()) {
 					PlayerUtils.broadcast(Main.PREFIX + "The dragon wins after: §a" + game.getMeetup() + " minutes.");
@@ -339,9 +339,9 @@ public class Timer {
 					User user = plugin.getUser(online);
 					
 					if (spec.isSpectating(online)) {
-						PacketUtils.sendTitle(online, "§aGo!", "§7Have fun spectating!", 1, 20, 1);
+						PacketUtils.sendTitle(online, "§aGo!", "§7Have fun spectating & catching cheaters!", 1, 20, 1);
 					} else {
-						PacketUtils.sendTitle(online, "§aGo!", "§7Good luck, have fun!", 1, 20, 1);
+						PacketUtils.sendTitle(online, "§aGo!", "§7Good luck & Have fun!", 1, 20, 1);
 						
 						if (online.getGameMode() != GameMode.SURVIVAL) {
 							online.setGameMode(GameMode.SURVIVAL);
@@ -413,7 +413,7 @@ public class Timer {
 				pvp--;
 				meetup--;
 				
-				if (time == 1) {
+				if (time == 1 && !game.isPrivateGame()) {
 					PlayerUtils.broadcast(Main.PREFIX + "The chat has been enabled.");
 					game.setMuted(false);
 				}
@@ -423,7 +423,7 @@ public class Timer {
 						world.setSpawnFlags(true, true);
 					}
 					
-					PlayerUtils.broadcast(Main.PREFIX + "Hostile mobs can now spawn.");
+					PlayerUtils.broadcast(Main.PREFIX + "Monsters will now start spawning.");
 				}
 
 				if (pvp == 0) {
