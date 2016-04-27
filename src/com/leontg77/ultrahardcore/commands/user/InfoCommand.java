@@ -20,7 +20,9 @@ import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.utils.DateUtils;
+import com.leontg77.ultrahardcore.utils.NameUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils.PunishmentType;
 
 /**
  * Info command class.
@@ -108,25 +110,40 @@ public class InfoCommand extends UHCCommand {
 		sender.sendMessage("§8» §7Last login: §6" + DateUtils.formatDateDiff(user.getFile().getLong("lastlogin")));
 		sender.sendMessage("§8» §7Last logout: §6" + (lastlogout == -1l ? "§cHasn't logged out" : DateUtils.formatDateDiff(lastlogout)));
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
-		sender.sendMessage("§8» §7IPS: §8(§aGreen §7= Current IP§8)");
+		sender.sendMessage("§8» §7IPs: §8(§aGreen §7= Current IP§8)");
 		sender.sendMessage("§8» §7" + ips.toString().trim());
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
 		if (user.getAlts().isEmpty()) {
 			sender.sendMessage("§8» §7Possible Alts: §cNone");
 		} else {
 			String alts = user.getAlts().toString();
-			sender.sendMessage("§8» §7Possible Alts: " + alts.substring(1, alts.length() - 1));
+			sender.sendMessage("§8» §7Possible Alts: " + alts.substring(1, alts.length() - 1) + "§8.");
 		}
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
 		sender.sendMessage("§8» §7Banned: §6" + banMessage);
 		sender.sendMessage("§8» §7Muted: §6" + muteMessage);
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
-		if (user.getFile().getStringList("punishmentlist").isEmpty()) {
+		if (!user.getFile().contains("punishments")) {
 			sender.sendMessage("§8» §7Punishments: §cNone");
 		} else {
+			Format dateFormat = new SimpleDateFormat("dd/MM/yyyy '@' HH:mm", Locale.US); 
 			sender.sendMessage("§8» §7Punishments:");
-			for (String punish : user.getFile().getStringList("punishmentlist")) {
-				sender.sendMessage("§8» §7" + punish);
+			
+			for (String punish : user.getFile().getConfigurationSection("punishments").getKeys(false)) {
+				PunishmentType type = PunishmentType.valueOf(user.getFile().getString("punishments." + punish + ".type", "MUTE"));
+				String reason = user.getFile().getString("punishments." + punish + ".reason", "none");
+				
+				long created = user.getFile().getLong("punishments." + punish + ".created", -1l);
+				long expire = user.getFile().getLong("punishments." + punish + ".expires", -1l);
+
+				String from = created == -1l ? "now" : dateFormat.format(new Date(created));
+				String to = expire == -1l ? "now" : dateFormat.format(new Date(expire));
+
+				if (type == PunishmentType.KICK || type == PunishmentType.DISQUALIFY) {
+					sender.sendMessage("§8» (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + reason + " §8- §7" + from);
+				} else {
+					sender.sendMessage("§8» (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + reason + " §8- §7" + from + " §8-» §7" + to);
+				}
 			}
 		}
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
