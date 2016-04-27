@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.utils.DateUtils;
@@ -45,15 +46,17 @@ public class MuteCommand extends UHCCommand {
 		if (!plugin.fileExist(target.getUniqueId())) {
 			throw new CommandException("'" + args[0] + "' has never joined this server.");
 		}
-    	
-    	if (player != null && player.hasPermission("uhc.staff")) {
-    		throw new CommandException("You cannot mute this player.");
-    	}
 		
 		User user = plugin.getUser(target);
+    	
+    	if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+	    	throw new CommandException("'" + args[0] + "' is a staff member and can't be muted.");
+    	}
 
 		if (user.isMuted()) {
 	    	PlayerUtils.broadcast(Main.PREFIX + "§6" + target.getName() + " §7has been unmuted.");
+	    	PunishUtils.setPunishmentExpireToNow(user, PunishmentType.MUTE, user.getMuteExpiration() == null ? -1l : user.getMuteExpiration().getTime());
+	    	
 			user.unmute();
 			
 			if (player != null) {
@@ -75,8 +78,8 @@ public class MuteCommand extends UHCCommand {
 		if (player != null) {
 			player.sendMessage(Main.PREFIX + "You have been muted for §a" + reason + "§7.");
 		}
-		
-    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.MUTE, new Date(), reason + (time <= 0 ? "" : " (" + args[1] + ")"));
+
+    	PunishUtils.savePunishment(user, PunishmentType.MUTE, reason, new Date(time));
 		return true;
 	}
 

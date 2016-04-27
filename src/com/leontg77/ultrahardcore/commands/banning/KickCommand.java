@@ -2,7 +2,6 @@ package com.leontg77.ultrahardcore.commands.banning;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -11,6 +10,8 @@ import org.bukkit.entity.Player;
 
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -71,9 +72,15 @@ public class KickCommand extends UHCCommand {
     		throw new CommandException("'" + args[0] + "' is not online.");
 		}
     	
+    	User user = plugin.getUser(target);
+
+    	if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+	    	throw new CommandException("'" + args[0] + "' is a staff member and can't be kicked.");
+    	}
+    	
     	PlayerUtils.broadcast(Main.PREFIX + "§6" + target.getName() + " §7has been kicked for §a" + message, "uhc.kick");
     	target.kickPlayer(message);
-    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.KICK, new Date(), message);
+    	PunishUtils.savePunishment(user, PunishmentType.KICK, message, null);
 		return true;
 	}
 

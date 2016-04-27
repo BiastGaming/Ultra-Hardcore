@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.managers.BoardManager;
@@ -54,10 +56,12 @@ public class DQCommand extends UHCCommand {
 	    	throw new CommandException("'" + args[0] + "' is not online.");
 		}
     	
-    	if (target.hasPermission("uhc.staff")) {
-	    	throw new CommandException("You can't dq this player.");
+    	User user = plugin.getUser(target);
+
+    	if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+	    	throw new CommandException("'" + args[0] + "' is a staff member and can't be dq'ed.");
     	}
-		
+    	
     	String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
     	
     	PlayerUtils.broadcast(Main.PREFIX + "§6" + target.getName() + " §7has been disqualified for §a" + message + "§7.");
@@ -69,7 +73,7 @@ public class DQCommand extends UHCCommand {
     	target.setHealth(0);
 
     	target.kickPlayer(String.format(PunishUtils.getDQReasonFormat(), message, sender.getName()));
-    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.DISQUALIFY, new Date(), message);
+    	PunishUtils.savePunishment(user, PunishmentType.DISQUALIFY, message, new Date());
 		return true;
 	}
 

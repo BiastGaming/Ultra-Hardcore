@@ -20,6 +20,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.managers.BoardManager;
@@ -58,13 +60,22 @@ public class TempbanCommand extends UHCCommand {
     	Player target = Bukkit.getPlayer(args[0]);
     	BanList list = Bukkit.getBanList(Type.NAME);
     	
+		if (list.isBanned(args[0])) {
+			throw new CommandException("'" + args[0] + "' is already banned.");
+		}
+    	
     	long time = DateUtils.parseDateDiff(args[1], true);
 		Date date = new Date(time);
     	
 		String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 2, args.length));
-
+    	User user = plugin.getUser(PlayerUtils.getOfflinePlayer(args[0]));
+    	
+    	if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+	    	throw new CommandException("'" + args[0] + "' is a staff member and can't be temp-banned.");
+    	}
+    	
     	if (target == null) {
-	    	PunishUtils.savePunishment(plugin.getUser(PlayerUtils.getOfflinePlayer(args[0])), PunishmentType.TEMPBAN, new Date(), message + " (" + args[1] + ")");
+	    	PunishUtils.savePunishment(user, PunishmentType.TEMPBAN, message, date);
 	    	
 			PlayerUtils.broadcast(Main.PREFIX + "§6" + args[0] + " §7has been temp-banned for §a" + message + "§7. §8(§a" + DateUtils.formatDateDiff(time) + "§8)");
 			
@@ -99,7 +110,7 @@ public class TempbanCommand extends UHCCommand {
 		}.runTaskLater(plugin, 2);
 		
     	target.kickPlayer(String.format(PunishUtils.getTempbanReasonFormat(), ban.getReason(), ban.getSource(), DateUtils.formatDateDiff(time)));
-    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.TEMPBAN, new Date(), message + " (" + args[1] + ")");
+    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.TEMPBAN, message, date);
 		return true;
 	}
 

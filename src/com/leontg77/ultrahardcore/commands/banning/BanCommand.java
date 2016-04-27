@@ -2,7 +2,6 @@ package com.leontg77.ultrahardcore.commands.banning;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.bukkit.BanList;
@@ -19,6 +18,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.managers.BoardManager;
@@ -49,12 +50,22 @@ public class BanCommand extends UHCCommand {
 		}
 		
 		String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
-
     	BanList banList = Bukkit.getBanList(Type.NAME);
+    	
+		if (banList.isBanned(args[0])) {
+			throw new CommandException("'" + args[0] + "' is already banned.");
+		}
+		
+    	User user = plugin.getUser(PlayerUtils.getOfflinePlayer(args[0]));
+    	
+    	if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+	    	throw new CommandException("'" + args[0] + "' is a staff member and can't be banned.");
+    	}
+    	
     	Player target = Bukkit.getPlayer(args[0]);
 
     	if (target == null) {
-	    	PunishUtils.savePunishment(plugin.getUser(PlayerUtils.getOfflinePlayer(args[0])), PunishmentType.BAN, new Date(), message);
+	    	PunishUtils.savePunishment(user, PunishmentType.BAN, message, null);
 	    	
 			PlayerUtils.broadcast(Main.PREFIX + "§6" + args[0] + " §7has been banned for §a" + message + "§7.");
 			
@@ -62,10 +73,6 @@ public class BanCommand extends UHCCommand {
 			board.resetScore(args[0]);
             return true;
 		}
-    	
-    	if (target.hasPermission("uhc.staff")) {
-	    	throw new CommandException("You can't ban this player.");
-    	}
 
     	PlayerUtils.broadcast(Main.PREFIX + "§6" + target.getName() + " §7has been banned for §a" + message + "§7.");
     	
@@ -85,7 +92,7 @@ public class BanCommand extends UHCCommand {
 		}.runTaskLater(plugin, 2);
 		
     	target.kickPlayer(String.format(PunishUtils.getBanReasonFormat(), message, sender.getName()));
-    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.BAN, new Date(), message);
+    	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.BAN, message, null);
 		return true;
 	}
 
