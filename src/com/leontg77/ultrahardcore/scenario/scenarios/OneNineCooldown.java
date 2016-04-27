@@ -76,7 +76,7 @@ public class OneNineCooldown extends Scenario implements Listener {
         int grayBars = millisSinceLastHit.get().intValue() / 50;
         int redBars = 12 - grayBars;
         String subtitle = "Cooldown: " + ChatColor.RED + StringUtils.repeat("\u275A", redBars) + ChatColor.GRAY + StringUtils.repeat("\u275A", grayBars);
-        PacketUtils.sendTitle(player, "", subtitle, 0, 10, 0);
+        PacketUtils.sendAction(player, subtitle);
     }
 
     protected void playerClicked(Player player) {
@@ -102,8 +102,8 @@ public class OneNineCooldown extends Scenario implements Listener {
         return Optional.of(difference);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void on(PlayerInteractEvent event) {
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void on(PlayerInteractEvent event) {
         if (event.getAction() != Action.LEFT_CLICK_AIR) {
             return;
         }
@@ -113,7 +113,7 @@ public class OneNineCooldown extends Scenario implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    protected void on(EntityDamageByEntityEvent event) {
+    public void on(EntityDamageByEntityEvent event) {
         Entity damager = event.getDamager();
         
         if (!(damager instanceof Player)) {
