@@ -19,6 +19,7 @@ import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.NameUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -31,11 +32,13 @@ import com.leontg77.ultrahardcore.utils.PunishUtils.PunishmentType;
  */
 public class InfoCommand extends UHCCommand {	
 	private final Main plugin;
+	private final UBL ubl;
 
-	public InfoCommand(Main plugin) {
+	public InfoCommand(Main plugin, UBL ubl) {
 		super("info", "<player>");
 		
 		this.plugin = plugin;
+		this.ubl = ubl;
 	}
 
 	@Override
@@ -59,6 +62,7 @@ public class InfoCommand extends UHCCommand {
 		
 		String muteMessage;
 		String banMessage;
+		String ublMessage;
 		
 		if (user.isMuted()) {
 			if (user.getMuteExpiration() == null) {
@@ -78,6 +82,13 @@ public class InfoCommand extends UHCCommand {
 			}
 		} else {
 			banMessage = "§cFalse";
+		}
+		
+		if (ubl.isBanned(target.getUniqueId())) {
+			com.leontg77.ultrahardcore.ubl.BanEntry ublEntry = ubl.getBanEntry(target.getUniqueId());
+			ublMessage = "§aTrue§7, Reason: §6" + ublEntry.getData("Reason") + " §8(§a" + ublEntry.getData("Length of Ban") + "§8)";
+		} else {
+			ublMessage = "§cFalse";
 		}
 		
 		StringBuilder ips = new StringBuilder();
@@ -120,6 +131,7 @@ public class InfoCommand extends UHCCommand {
 			sender.sendMessage("§8» §7Possible Alts: " + alts.substring(1, alts.length() - 1) + "§8.");
 		}
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
+		sender.sendMessage("§8» §7UBL'ed: §6" + ublMessage);
 		sender.sendMessage("§8» §7Banned: §6" + banMessage);
 		sender.sendMessage("§8» §7Muted: §6" + muteMessage);
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
@@ -137,7 +149,7 @@ public class InfoCommand extends UHCCommand {
 				long expire = user.getFile().getLong("punishments." + punish + ".expires", -1l);
 
 				String from = created == -1l ? "now" : dateFormat.format(new Date(created));
-				String to = expire == -1l ? "now" : dateFormat.format(new Date(expire));
+				String to = expire == -1l ? "forever" : dateFormat.format(new Date(expire));
 
 				if (type == PunishmentType.KICK || type == PunishmentType.DISQUALIFY) {
 					sender.sendMessage("§8» (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + reason + " §8- §7" + from);
