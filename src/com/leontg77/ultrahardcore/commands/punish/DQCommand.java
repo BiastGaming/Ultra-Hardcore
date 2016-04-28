@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.commands.banning;
+package com.leontg77.ultrahardcore.commands.punish;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -72,7 +72,7 @@ public class DQCommand extends UHCCommand {
     	target.setWhitelisted(false);
     	target.setHealth(0);
 
-    	target.kickPlayer(String.format(PunishUtils.getDQReasonFormat(), message, sender.getName()));
+    	target.kickPlayer(String.format(PunishUtils.getDQMessageFormat(), message, sender.getName()));
     	PunishUtils.savePunishment(user, PunishmentType.DISQUALIFY, message, new Date());
 		return true;
 	}

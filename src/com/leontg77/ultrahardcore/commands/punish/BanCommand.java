@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.commands.banning;
+package com.leontg77.ultrahardcore.commands.punish;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,7 +91,7 @@ public class BanCommand extends UHCCommand {
 			}
 		}.runTaskLater(plugin, 2);
 		
-    	target.kickPlayer(String.format(PunishUtils.getBanReasonFormat(), message, sender.getName()));
+    	target.kickPlayer(String.format(PunishUtils.getBanMessageFormat(), message, sender.getName()));
     	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.BAN, message, null);
 		return true;
 	}

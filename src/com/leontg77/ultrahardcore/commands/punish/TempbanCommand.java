@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.commands.banning;
+package com.leontg77.ultrahardcore.commands.punish;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,7 +109,7 @@ public class TempbanCommand extends UHCCommand {
 			}
 		}.runTaskLater(plugin, 2);
 		
-    	target.kickPlayer(String.format(PunishUtils.getTempbanReasonFormat(), ban.getReason(), ban.getSource(), DateUtils.formatDateDiff(time)));
+    	target.kickPlayer(String.format(PunishUtils.getTempbanMessageFormat(), ban.getReason(), ban.getSource(), DateUtils.formatDateDiff(time)));
     	PunishUtils.savePunishment(plugin.getUser(target), PunishmentType.TEMPBAN, message, date);
 		return true;
 	}

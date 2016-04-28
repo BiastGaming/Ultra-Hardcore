@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.commands.banning;
+package com.leontg77.ultrahardcore.commands.punish;
 
 import java.util.ArrayList;
 import java.util.Arrays;
