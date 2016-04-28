@@ -13,7 +13,14 @@ import com.leontg77.ultrahardcore.User;
  */
 public class PunishUtils {
 
-	public static String getBanReasonFormat() {
+	/**
+	 * Get the ban message format to use on the ban screen.
+	 * <p>
+	 * First format string is the reason, second is the ban source.
+	 * 
+	 * @return The ban message format.
+	 */
+	public static String getBanMessageFormat() {
 		return
 		"§8» §7You have been §4banned §7from §6Arctic UHC §8«" +
 		"\n" + 
@@ -24,7 +31,14 @@ public class PunishUtils {
 		;
 	}
 
-	public static String getIPBanReasonFormat() {
+	/**
+	 * Get the ip ban message format to use on the ip ban screen.
+	 * <p>
+	 * First format string is the reason, second is the ip ban source.
+	 * 
+	 * @return The ip ban message format.
+	 */
+	public static String getIPBanMessageFormat() {
 		return
 		"§8» §7You have been §4IP banned §7from §6Arctic UHC §8«" +
 		"\n" + 
@@ -35,7 +49,14 @@ public class PunishUtils {
 		;
 	}
 
-	public static String getTempbanReasonFormat() {
+	/**
+	 * Get the tempban message format to use on the tempban screen.
+	 * <p>
+	 * First format string is the reason, second is the ban source, third is how long until it expires.
+	 * 
+	 * @return The tempban message format.
+	 */
+	public static String getTempbanMessageFormat() {
 		return 
 		"§8» §7You have been §4temp-banned §7from §6Arctic UHC §8«" +
 		"\n" + 
@@ -47,7 +68,14 @@ public class PunishUtils {
 		;
 	}
 
-	public static String getDQReasonFormat() {
+	/**
+	 * Get the dq message format to use on the dq screen.
+	 * <p>
+	 * First format string is the reason, second is the dq source.
+	 * 
+	 * @return The dq message format.
+	 */
+	public static String getDQMessageFormat() {
 		return 
 		"§8» §7You have been §cdisqualified §7from this game §8«" +
 		"\n" + 
@@ -58,7 +86,15 @@ public class PunishUtils {
 		;
 	}
 	
-	public static void savePunishment(User user, PunishmentType type, String punishReason, Date to) {
+	/**
+	 * Save the given punishment to the given user.
+	 * 
+	 * @param user The user to punish.
+	 * @param type The type of punishment.
+	 * @param reason The reason of the punishment.
+	 * @param to When the punishment expires, null if forever.
+	 */
+	public static void savePunishment(User user, PunishmentType type, String reason, Date to) {
 		int count = 1;
 		
 		if (user.getFile().contains("punishments")) {
@@ -66,12 +102,19 @@ public class PunishUtils {
 		}
 
 		user.getFile().set("punishments." + count + ".type", type.name());
-		user.getFile().set("punishments." + count + ".reason", punishReason);
+		user.getFile().set("punishments." + count + ".reason", reason);
 		user.getFile().set("punishments." + count + ".created", new Date().getTime());
 		user.getFile().set("punishments." + count + ".expires", to == null ? -1l : to.getTime());
 		user.saveFile();
 	}
 	
+	/**
+	 * Set the given users given punishment type's punishment to expire now.
+	 * 
+	 * @param user The user that is expiring.
+	 * @param type The punishment type to expire.
+	 * @param oldExpire The old expire time.
+	 */
 	public static void setPunishmentExpireToNow(User user, PunishmentType type, long oldExpire) {
 		if (!user.getFile().contains("punishments")) {
 			return;
@@ -90,19 +133,49 @@ public class PunishUtils {
 		}
 	}
 	
+	/**
+	 * Punishment types enum class.
+	 * 
+	 * @author LeonTG77
+	 */
 	public enum PunishmentType {
-		BAN(ChatColor.DARK_RED),
+		/**
+		 * Represents a kick punishment
+		 */
 		KICK(ChatColor.YELLOW),
+		/**
+		 * Represents a mute punishment
+		 */
 		MUTE(ChatColor.BLUE), 
+		/**
+		 * Represents a dq punishment
+		 */
 		DISQUALIFY(ChatColor.GOLD), 
-		TEMPBAN(ChatColor.RED);
+		/**
+		 * Represents a tempban punishment
+		 */
+		TEMPBAN(ChatColor.RED),
+		/**
+		 * Represents a ban punishment
+		 */
+		BAN(ChatColor.DARK_RED);
 		
 		private final ChatColor punishColor;
 		
+		/**
+		 * Punishment typ class constructor.
+		 * 
+		 * @param punishColor The color of the punishment.
+		 */
 		private PunishmentType(ChatColor punishColor) {
 			this.punishColor = punishColor;
 		}
 		
+		/**
+		 * Get the color of the punishment.
+		 * 
+		 * @return The color.
+		 */
 		public ChatColor getColor() {
 			return punishColor;
 		}
