@@ -19,16 +19,9 @@ import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.commands.arena.ArenaCommand;
 import com.leontg77.ultrahardcore.commands.arena.HotbarCommand;
-import com.leontg77.ultrahardcore.commands.banning.BanCommand;
-import com.leontg77.ultrahardcore.commands.banning.BanIPCommand;
-import com.leontg77.ultrahardcore.commands.banning.DQCommand;
-import com.leontg77.ultrahardcore.commands.banning.KickCommand;
-import com.leontg77.ultrahardcore.commands.banning.MuteCommand;
-import com.leontg77.ultrahardcore.commands.banning.TempbanCommand;
-import com.leontg77.ultrahardcore.commands.banning.UnbanCommand;
-import com.leontg77.ultrahardcore.commands.banning.UnbanIPCommand;
 import com.leontg77.ultrahardcore.commands.basic.BroadcastCommand;
 import com.leontg77.ultrahardcore.commands.basic.ButcherCommand;
+import com.leontg77.ultrahardcore.commands.basic.CombatLogCommand;
 import com.leontg77.ultrahardcore.commands.basic.EditCommand;
 import com.leontg77.ultrahardcore.commands.basic.FireCommand;
 import com.leontg77.ultrahardcore.commands.basic.IgnoreCommand;
@@ -71,6 +64,14 @@ import com.leontg77.ultrahardcore.commands.player.HealCommand;
 import com.leontg77.ultrahardcore.commands.player.HealthCommand;
 import com.leontg77.ultrahardcore.commands.player.SethealthCommand;
 import com.leontg77.ultrahardcore.commands.player.SetmaxhealthCommand;
+import com.leontg77.ultrahardcore.commands.punish.BanCommand;
+import com.leontg77.ultrahardcore.commands.punish.BanIPCommand;
+import com.leontg77.ultrahardcore.commands.punish.DQCommand;
+import com.leontg77.ultrahardcore.commands.punish.KickCommand;
+import com.leontg77.ultrahardcore.commands.punish.MuteCommand;
+import com.leontg77.ultrahardcore.commands.punish.TempbanCommand;
+import com.leontg77.ultrahardcore.commands.punish.UnbanCommand;
+import com.leontg77.ultrahardcore.commands.punish.UnbanIPCommand;
 import com.leontg77.ultrahardcore.commands.spectate.BackCommand;
 import com.leontg77.ultrahardcore.commands.spectate.InvseeCommand;
 import com.leontg77.ultrahardcore.commands.spectate.NearCommand;
@@ -95,6 +96,7 @@ import com.leontg77.ultrahardcore.commands.world.PregenCommand;
 import com.leontg77.ultrahardcore.commands.world.PvPCommand;
 import com.leontg77.ultrahardcore.commands.world.WorldCommand;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
+import com.leontg77.ultrahardcore.feature.pvp.CombatLogFeature;
 import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.FireworkManager;
@@ -102,6 +104,7 @@ import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 import com.leontg77.ultrahardcore.world.WorldManager;
 
@@ -211,24 +214,15 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 	/**
 	 * Register all the commands.
 	 */
-	public void registerCommands(Game game, Data data, Arena arena, Parkour parkour, Settings settings, GUIManager gui, BoardManager board, SpecManager spec, FeatureManager feat, ScenarioManager scen, WorldManager manager, Timer timer, TeamManager teams, FireworkManager firework, ScatterManager scatter) {
+	public void registerCommands(Game game, Data data, Arena arena, Parkour parkour, Settings settings, GUIManager gui, BoardManager board, SpecManager spec, FeatureManager feat, ScenarioManager scen, WorldManager manager, Timer timer, TeamManager teams, FireworkManager firework, ScatterManager scatter, UBL ubl) {
 		// arena
 		cmds.add(new ArenaCommand(arena, game, parkour, spec, board));
 		cmds.add(new HotbarCommand(plugin, arena));
 		
-		// banning
-		cmds.add(new BanCommand(plugin, board));
-		cmds.add(new BanIPCommand(board));
-		cmds.add(new DQCommand(plugin, board));
-		cmds.add(new KickCommand(plugin));
-		cmds.add(new MuteCommand(plugin));
-		cmds.add(new TempbanCommand(plugin, board));
-		cmds.add(new UnbanCommand(plugin));
-		cmds.add(new UnbanIPCommand());
-		
 		// basic
 		cmds.add(new BroadcastCommand());
 		cmds.add(new ButcherCommand(game));
+		cmds.add(new CombatLogCommand(feat.getFeature(CombatLogFeature.class)));
 		cmds.add(new EditCommand());
 		cmds.add(new FireCommand(firework));
 		cmds.add(new IgnoreCommand(plugin));
@@ -283,6 +277,16 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 		cmds.add(new HealthCommand(scen));
 		cmds.add(new SethealthCommand());
 		cmds.add(new SetmaxhealthCommand());
+		
+		// punish
+		cmds.add(new BanCommand(plugin, board));
+		cmds.add(new BanIPCommand(board));
+		cmds.add(new DQCommand(plugin, board));
+		cmds.add(new KickCommand(plugin));
+		cmds.add(new MuteCommand(plugin));
+		cmds.add(new TempbanCommand(plugin, board));
+		cmds.add(new UnbanCommand(plugin));
+		cmds.add(new UnbanIPCommand());
 
 		// spectate
 		cmds.add(new BackCommand(plugin, spec));
@@ -303,7 +307,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 		cmds.add(new TLCommand(game, spec, teams));
 
 		// user
-		cmds.add(new InfoCommand(plugin));
+		cmds.add(new InfoCommand(plugin, ubl));
 		cmds.add(new InfoIPCommand());
 		cmds.add(new RankCommand(plugin));
 		cmds.add(new StatsCommand(plugin, game, gui));

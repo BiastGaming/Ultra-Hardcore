@@ -46,6 +46,7 @@ import com.leontg77.ultrahardcore.feature.potions.SplashPotionFeature;
 import com.leontg77.ultrahardcore.feature.potions.StrengthPotionFeature;
 import com.leontg77.ultrahardcore.feature.potions.Tier2PotionFeature;
 import com.leontg77.ultrahardcore.feature.pvp.AntiIPvPFeature;
+import com.leontg77.ultrahardcore.feature.pvp.CombatLogFeature;
 import com.leontg77.ultrahardcore.feature.pvp.LongshotFeature;
 import com.leontg77.ultrahardcore.feature.pvp.ShootHealthFeature;
 import com.leontg77.ultrahardcore.feature.pvp.StalkingFeature;
@@ -217,6 +218,7 @@ public class FeatureManager {
 		
 		// pvp
 		addFeature(new AntiIPvPFeature(game, team, spec, scen));
+		addFeature(new CombatLogFeature(plugin, team, spec));
 		addFeature(new LongshotFeature(game, scen, team));
 		addFeature(new ShootHealthFeature(plugin, game, scen, team));
 		addFeature(new StalkingFeature(settings));
