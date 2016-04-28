@@ -72,7 +72,7 @@ public class MsgCommand extends UHCCommand {
         
 		User tUser = plugin.getUser(target);
 		
-    	if (tUser.isMuted()) {
+    	if (tUser.isMuted() && !scen.getScenario(Moles.class).isEnabled()) {
     		player.sendMessage(ChatColor.RED + "'" + target.getName() + "' is muted and won't be able to respond.");
     	}
         

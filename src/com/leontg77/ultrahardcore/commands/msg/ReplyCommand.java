@@ -71,11 +71,7 @@ public class ReplyCommand extends UHCCommand {
         
 		User tUser = plugin.getUser(target);
 		
-		if (tUser.isIgnoring(player)) {
-			throw new CommandException("'" + player.getName() + "' have you ignored.");
-		}
-		
-    	if (tUser.isMuted()) {
+    	if (tUser.isMuted() && !scen.getScenario(Moles.class).isEnabled()) {
     		player.sendMessage(ChatColor.RED + "'" + target.getName() + "' is muted and won't be able to respond.");
     	}
     	
