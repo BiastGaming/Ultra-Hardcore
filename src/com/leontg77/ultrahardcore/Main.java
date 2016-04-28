@@ -34,6 +34,7 @@ import com.leontg77.ultrahardcore.listeners.LogoutListener;
 import com.leontg77.ultrahardcore.listeners.PlayerListener;
 import com.leontg77.ultrahardcore.listeners.ProtectionListener;
 import com.leontg77.ultrahardcore.listeners.PushToSpawnListener;
+import com.leontg77.ultrahardcore.listeners.QuitMessageListener;
 import com.leontg77.ultrahardcore.listeners.SpectatorListener;
 import com.leontg77.ultrahardcore.listeners.StatsListener;
 import com.leontg77.ultrahardcore.listeners.WorldListener;
@@ -216,7 +217,7 @@ public class Main extends JavaPlugin {
 
 		scen.registerScenarios(arena, game, timer, teams, spec, settings, feat, scatter, board);
 		feat.registerFeatures(arena, game, timer, board, teams, spec, enchPreview, hardHearts, scen);
-		cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter);
+		cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter, ubl);
 
 		swap.setup();
 		worlds.loadWorlds();
@@ -246,6 +247,7 @@ public class Main extends JavaPlugin {
 		manager.registerEvents(new PlayerListener(this, spec), this);
 		manager.registerEvents(new ProtectionListener(game), this);
 		manager.registerEvents(new PushToSpawnListener(this, parkour), this);
+		manager.registerEvents(new QuitMessageListener(), this);
 		manager.registerEvents(new SpectatorListener(game, spec, gui, feat.getFeature(NetherFeature.class)), this);
 		manager.registerEvents(new StatsListener(this, arena, game, board, teams, feat.getFeature(GoldenHeadsFeature.class)), this);
 		manager.registerEvents(new WorldListener(arena), this);
@@ -344,7 +346,7 @@ public class Main extends JavaPlugin {
 			return users.get(player.getUniqueId());
 		}
 		
-		User user = new User(this, game, gui, perm, player.getUniqueId());
+		User user = new User(this, game, gui, perm, player.getUniqueId(), ubl);
 		users.put(player.getUniqueId(), user);
 		return user;
 	}
@@ -368,7 +370,7 @@ public class Main extends JavaPlugin {
 			return users.get(offline.getUniqueId());
 		}
 		
-		User user = new User(this, game, gui, perm, offline.getUniqueId());
+		User user = new User(this, game, gui, perm, offline.getUniqueId(), ubl);
 		users.put(offline.getUniqueId(), user);
 		return user;
 	}
