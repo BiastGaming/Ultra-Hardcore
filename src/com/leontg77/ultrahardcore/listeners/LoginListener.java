@@ -253,9 +253,9 @@ public class LoginListener implements Listener {
 				PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + player.getName() + " §7tried to join while being " + (ban.getExpiration() == null ? "banned" : "temp-banned") + " for:§c " + ban.getReason(), "uhc.staff");
 				
 				if (ban.getExpiration() == null) {
-					event.setKickMessage(String.format(PunishUtils.getBanReasonFormat(), ban.getReason(), ban.getSource()));
+					event.setKickMessage(String.format(PunishUtils.getBanMessageFormat(), ban.getReason(), ban.getSource()));
 				} else {
-					event.setKickMessage(String.format(PunishUtils.getTempbanReasonFormat(), ban.getReason(), ban.getSource(), DateUtils.formatDateDiff(ban.getExpiration().getTime())));
+					event.setKickMessage(String.format(PunishUtils.getTempbanMessageFormat(), ban.getReason(), ban.getSource(), DateUtils.formatDateDiff(ban.getExpiration().getTime())));
 				}
 			}
 			else if (ip.getBanEntry(IP) != null) {
@@ -268,7 +268,7 @@ public class LoginListener implements Listener {
 				BanEntry ban = ip.getBanEntry(IP);
 				PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + player.getName() + " §7tried to join while being IP-banned for:§c " + ban.getReason(), "uhc.staff");
 
-				event.setKickMessage(String.format(PunishUtils.getIPBanReasonFormat(), ban.getReason(), ban.getSource()));
+				event.setKickMessage(String.format(PunishUtils.getIPBanMessageFormat(), ban.getReason(), ban.getSource()));
 			}
 			else {
 				event.allow();
