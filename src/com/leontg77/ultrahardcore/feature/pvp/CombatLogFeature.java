@@ -12,13 +12,15 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
 import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.events.PlayerLeaveEvent;
 import com.leontg77.ultrahardcore.feature.Feature;
+import com.leontg77.ultrahardcore.listeners.QuitMessageListener.LogoutReason;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -60,9 +62,13 @@ public class CombatLogFeature extends Feature implements Listener {
 	}
 	  
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void on(PlayerQuitEvent event) {
+	public void on(PlayerLeaveEvent event) {
 		Player player = event.getPlayer();
 	    
+		if (event.getLogoutReason() != LogoutReason.LEFT) {
+			return;
+		}
+		
 	    if (!combat.containsKey(player.getUniqueId())) {
 	    	return;
 	    }	
@@ -79,7 +85,9 @@ public class CombatLogFeature extends Feature implements Listener {
 		combatTask.remove(player.getUniqueId());
 		combat.remove(player.getUniqueId());
 		
-		PlayerUtils.broadcast(Main.PREFIX + "§c" + player.getName() + "§7 left while in combat.");
+		if (State.isState(State.INGAME)) {
+			PlayerUtils.broadcast(Main.PREFIX + "§c" + player.getName() + "§7 left while in combat.");
+		}
 		
 		player.setHealth(0.0D);
 	}

@@ -9,12 +9,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.commands.msg.MsgCommand;
+import com.leontg77.ultrahardcore.events.PlayerLeaveEvent;
 import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.managers.PermissionsManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
@@ -51,7 +51,7 @@ public class LogoutListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event) {
+	public void on(PlayerLeaveEvent event) {
 		Player player = event.getPlayer();
 		User user = plugin.getUser(player);
 		
@@ -72,7 +72,17 @@ public class LogoutListener implements Listener {
 		}
 		
 		if (!spec.isSpectating(player) && leaveMsg != null) {
-			PlayerUtils.broadcast("§8[§c-§8] " + user.getRankColor() + player.getName() + " §7left. §8(§a" + (plugin.getOnlineCount() - 1) + "§8/§a" + game.getMaxPlayers() + "§8)");
+			switch (event.getLogoutReason()) {
+			case CRASHED:
+				PlayerUtils.broadcast("§8[§c-§8] " + user.getRankColor() + player.getName() + " §7crashed. §8(§a" + (plugin.getOnlineCount() - 1) + "§8/§a" + game.getMaxPlayers() + "§8)");
+				break;
+			case TIMED_OUT:
+				PlayerUtils.broadcast("§8[§c-§8] " + user.getRankColor() + player.getName() + " §7timed out. §8(§a" + (plugin.getOnlineCount() - 1) + "§8/§a" + game.getMaxPlayers() + "§8)");
+				break;
+			default:
+				PlayerUtils.broadcast("§8[§c-§8] " + user.getRankColor() + player.getName() + " §7left. §8(§a" + (plugin.getOnlineCount() - 1) + "§8/§a" + game.getMaxPlayers() + "§8)");
+				break;
+			}
 		}
 
 		if (MsgCommand.msg.containsKey(player.getName())) {
