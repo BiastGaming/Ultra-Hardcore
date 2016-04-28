@@ -28,6 +28,7 @@ import org.bukkit.potion.PotionEffect;
 import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.gui.guis.GameInfoGUI;
 import com.leontg77.ultrahardcore.managers.PermissionsManager;
+import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.utils.FileUtils;
 
 /**
@@ -45,8 +46,9 @@ public class User {
 	private final Game game;
 
 	private final PermissionsManager perm;
-	
+
 	private final GUIManager gui;
+	private final UBL ubl;
 	
 	private FileConfiguration config;
 	private File file;
@@ -56,7 +58,7 @@ public class User {
 	 * <p>
 	 * This will set up the data for the player and create missing data.
 	 */
-	protected User(Main plugin, Game game, GUIManager gui, PermissionsManager perm, UUID uuid) {
+	protected User(Main plugin, Game game, GUIManager gui, PermissionsManager perm, UUID uuid, UBL ubl) {
 		folder = new File(plugin.getDataFolder() + File.separator + "users" + File.separator);
 		
         this.uuid = uuid;
@@ -65,8 +67,9 @@ public class User {
 		this.game = game;
 
 		this.perm = perm;
-		
+
 		this.gui = gui;
+		this.ubl = ubl;
 		
         if (!plugin.getDataFolder().exists()) {
         	plugin.getDataFolder().mkdir();
@@ -297,10 +300,14 @@ public class User {
 			if (thisName.equals(name)) {
 				continue;
 			}
-			
+
 			Player check = Bukkit.getPlayerExact(name);
-			
-			if (banlist.getBanEntry(name) != null) {
+			UUID uuid = UUID.fromString(file.getString("uuid", UUID.randomUUID().toString()));
+
+			if (ubl.isBanned(uuid)) {
+				altList.add("§6" + name + "§8");
+			} 
+			else if (banlist.getBanEntry(name) != null) {
 				altList.add("§4" + name + "§8");
 			}
 			else if (check != null) {
