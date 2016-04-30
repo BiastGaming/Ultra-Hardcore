@@ -1,13 +1,14 @@
 package com.leontg77.ultrahardcore;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -44,6 +45,7 @@ import com.leontg77.ultrahardcore.managers.HOFManager;
 import com.leontg77.ultrahardcore.managers.PermissionsManager;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
+import com.leontg77.ultrahardcore.managers.StaffLogManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.protocol.EnchantPreview;
 import com.leontg77.ultrahardcore.protocol.HardcoreHearts;
@@ -62,6 +64,7 @@ import com.leontg77.ultrahardcore.world.antistripmine.listener.WorldInitListener
 import com.leontg77.ultrahardcore.world.biomeswap.BiomeSwap;
 
 import net.minecraft.server.v1_8_R3.MinecraftServer;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
 
 /**
  * Main class of the UHC plugin.
@@ -148,6 +151,8 @@ public class Main extends JavaPlugin {
 		cmd = new CommandHandler(this);
 		
 		timer = new Timer(this, game, gui, scen, feat, board, spec);
+		
+		new StaffLogManager(this);
 	}
 	
 	public static final String NO_PERMISSION_MESSAGE = "§cYou don't have permission.";
@@ -175,7 +180,7 @@ public class Main extends JavaPlugin {
 		}
 		
 		if (State.isState(State.NOT_RUNNING)) {
-  			for (File cFile : User.folder.listFiles()) {
+  			for (File cFile : folder.listFiles()) {
   				FileConfiguration conf = YamlConfiguration.loadConfiguration(cFile);
   				
   				if (!conf.contains("uuid")) {
@@ -195,6 +200,9 @@ public class Main extends JavaPlugin {
   			}
 		}
 	}
+
+	private static final Logger PLAYER_CONNECTION_LOGGER = (Logger) LogManager.getLogger(PlayerConnection.class);
+	private Appender pcAppender;
 	
 	@Override
 	public void onEnable() {
@@ -247,7 +255,6 @@ public class Main extends JavaPlugin {
 		manager.registerEvents(new PlayerListener(this, spec), this);
 		manager.registerEvents(new ProtectionListener(game), this);
 		manager.registerEvents(new PushToSpawnListener(this, parkour), this);
-		manager.registerEvents(new QuitMessageListener(), this);
 		manager.registerEvents(new SpectatorListener(game, spec, gui, feat.getFeature(NetherFeature.class)), this);
 		manager.registerEvents(new StatsListener(this, arena, game, board, teams, feat.getFeature(GoldenHeadsFeature.class)), this);
 		manager.registerEvents(new WorldListener(arena), this);
@@ -256,6 +263,12 @@ public class Main extends JavaPlugin {
 		// register anti stripmine listeners.
 		manager.registerEvents(new ChunkPopulateListener(this, antiSM), this);
 		manager.registerEvents(new WorldInitListener(settings, antiSM), this);
+		
+		QuitMessageListener quitMsg = new QuitMessageListener();
+		manager.registerEvents(quitMsg, this);
+        pcAppender = quitMsg;
+        pcAppender.start();
+        PLAYER_CONNECTION_LOGGER.addAppender(pcAppender);
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {	
 			perm.addPermissions(online);
@@ -331,7 +344,8 @@ public class Main extends JavaPlugin {
 		return loc;
 	}
 	
-	private final Map<UUID, User> users = new HashMap<UUID, User>();
+	protected final File folder = new File(getDataFolder() + File.separator + "users" + File.separator);
+	protected final Map<UUID, User> users = new HashMap<UUID, User>();
 	
 	/**
 	 * Gets the data of the given player.
@@ -346,8 +360,9 @@ public class Main extends JavaPlugin {
 			return users.get(player.getUniqueId());
 		}
 		
-		User user = new User(this, game, gui, perm, player.getUniqueId(), ubl);
+		User user = new User(this, folder, player.getUniqueId(), game, gui, perm, ubl);
 		users.put(player.getUniqueId(), user);
+		
 		return user;
 	}
 
@@ -370,12 +385,11 @@ public class Main extends JavaPlugin {
 			return users.get(offline.getUniqueId());
 		}
 		
-		User user = new User(this, game, gui, perm, offline.getUniqueId(), ubl);
+		User user = new User(this, folder, offline.getUniqueId(), game, gui, perm, ubl);
 		users.put(offline.getUniqueId(), user);
+		
 		return user;
 	}
-	
-	private final File folder = new File(getDataFolder() + File.separator + "users" + File.separator);
 	
 	/**
 	 * Check if the userdata folder has a file with the given uuid.
