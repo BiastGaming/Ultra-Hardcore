@@ -91,11 +91,11 @@ public class LoginListener implements Listener {
 		User user = plugin.getUser(player);
 		Date date = new Date();
 		
-		String IPAdress = player.getAddress().getAddress().getHostAddress();
 
 		user.getFile().set("uuid", player.getUniqueId().toString());
 		user.getFile().set("lastlogin", date.getTime());
-		
+
+		String IPAdress = player.getAddress().getAddress().getHostAddress();
 		List<String> IPS = user.getFile().getStringList("ips");
 		
 		if (!IPS.contains(IPAdress)) {
@@ -239,6 +239,11 @@ public class LoginListener implements Listener {
 		if (IP.startsWith("151.80.11.") || IP.startsWith("164.132.80.") || IP.startsWith("176.31.75.") || IP.startsWith("178.33.27.") || IP.startsWith("91.121.231.")) {
 			name.addBan(player.getName(), "MCLeaks", null, "CONSOLE");
 			event.setResult(Result.KICK_BANNED);
+		}
+		
+		if ((game.isRecordedRound() || game.isPrivateGame()) && player.isWhitelisted()) {
+			event.allow();
+			return;
 		}
 		
 		if (event.getResult() == Result.KICK_BANNED) {
