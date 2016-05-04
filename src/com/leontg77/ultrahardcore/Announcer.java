@@ -39,7 +39,7 @@ public class Announcer {
 			"If you have any questions, ask in §e/helpop§7.",
 			"You can find the match post by doing §e/post§7.",
 			"The server runs off a custom UHC plugin by §eLeonTG77§7.",
-			"Wonder if you are lagging? Use §e/ms.",
+			"Wonder if you are lagging? Use §e/ms §7or §e/tps§7.",
 			"Follow our twitter for games and updates, §6twitter.com/ArcticUHC§7!",
 			"You can apply for a rank at §6redd.it/45gxj0",
 			"You can report staff at §6redd.it/45gxj0",
@@ -54,9 +54,9 @@ public class Announcer {
 	private final Random rand = new Random();
 	
 	/**
-	 * Setup the announcer class.
+	 * Start the announcer timer.
 	 */
-	public void setup() {
+	public void startAnnouncer() {
 		new BukkitRunnable() {
 			public void run() {
 				if (game.isRecordedRound() || game.isPrivateGame() || State.isState(State.SCATTER)) {
@@ -67,6 +67,6 @@ public class Announcer {
 			}
 		}.runTaskTimer(plugin, 10000, 10000);
 		
-		plugin.getLogger().info("The announcer have been setup.");
+		plugin.getLogger().info("Started the announcer timer.");
 	}
 }
