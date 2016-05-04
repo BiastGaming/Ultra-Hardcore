@@ -13,6 +13,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Egg;
+import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FishHook;
 import org.bukkit.entity.LivingEntity;
@@ -414,15 +415,14 @@ public class SpecInfo implements Listener {
 		}
 
 		final Player player = (Player) event.getEntity();
+		final DamageCause cause = event.getCause();
 		
-		if (event instanceof EntityDamageByEntityEvent) {
+		if (event instanceof EntityDamageByEntityEvent && cause != DamageCause.THORNS) {
 			on(player, (EntityDamageByEntityEvent) event);
 			return;
 		}
 		
-		final DamageCause cause = event.getCause();
 		final double oldHealth = player.getHealth();
-		
 		final String name;
 		
 		switch (cause) {
@@ -487,7 +487,6 @@ public class SpecInfo implements Listener {
 				String pHealth = NumberUtils.makePercent(player.getHealth()).substring(2) + "%";
 				String taken = NumberUtils.makePercent(damage).substring(2) + "%";
 				
-				
 				if (damager instanceof Player) {
 					Player killer = (Player) damager;
 					
@@ -516,7 +515,7 @@ public class SpecInfo implements Listener {
 							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7S§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (proj instanceof Egg) {
 							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7E§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
-						} else if (!(proj instanceof FishHook)) {
+						} else if (!(proj instanceof FishHook) && !(proj instanceof EnderPearl)) {
 							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7???§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						}
 						return;
@@ -528,7 +527,7 @@ public class SpecInfo implements Listener {
 						return;
 					}
 					
-					broadcast("§8(§5PvE§8) §7" + name(player) + "§8 «- §d??? §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
+					broadcast("§8(§5PvE§8) §7" + name(player) + "§8 «- §dProjectile §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
 					return;
 				} 
 
