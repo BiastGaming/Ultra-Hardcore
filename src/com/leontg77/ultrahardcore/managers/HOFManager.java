@@ -1,242 +1,120 @@
 package com.leontg77.ultrahardcore.managers;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import com.leontg77.ultrahardcore.Main;
- 
+import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.User.Rank;
+
 /**
- * Settings class to manage all the config files.
- * <p>
- * This class contains methods for saving, getting and reloading the config, hof and data.yml!
+ * Hall of fame manager class.
  * 
  * @author LeonTG77
  */
-public class HOFManager {
+public class HOFManager implements Listener {
 	private final Main plugin;
-    
+	private final File folder;
+
+	/**
+	 * Staff log manager class constructor.
+	 * 
+	 * @param plugin The main class.
+	 */
 	public HOFManager(Main plugin) {
+		this.folder = new File(plugin.getDataFolder() + File.separator + "staff logs" + File.separator);
+		
 		this.plugin = plugin;
+		
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 	
-	private FileConfiguration config;
-	private File cfile;
-	
-	private FileConfiguration data;
-	private File dfile;
-	
-	private FileConfiguration hof;
-	private File hfile;
-	
-	private FileConfiguration swap;
-	private File sfile;
-	
-	private FileConfiguration worlds;
-	private File wfile;
-
 	/**
-	 * Sets the settings configs and create missing files.
+	 * Get the file configuration for the given name's log.
+	 * 
+	 * @param name The name to use.
+	 * @return The file configuration, newly created if needed.
 	 */
-	public void setup() {      
-		if (!plugin.getDataFolder().exists()) {
-			plugin.getDataFolder().mkdir();
+	public FileConfiguration getLog(String name) {
+		if (!folder.exists()) {
+			folder.mkdir();
 		}
-        
-		cfile = new File(plugin.getDataFolder(), "config.yml");
-	        
-		if (!cfile.exists()) {
+
+		File file = new File(folder, name + ".yml");
+
+		if (!file.exists()) {
 			try {
-				cfile.createNewFile();
+				file.createNewFile();
 			} catch (Exception e) {
-				plugin.getLogger().severe(ChatColor.RED + "Could not create config.yml!");
+				plugin.getLogger().severe(ChatColor.RED + "Could not create " + name + ".yml!");
 			}
 		}
 
-		config = YamlConfiguration.loadConfiguration(cfile);
-		dfile = new File(plugin.getDataFolder(), "data.yml");
-		    
-		if (!dfile.exists()) {
-			try {
-				dfile.createNewFile();
-			} catch (Exception e) {
-				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create data.yml!");
-			}
+		return YamlConfiguration.loadConfiguration(file);
+	}
+
+	/**
+	 * Save the given configuration to the file with the given name.
+	 * 
+	 * @param config The config to save.
+	 * @param name The name of the file to save.
+	 */
+	public void saveLog(FileConfiguration config, String name) {
+		try {
+			config.save(new File(folder, name + ".yml"));
+		} catch (Exception e) {
+			plugin.getLogger().severe(ChatColor.RED + "Could not save " + name + ".yml!");
+		}
+	}
+
+	private final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy',' HH:mm:ss", Locale.US); 
+
+	@EventHandler
+	public void on(AsyncPlayerChatEvent event) {
+		Player player = event.getPlayer();	
+		User user = plugin.getUser(player);
+		
+		if (user.getRank().getLevel() < Rank.STAFF.getLevel()) {
+			return;
 		}
 		
-		data = YamlConfiguration.loadConfiguration(dfile);
-		hfile = new File(plugin.getDataFolder(), "hof.yml");
-        
-		if (!hfile.exists()) {
-			try {
-				hfile.createNewFile();
-			} catch (Exception e) {
-				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create hof.yml!");
-			}
-		}
+		List<String> list = getLog(player.getName()).getStringList("chat");
+		list.add("(" + format.format(new Date()) + ") " + event.getMessage());
 		
-		hof = YamlConfiguration.loadConfiguration(hfile);
-		sfile = new File(plugin.getDataFolder(), "swap.yml");
-               
-		if (!sfile.exists()) {
-			try {
-				sfile.createNewFile();
-			} catch (Exception e) {
-				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create swap.yml!");
-			}
-		}
+		FileConfiguration config = getLog(player.getName());
 		
-		swap = YamlConfiguration.loadConfiguration(sfile);
-		wfile = new File(plugin.getDataFolder(), "worlds.yml");
-        
-		if (!wfile.exists()) {
-			try {
-				wfile.createNewFile();
-			} catch (Exception e) {
-				Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create worlds.yml!");
-			}
-		}
-		
-		worlds = YamlConfiguration.loadConfiguration(wfile);
+		config.set("chat", list);
+		saveLog(config, player.getName());
+	}
 	
-		plugin.getLogger().info("Configs has been setup.");
-	}
-    
-	/**
-	 * Gets the config file.
-	 * 
-	 * @return The file.
-	 */
-	public FileConfiguration getConfig() {
-		return config;
-	}
-    
-	/**
-	 * Saves the data config.
-	 */
-	public void saveConfig() {
-		try {
-			config.save(cfile);
-		} catch (Exception e) {
-			Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save config.yml!");
+	@EventHandler
+	public void on(PlayerCommandPreprocessEvent event) {
+		Player player = event.getPlayer();	
+		User user = plugin.getUser(player);
+		
+		if (user.getRank().getLevel() < Rank.STAFF.getLevel()) {
+			return;
 		}
-	}
-    
-	/**
-	 * Reloads the config file.
-	 */
-	public void reloadConfig() {
-		config = YamlConfiguration.loadConfiguration(cfile);
-	}
-    
-	/**
-	 * Gets the data file.
-	 * 
-	 * @return The file.
-	 */
-	public FileConfiguration getData() {
-		return data;
-	}
-    
-	/**
-	 * Saves the data config.
-	 */
-	public void saveData() {
-		try {
-			data.save(dfile);
-		} catch (Exception e) {
-			Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save data.yml!");
-		}
-	}
-    
-	/**
-	 * Reloads the data file.
-	 */
-	public void reloadData() {
-		data = YamlConfiguration.loadConfiguration(dfile);
-	}
-    
-	/**
-	 * Gets the hof file.
-	 * 
-	 * @return The file.
-	 */
-	public FileConfiguration getHOF() {
-		return hof;
-	}
-    
-	/**
-	 * Saves the hof config.
-	 */
-	public void saveHOF() {
-		try {
-			hof.save(hfile);
-		} catch (Exception e) {
-			Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save hof.yml!");
-		}
-	}
-    
-	/**
-	 * Reloads the hof file.
-	 */
-	public void reloadHOF() {
-		hof = YamlConfiguration.loadConfiguration(hfile);
-	}
-    
-	/**
-	 * Gets the swap file.
-	 * 
-	 * @return The file.
-	 */
-	public FileConfiguration getSwap() {
-		return swap;
-	}
-    
-	/**
-	 * Saves the swap config.
-	 */
-	public void saveSwap() {
-		try {
-			swap.save(sfile);
-		} catch (Exception e) {
-			Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save swap.yml!");
-		}
-	}
-    
-	/**
-	 * Reloads the swap file.
-	 */
-	public void reloadSwap() {
-		swap = YamlConfiguration.loadConfiguration(sfile);
-	}
-    
-	/**
-	 * Gets the worlds file.
-	 * 
-	 * @return The file.
-	 */
-	public FileConfiguration getWorlds() {
-		return worlds;
-	}
-    
-	/**
-	 * Saves the worlds config.
-	 */
-	public void saveWorlds() {
-		try {
-			worlds.save(wfile);
-		} catch (Exception e) {
-			Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save worlds.yml!");
-		}
-	}
-    
-	/**
-	 * Reloads the worlds file.
-	 */
-	public void reloadWorlds() {
-		worlds = YamlConfiguration.loadConfiguration(wfile);
+		
+		List<String> list = getLog(player.getName()).getStringList("commands");
+		list.add("(" + format.format(new Date()) + ") " + event.getMessage());
+
+		FileConfiguration config = getLog(player.getName());
+		
+		config.set("commands", list);
+		saveLog(config, player.getName());
 	}
 }
