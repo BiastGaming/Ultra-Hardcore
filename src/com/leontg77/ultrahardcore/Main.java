@@ -170,7 +170,8 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		PluginDescriptionFile file = getDescription();
 		getLogger().info(file.getName() + " is now disabled.");
-		
+
+        PLAYER_CONNECTION_LOGGER.removeAppender(pcAppender);
 		data.store(teams, scen);
 		
 		try {
@@ -202,6 +203,8 @@ public class Main extends JavaPlugin {
 	}
 
 	private static final Logger PLAYER_CONNECTION_LOGGER = (Logger) LogManager.getLogger(PlayerConnection.class);
+	
+	private final QuitMessageListener quitMsg = new QuitMessageListener();
 	private Appender pcAppender;
 	
 	@Override
@@ -230,7 +233,7 @@ public class Main extends JavaPlugin {
 		swap.setup();
 		worlds.loadWorlds();
 
-		announcer.setup();
+		announcer.startAnnouncer();
 		arena.setup();
 		parkour.setup();
 		
@@ -264,7 +267,6 @@ public class Main extends JavaPlugin {
 		manager.registerEvents(new ChunkPopulateListener(this, antiSM), this);
 		manager.registerEvents(new WorldInitListener(settings, antiSM), this);
 		
-		QuitMessageListener quitMsg = new QuitMessageListener();
 		manager.registerEvents(quitMsg, this);
         pcAppender = quitMsg;
         pcAppender.start();
