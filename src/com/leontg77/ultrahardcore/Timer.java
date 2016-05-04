@@ -8,6 +8,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -446,7 +447,9 @@ public class Timer {
 					if (scen.getScenario(DragonRush.class).isEnabled()) {
 						PlayerUtils.broadcast(ChatColor.RED + " The time has run out and the dragon has won!");
 					} else {
-						PlayerUtils.broadcast(ChatColor.RED + " Meetup is now, head to 0,0!");
+						WorldBorder border = game.getWorld().getWorldBorder();
+						
+						PlayerUtils.broadcast(ChatColor.RED + " Meetup is now, head to " + border.getCenter().getBlockX() + "," + border.getCenter().getBlockZ() + "!");
 					}
 					PlayerUtils.broadcast(" ");
 					PlayerUtils.broadcast(ChatColor.DARK_GRAY + "»»»»»»»»»»»»»»»«««««««««««««««");
