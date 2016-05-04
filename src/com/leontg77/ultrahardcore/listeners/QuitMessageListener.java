@@ -61,12 +61,12 @@ public class QuitMessageListener extends AbstractAppender implements Listener {
     }
 
     @Override
-    public void append(LogEvent logEvent) {
-        if (logEvent.getLevel() != Level.INFO) {
+    public void append(LogEvent event) {
+        if (event.getLevel() != Level.INFO) {
             return;
         }
 
-        String message = logEvent.getMessage().getFormattedMessage();
+        String message = event.getMessage().getFormattedMessage();
         Matcher matcher = LOG_PATTERM.matcher(message);
         
         if (!matcher.find()) {
