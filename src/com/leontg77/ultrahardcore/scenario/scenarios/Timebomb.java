@@ -61,15 +61,7 @@ public class Timebomb extends Scenario implements Listener {
 		block = block.getRelative(BlockFace.NORTH);
 		block.setType(Material.CHEST);
 		
-		for (ItemStack item : player.getInventory().getContents()) {
-			if (item == null) {
-				continue;
-			}
-			
-			chest.getInventory().addItem(item);
-		}
-		
-		for (ItemStack item : player.getInventory().getArmorContents()) {
+		for (ItemStack item : event.getDrops()) {
 			if (item == null || item.getType() == Material.AIR) {
 				continue;
 			}
@@ -77,7 +69,7 @@ public class Timebomb extends Scenario implements Listener {
 			chest.getInventory().addItem(item);
 		}
 		
-		event.setKeepInventory(true);
+		event.getDrops().clear();
 		
 		User user = plugin.getUser(player);
 		user.resetInventory();
