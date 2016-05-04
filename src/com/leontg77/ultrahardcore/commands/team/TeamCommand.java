@@ -224,7 +224,7 @@ public class TeamCommand extends UHCCommand {
 			}
 			
 			PlayerUtils.broadcast(Main.PREFIX + "Team Management has been disabled.");
-			game.setTeamManagement(false, 0);
+			game.setTeamManagement(false, game.getTeamManagementTeamsize());
 			return true;
 		}
 		
