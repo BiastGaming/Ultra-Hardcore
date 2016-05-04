@@ -267,6 +267,8 @@ commands:
     description: Manage the slave market scenario.
   bid:
     description: Bid on a player.
+  skyores:
+    description: Generate the sky ores scenario.
   slimecrack:
     description: Generate the SlimyCrack.
   snowday:
