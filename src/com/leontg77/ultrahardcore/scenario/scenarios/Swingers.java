@@ -56,17 +56,17 @@ public class Swingers extends Scenario implements Listener {
 		Player clicked = (Player) interact;
 		Player player = event.getPlayer();
 		
-		if (!game.getPlayers().contains(player) && !game.getPlayers().contains(clicked)) {
+		if (!game.getPlayers().contains(player) || !game.getPlayers().contains(clicked)) {
 			return;
 		}
 
-		if (teams.getTeam(player) != null) {
-			player.sendMessage(ChatColor.RED + "You are already on a team");
+		if (teams.getTeam(player) == null) {
+			player.sendMessage(ChatColor.RED + "You are not on a team");
 			return;
 		}
 		
-		if (teams.getTeam(clicked) != null) {
-			player.sendMessage(ChatColor.RED + "That player is already on a team.");
+		if (teams.getTeam(clicked) == null) {
+			player.sendMessage(ChatColor.RED + "That player is not on a team.");
 			return;
 		}
 
@@ -87,12 +87,12 @@ public class Swingers extends Scenario implements Listener {
 			player.sendMessage(ChatColor.RED + "That team is not the same teamsize as yours.");
 			return;
 		}
+
+		PlayerUtils.broadcast(PREFIX + "Team §a" + team1.getName() + listPlayers(teams.getPlayers(team1)) + " §7and§a " + team2.getName() + listPlayers(teams.getPlayers(team2)) + " §7has found each other.");
 		
 		for (OfflinePlayer players : teams.getPlayers(team1)) {
 			teams.joinTeam(team2, players);
 		}
-
-		PlayerUtils.broadcast(PREFIX + "Team §a" + team1.getName() + listPlayers(teams.getPlayers(team1)) + " §7and§a " + team2.getName() + listPlayers(teams.getPlayers(team2)) + " §7has found each other.");
 	}
 	
 	/**
