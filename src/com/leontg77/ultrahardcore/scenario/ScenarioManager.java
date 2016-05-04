@@ -203,7 +203,7 @@ public class ScenarioManager {
 		scenarios.add(new Moles(plugin, this, teams, spec));
 		scenarios.add(new MonstersInc(scatter));
 		scenarios.add(new Mountaineering());
-		scenarios.add(new MysteryTeams(plugin, game));
+		scenarios.add(new MysteryTeams(plugin, game, spec));
 		scenarios.add(new NightmareMode());
 		scenarios.add(new NoFall());
 		scenarios.add(new NoSprint());
@@ -222,6 +222,7 @@ public class ScenarioManager {
 		scenarios.add(new SharedHealth(plugin, game, teams));
 		scenarios.add(new SkyClean());
 		scenarios.add(new Skyhigh(plugin, game));
+		scenarios.add(new SkyOres(plugin));
 		scenarios.add(new SlaveMarket(plugin, teams));
 		scenarios.add(new SlimyCrack(plugin));
 		scenarios.add(new Snowday(plugin, game));
