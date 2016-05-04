@@ -128,7 +128,8 @@ public class InfoCommand extends UHCCommand {
 			sender.sendMessage("§8» §7Possible Alts: §cNone");
 		} else {
 			String alts = user.getAlts().toString();
-			sender.sendMessage("§8» §7Possible Alts: " + alts.substring(1, alts.length() - 1) + "§8.");
+			sender.sendMessage("§8» §7Possible Alts: §8(§aOnline§7, §cOffline§7, §4Banned§7, §6UBL'ed§8)");
+			sender.sendMessage("§8» §7" + alts.substring(1, alts.length() - 1) + "§8.");
 		}
 		sender.sendMessage("§8» §m--------------------------------------§8 «");
 		sender.sendMessage("§8» §7UBL'ed: §6" + ublMessage);
