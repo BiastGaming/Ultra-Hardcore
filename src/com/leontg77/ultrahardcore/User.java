@@ -39,7 +39,6 @@ import com.leontg77.ultrahardcore.utils.FileUtils;
  * @author LeonTG77
  */
 public class User {
-	public static File folder;
 	private final UUID uuid;
 	
 	private final Main plugin;
@@ -58,9 +57,7 @@ public class User {
 	 * <p>
 	 * This will set up the data for the player and create missing data.
 	 */
-	protected User(Main plugin, Game game, GUIManager gui, PermissionsManager perm, UUID uuid, UBL ubl) {
-		folder = new File(plugin.getDataFolder() + File.separator + "users" + File.separator);
-		
+	protected User(Main plugin, File folder, UUID uuid, Game game, GUIManager gui, PermissionsManager perm, UBL ubl) {
         this.uuid = uuid;
         
 		this.plugin = plugin;
@@ -117,8 +114,8 @@ public class User {
         	saveFile();
         }
 	}
-    
-    private boolean creating = false;
+
+	private boolean creating = false;
 	
 	/**
 	 * Get the given player's ping.
@@ -262,7 +259,7 @@ public class User {
 		case TRIAL:
 			return "§4";
 		case OWNER:
-			if (uuid.equals("02dc5178-f7ec-4254-8401-1a57a7442a2f")) {
+			if (uuid.toString().equals("02dc5178-f7ec-4254-8401-1a57a7442a2f")) {
 				return "§3§o";
 			} else {
 				return "§4§o";
@@ -494,6 +491,10 @@ public class User {
 	 * @return <code>true</code> if the player is muted, <code>false</code> otherwise.
 	 */
 	public boolean isMuted() {
+		if (game.isRecordedRound() || game.isPrivateGame()) {
+			return false;
+		}
+		
 		Date date = new Date();
 		
 		// if the mute isnt permanent (perm == -1) and their mute time experied, return false and unmute.
