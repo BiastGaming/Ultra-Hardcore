@@ -1,5 +1,6 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore;
 
+import com.leontg77.ultrahardcore.scenario.scenarios.UberHardcore;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityChecker;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityClassReplacer;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.MobOverride;
@@ -7,22 +8,26 @@ import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.NewSpawnsM
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.PluginDependantListener;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 
 public class MobRegistry {
-
+    protected final UberHardcore uber;
     protected final Plugin plugin;
+
     protected final EntityClassReplacer replacer;
     protected final EntityChecker entityChecker;
     protected final NewSpawnsModifier newSpawnsModifier;
     protected final EntityKiller entityKiller;
     protected final List<MobOverride> overrides;
 
-    public MobRegistry(Plugin plugin, EntityClassReplacer replacer, EntityChecker entityChecker, NewSpawnsModifier newSpawnsModifier, EntityKiller entityKiller, List<MobOverride> overrides) {
+    public MobRegistry(Plugin plugin, UberHardcore uber, EntityClassReplacer replacer, EntityChecker entityChecker, NewSpawnsModifier newSpawnsModifier, EntityKiller entityKiller, List<MobOverride> overrides) {
         this.plugin = plugin;
+        this.uber = uber;
+        
         this.replacer = replacer;
         this.entityChecker = entityChecker;
         this.newSpawnsModifier = newSpawnsModifier;
@@ -40,7 +45,7 @@ public class MobRegistry {
                 replacer.replaceClasses(override.getNmsClass(), override.getOverrideClass());
 
                 // add a listener for original class
-                Bukkit.getPluginManager().registerEvents(new InvalidSpawnListener(plugin, entityChecker, override.getNmsClass(), override.getSuppressedInvalidSpawnReasons()), plugin);
+                Bukkit.getPluginManager().registerEvents(new InvalidSpawnListener(plugin, uber, entityChecker, override.getNmsClass(), override.getSuppressedInvalidSpawnReasons()), plugin);
             }
 
             // register events for the override
@@ -71,6 +76,10 @@ public class MobRegistry {
             if (override.isRunningClassReplace()) {
                 // reverse the replace
                 replacer.replaceClasses(override.getOverrideClass(), override.getNmsClass());
+            }
+            
+            for (Listener listener : override.getListeners()) {
+            	HandlerList.unregisterAll(listener);
             }
 
             // kill the replacement classes
