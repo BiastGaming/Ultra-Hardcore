@@ -1,18 +1,27 @@
-package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore;
+package com.leontg77.ultrahardcore.scenario.scenarios;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import org.bukkit.plugin.Plugin;
 
 import com.leontg77.ultrahardcore.scenario.Scenario;
+import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.EntityKiller;
+import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.MobRegistry;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityChecker;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityClassReplacer;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.MobOverride;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.NMSHandler;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.NewSpawnsModifier;
-import org.bukkit.plugin.Plugin;
 
-import java.util.List;
-import java.util.logging.Level;
-
+/**
+ * UberHardcore scenario class.
+ * 
+ * @author ghowden
+ * @see https://github.com/LeonTG77/Ultra-Hardcore/blob/master/licenses/UberHardcore
+ * @see https://github.com/Eluinhost/UberHardcore
+ */
 public class UberHardcore extends Scenario {
-
     protected final Plugin plugin;
 
     public UberHardcore(Plugin plugin) {
@@ -22,6 +31,13 @@ public class UberHardcore extends Scenario {
 
     protected MobRegistry registry;
 
+    @Override
+    public void onDisable() {
+        if (registry != null) {
+        	registry.deregisterEntities();
+        }
+    }
+    
     @Override
     public void onEnable() {
         NMSHandler handler = new com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.NMSHandler(plugin);
@@ -42,6 +58,7 @@ public class UberHardcore extends Scenario {
 
         registry = new MobRegistry(
                 plugin,
+                this,
                 replacer,
                 checker,
                 newSpawnsModifier,
@@ -50,10 +67,5 @@ public class UberHardcore extends Scenario {
         );
 
         registry.registerEntities();
-    }
-
-    @Override
-    public void onDisable() {
-        if (registry != null) registry.deregisterEntities();
     }
 }
