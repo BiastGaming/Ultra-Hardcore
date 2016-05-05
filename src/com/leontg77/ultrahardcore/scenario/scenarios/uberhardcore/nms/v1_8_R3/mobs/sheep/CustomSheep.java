@@ -6,6 +6,7 @@ import net.minecraft.server.v1_8_R3.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+@SuppressWarnings({ "unchecked" })
 public class CustomSheep extends EntitySheep {
 
     protected Method getColourMixMethod;

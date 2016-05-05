@@ -10,6 +10,7 @@ import java.util.List;
  * Exact copy/paste of VillageSeige but with CustomZombie replacement.
  * Only public method is tick() and it's overwriten so we should be good here
  */
+@SuppressWarnings({ "rawtypes" })
 public class CustomZombieSeige extends VillageSiege {
     private World a;
     private boolean b;

@@ -8,6 +8,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings({ "rawtypes" })
 public class MobOverride {
 
     protected Class nmsClass = null;

@@ -1,5 +1,6 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api;
 
+@SuppressWarnings({ "rawtypes" })
 public interface EntityClassReplacer {
     /**
      * Replaces the current class with the replacement

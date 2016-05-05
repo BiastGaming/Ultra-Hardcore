@@ -9,6 +9,7 @@ import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
 import java.lang.reflect.Field;
 import java.util.List;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class AIUtil {
 
     protected final Field taskEntriesField;

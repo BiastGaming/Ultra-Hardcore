@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityTargetEvent;
 
 import java.util.List;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class CustomZombie extends EntityZombie {
     public CustomZombie(World world) {
         super(world);

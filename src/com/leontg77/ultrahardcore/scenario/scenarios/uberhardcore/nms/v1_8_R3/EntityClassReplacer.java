@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class EntityClassReplacer implements com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityClassReplacer {
 
     protected Map<Class<? extends Entity>, Integer> classToIdMapping;
@@ -25,7 +26,7 @@ public class EntityClassReplacer implements com.leontg77.ultrahardcore.scenario.
         this.logger = logger;
     }
 
-    @Override
+	@Override
     public void replaceClasses(Class current, Class replacement) {
         // doesn't currently exist
         if (!classToIdMapping.containsKey(current)) {

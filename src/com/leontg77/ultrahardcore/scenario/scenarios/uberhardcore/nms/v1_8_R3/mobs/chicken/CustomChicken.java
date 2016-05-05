@@ -3,6 +3,7 @@ package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.m
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.AIUtil;
 import net.minecraft.server.v1_8_R3.*;
 
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class CustomChicken extends EntityChicken implements IRangedEntity {
 
     public CustomChicken(World world) {

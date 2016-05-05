@@ -12,7 +12,7 @@ public class EntityKiller {
         this.entityChecker = entityChecker;
     }
 
-    public void killEntitiesInWorld(Class klass, World world) {
+    public void killEntitiesInWorld(Class<?> klass, World world) {
         for (Entity entity : world.getEntities()) {
             if (entityChecker.isEntityOfClassExact(entity, klass)) {
                 entity.remove();

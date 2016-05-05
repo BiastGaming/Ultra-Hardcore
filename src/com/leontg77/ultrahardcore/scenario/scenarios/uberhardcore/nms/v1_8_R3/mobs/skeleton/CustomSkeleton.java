@@ -6,6 +6,7 @@ import org.bukkit.craftbukkit.v1_8_R3.event.CraftEventFactory;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 
+@SuppressWarnings({ "unchecked" })
 public class CustomSkeleton extends EntitySkeleton {
 
     public CustomSkeleton(World world) {
