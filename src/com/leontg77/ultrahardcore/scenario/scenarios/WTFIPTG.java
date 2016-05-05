@@ -71,7 +71,7 @@ public class WTFIPTG extends Scenario implements Listener {
         );
 		
 		this.allowedCommands = ImmutableSet.of(
-			"/parkour", "/ac", "/ssc", "/scen", "/uhc", "/matchpost", "/post", "/spec",
+			"/parkour", "/ac", "/ssc", "/scen", "/uhc", "/matchpost", "/post", "/spec", "/r",
 			"/mucoords", "/helpop", "/timeleft", "/hof", "/tps", "/top", "/border", "/a"
         );
 	}
@@ -129,7 +129,7 @@ public class WTFIPTG extends Scenario implements Listener {
         	return;
         }
         
-        if (!allowedCommands.contains(message.split(" ")[0])) {
+        if (allowedCommands.contains(message.split(" ")[0])) {
         	return;
         }
 
