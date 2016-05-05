@@ -59,6 +59,7 @@ public class ChatListener implements Listener {
 		if (VoteCommand.isRunning() && (message.equalsIgnoreCase("y") || message.equalsIgnoreCase("n"))) {
 			if (!game.getPlayers().contains(player)) {
 				player.sendMessage(ChatColor.RED + "You can only vote while playing the game.");
+				event.setCancelled(true);
 				return;
 			}
 			
