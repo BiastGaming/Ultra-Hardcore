@@ -21,7 +21,7 @@ import com.leontg77.ultrahardcore.managers.SpecManager;
  * @author LeonTG77
  */
 public class Parkour {
-	public static final String PREFIX = "ง9Parkour ง8ป ง7";
+	public static final String PREFIX = "ยง9Parkour ยง8ยง ยง7";
 
 	private final Main plugin;
 	

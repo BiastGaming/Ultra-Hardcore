@@ -76,7 +76,7 @@ public class DeathMessageFeature extends Feature implements Listener {
 		}
 
 		if (killer == null) {
-			PlayerUtils.broadcast("ง8ป งf" + deathMessage);
+			PlayerUtils.broadcast("ยง8ยง ยงf" + deathMessage);
 			return;
 		}
 		
@@ -86,7 +86,7 @@ public class DeathMessageFeature extends Feature implements Listener {
 		
 		if (player.getWorld().equals(killer.getWorld())) {
 			double distance = killer.getLocation().distance(player.getLocation());
-			shotDistance = " ง8(ง6" + NumberUtils.formatDouble(distance) + " ง7blocksง8)";
+			shotDistance = " ยง8(ยง6" + NumberUtils.formatDouble(distance) + " ยง7blocksยง8)";
 		}
 		
 		if (item == null || !item.hasItemMeta() || !item.getItemMeta().hasDisplayName() || !deathMessage.contains(killer.getName()) || (!deathMessage.contains("slain") && !deathMessage.contains("shot"))) {
@@ -94,19 +94,19 @@ public class DeathMessageFeature extends Feature implements Listener {
 				deathMessage += shotDistance;
 			}
 			
-			PlayerUtils.broadcast("ง8ป งf" + deathMessage);	
+			PlayerUtils.broadcast("ยง8ยง ยงf" + deathMessage);
 			return;
 		}
 			
 		String name = item.getItemMeta().getDisplayName();
 		
-		ComponentBuilder builder = new ComponentBuilder("ง8ป งf" + deathMessage.replace("[" + name + "]", ""));
-		String color = killer.getItemInHand().getEnchantments().isEmpty() ? "งf" : "งb";
+		ComponentBuilder builder = new ComponentBuilder("ยง8ยง ยงf" + deathMessage.replace("[" + name + "]", ""));
+		String color = killer.getItemInHand().getEnchantments().isEmpty() ? "ยงf" : "ยงb";
 
 		StringBuilder colored = new StringBuilder();
 		
 		for (String entry : name.split(" ")) {
-			colored.append(color + "งo" + entry).append(" ");
+			colored.append(color + "ยงo" + entry).append(" ");
 		}
 		
 		builder.append(color + "[" + colored.toString().trim() + color + "]");
@@ -122,7 +122,7 @@ public class DeathMessageFeature extends Feature implements Listener {
 			online.spigot().sendMessage(result);
 		}
 		
-		Bukkit.getLogger().info("ง8ป งf" + deathMessage);
+		Bukkit.getLogger().info("ยง8ยง ยงf" + deathMessage);
 	}
 	
 	/**

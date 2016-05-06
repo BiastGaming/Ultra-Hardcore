@@ -45,7 +45,7 @@ public class PvPCommand extends UHCCommand {
 			throw new CommandException("The world '" + args[0] + "' does not exist.");
 		}
 
-		sender.sendMessage(Main.PREFIX + "PvP in 'งa" + world.getName() + "ง7' has been " + booleanToString(enable) + ".");
+		sender.sendMessage(Main.PREFIX + "PvP in 'ยงa" + world.getName() + "ยง7' has been " + booleanToString(enable) + ".");
 		world.setPVP(enable);
 		return true;
 	}

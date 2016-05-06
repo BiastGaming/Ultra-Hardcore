@@ -47,7 +47,7 @@ public class RankCommand extends UHCCommand {
 			throw new CommandException("'" + args[1] + "' is not an valid rank.");
 		}
 		
-		PlayerUtils.broadcast(Main.PREFIX + "ง6" + target.getName() + " ง7has been given งa" + NameUtils.capitalizeString(rank.name(), false) + " ง7rank.");
+		PlayerUtils.broadcast(Main.PREFIX + "ยง6" + target.getName() + " ยง7has been given ยงa" + NameUtils.capitalizeString(rank.name(), false) + " ยง7rank.");
 		plugin.getUser(target).setRank(rank);
 		return true;
 	}

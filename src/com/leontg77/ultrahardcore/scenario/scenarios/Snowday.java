@@ -39,7 +39,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Snowday extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "§fSnowday §8» §7";
+	public static final String PREFIX = "Â§fSnowday Â§8Â§ Â§7";
 
 	private final Main plugin;
 	private final Game game;
@@ -148,7 +148,7 @@ public class Snowday extends Scenario implements Listener, CommandExecutor {
 		
 		totalChunks = locs.size();
 
-		PlayerUtils.broadcast(PREFIX + "Starting snowday generation in world '§a" + world.getName() + "§7'.");
+		PlayerUtils.broadcast(PREFIX + "Starting snowday generation in world 'Â§a" + world.getName() + "Â§7'.");
 		
 		task = new BukkitRunnable() {
 			public void run() {
@@ -209,7 +209,7 @@ public class Snowday extends Scenario implements Listener, CommandExecutor {
 				double completed = ((totalChunks - ((double) locs.size())) * 100 / totalChunks);
 				
 				for (Player online : Bukkit.getOnlinePlayers()) {
-					PacketUtils.sendAction(online, PREFIX + "Generating snowday §8(§a" + NumberUtils.formatPercentDouble(completed) + "%§8)");
+					PacketUtils.sendAction(online, PREFIX + "Generating snowday Â§8(Â§a" + NumberUtils.formatPercentDouble(completed) + "%Â§8)");
 				}
 			}
 		};

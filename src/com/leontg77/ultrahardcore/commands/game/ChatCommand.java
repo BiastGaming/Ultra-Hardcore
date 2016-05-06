@@ -47,7 +47,7 @@ public class ChatCommand extends UHCCommand {
 		if (args[0].equalsIgnoreCase("clear")) {
 			for (Player online : Bukkit.getOnlinePlayers()) {
 				for (int i = 0; i < 150; i++) {
-					online.sendMessage("ง0");
+					online.sendMessage("ยง0");
 				}
 			}
 			

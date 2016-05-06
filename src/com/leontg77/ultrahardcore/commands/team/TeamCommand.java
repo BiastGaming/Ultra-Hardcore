@@ -47,7 +47,7 @@ public class TeamCommand extends UHCCommand {
 	private final BoardManager board;
 	private final TeamManager teams;
 	
-	public static final String PREFIX = "§4Team §8» §7";
+	public static final String PREFIX = "Â§4Team Â§8Â§ Â§7";
 	
 	public TeamCommand(Game game, BoardManager board, TeamManager teams, ScenarioManager scen) {
 		super("team", "");
@@ -89,11 +89,11 @@ public class TeamCommand extends UHCCommand {
 			if (target.isOnline() && sender == target.getPlayer()) {
 				sender.sendMessage(PREFIX + "Your team information:");
 			} else {
-				sender.sendMessage(PREFIX + ChatColor.GREEN + target.getName() + "'s §7team information:");
+				sender.sendMessage(PREFIX + ChatColor.GREEN + target.getName() + "'s Â§7team information:");
 			}
 			
-			sender.sendMessage(Main.ARROW + "Team: §c" + (team == null ? "None" : team.getPrefix() + team.getName()));
-			sender.sendMessage(Main.ARROW + "Kills: §a" + board.getActualScore(target.getName()));
+			sender.sendMessage(Main.ARROW + "Team: Â§c" + (team == null ? "None" : team.getPrefix() + team.getName()));
+			sender.sendMessage(Main.ARROW + "Kills: Â§a" + board.getActualScore(target.getName()));
 			
 			if (team == null) {
 				return true;
@@ -113,9 +113,9 @@ public class TeamCommand extends UHCCommand {
 			for (String entry : savedTeam) {
 				if (teammates.length() > 0) {
 					if (current == savedTeam.size()) {
-						teammates.append(" §7and §f");
+						teammates.append(" Â§7and Â§f");
 					} else {
-						teammates.append("§7, §f");
+						teammates.append("Â§7, Â§f");
 					}
 				}
 				
@@ -132,13 +132,13 @@ public class TeamCommand extends UHCCommand {
 				if (scen.getScenario(TeamHealth.class).isEnabled() || scen.getScenario(SelfDiagnosis.class).isEnabled() || scen.getScenario(Paranoia.class).isEnabled()) {
 					teammates.append(ChatColor.GREEN + teammate.getName());
 				} else {
-					teammates.append(ChatColor.GREEN + teammate.getName() + " §8(" + NumberUtils.makePercent(teammate.getHealth()) + "%§8)");
+					teammates.append(ChatColor.GREEN + teammate.getName() + " Â§8(" + NumberUtils.makePercent(teammate.getHealth()) + "%Â§8)");
 				}
 			}
 
-			sender.sendMessage(Main.ARROW + "Team Kills: §a" + teamkills);
-			sender.sendMessage(Main.ARROW + "§8------------------------------- §8«");
-			sender.sendMessage(Main.ARROW + "Teammates: §8(§aGreen §7= Online, §cRed §7= Offline§8)");
+			sender.sendMessage(Main.ARROW + "Team Kills: Â§a" + teamkills);
+			sender.sendMessage(Main.ARROW + "Â§8------------------------------- Â§8Â§");
+			sender.sendMessage(Main.ARROW + "Teammates: Â§8(Â§aGreen Â§7= Online, Â§cRed Â§7= OfflineÂ§8)");
 			sender.sendMessage(Main.ARROW + teammates.toString().trim());
 			return true;
 		}
@@ -174,7 +174,7 @@ public class TeamCommand extends UHCCommand {
 					current++;
 				}
 				
-				sender.sendMessage(team.getPrefix() + team.getName() + ": §f" + teammates.toString().trim() + ".");
+				sender.sendMessage(team.getPrefix() + team.getName() + ": Â§f" + teammates.toString().trim() + ".");
 			}
 			return true;
 		}
@@ -195,13 +195,13 @@ public class TeamCommand extends UHCCommand {
 			int teamsize = parseInt(args[1], "teamsize");
 
 			PlayerUtils.broadcast(Main.PREFIX + "Team Management has been enabled.");
-			PlayerUtils.broadcast(PREFIX + "You can now create your own teams! §8(§7Max team size: §6" + teamsize + "§8)");
-			PlayerUtils.broadcast(PREFIX + "You can use §a/team create §7to create the team.");
+			PlayerUtils.broadcast(PREFIX + "You can now create your own teams! Â§8(Â§7Max team size: Â§6" + teamsize + "Â§8)");
+			PlayerUtils.broadcast(PREFIX + "You can use Â§a/team create Â§7to create the team.");
 
 			if (game.pregameBoard()) {
-				board.setScore("§e ", 14);
-				board.setScore("§8» §cTeam:", 13);
-				board.setScore("§8» §7/team", 12);
+				board.setScore("Â§e ", 14);
+				board.setScore("Â§8Â§ Â§cTeam:", 13);
+				board.setScore("Â§8Â§ Â§7/team", 12);
 			}
 			
 			game.setTeamManagement(true, teamsize);
@@ -218,9 +218,9 @@ public class TeamCommand extends UHCCommand {
 			}
 
 			if (game.pregameBoard()) {
-				board.resetScore("§e ");
-				board.resetScore("§8» §cTeam:");
-				board.resetScore("§8» §7/team");
+				board.resetScore("Â§e ");
+				board.resetScore("Â§8Â§ Â§cTeam:");
+				board.resetScore("Â§8Â§ Â§7/team");
 			}
 			
 			PlayerUtils.broadcast(Main.PREFIX + "Team Management has been disabled.");
@@ -252,7 +252,7 @@ public class TeamCommand extends UHCCommand {
 			
 			invites.put(player.getName(), new ArrayList<String>());
 			
-			sender.sendMessage(PREFIX + "Team created! Use §a/team invite <player>§7 to invite a player.");
+			sender.sendMessage(PREFIX + "Team created! Use Â§a/team invite <player>Â§7 to invite a player.");
 			teams.joinTeam(team, player);
 			return true;
 		}
@@ -300,12 +300,12 @@ public class TeamCommand extends UHCCommand {
 			
 			invites.get(player.getName()).add(target.getName());
 			
-			teams.sendMessage(team, PREFIX + ChatColor.GREEN + target.getName() + " §7has been invited to your team.");
-			target.sendMessage(PREFIX + "You have been invited to §a" + sender.getName() + "'s §7team.");
+			teams.sendMessage(team, PREFIX + ChatColor.GREEN + target.getName() + " Â§7has been invited to your team.");
+			target.sendMessage(PREFIX + "You have been invited to Â§a" + sender.getName() + "'s Â§7team.");
 			
 			ComponentBuilder builder = new ComponentBuilder("");
 			
-			builder.append(PREFIX + "§b§oClick here to accept the request.");
+			builder.append(PREFIX + "Â§bÂ§oClick here to accept the request.");
 			builder.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[] { new TextComponent("Click to join " + player.getName() + "'s team.") }));
 			builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/team accept " + player.getName()));
 			
@@ -354,7 +354,7 @@ public class TeamCommand extends UHCCommand {
 				throw new CommandException("That team is currently full.");
 			}
 			
-			teams.sendMessage(team, PREFIX + ChatColor.GREEN + player.getName() + " §7joined your team.");
+			teams.sendMessage(team, PREFIX + ChatColor.GREEN + player.getName() + " Â§7joined your team.");
 			player.sendMessage(PREFIX + "Request accepted, you joined their team.");
 			
 			invites.get(target.getName()).remove(sender.getName());
@@ -386,7 +386,7 @@ public class TeamCommand extends UHCCommand {
 				throw new CommandException("'" + target.getName() + "' has not sent you any requests.");
 			}
 			
-			target.sendMessage(PREFIX + ChatColor.GREEN + player.getName() + " §7denied your request.");
+			target.sendMessage(PREFIX + ChatColor.GREEN + player.getName() + " Â§7denied your request.");
 			sender.sendMessage(PREFIX + "You denied the team request.");
 			
 			invites.get(target.getName()).remove(player.getName());
@@ -410,7 +410,7 @@ public class TeamCommand extends UHCCommand {
 				throw new CommandException("You are not on a team.");
 			}
 
-			teams.sendMessage(team, Main.PREFIX + "§a" + player.getName() + "§7 left your team.");
+			teams.sendMessage(team, Main.PREFIX + "Â§a" + player.getName() + "Â§7 left your team.");
 			teams.leaveTeam(player, true);
 			return true;
 		}
@@ -450,7 +450,7 @@ public class TeamCommand extends UHCCommand {
 				throw new CommandException("'" + target.getName() + "' is not on your team.");
 			}
 
-			teams.sendMessage(team, PREFIX + ChatColor.GREEN + target.getName() + " §7was kicked from your team.");
+			teams.sendMessage(team, PREFIX + ChatColor.GREEN + target.getName() + " Â§7was kicked from your team.");
 			teams.leaveTeam(target, true);
 			return true;
 		}
@@ -472,7 +472,7 @@ public class TeamCommand extends UHCCommand {
 			
 			OfflinePlayer offline = PlayerUtils.getOfflinePlayer(args[2]);
 			
-			sender.sendMessage(PREFIX + ChatColor.GREEN + offline.getName() + "§7 was added to team §6" + team.getName() + "§7.");
+			sender.sendMessage(PREFIX + ChatColor.GREEN + offline.getName() + "Â§7 was added to team Â§6" + team.getName() + "Â§7.");
 			teams.joinTeam(team, offline);
 			return true;
 		} 
@@ -493,7 +493,7 @@ public class TeamCommand extends UHCCommand {
 				throw new CommandException("'" + offline.getName() + "' is not on a team.");
 			}
 			
-			sender.sendMessage(PREFIX + ChatColor.GREEN + offline.getName() + " §7was removed from his team.");
+			sender.sendMessage(PREFIX + ChatColor.GREEN + offline.getName() + " Â§7was removed from his team.");
 			teams.leaveTeam(offline, true);
 			return true;
 		}
@@ -517,7 +517,7 @@ public class TeamCommand extends UHCCommand {
 				teams.leaveTeam(player, true);
 			}
 			
-			sender.sendMessage(PREFIX + "Team §a" + team.getName() + " §7has been deleted.");
+			sender.sendMessage(PREFIX + "Team Â§a" + team.getName() + " Â§7has been deleted.");
 			return true;
 		}
 		
@@ -536,7 +536,7 @@ public class TeamCommand extends UHCCommand {
 				team.setAllowFriendlyFire(enable);
 			}
 			
-			PlayerUtils.broadcast(PREFIX + "FriendlyFire has been " + (enable ? "§aenabled" : "§cdisabled") + "§7.");
+			PlayerUtils.broadcast(PREFIX + "FriendlyFire has been " + (enable ? "Â§aenabled" : "Â§cdisabled") + "Â§7.");
 			return true;
 		}
 		
@@ -565,7 +565,7 @@ public class TeamCommand extends UHCCommand {
 			teams.setup(); // it doesn't do anything other than change the color if the team exist.
 			
 			for (Team team : teams.getTeamsWithPlayers()) {
-				teams.sendMessage(team, PREFIX + "Your team color is now§8: " + team.getPrefix() + "this color§7!");
+				teams.sendMessage(team, PREFIX + "Your team color is nowÂ§8: " + team.getPrefix() + "this colorÂ§7!");
 			}
 			return true;
 		}
@@ -593,12 +593,12 @@ public class TeamCommand extends UHCCommand {
 						online.setWhitelisted(false);
 						
 						online.kickPlayer(
-						"§8» §7You have been §cdisqualified §7from this game §8«" +
+						"Â§8Â§ Â§7You have been Â§cdisqualified Â§7from this game Â§8Â§" +
 						"\n" + 
-						"\n§cReason §8» §7Solos are not allowed!" +  
-						"\n§cDQ'ed by §8» §7" + sender.getName() + 
+						"\nÂ§cReason Â§8Â§ Â§7Solos are not allowed!" +
+						"\nÂ§cDQ'ed by Â§8Â§ Â§7" + sender.getName() +
 						"\n" + 
-						"\n§8» §7Don't worry, this is not a perma ban. §8«"
+						"\nÂ§8Â§ Â§7Don't worry, this is not a perma ban. Â§8Â§"
 						);
 					}
 
@@ -608,12 +608,12 @@ public class TeamCommand extends UHCCommand {
 						online.setWhitelisted(false);
 						
 						online.kickPlayer(
-						"§8» §7You have been §cdisqualified §7from this game §8«" +
+						"Â§8Â§ Â§7You have been Â§cdisqualified Â§7from this game Â§8Â§" +
 						"\n" + 
-						"\n§cReason §8» §7To" + size + " are not allowed!" +  
-						"\n§cDQ'ed by §8» §7" + sender.getName() + 
+						"\nÂ§cReason Â§8Â§ Â§7To" + size + " are not allowed!" +
+						"\nÂ§cDQ'ed by Â§8Â§ Â§7" + sender.getName() +
 						"\n" + 
-						"\n§8» §7Don't worry, this is not a perma ban. §8«"
+						"\nÂ§8Â§ Â§7Don't worry, this is not a perma ban. Â§8Â§"
 						);
 					}
 					
@@ -657,7 +657,7 @@ public class TeamCommand extends UHCCommand {
 					}
 					
 					if (team.getSize() == 1) {
-						player.sendMessage(PREFIX + "§cNo one, you are a solo."); 
+						player.sendMessage(PREFIX + "Â§cNo one, you are a solo.");
 						break;
 					}
 					
@@ -671,9 +671,9 @@ public class TeamCommand extends UHCCommand {
 
 						if (list.length() > 0) {
 							if (i == team.getSize()) {
-								list.append(" §8and §7");
+								list.append(" Â§8and Â§7");
 							} else {
-								list.append("§8, §7");
+								list.append("Â§8, Â§7");
 							}
 						}
 						
@@ -692,8 +692,8 @@ public class TeamCommand extends UHCCommand {
 					player.sendMessage(PREFIX + list.toString());
 				}
 				
-				teams.sendMessage(team, PREFIX + "Names in §cred §7are offline, but have been whitelisted.");
-				teams.sendMessage(team, PREFIX + "Mistake? Immediately '§a/helpop WRONG TEAM!§7'.");
+				teams.sendMessage(team, PREFIX + "Names in Â§cred Â§7are offline, but have been whitelisted.");
+				teams.sendMessage(team, PREFIX + "Mistake? Immediately 'Â§a/helpop WRONG TEAM!Â§7'.");
 			}
 			return true;
 		}
@@ -777,34 +777,34 @@ public class TeamCommand extends UHCCommand {
 	 */
 	public boolean helpMenu(CommandSender sender) {
 		sender.sendMessage(PREFIX + "Team management help:");
-		sender.sendMessage("§8» §f/pm <message> §7- §f§oTalk in team chat.");
-		sender.sendMessage("§8» §f/tl §7- §f§oTell your coords to your teammates.");
-		sender.sendMessage("§8» §f/pmores §7- §f§oBroadcast ores in your inventory to your team.");
-		sender.sendMessage("§8» §f/pmminedores §7- §f§oBroadcast your mined ores to your team.");
-		sender.sendMessage("§8» §f/team info [player] §7- §f§oDisplay your or the targets team info.");
-		sender.sendMessage("§8» §f/team list §7- §f§oList all teams.");
+		sender.sendMessage("Â§8Â§ Â§f/pm <message> Â§7- Â§fÂ§oTalk in team chat.");
+		sender.sendMessage("Â§8Â§ Â§f/tl Â§7- Â§fÂ§oTell your coords to your teammates.");
+		sender.sendMessage("Â§8Â§ Â§f/pmores Â§7- Â§fÂ§oBroadcast ores in your inventory to your team.");
+		sender.sendMessage("Â§8Â§ Â§f/pmminedores Â§7- Â§fÂ§oBroadcast your mined ores to your team.");
+		sender.sendMessage("Â§8Â§ Â§f/team info [player] Â§7- Â§fÂ§oDisplay your or the targets team info.");
+		sender.sendMessage("Â§8Â§ Â§f/team list Â§7- Â§fÂ§oList all teams.");
 		
 		if (game.teamManagement()) {
-			sender.sendMessage("§8» §f/team create §7- §f§oCreate a team.");
-			sender.sendMessage("§8» §f/team leave §7- §f§oLeave your team.");
-			sender.sendMessage("§8» §f/team invite <player> §7- §f§oInvite a player to your team.");
-			sender.sendMessage("§8» §f/team kick <player> §7- §f§oKick a player to your team.");
-			sender.sendMessage("§8» §f/team accept <player> §7- §f§oAccept the players request.");
-			sender.sendMessage("§8» §f/team deny <player> §7- §f§oDeny the players request.");
+			sender.sendMessage("Â§8Â§ Â§f/team create Â§7- Â§fÂ§oCreate a team.");
+			sender.sendMessage("Â§8Â§ Â§f/team leave Â§7- Â§fÂ§oLeave your team.");
+			sender.sendMessage("Â§8Â§ Â§f/team invite <player> Â§7- Â§fÂ§oInvite a player to your team.");
+			sender.sendMessage("Â§8Â§ Â§f/team kick <player> Â§7- Â§fÂ§oKick a player to your team.");
+			sender.sendMessage("Â§8Â§ Â§f/team accept <player> Â§7- Â§fÂ§oAccept the players request.");
+			sender.sendMessage("Â§8Â§ Â§f/team deny <player> Â§7- Â§fÂ§oDeny the players request.");
 		}
 		
 		if (sender.hasPermission(ADMIN_PERM)) {
 			sender.sendMessage(PREFIX + "Team management Admin help:");
-			sender.sendMessage("§8» §f/team enable <teamsize> §7- §f§oEnable team management.");
-			sender.sendMessage("§8» §f/team disable §7- §f§oDisable team management.");
-			sender.sendMessage("§8» §f/team ct <players...> §7- §f§oCreate a team with the following players.");
-			sender.sendMessage("§8» §f/team add <team> <player> §7- §f§oAdd a player to a team.");
-			sender.sendMessage("§8» §f/team remove <player> §7- §f§oRemove a player from his team.");
-			sender.sendMessage("§8» §f/team delete <team> §7- §f§oEmpty a specific team.");
-			sender.sendMessage("§8» §f/team friendlyfire <true|false> §7- §f§oToggle FriendlyFire.");
-			sender.sendMessage("§8» §f/team dq <size> §7- §f§oKicks all players on a team with the that teamsize.");
-			sender.sendMessage("§8» §f/team color §7- §f§oRecolor all teams.");
-			sender.sendMessage("§8» §f/team clear §7- §f§oClear all teams.");
+			sender.sendMessage("Â§8Â§ Â§f/team enable <teamsize> Â§7- Â§fÂ§oEnable team management.");
+			sender.sendMessage("Â§8Â§ Â§f/team disable Â§7- Â§fÂ§oDisable team management.");
+			sender.sendMessage("Â§8Â§ Â§f/team ct <players...> Â§7- Â§fÂ§oCreate a team with the following players.");
+			sender.sendMessage("Â§8Â§ Â§f/team add <team> <player> Â§7- Â§fÂ§oAdd a player to a team.");
+			sender.sendMessage("Â§8Â§ Â§f/team remove <player> Â§7- Â§fÂ§oRemove a player from his team.");
+			sender.sendMessage("Â§8Â§ Â§f/team delete <team> Â§7- Â§fÂ§oEmpty a specific team.");
+			sender.sendMessage("Â§8Â§ Â§f/team friendlyfire <true|false> Â§7- Â§fÂ§oToggle FriendlyFire.");
+			sender.sendMessage("Â§8Â§ Â§f/team dq <size> Â§7- Â§fÂ§oKicks all players on a team with the that teamsize.");
+			sender.sendMessage("Â§8Â§ Â§f/team color Â§7- Â§fÂ§oRecolor all teams.");
+			sender.sendMessage("Â§8Â§ Â§f/team clear Â§7- Â§fÂ§oClear all teams.");
 		}
 		return true;
 	}

@@ -48,7 +48,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;
  * @author LeonTG77
  */
 public class InvertedDimensions extends Scenario implements CommandExecutor, Listener {
-	public static final String PREFIX = "§cInverted Dimensions §8» §7";
+	public static final String PREFIX = "Â§cInverted Dimensions Â§8Â§ Â§7";
 	
 	private final Main plugin;
 	
@@ -244,7 +244,7 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 		
 		totalChunks = locs.size();
 
-		PlayerUtils.broadcast(PREFIX + "Starting inverted dimensions generation in world '§a" + world.getName() + "§7'.");
+		PlayerUtils.broadcast(PREFIX + "Starting inverted dimensions generation in world 'Â§a" + world.getName() + "Â§7'.");
 		
 		task = new BukkitRunnable() {
 			@SuppressWarnings("deprecation")
@@ -369,7 +369,7 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 				double completed = ((totalChunks - ((double) locs.size())) * 100 / totalChunks);
 				
 				for (Player online : Bukkit.getOnlinePlayers()) {
-					PacketUtils.sendAction(online, PREFIX + "Generating inverted dimensions §8(§a" + NumberUtils.formatPercentDouble(completed) + "%§8)");
+					PacketUtils.sendAction(online, PREFIX + "Generating inverted dimensions Â§8(Â§a" + NumberUtils.formatPercentDouble(completed) + "%Â§8)");
 				}
 			}
 		};

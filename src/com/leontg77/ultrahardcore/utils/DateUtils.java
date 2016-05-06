@@ -84,23 +84,23 @@ public class DateUtils {
         final StringBuilder output = new StringBuilder();
  
         if (hours > 0) {
-            output.append(hours).append(" ").append(hours == 1 ? "§7hour§a" : "§7hours§a");
+            output.append(hours).append(" ").append(hours == 1 ? "Â§7hourÂ§a" : "Â§7hoursÂ§a");
         }
  
         if (minutes > 0) {
             if (output.length() > 0) {
-                output.append(" §7and§a ");
+                output.append(" Â§7andÂ§a ");
             }
  
-            output.append(minutes).append(" ").append(minutes == 1 ? "§7minute§a" : "§7minutes§a");
+            output.append(minutes).append(" ").append(minutes == 1 ? "Â§7minuteÂ§a" : "Â§7minutesÂ§a");
         }
  
         if (seconds > 0) {
             if (output.length() > 0) {
-                output.append("§7 and§a ");
+                output.append("Â§7 andÂ§a ");
             }
  
-            output.append(seconds).append(" ").append(seconds == 1 ? "§7second§a" : "§7seconds§a");
+            output.append(seconds).append(" ").append(seconds == 1 ? "Â§7secondÂ§a" : "Â§7secondsÂ§a");
         }
  
         return output.toString();

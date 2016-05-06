@@ -249,25 +249,25 @@ public class User {
 	 */
 	public String getRankColor() {
 		if (game.isRecordedRound()) {
-			return "ง7";
+			return "ยง7";
 		}
 		
 		switch (getRank()) {
 		case DONATOR:
-			return "งa";
+			return "ยงa";
 		case HOST:
 		case TRIAL:
-			return "ง4";
+			return "ยง4";
 		case OWNER:
 			if (uuid.toString().equals("02dc5178-f7ec-4254-8401-1a57a7442a2f")) {
-				return "ง3งo";
+				return "ยง3ยงo";
 			} else {
-				return "ง4งo";
+				return "ยง4ยงo";
 			}
 		case STAFF:
-			return "งc";
+			return "ยงc";
 		default:
-			return "ง7";
+			return "ยง7";
 		}
 	}
 	
@@ -302,16 +302,16 @@ public class User {
 			UUID uuid = UUID.fromString(file.getString("uuid", UUID.randomUUID().toString()));
 
 			if (ubl.isBanned(uuid)) {
-				altList.add("ง6" + name + "ง8");
+				altList.add("ยง6" + name + "ยง8");
 			} 
 			else if (banlist.getBanEntry(name) != null) {
-				altList.add("ง4" + name + "ง8");
+				altList.add("ยง4" + name + "ยง8");
 			}
 			else if (check != null) {
-				altList.add("งa" + name + "ง8");
+				altList.add("ยงa" + name + "ยง8");
 			} 
 			else {
-				altList.add("งc" + name + "ง8");
+				altList.add("ยงc" + name + "ยง8");
 			}
 		}
 		

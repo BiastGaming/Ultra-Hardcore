@@ -27,7 +27,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Paranoia extends Scenario implements Listener {
-	public static final String PREFIX = "§cParanoia §8» §a";
+	public static final String PREFIX = "Â§cParanoia Â§8Â§ Â§a";
 	
 	private final Game game;
 	
@@ -79,16 +79,16 @@ public class Paranoia extends Scenario implements Listener {
 		
 		if (item.getType() == Material.GOLDEN_APPLE) {
 			if (ghead.isGoldenHead(item)) {
-				PlayerUtils.broadcast(PREFIX + player.getName() + "§f ate a §5Golden Head §fat " + location(loc));
+				PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f ate a Â§5Golden Head Â§fat " + location(loc));
 				return;
 			}
 			
 			if (item.getDurability() == 1) {
-				PlayerUtils.broadcast(PREFIX + player.getName() + "§f ate a §dNotch Apple §fat " + location(loc));
+				PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f ate a Â§dNotch Apple Â§fat " + location(loc));
 				return;
 			}
 			
-			PlayerUtils.broadcast(PREFIX + player.getName() + "§f ate a §eGolden Apple §fat " + location(loc));
+			PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f ate a Â§eGolden Apple Â§fat " + location(loc));
 		}
 	}
 	
@@ -110,26 +110,26 @@ public class Paranoia extends Scenario implements Listener {
 		
 		if (result.getType() == Material.GOLDEN_APPLE) {
 			if (ghead.isGoldenHead(result)) {
-				PlayerUtils.broadcast(PREFIX + player.getName() + "§f crafted a §5Golden Head §fat " + location(loc));
+				PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f crafted a Â§5Golden Head Â§fat " + location(loc));
 				return;
 			}
 			
 			if (result.getDurability() == 1) {
-				PlayerUtils.broadcast(PREFIX + player.getName() + "§f crafted a §dNotch Apple §fat " + location(loc));
+				PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f crafted a Â§dNotch Apple Â§fat " + location(loc));
 				return;
 			}
 			
-			PlayerUtils.broadcast(PREFIX + player.getName() + "§f crafted a §eGolden Apple §fat " + location(loc));
+			PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f crafted a Â§eGolden Apple Â§fat " + location(loc));
 			return;
 		}
 		
 		if (result.getType() == Material.ANVIL) {
-			PlayerUtils.broadcast(PREFIX + player.getName() + "§f crafted an §dAnvil §fat " + location(loc));
+			PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f crafted an Â§dAnvil Â§fat " + location(loc));
 			return;
 		}
 		
 		if (result.getType() == Material.ENCHANTMENT_TABLE) {
-			PlayerUtils.broadcast(PREFIX + player.getName() + "§f crafted an §5Enchantment Table §fat " + location(loc) + ".");
+			PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f crafted an Â§5Enchantment Table Â§fat " + location(loc) + ".");
 		}
 	}
 	
@@ -146,7 +146,7 @@ public class Paranoia extends Scenario implements Listener {
 			return;
 		}
 		
-		PlayerUtils.broadcast(PREFIX + player.getName() + "§f died at " + location(loc));
+		PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f died at " + location(loc));
 	}
 
 	/**

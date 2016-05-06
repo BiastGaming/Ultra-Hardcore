@@ -21,7 +21,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Skyhigh extends Scenario implements Listener {
-	public static final String PREFIX = "§bSkyhigh §8» §7";
+	public static final String PREFIX = "Â§bSkyhigh Â§8Â§ Â§7";
 	
 	private final Main plugin;
 	private final Game game;

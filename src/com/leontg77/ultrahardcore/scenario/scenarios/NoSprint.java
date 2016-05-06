@@ -44,7 +44,7 @@ public class NoSprint extends Scenario implements Listener {
 		player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 10));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 10));
 		
-		PacketUtils.sendTitle(player, "§cNo sprinting!", "§7You are not allowed to sprint.", 15, 30, 15);
+		PacketUtils.sendTitle(player, "Â§cNo sprinting!", "Â§7You are not allowed to sprint.", 15, 30, 15);
 	}
 	
 	@EventHandler
@@ -66,6 +66,6 @@ public class NoSprint extends Scenario implements Listener {
 
 		event.setCancelled(true);
 		
-		PacketUtils.sendTitle(player, "§cNo sprinting!", "§7You are not allowed to sprint.", 15, 30, 15);
+		PacketUtils.sendTitle(player, "Â§cNo sprinting!", "Â§7You are not allowed to sprint.", 15, 30, 15);
 	}
 }

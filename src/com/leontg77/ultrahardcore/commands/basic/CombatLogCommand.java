@@ -34,7 +34,7 @@ public class CombatLogCommand extends UHCCommand {
 		Player player = (Player) sender;
 		
 		if (ct.combat.containsKey(player.getUniqueId())) {
-			player.sendMessage(Main.PREFIX + "You are still in combat for งa" + ct.combat.get(player.getUniqueId()) + " ง7seconds, do not log out.");
+			player.sendMessage(Main.PREFIX + "You are still in combat for ยงa" + ct.combat.get(player.getUniqueId()) + " ยง7seconds, do not log out.");
 		} else {
 			player.sendMessage(Main.PREFIX + "You are not in combat, you may log out if you want.");
 		}

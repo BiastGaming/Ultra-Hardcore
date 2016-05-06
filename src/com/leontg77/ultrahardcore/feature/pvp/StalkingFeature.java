@@ -55,7 +55,7 @@ public class StalkingFeature extends Feature {
 	 * @author LeonTG77
 	 */
 	public enum StalkingRule {
-		ALLOWED("§aAllowed"), ALLOWED_NOT_EXCESSIVE("§aAllowed §c(Not excessive)"), UNTIL_CAUGHT("§eAllowed until you get caught"), DISALLOWED("§cDisallowed");
+		ALLOWED("Â§aAllowed"), ALLOWED_NOT_EXCESSIVE("Â§aAllowed Â§c(Not excessive)"), UNTIL_CAUGHT("Â§eAllowed until you get caught"), DISALLOWED("Â§cDisallowed");
 		
 		private String message;
 		

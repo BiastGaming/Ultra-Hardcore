@@ -61,8 +61,8 @@ public class FeedCommand extends UHCCommand {
 		User user = plugin.getUser(target);
 		user.resetFood();
 
-		sender.sendMessage(Main.PREFIX + "You fed งa" + target.getName() + "ง7.");
-		target.sendMessage(Main.PREFIX + "You have been fed by งa" + sender.getName() + "ง7.");
+		sender.sendMessage(Main.PREFIX + "You fed ยงa" + target.getName() + "ยง7.");
+		target.sendMessage(Main.PREFIX + "You have been fed by ยงa" + sender.getName() + "ยง7.");
 		return true;
 	}
 

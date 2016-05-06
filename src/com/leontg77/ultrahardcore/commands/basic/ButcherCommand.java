@@ -51,7 +51,7 @@ public class ButcherCommand extends UHCCommand {
 	    		}
 	       	}
 	    	
-			sender.sendMessage(Main.PREFIX + "Killed ง6" + amount + " ง7entities.");
+			sender.sendMessage(Main.PREFIX + "Killed ยง6" + amount + " ยง7entities.");
 			return true;
 		}
 		
@@ -81,7 +81,7 @@ public class ButcherCommand extends UHCCommand {
 			throw new CommandException("There were no mobs to kill.");
 		}
 		
-		sender.sendMessage(Main.PREFIX + "Killed ง6" + amount + " ง7" + EntityUtils.getMobName(entity).toLowerCase() + "s.");
+		sender.sendMessage(Main.PREFIX + "Killed ยง6" + amount + " ยง7" + EntityUtils.getMobName(entity).toLowerCase() + "s.");
 		return true;
 	}
 

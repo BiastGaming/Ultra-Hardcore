@@ -48,7 +48,7 @@ public class AssaultAndBattery extends Scenario implements Listener, CommandExec
 	
 	private final Map<String, Type> types = new HashMap<String, Type>();
 	
-	private static final String PREFIX = "§bA&B §8» §7";
+	private static final String PREFIX = "Â§bA&B Â§8Â§ Â§7";
 
 	@Override
 	public void onDisable() {
@@ -78,8 +78,8 @@ public class AssaultAndBattery extends Scenario implements Listener, CommandExec
 			types.put(entry.get(0), Type.ASSAULT);
 			types.put(entry.get(1), Type.BATTERY);
 
-			teams.sendMessage(team, PREFIX + "Assaulter (Melee): §e" + entry.get(0));
-			teams.sendMessage(team, PREFIX + "Battery (Bow): §e" + entry.get(1));
+			teams.sendMessage(team, PREFIX + "Assaulter (Melee): Â§e" + entry.get(0));
+			teams.sendMessage(team, PREFIX + "Battery (Bow): Â§e" + entry.get(1));
 		}
 	}
 	
@@ -180,16 +180,16 @@ public class AssaultAndBattery extends Scenario implements Listener, CommandExec
 		
 		if (cmd.getName().equalsIgnoreCase("class")) {
 			if (!types.containsKey(player.getName())) {
-				player.sendMessage(PREFIX + "You are the §eassaulter §7and §ebattery§7! You can both melee and sword!");
+				player.sendMessage(PREFIX + "You are the Â§eassaulter Â§7and Â§ebatteryÂ§7! You can both melee and sword!");
 				return true;
 			}
 			
 			switch (types.get(player.getName())) {
 			case ASSAULT:
-				player.sendMessage(PREFIX + "You are the §eassaulter§7! You can only use your sword!");
+				player.sendMessage(PREFIX + "You are the Â§eassaulterÂ§7! You can only use your sword!");
 				break;
 			case BATTERY:
-				player.sendMessage(PREFIX + "You are the §ebattery§7! You can only use your bow!");
+				player.sendMessage(PREFIX + "You are the Â§ebatteryÂ§7! You can only use your bow!");
 				break;
 			}
 		}
@@ -205,14 +205,14 @@ public class AssaultAndBattery extends Scenario implements Listener, CommandExec
 				switch (type) {
 				case ASSAULT:
 					if (assault.length() > 0) {
-						assault.append("§8, §7");
+						assault.append("Â§8, Â§7");
 					}
 					
 					assault.append(key);
 					break;
 				case BATTERY:
 					if (battery.length() > 0) {
-						battery.append("§8, §7");
+						battery.append("Â§8, Â§7");
 					}
 					
 					battery.append(key);
@@ -228,20 +228,20 @@ public class AssaultAndBattery extends Scenario implements Listener, CommandExec
 				} 
 
 				if (both.length() > 0) {
-					both.append("§8, §7");
+					both.append("Â§8, Â§7");
 				}
 				
 				both.append(wld.getName());
 			}
 			
-			player.sendMessage(PREFIX + "§8====§e Assaulters §8====");
-			player.sendMessage("§8» §7" + (assault.length() == 0 ? "None" : assault.toString()) + "§8.");
+			player.sendMessage(PREFIX + "Â§8====Â§e Assaulters Â§8====");
+			player.sendMessage("Â§8Â§ Â§7" + (assault.length() == 0 ? "None" : assault.toString()) + "Â§8.");
 			
-			player.sendMessage(PREFIX + "§8====§e Batteries §8====");
-			player.sendMessage("§8» §7" + (battery.length() == 0 ? "None" : battery.toString()) + "§8.");
+			player.sendMessage(PREFIX + "Â§8====Â§e Batteries Â§8====");
+			player.sendMessage("Â§8Â§ Â§7" + (battery.length() == 0 ? "None" : battery.toString()) + "Â§8.");
 			
-			player.sendMessage(PREFIX + "§8====§e Both §8====");
-			player.sendMessage("§8» §7" + (both.length() == 0 ? "None" : both.toString()) + "§8.");
+			player.sendMessage(PREFIX + "Â§8====Â§e Both Â§8====");
+			player.sendMessage("Â§8Â§ Â§7" + (both.length() == 0 ? "None" : both.toString()) + "Â§8.");
 		}
 		return true;
 	}

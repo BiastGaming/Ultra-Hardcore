@@ -66,36 +66,36 @@ public class InfoCommand extends UHCCommand {
 		
 		if (user.isMuted()) {
 			if (user.getMuteExpiration() == null) {
-				muteMessage = "§aTrue§7, Reason: §6" + user.getMutedReason() + " §8(§apermanent§8)";
+				muteMessage = "Â§aTrueÂ§7, Reason: Â§6" + user.getMutedReason() + " Â§8(Â§apermanentÂ§8)";
 			} else {
-				muteMessage = "§aTrue§7, Reason: §6" + user.getMutedReason() + " §8(§a" + DateUtils.formatDateDiff(user.getMuteExpiration().getTime()) + "§8)";
+				muteMessage = "Â§aTrueÂ§7, Reason: Â§6" + user.getMutedReason() + " Â§8(Â§a" + DateUtils.formatDateDiff(user.getMuteExpiration().getTime()) + "Â§8)";
 			}
 		} else {
-			muteMessage = "§cFalse";
+			muteMessage = "Â§cFalse";
 		}
 		
 		if (list.isBanned(target.getName())) {
 			if (entry.getExpiration() == null) {
-				banMessage = "§aTrue§7, Reason: §6" + entry.getReason() + " §8(§apermanent§8)";
+				banMessage = "Â§aTrueÂ§7, Reason: Â§6" + entry.getReason() + " Â§8(Â§apermanentÂ§8)";
 			} else {
-				banMessage = "§aTrue§7, Reason: §6" + entry.getReason() + " §8(§a" + DateUtils.formatDateDiff(entry.getExpiration().getTime()) + "§8)";
+				banMessage = "Â§aTrueÂ§7, Reason: Â§6" + entry.getReason() + " Â§8(Â§a" + DateUtils.formatDateDiff(entry.getExpiration().getTime()) + "Â§8)";
 			}
 		} else {
-			banMessage = "§cFalse";
+			banMessage = "Â§cFalse";
 		}
 		
 		if (ubl.isBanned(target.getUniqueId())) {
 			com.leontg77.ultrahardcore.ubl.BanEntry ublEntry = ubl.getBanEntry(target.getUniqueId());
-			ublMessage = "§aTrue§7, Reason: §6" + ublEntry.getData("Reason") + " §8(§a" + ublEntry.getData("Length of Ban") + "§8)";
+			ublMessage = "Â§aTrueÂ§7, Reason: Â§6" + ublEntry.getData("Reason") + " Â§8(Â§a" + ublEntry.getData("Length of Ban") + "Â§8)";
 		} else {
-			ublMessage = "§cFalse";
+			ublMessage = "Â§cFalse";
 		}
 		
 		StringBuilder ips = new StringBuilder();
 		
 		for (String IP : user.getFile().getStringList("ips")) {
 			if (ips.length() > 0) {
-				ips.append("§8, §7");
+				ips.append("Â§8, Â§7");
 			}
 			
 			Player player = target.getPlayer();
@@ -106,41 +106,41 @@ public class InfoCommand extends UHCCommand {
 			}
 			
 			if (currentIP.equals(IP)) {
-				ips.append(sender.hasPermission("uhc.info.ip") ? "§a" + IP : "§a§m" + IP.replaceAll("[0-9]", "#"));
+				ips.append(sender.hasPermission("uhc.info.ip") ? "Â§a" + IP : "Â§aÂ§m" + IP.replaceAll("[0-9]", "#"));
 			} else {
-				ips.append(sender.hasPermission("uhc.info.ip") ? "§6" + IP : "§6§m" + IP.replaceAll("[0-9]", "#"));
+				ips.append(sender.hasPermission("uhc.info.ip") ? "Â§6" + IP : "Â§6Â§m" + IP.replaceAll("[0-9]", "#"));
 			}
 		}
 		
 		Format date = new SimpleDateFormat("E, MMM. dd, yyyy 'at' HH:mm 'UTC'", Locale.US); 
 
-		sender.sendMessage(Main.PREFIX + "Info about §6" + target.getName() + "§8: (§7Currently: " + (target.getPlayer() == null ? "§cOffline" : "§aOnline") + "§8)");
-		sender.sendMessage("§8» §m--------------------------------------§8 «");
-		sender.sendMessage("§8» §7UUID: §a" + user.getFile().getString("uuid"));
-		sender.sendMessage("§8» §7First Joined: §6" + date.format(new Date(user.getFile().getLong("firstjoined"))));
-		sender.sendMessage("§8» §7Last login: §6" + DateUtils.formatDateDiff(user.getFile().getLong("lastlogin")));
-		sender.sendMessage("§8» §7Last logout: §6" + (lastlogout == -1l ? "§cHasn't logged out" : DateUtils.formatDateDiff(lastlogout)));
-		sender.sendMessage("§8» §m--------------------------------------§8 «");
-		sender.sendMessage("§8» §7IPs: §8(§aGreen §7= Current IP§8)");
-		sender.sendMessage("§8» §7" + ips.toString().trim());
-		sender.sendMessage("§8» §m--------------------------------------§8 «");
+		sender.sendMessage(Main.PREFIX + "Info about Â§6" + target.getName() + "Â§8: (Â§7Currently: " + (target.getPlayer() == null ? "Â§cOffline" : "Â§aOnline") + "Â§8)");
+		sender.sendMessage("Â§8Â§ Â§m--------------------------------------Â§8 Â§");
+		sender.sendMessage("Â§8Â§ Â§7UUID: Â§a" + user.getFile().getString("uuid"));
+		sender.sendMessage("Â§8Â§ Â§7First Joined: Â§6" + date.format(new Date(user.getFile().getLong("firstjoined"))));
+		sender.sendMessage("Â§8Â§ Â§7Last login: Â§6" + DateUtils.formatDateDiff(user.getFile().getLong("lastlogin")));
+		sender.sendMessage("Â§8Â§ Â§7Last logout: Â§6" + (lastlogout == -1l ? "Â§cHasn't logged out" : DateUtils.formatDateDiff(lastlogout)));
+		sender.sendMessage("Â§8Â§ Â§m--------------------------------------Â§8 Â§");
+		sender.sendMessage("Â§8Â§ Â§7IPs: Â§8(Â§aGreen Â§7= Current IPÂ§8)");
+		sender.sendMessage("Â§8Â§ Â§7" + ips.toString().trim());
+		sender.sendMessage("Â§8Â§ Â§m--------------------------------------Â§8 Â§");
 		if (user.getAlts().isEmpty()) {
-			sender.sendMessage("§8» §7Possible Alts: §cNone");
+			sender.sendMessage("Â§8Â§ Â§7Possible Alts: Â§cNone");
 		} else {
 			String alts = user.getAlts().toString();
-			sender.sendMessage("§8» §7Possible Alts: §8(§aOnline§7, §cOffline§7, §4Banned§7, §6UBL'ed§8)");
-			sender.sendMessage("§8» §7" + alts.substring(1, alts.length() - 1) + "§8.");
+			sender.sendMessage("Â§8Â§ Â§7Possible Alts: Â§8(Â§aOnlineÂ§7, Â§cOfflineÂ§7, Â§4BannedÂ§7, Â§6UBL'edÂ§8)");
+			sender.sendMessage("Â§8Â§ Â§7" + alts.substring(1, alts.length() - 1) + "Â§8.");
 		}
-		sender.sendMessage("§8» §m--------------------------------------§8 «");
-		sender.sendMessage("§8» §7UBL'ed: §6" + ublMessage);
-		sender.sendMessage("§8» §7Banned: §6" + banMessage);
-		sender.sendMessage("§8» §7Muted: §6" + muteMessage);
-		sender.sendMessage("§8» §m--------------------------------------§8 «");
+		sender.sendMessage("Â§8Â§ Â§m--------------------------------------Â§8 Â§");
+		sender.sendMessage("Â§8Â§ Â§7UBL'ed: Â§6" + ublMessage);
+		sender.sendMessage("Â§8Â§ Â§7Banned: Â§6" + banMessage);
+		sender.sendMessage("Â§8Â§ Â§7Muted: Â§6" + muteMessage);
+		sender.sendMessage("Â§8Â§ Â§m--------------------------------------Â§8 Â§");
 		if (!user.getFile().contains("punishments")) {
-			sender.sendMessage("§8» §7Punishments: §cNone");
+			sender.sendMessage("Â§8Â§ Â§7Punishments: Â§cNone");
 		} else {
 			Format dateFormat = new SimpleDateFormat("dd/MM/yyyy '@' HH:mm", Locale.US); 
-			sender.sendMessage("§8» §7Punishments:");
+			sender.sendMessage("Â§8Â§ Â§7Punishments:");
 			
 			for (String punish : user.getFile().getConfigurationSection("punishments").getKeys(false)) {
 				PunishmentType type = PunishmentType.valueOf(user.getFile().getString("punishments." + punish + ".type", "MUTE"));
@@ -153,13 +153,13 @@ public class InfoCommand extends UHCCommand {
 				String to = expire == -1l ? "forever" : dateFormat.format(new Date(expire));
 
 				if (type == PunishmentType.KICK || type == PunishmentType.DISQUALIFY) {
-					sender.sendMessage("§8» (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + reason + " §8- §7" + from);
+					sender.sendMessage("Â§8Â§ (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "Â§8) Â§a" + reason + " Â§8- Â§7" + from);
 				} else {
-					sender.sendMessage("§8» (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + reason + " §8- §7" + from + " §8-» §7" + to);
+					sender.sendMessage("Â§8Â§ (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "Â§8) Â§a" + reason + " Â§8- Â§7" + from + " Â§8-Â§ Â§7" + to);
 				}
 			}
 		}
-		sender.sendMessage("§8» §m--------------------------------------§8 «");
+		sender.sendMessage("Â§8Â§ Â§m--------------------------------------Â§8 Â§");
 		return true;
 	}
 

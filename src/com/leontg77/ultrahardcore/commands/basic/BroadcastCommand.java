@@ -32,7 +32,7 @@ public class BroadcastCommand extends UHCCommand {
 		}
 		
 		String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
-		PlayerUtils.broadcast(Main.ALERT_PREFIX + "§a" + ChatColor.translateAlternateColorCodes('&', message));
+		PlayerUtils.broadcast(Main.ALERT_PREFIX + "Â§a" + ChatColor.translateAlternateColorCodes('&', message));
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
 			online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);

@@ -64,7 +64,7 @@ public class DQCommand extends UHCCommand {
     	
     	String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
     	
-    	PlayerUtils.broadcast(Main.PREFIX + "ง6" + target.getName() + " ง7has been disqualified for งa" + message + "ง7.");
+    	PlayerUtils.broadcast(Main.PREFIX + "ยง6" + target.getName() + " ยง7has been disqualified for ยงa" + message + "ยง7.");
 
     	board.resetScore(target.getName());
 		board.resetScore(args[0]);

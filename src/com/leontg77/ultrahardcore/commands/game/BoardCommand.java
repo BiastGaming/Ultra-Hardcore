@@ -58,32 +58,32 @@ public class BoardCommand extends UHCCommand {
 		game.setPregameBoard(true);
 
 		if (game.teamManagement()) {
-			board.setScore("§e ", 14);
-			board.setScore("§8» §cTeam:", 13);
-			board.setScore("§8» §7/team", 12);
+			board.setScore("Â§e ", 14);
+			board.setScore("Â§8Â§ Â§cTeam:", 13);
+			board.setScore("Â§8Â§ Â§7/team", 12);
 		}
 		
 		if (arena.isEnabled()) {
-			board.setScore("§a ", 11);
-			board.setScore("§8» §cArena:", 10);
-			board.setScore("§8» §7/a ", 9);
+			board.setScore("Â§a ", 11);
+			board.setScore("Â§8Â§ Â§cArena:", 10);
+			board.setScore("Â§8Â§ Â§7/a ", 9);
 		}
 
-		board.setScore("§b ", 8);
-		board.setScore("§8» §cTeamsize:", 7);
-		board.setScore("§8» §7" + game.getAdvancedTeamSize(true, false), 6);
+		board.setScore("Â§b ", 8);
+		board.setScore("Â§8Â§ Â§cTeamsize:", 7);
+		board.setScore("Â§8Â§ Â§7" + game.getAdvancedTeamSize(true, false), 6);
 		
-		board.setScore("§c ", 5);
-		board.setScore("§8» §cScenarios:", 4);
+		board.setScore("Â§c ", 5);
+		board.setScore("Â§8Â§ Â§cScenarios:", 4);
 		
 		for (String scen : game.getScenarios().split(", ")) {
-			board.setScore("§8» §7" + scen, 3);
+			board.setScore("Â§8Â§ Â§7" + scen, 3);
 		}
 		
-		board.setScore("§d ", 2);
-		board.setScore("§8§m------------", 1);
-		board.setScore("§a§o@ArcticUHC", 1);
-		board.setScore("§a§o@ArcticUHC", 0);
+		board.setScore("Â§d ", 2);
+		board.setScore("Â§8Â§m------------", 1);
+		board.setScore("Â§aÂ§o@ArcticUHC", 1);
+		board.setScore("Â§aÂ§o@ArcticUHC", 0);
 		return true;
 	}
 

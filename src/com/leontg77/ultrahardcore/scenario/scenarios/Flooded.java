@@ -42,7 +42,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Flooded extends Scenario implements CommandExecutor, Listener {
-	public static final String PREFIX = "ง9Flooded ง8ป ง7";
+	public static final String PREFIX = "ยง9Flooded ยง8ยง ยง7";
 
 	private final Main plugin;
 	private final Game game;
@@ -171,7 +171,7 @@ public class Flooded extends Scenario implements CommandExecutor, Listener {
 		
 		totalChunks = locs.size();
 
-		PlayerUtils.broadcast(PREFIX + "Starting flooded generation in world 'งa" + world.getName() + "ง7'.");
+		PlayerUtils.broadcast(PREFIX + "Starting flooded generation in world 'ยงa" + world.getName() + "ยง7'.");
 		
 		task = new BukkitRunnable() {
 			public void run() {
@@ -211,7 +211,7 @@ public class Flooded extends Scenario implements CommandExecutor, Listener {
 				double completed = ((totalChunks - ((double) locs.size())) * 100 / totalChunks);
 				
 				for (Player online : Bukkit.getOnlinePlayers()) {
-					PacketUtils.sendAction(online, PREFIX + "Generating flooded ง8(งa" + NumberUtils.formatPercentDouble(completed) + "%ง8)");
+					PacketUtils.sendAction(online, PREFIX + "Generating flooded ยง8(ยงa" + NumberUtils.formatPercentDouble(completed) + "%ยง8)");
 				}
 			}
 		};

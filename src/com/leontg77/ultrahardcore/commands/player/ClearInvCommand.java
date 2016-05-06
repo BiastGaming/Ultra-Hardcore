@@ -65,7 +65,7 @@ public class ClearInvCommand extends UHCCommand {
 		User user = plugin.getUser(target);
 		user.resetInventory();
 
-		sender.sendMessage(Main.PREFIX + "You cleared งa" + target.getName() + "'s ง7inventory.");
+		sender.sendMessage(Main.PREFIX + "You cleared ยงa" + target.getName() + "'s ยง7inventory.");
 		target.sendMessage(Main.PREFIX + "Your inventory was cleared.");
 		return true;
 	}

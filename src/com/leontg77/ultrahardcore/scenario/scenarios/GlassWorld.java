@@ -43,7 +43,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class GlassWorld extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "ง6Glass World ง8ป ง7";
+	public static final String PREFIX = "ยง6Glass World ยง8ยง ยง7";
 	
 	private final Main plugin;
 	private final Game game;
@@ -192,7 +192,7 @@ public class GlassWorld extends Scenario implements Listener, CommandExecutor {
 		
 		totalChunks = locs.size();
 
-		PlayerUtils.broadcast(PREFIX + "Starting glass world generation in world 'งa" + world.getName() + "ง7'.");
+		PlayerUtils.broadcast(PREFIX + "Starting glass world generation in world 'ยงa" + world.getName() + "ยง7'.");
 		
 		task = new BukkitRunnable() {
 			@SuppressWarnings("deprecation")
@@ -254,7 +254,7 @@ public class GlassWorld extends Scenario implements Listener, CommandExecutor {
 				double completed = ((totalChunks - ((double) locs.size())) * 100 / totalChunks);
 				
 				for (Player online : Bukkit.getOnlinePlayers()) {
-					PacketUtils.sendAction(online, PREFIX + "Generating glass world ง8(งa" + NumberUtils.formatPercentDouble(completed) + "%ง8)");
+					PacketUtils.sendAction(online, PREFIX + "Generating glass world ยง8(ยงa" + NumberUtils.formatPercentDouble(completed) + "%ยง8)");
 				}
 			}
 		};

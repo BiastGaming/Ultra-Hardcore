@@ -40,7 +40,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class DragonRush extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "§cDragon Rush §8» §7";
+	public static final String PREFIX = "Â§cDragon Rush Â§8Â§ Â§7";
 
 	private final List<Location> portalBlocks = new ArrayList<Location>();
 	
@@ -128,7 +128,7 @@ public class DragonRush extends Scenario implements Listener, CommandExecutor {
         placed++;
     	
     	if (placed == 3) {
-        	PlayerUtils.broadcast(Main.PREFIX + "§d§l§oThe portal has been activated.");
+        	PlayerUtils.broadcast(Main.PREFIX + "Â§dÂ§lÂ§oThe portal has been activated.");
         	
         	for (Player online : Bukkit.getOnlinePlayers()) {
 				online.playSound(online.getLocation(), Sound.PORTAL_TRAVEL, 0.5f, 1);
@@ -140,7 +140,7 @@ public class DragonRush extends Scenario implements Listener, CommandExecutor {
 				}
         	}
     	} else if (placed < 3) {
-        	PlayerUtils.broadcast(Main.PREFIX + "An eye has been placed (§a" + placed + "§7/§a3§7)");
+        	PlayerUtils.broadcast(Main.PREFIX + "An eye has been placed (Â§a" + placed + "Â§7/Â§a3Â§7)");
         	
         	for (Player online : Bukkit.getOnlinePlayers()) {
 				online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
@@ -162,7 +162,7 @@ public class DragonRush extends Scenario implements Listener, CommandExecutor {
     		return;
     	}
     	
-    	PlayerUtils.broadcast(Main.PREFIX + "The dragon was defeated by §a" + killer.getName() + "§7.");
+    	PlayerUtils.broadcast(Main.PREFIX + "The dragon was defeated by Â§a" + killer.getName() + "Â§7.");
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
 			if (online.getWorld() == killer.getWorld()) {
@@ -176,7 +176,7 @@ public class DragonRush extends Scenario implements Listener, CommandExecutor {
 	@EventHandler
     public void on(MeetupEvent event) {
         for (Player online : Bukkit.getOnlinePlayers()) {
-			PacketUtils.sendTitle(online, "§c§lTIMES UP!", "§7The time ran out and the dragon won.", 5, 30, 5);
+			PacketUtils.sendTitle(online, "Â§cÂ§lTIMES UP!", "Â§7The time ran out and the dragon won.", 5, 30, 5);
 		}
     }
 
@@ -268,7 +268,7 @@ public class DragonRush extends Scenario implements Listener, CommandExecutor {
 		Location center = new Location(world, -5, high.getY() - (end.getY() - start.getY()) + 1, -5);
 
 		generatePortal(center);
-		PlayerUtils.broadcast(PREFIX + "Generated end portal in world '§a" + world.getName() + "§7'.");
+		PlayerUtils.broadcast(PREFIX + "Generated end portal in world 'Â§a" + world.getName() + "Â§7'.");
 		return true;
 	}
 }

@@ -63,7 +63,7 @@ public class PregenCommand extends UHCCommand {
 		
 		radius = radius * 2;
 		
-		PlayerUtils.broadcast(Main.PREFIX + "Starting pregen of world 'งa" + world.getName() + "ง7' with size of ง6" + radius + "x" + radius + "ง7.");
+		PlayerUtils.broadcast(Main.PREFIX + "Starting pregen of world 'ยงa" + world.getName() + "ยง7' with size of ยง6" + radius + "x" + radius + "ยง7.");
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pload fill confirm");
 		return true;
 	}

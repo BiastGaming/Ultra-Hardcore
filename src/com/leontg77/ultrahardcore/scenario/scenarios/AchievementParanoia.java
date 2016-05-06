@@ -26,7 +26,7 @@ public class AchievementParanoia extends Scenario implements Listener {
 		this.game = game;	
 	}
 
-	private static final String PREFIX = "§cAchParanoia §8» §7";
+	private static final String PREFIX = "Â§cAchParanoia Â§8Â§ Â§7";
 	
 	@Override
 	public void onDisable() {}
@@ -47,7 +47,7 @@ public class AchievementParanoia extends Scenario implements Listener {
 			return;
 		}
 
-		PlayerUtils.broadcast(PREFIX + player.getName() + "§f has earned §e" + achievementName(ach) + "§f at " + locToString(player.getLocation()));
+		PlayerUtils.broadcast(PREFIX + player.getName() + "Â§f has earned Â§e" + achievementName(ach) + "Â§f at " + locToString(player.getLocation()));
 	}
 
 	/**

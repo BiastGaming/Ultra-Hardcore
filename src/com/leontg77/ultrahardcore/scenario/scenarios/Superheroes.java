@@ -80,7 +80,7 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
 			
 			addEffects(online, type);
 			
-			online.sendMessage(Main.PREFIX + "You are the งa" + type.name().toLowerCase() + " ง7hero type.");
+			online.sendMessage(Main.PREFIX + "You are the ยงa" + type.name().toLowerCase() + " ยง7hero type.");
 
 		}
 	}
@@ -122,10 +122,10 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
 		
 		if (args.length == 0) {
 			sender.sendMessage(Main.PREFIX + "Help for Superheroes:");
-			sender.sendMessage("ง8ป ง7/super list ง8- งfงoList all classes and who has them.");
-			sender.sendMessage("ง8ป ง7/super apply ง8- งfงoReapply the effects.");
-			sender.sendMessage("ง8ป ง7/super set <player> ง8- งfงoAdd a random effect to a player.");
-			sender.sendMessage("ง8ป ง7/super clear <player> ง8- งfงoClears the players effects.");
+			sender.sendMessage("ยง8ยง ยง7/super list ยง8- ยงfยงoList all classes and who has them.");
+			sender.sendMessage("ยง8ยง ยง7/super apply ยง8- ยงfยงoReapply the effects.");
+			sender.sendMessage("ยง8ยง ยง7/super set <player> ยง8- ยงfยงoAdd a random effect to a player.");
+			sender.sendMessage("ยง8ยง ยง7/super clear <player> ยง8- ยงfยงoClears the players effects.");
 			return true;
 		}
 		
@@ -160,8 +160,8 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
 			
 			addEffects(target, type);
 			
-			sender.sendMessage(Main.PREFIX + "Given งa" + target.getName() + " ง7an random effect.");
-			target.sendMessage(Main.PREFIX + "You are now the งa" + type.name().toLowerCase() + " ง7type.");
+			sender.sendMessage(Main.PREFIX + "Given ยงa" + target.getName() + " ยง7an random effect.");
+			target.sendMessage(Main.PREFIX + "You are now the ยงa" + type.name().toLowerCase() + " ยง7type.");
 			return true;
 		}
 
@@ -180,7 +180,7 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
 			
 			removeEffects(target);
 			
-			sender.sendMessage(Main.PREFIX + "Effects of งa" + target.getName() + " ง7has been removed.");
+			sender.sendMessage(Main.PREFIX + "Effects of ยงa" + target.getName() + " ยง7has been removed.");
 			target.sendMessage(Main.PREFIX + "Your effects has been removed.");
 			return true;
 		}
@@ -196,42 +196,42 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
 			for (String key : types.keySet()) {
 				if (types.get(key) == HeroType.HEALTH) {
 					if (health.length() > 0) {
-						health.append("ง7, งa");
+						health.append("ยง7, ยงa");
 					}
 					
 					health.append(ChatColor.GREEN + key);
 				} 
 				else if (types.get(key) == HeroType.INVIS) {
 					if (invis.length() > 0) {
-						invis.append("ง7, งa");
+						invis.append("ยง7, ยงa");
 					}
 					
 					invis.append(ChatColor.GREEN + key);
 				}
 				else if (types.get(key) == HeroType.JUMP) {
 					if (jump.length() > 0) {
-						jump.append("ง7, งa");
+						jump.append("ยง7, ยงa");
 					}
 					
 					jump.append(ChatColor.GREEN + key);
 				}
 				else if (types.get(key) == HeroType.RESISTANCE) {
 					if (resistance.length() > 0) {
-						resistance.append("ง7, งa");
+						resistance.append("ยง7, ยงa");
 					}
 					
 					resistance.append(ChatColor.GREEN + key);
 				}
 				else if (types.get(key) == HeroType.SPEED) {
 					if (speed.length() > 0) {
-						speed.append("ง7, งa");
+						speed.append("ยง7, ยงa");
 					}
 					
 					speed.append(ChatColor.GREEN + key);
 				}
 				else if (types.get(key) == HeroType.STRENGTH) {
 					if (strength.length() > 0) {
-						strength.append("ง7, งa");
+						strength.append("ยง7, ยงa");
 					}
 					
 					strength.append(ChatColor.GREEN + key);
@@ -239,19 +239,19 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
 			}
 			
 			sender.sendMessage(Main.PREFIX + "List of types:");
-			sender.sendMessage("ง8ป ง7Health: " + health.toString().trim());
-			sender.sendMessage("ง8ป ง7Invis: " + invis.toString().trim());
-			sender.sendMessage("ง8ป ง7Jump: " + jump.toString().trim());
-			sender.sendMessage("ง8ป ง7Resistance: " + resistance.toString().trim());
-			sender.sendMessage("ง8ป ง7Speed: " + speed.toString().trim());
-			sender.sendMessage("ง8ป ง7Strength: " + strength.toString().trim());
+			sender.sendMessage("ยง8ยง ยง7Health: " + health.toString().trim());
+			sender.sendMessage("ยง8ยง ยง7Invis: " + invis.toString().trim());
+			sender.sendMessage("ยง8ยง ยง7Jump: " + jump.toString().trim());
+			sender.sendMessage("ยง8ยง ยง7Resistance: " + resistance.toString().trim());
+			sender.sendMessage("ยง8ยง ยง7Speed: " + speed.toString().trim());
+			sender.sendMessage("ยง8ยง ยง7Strength: " + strength.toString().trim());
 		}
 		
 		sender.sendMessage(Main.PREFIX + "Help for Superheroes:");
-		sender.sendMessage("ง8ป ง7/super list ง8- งfงoList all classes and who has them.");
-		sender.sendMessage("ง8ป ง7/super apply ง8- งfงoReapply the effects.");
-		sender.sendMessage("ง8ป ง7/super set <player> ง8- งfงoAdd a random effect to a player.");
-		sender.sendMessage("ง8ป ง7/super clear <player> ง8- งfงoClears the players effects.");
+		sender.sendMessage("ยง8ยง ยง7/super list ยง8- ยงfยงoList all classes and who has them.");
+		sender.sendMessage("ยง8ยง ยง7/super apply ยง8- ยงfยงoReapply the effects.");
+		sender.sendMessage("ยง8ยง ยง7/super set <player> ยง8- ยงfยงoAdd a random effect to a player.");
+		sender.sendMessage("ยง8ยง ยง7/super clear <player> ยง8- ยงfยงoClears the players effects.");
 		return true;
 	}
 	

@@ -58,6 +58,6 @@ public class WorldListener implements Listener {
 			return;
 		}
 
-		PlayerUtils.broadcast(Main.PREFIX + "Pregen of world 'งa" + world.getName() + "ง7' finished.");
+		PlayerUtils.broadcast(Main.PREFIX + "Pregen of world 'ยงa" + world.getName() + "ยง7' finished.");
 	}
 }

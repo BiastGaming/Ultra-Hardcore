@@ -99,7 +99,7 @@ public class SpectatorListener implements Listener {
 			
 			Player target = list.get(rand.nextInt(list.size()));
 			
-			player.sendMessage(Main.PREFIX + "Teleported to งa" + target.getName() + "ง7.");
+			player.sendMessage(Main.PREFIX + "Teleported to ยงa" + target.getName() + "ยง7.");
 			player.teleport(target.getLocation());
 		}
 	}
@@ -194,7 +194,7 @@ public class SpectatorListener implements Listener {
 			
 			Player target = players.get(rand.nextInt(players.size()));
 			
-			player.sendMessage(Main.PREFIX + "You teleported to งa" + target.getName() + "ง7.");
+			player.sendMessage(Main.PREFIX + "You teleported to ยงa" + target.getName() + "ยง7.");
 			player.teleport(target.getLocation());
 			return;
 		}
@@ -235,19 +235,19 @@ public class SpectatorListener implements Listener {
 					
 					if (nether.length() > 0) {
 						if (netherL.size() == i) {
-							nether.append(" ง7and งa");
+							nether.append(" ยง7and ยงa");
 						} else {
-							nether.append("ง7, งa");
+							nether.append("ยง7, ยงa");
 						}
 					}
 
-					nether.append("งa" + online.getName());
+					nether.append("ยงa" + online.getName());
 					i++;
 				}
 			}
 
 			player.sendMessage(Main.PREFIX + "Players in the nether:");
-			player.sendMessage("ง8ป ง7" + nether.toString().trim());
+			player.sendMessage("ยง8ยง ยง7" + nether.toString().trim());
 			
 			event.setCancelled(true);
 		}

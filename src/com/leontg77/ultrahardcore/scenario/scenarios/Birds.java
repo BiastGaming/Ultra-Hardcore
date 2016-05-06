@@ -31,7 +31,7 @@ public class Birds extends Scenario implements Listener {
 		this.timer = timer;
 	}
 	
-	public static final String PREFIX = "§aBirds §8» §7";
+	public static final String PREFIX = "Â§aBirds Â§8Â§ Â§7";
 	
 	@Override
 	public void onDisable() {

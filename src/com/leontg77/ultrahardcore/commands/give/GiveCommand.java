@@ -70,8 +70,8 @@ public class GiveCommand extends UHCCommand {
 		
 		String itemName = item.getType().name().toLowerCase().replaceAll("_", " ") + (amount > 1 && !item.getType().name().endsWith("S") ? "s" : "");
 		
-		sender.sendMessage(Main.PREFIX + "You gave " + target.getName() + " งa" + amount + " " + itemName + "ง7.");
-		target.sendMessage(Main.PREFIX + "You recieved งa" + amount + " " + itemName + "ง7.");
+		sender.sendMessage(Main.PREFIX + "You gave " + target.getName() + " ยงa" + amount + " " + itemName + "ยง7.");
+		target.sendMessage(Main.PREFIX + "You recieved ยงa" + amount + " " + itemName + "ยง7.");
 		return true;
 	}
 

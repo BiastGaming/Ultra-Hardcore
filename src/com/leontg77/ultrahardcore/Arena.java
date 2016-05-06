@@ -42,7 +42,7 @@ import com.leontg77.ultrahardcore.world.WorldManager;
  * @author LeonTG77
  */
 public class Arena {
-	public static final String PREFIX = "§4Arena §8» §7";
+	public static final String PREFIX = "Â§4Arena Â§8Â§ Â§7";
 	
 	private final Main plugin;
 	
@@ -98,7 +98,7 @@ public class Arena {
 			killboard = score.registerNewObjective("arenaKills", "dummy");
 		}
 		
-		killboard.setDisplayName("§4Arena §8» §7§oUse /a to join§r");
+		killboard.setDisplayName("Â§4Arena Â§8Â§ Â§7Â§oUse /a to joinÂ§r");
 		
 		if (game.arenaBoard()) {
 			killboard.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -125,9 +125,9 @@ public class Arena {
 		Bukkit.getPluginManager().registerEvents(listener, plugin);
 		
 		if (game.pregameBoard()) {
-			board.setScore("§a ", 11);
-			board.setScore("§8» §cArena:", 10);
-			board.setScore("§8» §7/a ", 9);
+			board.setScore("Â§a ", 11);
+			board.setScore("Â§8Â§ Â§cArena:", 10);
+			board.setScore("Â§8Â§ Â§7/a ", 9);
 		}
 		
 		if (game.arenaBoard()) {
@@ -137,7 +137,7 @@ public class Arena {
 			game.setArenaBoard(true);
 		}
 		
-		setScore("§8» §9§oNext Reset ", 30);
+		setScore("Â§8Â§ Â§9Â§oNext Reset ", 30);
 
 		if (regenTask == null) {
 			regenTask = new BukkitRunnable() {
@@ -146,20 +146,20 @@ public class Arena {
 				public void run() {
 					time--;
 
-					setScore("§8» §9§oNext Reset ", (int) ((time / 60) + 1));
+					setScore("Â§8Â§ Â§9Â§oNext Reset ", (int) ((time / 60) + 1));
 					
 					switch (time) {
 					case 900:
-						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a15 §7minutes.");
+						PlayerUtils.broadcast(PREFIX + "The arena will reset in Â§a15 Â§7minutes.");
 						break;
 					case 600:
-						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a10 §7minutes.");
+						PlayerUtils.broadcast(PREFIX + "The arena will reset in Â§a10 Â§7minutes.");
 						break;
 					case 300:
-						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a5 §7minutes.");
+						PlayerUtils.broadcast(PREFIX + "The arena will reset in Â§a5 Â§7minutes.");
 						break;
 					case 60:
-						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a1 §7minute.");
+						PlayerUtils.broadcast(PREFIX + "The arena will reset in Â§a1 Â§7minute.");
 						break;
 					case 30:
 					case 10:
@@ -167,10 +167,10 @@ public class Arena {
 					case 4:
 					case 3:
 					case 2:
-						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a" + time + " §7seconds.");
+						PlayerUtils.broadcast(PREFIX + "The arena will reset in Â§a" + time + " Â§7seconds.");
 						break;
 					case 1:
-						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a1 §7second.");
+						PlayerUtils.broadcast(PREFIX + "The arena will reset in Â§a1 Â§7second.");
 						break;
 					case 0:
 						time = 1800;
@@ -229,9 +229,9 @@ public class Arena {
 		}
 		
 		if (game.pregameBoard()) {
-			board.resetScore("§a ");
-			board.resetScore("§8» §cArena:");
-			board.resetScore("§8» §7/a ");
+			board.resetScore("Â§a ");
+			board.resetScore("Â§8Â§ Â§cArena:");
+			board.resetScore("Â§8Â§ Â§7/a ");
 		}
 		
 		if (game.arenaBoard()) {
@@ -247,7 +247,7 @@ public class Arena {
 			}
 		}
 
-		resetScore("§8» §9§oNext Reset ");
+		resetScore("Â§8Â§ Â§9Â§oNext Reset ");
 		players.clear();
 
 		if (regenTask != null) {
@@ -341,7 +341,7 @@ public class Arena {
 		Location loc = locs.get(0);
 
 		player.sendMessage(PREFIX + "You joined the arena.");
-		player.sendMessage(PREFIX + "Modify your hotbar with §a/hotbar§7.");
+		player.sendMessage(PREFIX + "Modify your hotbar with Â§a/hotbarÂ§7.");
 		
 		players.add(player.getUniqueId());
 		giveKit(player);
@@ -377,7 +377,7 @@ public class Arena {
 		player.sendMessage(PREFIX + "You left the arena.");
 
 		if (getScore(player.getName()) > 4) {
-			PlayerUtils.broadcast(PREFIX + "§6" + player.getName() + "§7's killstreak of §a" + getScore(player.getName()) + " §7was shut down from leaving!");
+			PlayerUtils.broadcast(PREFIX + "Â§6" + player.getName() + "Â§7's killstreak of Â§a" + getScore(player.getName()) + " Â§7was shut down from leaving!");
 		}
 		
 		User user = plugin.getUser(player);

@@ -111,7 +111,7 @@ public class EightLeggedFreaks extends Scenario implements Listener {
 				entity.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1726272000, 1));
 				
 				entity.setCustomNameVisible(true);
-				entity.setCustomName("§4§lJumper");
+				entity.setCustomName("Â§4Â§lJumper");
 				return;
 			}
 			
@@ -125,7 +125,7 @@ public class EightLeggedFreaks extends Scenario implements Listener {
 				entity.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1726272000, 1));
 				
 				entity.setCustomNameVisible(true);
-				entity.setCustomName("§4§lMother");
+				entity.setCustomName("Â§4Â§lMother");
 				return;
 			}
 			
@@ -137,7 +137,7 @@ public class EightLeggedFreaks extends Scenario implements Listener {
 				entity.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1726272000, 1));
 				
 				entity.setCustomNameVisible(true);
-				entity.setCustomName("§4§lSpinner");
+				entity.setCustomName("Â§4Â§lSpinner");
 				return;
 			} 
 			
@@ -165,7 +165,7 @@ public class EightLeggedFreaks extends Scenario implements Listener {
 		}
 		
 		if (cause == DamageCause.FALL) {
-			if (entity.getCustomName() == null || !entity.getCustomName().equals("§4§lJumper")) {
+			if (entity.getCustomName() == null || !entity.getCustomName().equals("Â§4Â§lJumper")) {
 				return;
 			}
 			
@@ -206,14 +206,14 @@ public class EightLeggedFreaks extends Scenario implements Listener {
 			return;
 		}
 		
-		if (damager.getCustomName().equals("§4§lMother")) {
+		if (damager.getCustomName().equals("Â§4Â§lMother")) {
 			if (rand.nextDouble() <= 0.1) {
 				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 60, 0));
 			}
 			return;
 		}
 		
-		if (damager.getCustomName().equals("§4§lSpinner")) {
+		if (damager.getCustomName().equals("Â§4Â§lSpinner")) {
 			player.getLocation().getBlock().setType(Material.WEB);
 			
 			if (rand.nextDouble() <= 0.1) {
@@ -250,7 +250,7 @@ public class EightLeggedFreaks extends Scenario implements Listener {
 				return;
 			}
 			
-			if (entity.getCustomName().equals("§4§lMother")) {
+			if (entity.getCustomName().equals("Â§4Â§lMother")) {
 				event.getDrops().add(new ItemStack(Material.GOLD_INGOT, 2));
 				entity.getWorld().spawn(entity.getLocation(), CaveSpider.class);
 				entity.getWorld().spawn(entity.getLocation(), CaveSpider.class);
@@ -258,12 +258,12 @@ public class EightLeggedFreaks extends Scenario implements Listener {
 				return;
 			}
 			
-			if (entity.getCustomName().equals("§4§lSpinner")) {
+			if (entity.getCustomName().equals("Â§4Â§lSpinner")) {
 				event.getDrops().add(new ItemStack(Material.GOLD_INGOT, 2));
 				return;
 			} 
 			
-			if (entity.getCustomName().equals("§4§lJumper")) {
+			if (entity.getCustomName().equals("Â§4Â§lJumper")) {
 				event.getDrops().add(new ItemStack(Material.GOLD_INGOT, 2));
 			} 
 		} 

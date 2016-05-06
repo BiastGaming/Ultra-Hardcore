@@ -267,11 +267,11 @@ public class UBL implements Runnable {
         }
         
         return 
-        "§8» §7You are on the §6Universial Banlist §8«" +
+        "Â§8Â§ Â§7You are on the Â§6Universial Banlist Â§8Â§" +
         "\n" + 
-        "\n§cReason §8» §7" + banEntry.getData("Reason") +
-        "\n§cBan length §8» §7" + banEntry.getData("Length of Ban") +
-        "\n§cCase post §8» §7" + banEntry.getData("Case");
+        "\nÂ§cReason Â§8Â§ Â§7" + banEntry.getData("Reason") +
+        "\nÂ§cBan length Â§8Â§ Â§7" + banEntry.getData("Length of Ban") +
+        "\nÂ§cCase post Â§8Â§ Â§7" + banEntry.getData("Case");
     }
 	
     /**

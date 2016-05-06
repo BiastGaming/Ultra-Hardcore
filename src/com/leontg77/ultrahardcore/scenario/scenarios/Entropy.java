@@ -54,7 +54,7 @@ public class Entropy extends Scenario implements Listener {
 			public void run() {
 				for (Player online : game.getPlayers()) {
 					if (online.getLevel() == 0) {
-						PlayerUtils.broadcast("§c" + online.getName() + " ran out of energy!");
+						PlayerUtils.broadcast("Â§c" + online.getName() + " ran out of energy!");
 						
 						// damage them so they hear the damage sound then kill them.
 						online.damage(0);
@@ -63,7 +63,7 @@ public class Entropy extends Scenario implements Listener {
 					}
 					
 					if (online.getLevel() > 0) {
-						online.sendMessage("§6You survived the drain! The next drain is in 10 minutes!");
+						online.sendMessage("Â§6You survived the drain! The next drain is in 10 minutes!");
 						online.setLevel(online.getLevel() - 1);
 					}
 				}

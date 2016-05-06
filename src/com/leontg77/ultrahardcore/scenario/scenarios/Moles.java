@@ -88,8 +88,8 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			
 			public void run() {
 				if (i != 0) {
-					PlayerUtils.broadcast(Main.PREFIX + "Moles are being set in §a" + i + "§7 " + (i == 1 ? "second." : "seconds."));
-					PlayerUtils.broadcast(Main.PREFIX + "§4§lCLEAR YOUR TOP ROWS!");
+					PlayerUtils.broadcast(Main.PREFIX + "Moles are being set in Â§a" + i + "Â§7 " + (i == 1 ? "second." : "seconds."));
+					PlayerUtils.broadcast(Main.PREFIX + "Â§4Â§lCLEAR YOUR TOP ROWS!");
 					
 					for (Player online : Bukkit.getOnlinePlayers()) {
 						online.playSound(online.getLocation(), Sound.FIRE_IGNITE, 1, 0);
@@ -130,42 +130,42 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 				
 				for (String mole : moles) {
 					Player theMole = Bukkit.getServer().getPlayer(mole);
-					theMole.sendMessage(Main.PREFIX + "You are the mole! Use §a/molehelp §7for help");
+					theMole.sendMessage(Main.PREFIX + "You are the mole! Use Â§a/molehelp Â§7for help");
 					
 					ItemStack wool1 = new ItemStack (Material.WOOL, 1, (short) 8);
 					ItemMeta wool1meta = wool1.getItemMeta();
-					wool1meta.setDisplayName("§aThe Mobber");
-					wool1meta.setLore(Arrays.asList("§7MONSTER_EGG x 1", "§7MONSTER_EGG x 2", "§7MONSTER_EGG x 1", "§7COBBLESTONE x 1", "§7TNT x 5", "§7ENDER_PEARL x 2"));
+					wool1meta.setDisplayName("Â§aThe Mobber");
+					wool1meta.setLore(Arrays.asList("Â§7MONSTER_EGG x 1", "Â§7MONSTER_EGG x 2", "Â§7MONSTER_EGG x 1", "Â§7COBBLESTONE x 1", "Â§7TNT x 5", "Â§7ENDER_PEARL x 2"));
 					wool1.setItemMeta(wool1meta);
 					
 					ItemStack wool2 = new ItemStack (Material.WOOL, 1, (short) 10);
 					ItemMeta wool2meta = wool2.getItemMeta();
-					wool2meta.setDisplayName("§aThe Potter");
-					wool2meta.setLore(Arrays.asList("§7POTION x 1", "§7POTION x 1", "§7POTION x 1", "§7POTION x 1", "§7ENDER_PEARL x 1", "§7COBBLESTONE x 1"));
+					wool2meta.setDisplayName("Â§aThe Potter");
+					wool2meta.setLore(Arrays.asList("Â§7POTION x 1", "Â§7POTION x 1", "Â§7POTION x 1", "Â§7POTION x 1", "Â§7ENDER_PEARL x 1", "Â§7COBBLESTONE x 1"));
 					wool2.setItemMeta(wool2meta);
 					
 					ItemStack wool3 = new ItemStack (Material.WOOL, 1, (short) 14);
 					ItemMeta wool3meta = wool3.getItemMeta();
-					wool3meta.setDisplayName("§aThe Pyro");
-					wool3meta.setLore(Arrays.asList("§7LAVA_BUCKET x 1", "§7MONSTER_EGG x 5", "§7FLINT_AND_STEEL x 1", "§7POTION x 1", "§7TNT x 5", "§7COBBLESTONE x 1"));
+					wool3meta.setDisplayName("Â§aThe Pyro");
+					wool3meta.setLore(Arrays.asList("Â§7LAVA_BUCKET x 1", "Â§7MONSTER_EGG x 5", "Â§7FLINT_AND_STEEL x 1", "Â§7POTION x 1", "Â§7TNT x 5", "Â§7COBBLESTONE x 1"));
 					wool3.setItemMeta(wool3meta);
 					
 					ItemStack wool4 = new ItemStack (Material.WOOL, 1, (short) 12);
 					ItemMeta wool4meta = wool4.getItemMeta();
-					wool4meta.setDisplayName("§aThe Trapper");
-					wool4meta.setLore(Arrays.asList("§7TNT x 3", "§7LAVA_BUCKET x 1", "§7POTION x 1", "§7COBBLESTONE x 1", "§7COBBLESTONE x 1", "§7COBBLESTONE x 2"));
+					wool4meta.setDisplayName("Â§aThe Trapper");
+					wool4meta.setLore(Arrays.asList("Â§7TNT x 3", "Â§7LAVA_BUCKET x 1", "Â§7POTION x 1", "Â§7COBBLESTONE x 1", "Â§7COBBLESTONE x 1", "Â§7COBBLESTONE x 2"));
 					wool4.setItemMeta(wool4meta);
 					
 					ItemStack wool5 = new ItemStack (Material.WOOL, 1, (short) 1);
 					ItemMeta wool5meta = wool5.getItemMeta();
-					wool5meta.setDisplayName("§aThe Troll");
-					wool5meta.setLore(Arrays.asList("§7FIREWORK x 64", "§7ENCHANTED_BOOK x 10", "§7EXPLOSIVE_MINECART x 8", "§7COBBLESTONE x 10", "§7WEB x 4", "§7ENDER_PORTAL x 1"));
+					wool5meta.setDisplayName("Â§aThe Troll");
+					wool5meta.setLore(Arrays.asList("Â§7FIREWORK x 64", "Â§7ENCHANTED_BOOK x 10", "Â§7EXPLOSIVE_MINECART x 8", "Â§7COBBLESTONE x 10", "Â§7WEB x 4", "Â§7ENDER_PORTAL x 1"));
 					wool5.setItemMeta(wool5meta);
 					
 					ItemStack wool6 = new ItemStack (Material.WOOL, 1, (short) 13);
 					ItemMeta wool6meta = wool6.getItemMeta();
-					wool6meta.setDisplayName("§aThe Fighter");
-					wool6meta.setLore(Arrays.asList("§7GOLDEN_APPLE x 1", "§7DIAMOND_SWORD x 1", "§7MONSTER_EGG x 1", "§7BOW x 1", "§7ARROW x 64", "§7POTION x 1"));
+					wool6meta.setDisplayName("Â§aThe Fighter");
+					wool6meta.setLore(Arrays.asList("Â§7GOLDEN_APPLE x 1", "Â§7DIAMOND_SWORD x 1", "Â§7MONSTER_EGG x 1", "Â§7BOW x 1", "Â§7ARROW x 64", "Â§7POTION x 1"));
 					wool6.setItemMeta(wool6meta);
 					
 					PlayerInventory inv = theMole.getInventory();
@@ -201,9 +201,9 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 				return true;
 			}
 			
-			sender.sendMessage("§9/mcc: §eChat to other moles "); 
-			sender.sendMessage("§9/mcl: §eSend your location to other moles"); 
-			sender.sendMessage("§9/mcp: §eList the other moles ");
+			sender.sendMessage("Â§9/mcc: Â§eChat to other moles ");
+			sender.sendMessage("Â§9/mcl: Â§eSend your location to other moles");
+			sender.sendMessage("Â§9/mcp: Â§eList the other moles ");
 		}
 		
 		if (cmd.getName().equalsIgnoreCase("mcl")) {
@@ -217,7 +217,7 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 					continue;
 				}
 				
-				online.sendMessage("§6[" + sender.getName() + "]§cLOC:§a "+ ((int) player.getLocation().getX()) + "," + ((int) player.getLocation().getY()) + "," + ((int) player.getLocation().getZ()));
+				online.sendMessage("Â§6[" + sender.getName() + "]Â§cLOC:Â§a "+ ((int) player.getLocation().getX()) + "," + ((int) player.getLocation().getY()) + "," + ((int) player.getLocation().getZ()));
 			}
 		}
 		
@@ -243,7 +243,7 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 					continue;
 				}
 				
-				online.sendMessage("§6[" + sender.getName() + "]§c" + "MOLE PM:§a " + message.toString().trim());
+				online.sendMessage("Â§6[" + sender.getName() + "]Â§c" + "MOLE PM:Â§a " + message.toString().trim());
 			}
 		}
 		
@@ -253,10 +253,10 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 				return true;
 			}
 			
-			player.sendMessage("§cList of moles:");
+			player.sendMessage("Â§cList of moles:");
 			
 			for (String mole : moles) {
-				player.sendMessage("§9MOLE: §e" + mole);
+				player.sendMessage("Â§9MOLE: Â§e" + mole);
 			}
 			
 		}
@@ -292,7 +292,7 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			return;
 		}
 		
-		if (item.getItemMeta().getDisplayName().equals("§aThe Mobber")) {
+		if (item.getItemMeta().getDisplayName().equals("Â§aThe Mobber")) {
 			ItemStack wool1 = new ItemStack (Material.MONSTER_EGG, 1, (short) 50);
 			
 			ItemStack wool2 = new ItemStack (Material.MONSTER_EGG, 2, (short) 51);
@@ -301,8 +301,8 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			
 			ItemStack wool4 = new ItemStack (Material.COBBLESTONE, 1);
 			ItemMeta wool4meta = wool4.getItemMeta();
-			wool4meta.setDisplayName("§bTrap");
-			wool4meta.setLore(Arrays.asList("§5§oEscape Hatch"));
+			wool4meta.setDisplayName("Â§bTrap");
+			wool4meta.setLore(Arrays.asList("Â§5Â§oEscape Hatch"));
 			wool4.setItemMeta(wool4meta);
 			
 			ItemStack wool5 = new ItemStack (Material.TNT, 5);
@@ -320,7 +320,7 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			return;
 		}
 
-		if (item.getItemMeta().getDisplayName().equals("§aThe Potter")) {
+		if (item.getItemMeta().getDisplayName().equals("Â§aThe Potter")) {
 			ItemStack wool1 = new ItemStack (Material.POTION, 1, (short) 16388);
 			
 			ItemStack wool2 = new ItemStack (Material.POTION, 1, (short) 16392);
@@ -333,8 +333,8 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			
 			ItemStack wool6 = new ItemStack (Material.COBBLESTONE, 1);
 			ItemMeta wool6meta = wool6.getItemMeta();
-			wool6meta.setDisplayName("§bTrap");
-			wool6meta.setLore(Arrays.asList("§5§oStaircase"));
+			wool6meta.setDisplayName("Â§bTrap");
+			wool6meta.setLore(Arrays.asList("Â§5Â§oStaircase"));
 			wool6.setItemMeta(wool6meta);
 			
 			player.getInventory().setItem(9, wool1);
@@ -348,7 +348,7 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			return;
 		}
 		
-		if (item.getItemMeta().getDisplayName().equals("§aThe Pyro")) {
+		if (item.getItemMeta().getDisplayName().equals("Â§aThe Pyro")) {
 			ItemStack wool1 = new ItemStack (Material.LAVA_BUCKET, 1);
 			
 			ItemStack wool2 = new ItemStack (Material.MONSTER_EGG, 5, (short) 61);
@@ -361,8 +361,8 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			
 			ItemStack wool6 = new ItemStack (Material.COBBLESTONE, 1);
 			ItemMeta wool6meta = wool6.getItemMeta();
-			wool6meta.setDisplayName("§bTrap");
-			wool6meta.setLore(Arrays.asList("§5§oHole"));
+			wool6meta.setDisplayName("Â§bTrap");
+			wool6meta.setLore(Arrays.asList("Â§5Â§oHole"));
 			wool6.setItemMeta(wool6meta);
 			
 			player.getInventory().setItem(9, wool1);
@@ -376,7 +376,7 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			return;
 		}
 		
-		if (item.getItemMeta().getDisplayName().equals("§aThe Trapper")) {
+		if (item.getItemMeta().getDisplayName().equals("Â§aThe Trapper")) {
 			ItemStack wool1 = new ItemStack (Material.TNT, 3);
 			
 			ItemStack wool2 = new ItemStack (Material.LAVA_BUCKET, 1);
@@ -385,20 +385,20 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			
 			ItemStack wool4 = new ItemStack (Material.COBBLESTONE, 1);
 			ItemMeta wool4meta = wool4.getItemMeta();
-			wool4meta.setDisplayName("§bTrap");
-			wool4meta.setLore(Arrays.asList("§5§oDrop Trap"));
+			wool4meta.setDisplayName("Â§bTrap");
+			wool4meta.setLore(Arrays.asList("Â§5Â§oDrop Trap"));
 			wool4.setItemMeta(wool4meta);
 			
 			ItemStack wool5 = new ItemStack (Material.COBBLESTONE, 1);
 			ItemMeta wool5meta = wool5.getItemMeta();
-			wool5meta.setDisplayName("§bTrap");
-			wool5meta.setLore(Arrays.asList("§5§oLava Trap"));
+			wool5meta.setDisplayName("Â§bTrap");
+			wool5meta.setLore(Arrays.asList("Â§5Â§oLava Trap"));
 			wool5.setItemMeta(wool5meta);
 			
 			ItemStack wool6 = new ItemStack (Material.COBBLESTONE, 2);
 			ItemMeta wool6meta = wool6.getItemMeta();
-			wool6meta.setDisplayName("§bTrap");
-			wool6meta.setLore(Arrays.asList("§5§oTNT Trap"));
+			wool6meta.setDisplayName("Â§bTrap");
+			wool6meta.setLore(Arrays.asList("Â§5Â§oTNT Trap"));
 			wool6.setItemMeta(wool6meta);
 			
 			player.getInventory().setItem(9, wool1);
@@ -412,7 +412,7 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			return;
 		}
 		
-		if (item.getItemMeta().getDisplayName().equals("§aThe Troll")) {
+		if (item.getItemMeta().getDisplayName().equals("Â§aThe Troll")) {
 			ItemStack wool1 = new ItemStack (Material.FIREWORK, 64);
 			
 			ItemStack wool2 = new ItemStack (Material.ENCHANTED_BOOK, 10);
@@ -421,8 +421,8 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			
 			ItemStack wool4 = new ItemStack (Material.COBBLESTONE, 10);
 			ItemMeta wool4meta = wool4.getItemMeta();
-			wool4meta.setDisplayName("§bTrap");
-			wool4meta.setLore(Arrays.asList("§5§oHole"));
+			wool4meta.setDisplayName("Â§bTrap");
+			wool4meta.setLore(Arrays.asList("Â§5Â§oHole"));
 			wool4.setItemMeta(wool4meta);
 			
 			ItemStack wool5 = new ItemStack (Material.WEB, 4);
@@ -440,7 +440,7 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			return;
 		}
 		
-		if (item.getItemMeta().getDisplayName().equals("§aThe Fighter")) {
+		if (item.getItemMeta().getDisplayName().equals("Â§aThe Fighter")) {
 			ItemStack wool1 = new ItemStack (Material.GOLDEN_APPLE);
 			
 			ItemStack wool2 = new ItemStack (Material.DIAMOND_SWORD);
@@ -451,8 +451,8 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 			
 			ItemStack wool5 = new ItemStack (Material.COBBLESTONE, 1);
 			ItemMeta wool4meta = wool5.getItemMeta();
-			wool4meta.setDisplayName("§bTrap");
-			wool4meta.setLore(Arrays.asList("§5§oStaircase"));
+			wool4meta.setDisplayName("Â§bTrap");
+			wool4meta.setLore(Arrays.asList("Â§5Â§oStaircase"));
 			wool5.setItemMeta(wool4meta);
 			
 			ItemStack wool6 = new ItemStack (Material.POTION, 1, (short) 16396);
@@ -484,32 +484,32 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
 		Location loc = event.getBlock().getLocation();
 		block.setType(Material.AIR);
 		
-		if (item.getItemMeta().getLore().contains("§5§oDrop Trap")) {
+		if (item.getItemMeta().getLore().contains("Â§5Â§oDrop Trap")) {
 			createDropTrap(loc);
 			return;
 		} 
 		
-		if (item.getItemMeta().getLore().contains("§5§oLava Trap")) {
+		if (item.getItemMeta().getLore().contains("Â§5Â§oLava Trap")) {
 			createLavaTrap(loc);
 			return;
 		} 
 		
-		if (item.getItemMeta().getLore().contains("§5§oTNT Trap")) {
+		if (item.getItemMeta().getLore().contains("Â§5Â§oTNT Trap")) {
 			createTntTrap(loc);
 			return;
 		} 
 		
-		if (item.getItemMeta().getLore().contains("§5§oEscape Hatch")) {
+		if (item.getItemMeta().getLore().contains("Â§5Â§oEscape Hatch")) {
 			createEscapeHatch(loc);
 			return;
 		} 
 		
-		if (item.getItemMeta().getLore().contains("§5§oHole")) {
+		if (item.getItemMeta().getLore().contains("Â§5Â§oHole")) {
 			createHole(loc);
 			return;
 		} 
 		
-		if (item.getItemMeta().getLore().contains("§5§oStaircase")) {
+		if (item.getItemMeta().getLore().contains("Â§5Â§oStaircase")) {
 			createStaircase(loc);
 		}
 	}

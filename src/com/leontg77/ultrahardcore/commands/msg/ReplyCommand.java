@@ -49,12 +49,12 @@ public class ReplyCommand extends UHCCommand {
         }
 		
     	if (user.isMuted() && !scen.getScenario(Moles.class).isEnabled()) {
-			sender.sendMessage(Main.PREFIX + "You have been muted for: งa" + user.getMutedReason());
+			sender.sendMessage(Main.PREFIX + "You have been muted for: ยงa" + user.getMutedReason());
 			
 			if (user.getMuteExpiration() == null) {
 				sender.sendMessage(Main.PREFIX + "Your mute is permanent.");
 			} else {
-				sender.sendMessage(Main.PREFIX + "Your mute expires in: งa" + DateUtils.formatDateDiff(user.getMuteExpiration().getTime()));
+				sender.sendMessage(Main.PREFIX + "Your mute expires in: ยงa" + DateUtils.formatDateDiff(user.getMuteExpiration().getTime()));
 			}
 			return true;
     	}
@@ -77,14 +77,14 @@ public class ReplyCommand extends UHCCommand {
     	
         String msg = Joiner.on(' ').join(args);
 
-        sender.sendMessage("ง8[งaงome ง8-> งaงo" + name(target) + "ง8] ง7" + msg);
+        sender.sendMessage("ยง8[ยงaยงome ยง8-> ยงaยงo" + name(target) + "ยง8] ยง7" + msg);
     	MsgCommand.msg.put(player.getName(), target.getName());
 		
 		if (tUser.isIgnoring(player)) {
 			return true;
 		}
 
-    	target.sendMessage("ง8[งaงo" + name(player) + " ง8-> งaงomeง8] ง7" + msg);
+    	target.sendMessage("ยง8[ยงaยงo" + name(player) + " ยง8-> ยงaยงomeยง8] ยง7" + msg);
     	MsgCommand.msg.put(target.getName(), player.getName());
 		return true;
     }
@@ -98,7 +98,7 @@ public class ReplyCommand extends UHCCommand {
 		User user = plugin.getUser(player);
 		
 		if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
-			return "ง8(" + user.getRankColor() + NameUtils.capitalizeString(user.getRank().name(), true) + "ง8) งfงo" + player.getName();
+			return "ยง8(" + user.getRankColor() + NameUtils.capitalizeString(user.getRank().name(), true) + "ยง8) ยงfยงo" + player.getName();
 		}
 		
 		return player.getName();

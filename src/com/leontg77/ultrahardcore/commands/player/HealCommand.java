@@ -61,7 +61,7 @@ public class HealCommand extends UHCCommand {
 		User user = plugin.getUser(target);
 		user.resetHealth();
 
-		sender.sendMessage(Main.PREFIX + "You healed งa" + target.getName() + "ง7.");
+		sender.sendMessage(Main.PREFIX + "You healed ยงa" + target.getName() + "ยง7.");
 		target.sendMessage(Main.PREFIX + "You have been healed.");
 		return true;
 	}

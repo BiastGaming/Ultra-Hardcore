@@ -19,7 +19,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class LWCM extends Scenario implements Listener {
-	public static final String PREFIX = "§dLWCM §8» §7";
+	public static final String PREFIX = "Â§dLWCM Â§8Â§ Â§7";
 	
 	private final TeamManager teams;
 	private final Game game;
@@ -80,6 +80,6 @@ public class LWCM extends Scenario implements Listener {
 		teams.joinTeam(team, near);
 		teams.joinTeam(team, player);
 		
-		PlayerUtils.broadcast(PREFIX + "§a" + player.getName() + " §7and§a " + near.getName() + " §7has found each other.");
+		PlayerUtils.broadcast(PREFIX + "Â§a" + player.getName() + " Â§7andÂ§a " + near.getName() + " Â§7has found each other.");
 	}
 }

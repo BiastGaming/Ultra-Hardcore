@@ -62,7 +62,7 @@ public class GiveallCommand extends UHCCommand {
 		ItemStack item = new ItemStack(material, amount, durability);
 		String itemName = item.getType().name().toLowerCase().replaceAll("_", " ") + (amount > 1 && !item.getType().name().endsWith("s") ? "s" : "");
 
-		PlayerUtils.broadcast(Main.PREFIX + "All players recieved งa" + amount + " " + itemName + "ง7.");
+		PlayerUtils.broadcast(Main.PREFIX + "All players recieved ยงa" + amount + " " + itemName + "ยง7.");
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
 			PlayerUtils.giveItem(online, item.clone());

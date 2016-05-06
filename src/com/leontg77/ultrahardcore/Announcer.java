@@ -34,21 +34,21 @@ public class Announcer {
 	 * List of announcements.
 	 */
 	private static final List<String> ANNOUNCEMENTS = ImmutableList.of(
-			"Remember to use §e/uhc §7for all game information.",
-			"You can look at the hall of fame with §e/hof§7.",
-			"If you have any questions, ask in §e/helpop§7.",
-			"You can find the match post by doing §e/post§7.",
-			"The server runs off a custom UHC plugin by §eLeonTG77§7.",
-			"Wonder if you are lagging? Use §e/ms §7or §e/tps§7.",
-			"Follow our twitter for games and updates, §6twitter.com/ArcticUHC§7!",
-			"You can apply for a rank at §6redd.it/45gxj0",
-			"You can report staff at §6redd.it/45gxj0",
-			"You can give us suggestions at §6redd.it/45gxj0",
-			"You can view your stats by using §e/stats§7.",
-			"You can view the top 10 stats with §e/top§7.",
-			"View the border size with §e/border§7.",
-			"Wondering how long it is until PvP/Meetup? Use §e/timeleft§7.",
-			"View the enabled scenario(s) by doing §e/scen§7."
+			"Remember to use Â§e/uhc Â§7for all game information.",
+			"You can look at the hall of fame with Â§e/hofÂ§7.",
+			"If you have any questions, ask in Â§e/helpopÂ§7.",
+			"You can find the match post by doing Â§e/postÂ§7.",
+			"The server runs off a custom UHC plugin by Â§eLeonTG77Â§7.",
+			"Wonder if you are lagging? Use Â§e/ms Â§7or Â§e/tpsÂ§7.",
+			"Follow our twitter for games and updates, Â§6twitter.com/ArcticUHCÂ§7!",
+			"You can apply for a rank at Â§6redd.it/45gxj0",
+			"You can report staff at Â§6redd.it/45gxj0",
+			"You can give us suggestions at Â§6redd.it/45gxj0",
+			"You can view your stats by using Â§e/statsÂ§7.",
+			"You can view the top 10 stats with Â§e/topÂ§7.",
+			"View the border size with Â§e/borderÂ§7.",
+			"Wondering how long it is until PvP/Meetup? Use Â§e/timeleftÂ§7.",
+			"View the enabled scenario(s) by doing Â§e/scenÂ§7."
 	);
 	
 	private final Random rand = new Random();

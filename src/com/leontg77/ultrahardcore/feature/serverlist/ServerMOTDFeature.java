@@ -28,9 +28,9 @@ public class ServerMOTDFeature extends Feature implements Listener {
 		final String motd = getMOTDMessage();
 		
 		event.setMotd(
-			"§4§lArctic UHC §8» §6" + motd + " §8« [§71.8§8] [§7EU§8]" + 
+			"Â§4Â§lArctic UHC Â§8Â§ Â§6" + motd + " Â§8Â§ [Â§71.8Â§8] [Â§7EUÂ§8]" +
 			"\n" +	
-			"§8» " + info
+			"Â§8Â§ " + info
 		); 
 		
 		event.setMaxPlayers(game.getMaxPlayers());
@@ -73,11 +73,11 @@ public class ServerMOTDFeature extends Feature implements Listener {
 	private String getInformationMessage() {
 		final State current = State.getState();
 
-		final String scen = game.getScenarios().replaceAll(", ", "§8§o, §7§o");
-		final String ingameAfter = "§8§o. §4§oHost: §a§o" + game.getHost();
+		final String scen = game.getScenarios().replaceAll(", ", "Â§8Â§o, Â§7Â§o");
+		final String ingameAfter = "Â§8Â§o. Â§4Â§oHost: Â§aÂ§o" + game.getHost();
 		
-		final String ingameVersion = "§7§o" + game.getAdvancedTeamSize(false, true).replaceAll("-", "§8§o-§7§o") + "§7§o" + scen.substring(0, Math.min(59 - ingameAfter.length(), scen.length())) + ingameAfter;
-		final String twitterVersion = "§7§oFollow us on twitter, §a§o@ArcticUHC§7§o!";
+		final String ingameVersion = "Â§7Â§o" + game.getAdvancedTeamSize(false, true).replaceAll("-", "Â§8Â§o-Â§7Â§o") + "Â§7Â§o" + scen.substring(0, Math.min(59 - ingameAfter.length(), scen.length())) + ingameAfter;
+		final String twitterVersion = "Â§7Â§oFollow us on twitter, Â§aÂ§o@ArcticUHCÂ§7Â§o!";
 		
 		if (game.getTeamSize().startsWith("No") || game.isRecordedRound() || game.isPrivateGame()) {
 			return twitterVersion;

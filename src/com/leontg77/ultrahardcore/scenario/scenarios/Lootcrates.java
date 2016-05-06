@@ -26,7 +26,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Lootcrates extends Scenario implements Listener {
-	private static final String PREFIX = "§9Lootcrates §8» §7";
+	private static final String PREFIX = "Â§9Lootcrates Â§8Â§ Â§7";
 	
 	private final Main plugin;
 	private final Game game;
@@ -67,8 +67,8 @@ public class Lootcrates extends Scenario implements Listener {
 					
 					ItemStack item = new ItemStack(i == 0 ? Material.ENDER_CHEST : Material.CHEST);
 					ItemMeta meta = item.getItemMeta();
-					meta.setDisplayName("§bTier " + (i == 0 ? "2" : "1") + " lootcrate");
-					meta.setLore(Arrays.asList("§5§oRight click to open."));
+					meta.setDisplayName("Â§bTier " + (i == 0 ? "2" : "1") + " lootcrate");
+					meta.setLore(Arrays.asList("Â§5Â§oRight click to open."));
 					item.setItemMeta(meta);
 
 					PlayerUtils.giveItem(online, item);
@@ -94,10 +94,10 @@ public class Lootcrates extends Scenario implements Listener {
 			return;
 		}
 		
-		if (item.getType() == Material.CHEST && item.getItemMeta().getDisplayName().equals("§bTier 1 lootcrate")) {
+		if (item.getType() == Material.CHEST && item.getItemMeta().getDisplayName().equals("Â§bTier 1 lootcrate")) {
 			int i = (new Random().nextInt(6) + 1);
 			
-			player.sendMessage(PREFIX + "You rolled an §a" + i + "§7.");
+			player.sendMessage(PREFIX + "You rolled an Â§a" + i + "Â§7.");
 			event.setCancelled(true);
 			
 			switch (i) {
@@ -123,10 +123,10 @@ public class Lootcrates extends Scenario implements Listener {
 			return;
 		}
 
-		if (item.getType() == Material.ENDER_CHEST && item.getItemMeta().getDisplayName().equals("§bTier 2 lootcrate")) {
+		if (item.getType() == Material.ENDER_CHEST && item.getItemMeta().getDisplayName().equals("Â§bTier 2 lootcrate")) {
 			int i = (new Random().nextInt(11) + 1);
 			
-			player.sendMessage(PREFIX + "You rolled an §a" + i + "§7.");
+			player.sendMessage(PREFIX + "You rolled an Â§a" + i + "Â§7.");
 			event.setCancelled(true);
 			
 			switch (i) {

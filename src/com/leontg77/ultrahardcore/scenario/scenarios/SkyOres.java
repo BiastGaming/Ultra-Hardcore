@@ -32,7 +32,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class SkyOres extends Scenario implements CommandExecutor, Listener {
-	public static final String PREFIX = "§fSkyOres §8» §7";
+	public static final String PREFIX = "Â§fSkyOres Â§8Â§ Â§7";
 	
 	private final Main plugin;
 	
@@ -117,7 +117,7 @@ public class SkyOres extends Scenario implements CommandExecutor, Listener {
 		
 		totalChunks = locs.size();
 
-		PlayerUtils.broadcast(PREFIX + "Starting sky ores generation in world '§a" + world.getName() + "§7'.");
+		PlayerUtils.broadcast(PREFIX + "Starting sky ores generation in world 'Â§a" + world.getName() + "Â§7'.");
 		
 		task = new BukkitRunnable() {
 			public void run() {
@@ -145,7 +145,7 @@ public class SkyOres extends Scenario implements CommandExecutor, Listener {
 				double completed = ((totalChunks - ((double) locs.size())) * 100 / totalChunks);
 				
 				for (Player online : Bukkit.getOnlinePlayers()) {
-					PacketUtils.sendAction(online, PREFIX + "Generating sky ores §8(§a" + NumberUtils.formatPercentDouble(completed) + "%§8)");
+					PacketUtils.sendAction(online, PREFIX + "Generating sky ores Â§8(Â§a" + NumberUtils.formatPercentDouble(completed) + "%Â§8)");
 				}
 			}
 		};

@@ -43,12 +43,12 @@ public class WhitelistCommand extends UHCCommand {
            		if (target == null) {
                    	OfflinePlayer offline = PlayerUtils.getOfflinePlayer(args[1]);
                    	
-           			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + offline.getName() + " ง7has been whitelisted.");
+           			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + offline.getName() + " ยง7has been whitelisted.");
            			offline.setWhitelisted(true);
            			return true;
            		}
            		
-       			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + target.getName() + " ง7has been whitelisted.");
+       			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + target.getName() + " ยง7has been whitelisted.");
        			target.setWhitelisted(true);
     			return true;
            	} 
@@ -59,12 +59,12 @@ public class WhitelistCommand extends UHCCommand {
            		if (target == null) {
                    	OfflinePlayer offline = PlayerUtils.getOfflinePlayer(args[1]);
                    	
-           			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + offline.getName() + " ง7is no longer whitelisted.");
+           			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + offline.getName() + " ยง7is no longer whitelisted.");
            			offline.setWhitelisted(false);
            			return true;
            		}
            		
-       			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + target.getName() + " ง7is no longer whitelisted.");
+       			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + target.getName() + " ยง7is no longer whitelisted.");
            		target.setWhitelisted(false);
     			return true;
            	}  
@@ -106,11 +106,11 @@ public class WhitelistCommand extends UHCCommand {
    			PlayerUtils.broadcast(Main.PREFIX + "The whitelist is now off");
    			
    			if (game.getTeamSize().startsWith("cTo")) {
-   	   			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "timer 600 &7Whitelist is off for &8ป&a");
+   	   			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "timer 600 &7Whitelist is off for &8ยง&a");
    			}
    			
    			if (game.getTeamSize().startsWith("FFA")) {
-   	   			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "timer 300 &7Whitelist is off for &8ป&a");
+   	   			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "timer 300 &7Whitelist is off for &8ยง&a");
    			}
    			
    			Bukkit.setWhitelist(false);
@@ -161,8 +161,8 @@ public class WhitelistCommand extends UHCCommand {
 				i++;
 			}
 	    			
-	    	sender.sendMessage(Main.PREFIX + "There are ง6" + (i - 1) + " ง7whitelisted players");
-	    	sender.sendMessage("ง8ป ง7Wl'd players: งf" + list.toString() + ".");
+	    	sender.sendMessage(Main.PREFIX + "There are ยง6" + (i - 1) + " ยง7whitelisted players");
+	    	sender.sendMessage("ยง8ยง ยง7Wl'd players: ยงf" + list.toString() + ".");
 	    	return true;
    		} 
        	

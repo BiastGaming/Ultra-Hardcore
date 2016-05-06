@@ -25,7 +25,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Captains extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "ง6Captains ง8ป ง7";
+	public static final String PREFIX = "ยง6Captains ยง8ยง ยง7";
 	
 	private final TeamManager teams;
 	private final SpecManager spec;
@@ -83,7 +83,7 @@ public class Captains extends Scenario implements Listener, CommandExecutor {
 			team.addEntry(target);
 			
 			captains.add(target);
-			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + target + " ง7is now an captain.");
+			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + target + " ยง7is now an captain.");
 		}
 		
 		if (cmd.getName().equalsIgnoreCase("removecaptain")) {
@@ -114,7 +114,7 @@ public class Captains extends Scenario implements Listener, CommandExecutor {
 			}
 			
 			captains.remove(args[0]);
-			PlayerUtils.broadcast(Main.PREFIX + args[0] + ChatColor.GREEN + " ง7is no longer an captain.");
+			PlayerUtils.broadcast(Main.PREFIX + args[0] + ChatColor.GREEN + " ยง7is no longer an captain.");
 		}
 		
 		if (cmd.getName().equalsIgnoreCase("randomcaptain")) {
@@ -166,7 +166,7 @@ public class Captains extends Scenario implements Listener, CommandExecutor {
 				}
 				
 				t.addEntry(s);
-				PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + s + " ง7is now an captain.");
+				PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + s + " ยง7is now an captain.");
 			}
 		}
 		
@@ -190,7 +190,7 @@ public class Captains extends Scenario implements Listener, CommandExecutor {
 				cycle = true;
 				PlayerUtils.broadcast(Main.PREFIX + "Captains can now choose players.");
 				String cap = captains.get(0);
-				PlayerUtils.broadcast(Main.PREFIX + "First captain to choose is งa" + cap);
+				PlayerUtils.broadcast(Main.PREFIX + "First captain to choose is ยงa" + cap);
 				chooser = cap;
 				current = 0;
 			}
@@ -246,7 +246,7 @@ public class Captains extends Scenario implements Listener, CommandExecutor {
 				current = 0;
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + player.getName() + " ง7has picked งa" + target.getName() + "ง7, next captain to choose is งa" + captains.get(current));
+			PlayerUtils.broadcast(Main.PREFIX + ChatColor.GREEN + player.getName() + " ยง7has picked ยงa" + target.getName() + "ยง7, next captain to choose is ยงa" + captains.get(current));
 			chooser = captains.get(current);
 		}
 		return true;

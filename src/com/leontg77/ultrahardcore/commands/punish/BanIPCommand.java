@@ -52,7 +52,7 @@ public class BanIPCommand extends UHCCommand {
 
 		String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
 
-		PlayerUtils.broadcast(Main.PREFIX + "An IP has been banned for งa" + message);
+		PlayerUtils.broadcast(Main.PREFIX + "An IP has been banned for ยงa" + message);
 		list.addBan(IP, message, null, sender.getName());
 		
     	for (Player online : Bukkit.getOnlinePlayers()) {
@@ -66,12 +66,12 @@ public class BanIPCommand extends UHCCommand {
 			Bukkit.getPluginManager().callEvent(event);
 			
 			online.kickPlayer(
-	    	"ง8ป ง7You have been ง4IP banned ง7from ง6Arctic UHC ง8ซ" +
+	    	"ยง8ยง ยง7You have been ยง4IP banned ยง7from ยง6Arctic UHC ยง8ยง" +
 	    	"\n" + 
-	    	"\nงcReason ง8ป ง7" + message +
-	    	"\nงcBanned by ง8ป ง7" + sender.getName() +
+	    	"\nยงcReason ยง8ยง ยง7" + message +
+	    	"\nยงcBanned by ยง8ยง ยง7" + sender.getName() +
  			"\n" +
-	   		"\nง8ป ง7If you would like to appeal, DM our twitter งa@ArcticUHC ง8ซ"
+	   		"\nยง8ยง ยง7If you would like to appeal, DM our twitter ยงa@ArcticUHC ยง8ยง"
 	    	);
     	}
 		return true;

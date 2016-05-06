@@ -49,7 +49,7 @@ public class TpCommand extends UHCCommand {
 
 			Player player = (Player) sender;
 			
-			player.sendMessage(Main.PREFIX + "You teleported to งa" + targetOne.getName() + "ง7.");
+			player.sendMessage(Main.PREFIX + "You teleported to ยงa" + targetOne.getName() + "ยง7.");
 			player.teleport(targetOne);
 			return true;
 		}
@@ -64,7 +64,7 @@ public class TpCommand extends UHCCommand {
 			throw new CommandException("'" + args[1] + "' is not online.");
 		}
 		
-		sender.sendMessage(Main.PREFIX + "You teleported งa" + targetOne.getName() + "ง7 to งa" + targetTwo.getName() + "ง7.");
+		sender.sendMessage(Main.PREFIX + "You teleported ยงa" + targetOne.getName() + "ยง7 to ยงa" + targetTwo.getName() + "ยง7.");
 		targetOne.teleport(targetTwo);
 		return true;
 	}

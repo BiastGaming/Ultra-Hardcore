@@ -67,14 +67,14 @@ public class BanCommand extends UHCCommand {
     	if (target == null) {
 	    	PunishUtils.savePunishment(user, PunishmentType.BAN, message, null);
 	    	
-			PlayerUtils.broadcast(Main.PREFIX + "ง6" + args[0] + " ง7has been banned for งa" + message + "ง7.");
+			PlayerUtils.broadcast(Main.PREFIX + "ยง6" + args[0] + " ยง7has been banned for ยงa" + message + "ยง7.");
 			
     		banList.addBan(args[0], message, null, sender.getName());
 			board.resetScore(args[0]);
             return true;
 		}
 
-    	PlayerUtils.broadcast(Main.PREFIX + "ง6" + target.getName() + " ง7has been banned for งa" + message + "ง7.");
+    	PlayerUtils.broadcast(Main.PREFIX + "ยง6" + target.getName() + " ยง7has been banned for ยงa" + message + "ยง7.");
     	
     	banList.addBan(target.getName(), message, null, sender.getName());
     	

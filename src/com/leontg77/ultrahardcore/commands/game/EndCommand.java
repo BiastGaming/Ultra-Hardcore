@@ -116,22 +116,22 @@ public class EndCommand extends UHCCommand {
 			User user = plugin.getUser(winner);
 			user.increaseStat(Stat.WINS);
 
-			String color = teams.getTeam(winner) == null ? "§f" : teams.getTeam(winner).getPrefix();
+			String color = teams.getTeam(winner) == null ? "Â§f" : teams.getTeam(winner).getPrefix();
 			int kills = board.getActualScore(winner.getName());
 			
 			totalKills += kills;
 			
-			PlayerUtils.broadcast(Main.PREFIX + "§8- " + color + winner.getName() + "§8 (§a" + kills + " §7" + (kills == 1 ? "kill" : "kills") + "§8)");
+			PlayerUtils.broadcast(Main.PREFIX + "Â§8- " + color + winner.getName() + "Â§8 (Â§a" + kills + " Â§7" + (kills == 1 ? "kill" : "kills") + "Â§8)");
 			winners.add(winner.getName());
 		}
 		
 		if (winners.size() > 1) {
-			PlayerUtils.broadcast(Main.PREFIX + "With a total of §a" + totalKills + "§7 kills.");
+			PlayerUtils.broadcast(Main.PREFIX + "With a total of Â§a" + totalKills + "Â§7 kills.");
 		}
 		
 		PlayerUtils.broadcast(" ");
 		PlayerUtils.broadcast(Main.PREFIX + "Thanks for playing and congrats to the winners!");
-		PlayerUtils.broadcast(Main.PREFIX + "Remember to check out the hall of fame by using §6/hof§7.");
+		PlayerUtils.broadcast(Main.PREFIX + "Remember to check out the hall of fame by using Â§6/hofÂ§7.");
 		
 		String host = game.getHostHOFName();
 		
@@ -238,10 +238,10 @@ public class EndCommand extends UHCCommand {
 				game.setHost("None");
 				
 				String kickMessage = 
-				"§8» §cThanks for playing! §8«" +
+				"Â§8Â§ Â§cThanks for playing! Â§8Â§" +
 			    "\n" + 
-			    "\n§7If you'd like to know about updates and upcoming games," +
-			    "\n§7you can follow us on twitter §a@ArcticUHC§7!";
+			    "\nÂ§7If you'd like to know about updates and upcoming games," +
+			    "\nÂ§7you can follow us on twitter Â§a@ArcticUHCÂ§7!";
 				
 				for (Player online : Bukkit.getOnlinePlayers()) {
 					online.kickPlayer(kickMessage);

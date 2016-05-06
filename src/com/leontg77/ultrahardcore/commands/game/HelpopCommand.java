@@ -22,7 +22,7 @@ import com.leontg77.ultrahardcore.managers.SpecManager;
  * @author LeonTG77
  */
 public class HelpopCommand extends UHCCommand {
-	private static final String PREFIX = "ง4Helpง8-ง4Op ง8ป ง7";
+	private static final String PREFIX = "ยง4Helpยง8-ยง4Op ยง8ยง ยง7";
 	
 	private final SpecManager spec;
 	private final Main plugin;
@@ -57,16 +57,16 @@ public class HelpopCommand extends UHCCommand {
 				continue;
 			}
 			
-			online.sendMessage(PREFIX + sender.getName() + "ง7: ง6" + msg);
+			online.sendMessage(PREFIX + sender.getName() + "ยง7: ยง6" + msg);
 			online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
 		}
 		
-		Bukkit.getLogger().info(PREFIX + sender.getName() + "ง7: ง6" + msg);
+		Bukkit.getLogger().info(PREFIX + sender.getName() + "ยง7: ยง6" + msg);
 		cooldown.add(sender);
 
-		sender.sendMessage(PREFIX + sender.getName() + "ง7: ง6" + msg);
-		sender.sendMessage(PREFIX + "ง7Helpop has been sent, please don't spam this :)");
-		sender.sendMessage(PREFIX + "ง7Remember to check งa/uhc ง7for other game info.");
+		sender.sendMessage(PREFIX + sender.getName() + "ยง7: ยง6" + msg);
+		sender.sendMessage(PREFIX + "ยง7Helpop has been sent, please don't spam this :)");
+		sender.sendMessage(PREFIX + "ยง7Remember to check ยงa/uhc ยง7for other game info.");
 		
 		new BukkitRunnable() {
 			public void run() {

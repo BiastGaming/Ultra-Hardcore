@@ -34,7 +34,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class UndergroundParallel extends Scenario implements CommandExecutor, Listener {
-	public static final String PREFIX = "ง9Underground Parallel ง8ป ง7";
+	public static final String PREFIX = "ยง9Underground Parallel ยง8ยง ยง7";
 
 	private final Main plugin;
 
@@ -131,7 +131,7 @@ public class UndergroundParallel extends Scenario implements CommandExecutor, Li
 
 		totalChunks = locs.size();
 
-		PlayerUtils.broadcast(PREFIX + "Starting underground parallel generation in world 'งa" + world.getName() + "ง7'.");
+		PlayerUtils.broadcast(PREFIX + "Starting underground parallel generation in world 'ยงa" + world.getName() + "ยง7'.");
 
 		task = new BukkitRunnable() {
 			@SuppressWarnings("deprecation")
@@ -223,7 +223,7 @@ public class UndergroundParallel extends Scenario implements CommandExecutor, Li
 				double completed = ((totalChunks - ((double) locs.size())) * 100 / totalChunks);
 
 				for (Player online : Bukkit.getOnlinePlayers()) {
-					PacketUtils.sendAction(online, PREFIX + "Generating underground parallel ง8(งa" + NumberUtils.formatPercentDouble(completed) + "%ง8)");
+					PacketUtils.sendAction(online, PREFIX + "Generating underground parallel ยง8(ยงa" + NumberUtils.formatPercentDouble(completed) + "%ยง8)");
 				}
 			}
 		};

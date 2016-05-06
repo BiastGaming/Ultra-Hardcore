@@ -22,12 +22,12 @@ public class PunishUtils {
 	 */
 	public static String getBanMessageFormat() {
 		return
-		"ง8ป ง7You have been ง4banned ง7from ง6Arctic UHC ง8ซ" +
+		"ยง8ยง ยง7You have been ยง4banned ยง7from ยง6Arctic UHC ยง8ยง" +
 		"\n" + 
-		"\nงcReason ง8ป ง7%s" + 
-		"\nงcBanned by ง8ป ง7%s" + 
+		"\nยงcReason ยง8ยง ยง7%s" +
+		"\nยงcBanned by ยง8ยง ยง7%s" +
 		"\n" +
-		"\nง8ป ง7If you would like to appeal, DM our twitter งa@ArcticUHC ง8ซ"
+		"\nยง8ยง ยง7If you would like to appeal, DM our twitter ยงa@ArcticUHC ยง8ยง"
 		;
 	}
 
@@ -40,12 +40,12 @@ public class PunishUtils {
 	 */
 	public static String getIPBanMessageFormat() {
 		return
-		"ง8ป ง7You have been ง4IP banned ง7from ง6Arctic UHC ง8ซ" +
+		"ยง8ยง ยง7You have been ยง4IP banned ยง7from ยง6Arctic UHC ยง8ยง" +
 		"\n" + 
-		"\nงcReason ง8ป ง7%s" + 
-		"\nงcBanned by ง8ป ง7%s" + 
+		"\nยงcReason ยง8ยง ยง7%s" +
+		"\nยงcBanned by ยง8ยง ยง7%s" +
 		"\n" +
-		"\nง8ป ง7If you would like to appeal, DM our twitter งa@ArcticUHC ง8ซ"
+		"\nยง8ยง ยง7If you would like to appeal, DM our twitter ยงa@ArcticUHC ยง8ยง"
 		;
 	}
 
@@ -58,13 +58,13 @@ public class PunishUtils {
 	 */
 	public static String getTempbanMessageFormat() {
 		return 
-		"ง8ป ง7You have been ง4temp-banned ง7from ง6Arctic UHC ง8ซ" +
+		"ยง8ยง ยง7You have been ยง4temp-banned ยง7from ยง6Arctic UHC ยง8ยง" +
 		"\n" + 
-		"\nงcReason ง8ป ง7%s" + 
-		"\nงcBanned by ง8ป ง7%s" + 
-		"\nงcExpires in ง8ป ง7%s" + 
+		"\nยงcReason ยง8ยง ยง7%s" +
+		"\nยงcBanned by ยง8ยง ยง7%s" +
+		"\nยงcExpires in ยง8ยง ยง7%s" +
 		"\n" +
-		"\nง8ป ง7If you would like to appeal, DM our twitter งa@ArcticUHC ง8ซ"
+		"\nยง8ยง ยง7If you would like to appeal, DM our twitter ยงa@ArcticUHC ยง8ยง"
 		;
 	}
 
@@ -77,12 +77,12 @@ public class PunishUtils {
 	 */
 	public static String getDQMessageFormat() {
 		return 
-		"ง8ป ง7You have been งcdisqualified ง7from this game ง8ซ" +
+		"ยง8ยง ยง7You have been ยงcdisqualified ยง7from this game ยง8ยง" +
 		"\n" + 
-		"\nงcReason ง8ป ง7%s" + 
-		"\nงcDQ'ed by ง8ป ง7%s" + 
+		"\nยงcReason ยง8ยง ยง7%s" +
+		"\nยงcDQ'ed by ยง8ยง ยง7%s" +
 		"\n" + 
-		"\nง8ป ง7Don't worry, this is not a perma ban. ง8ซ"
+		"\nยง8ยง ยง7Don't worry, this is not a perma ban. ยง8ยง"
 		;
 	}
 	

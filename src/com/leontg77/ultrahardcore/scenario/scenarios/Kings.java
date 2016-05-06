@@ -102,7 +102,7 @@ public class Kings extends Scenario implements Listener, CommandExecutor {
         }
         
         kings.remove(player.getName());
-        PlayerUtils.broadcast(Main.PREFIX + "The king on team ง6" + team.getName().substring(3) + " ง7has died, งa" + kings.size() + " ง7kings remaining.");
+        PlayerUtils.broadcast(Main.PREFIX + "The king on team ยง6" + team.getName().substring(3) + " ยง7has died, ยงa" + kings.size() + " ยง7kings remaining.");
         
         for (String entry : team.getEntries()) {
         	Player teammate = Bukkit.getPlayer(entry);
@@ -176,7 +176,7 @@ public class Kings extends Scenario implements Listener, CommandExecutor {
 			target.setMaxHealth(40);
 			target.setHealth(40);
 
-			PlayerUtils.broadcast(Main.PREFIX + "งa" + target.getName() + " ง7is now a king on team ง6" + team.getName().substring(3) + "ง7.");
+			PlayerUtils.broadcast(Main.PREFIX + "ยงa" + target.getName() + " ยง7is now a king on team ยง6" + team.getName().substring(3) + "ยง7.");
 			return true;
 		}
 		
@@ -207,7 +207,7 @@ public class Kings extends Scenario implements Listener, CommandExecutor {
 			target.setHealth(20);
 			target.setMaxHealth(20);
 			
-			PlayerUtils.broadcast(Main.PREFIX + "งa" + target.getName() + " ง7is no longer a king.");
+			PlayerUtils.broadcast(Main.PREFIX + "ยงa" + target.getName() + " ยง7is no longer a king.");
 			return true;
 		}
 		
@@ -223,17 +223,17 @@ public class Kings extends Scenario implements Listener, CommandExecutor {
 			for (String king : kings) {
 				if (list.length() > 0) {
 					if (i == kings.size()) {
-						list.append(" ง8andงa ");
+						list.append(" ยง8andยงa ");
 					} else {
-						list.append("ง8, งa");
+						list.append("ยง8, ยงa");
 					}
 				}
 				
 				list.append(king);
 			}
 			
-			sender.sendMessage(Main.PREFIX + "Current kings: ง8(ง6" + kings.size() + "ง8)");
-			sender.sendMessage("ง8ป งa" + list.toString().trim() + "ง8.");
+			sender.sendMessage(Main.PREFIX + "Current kings: ยง8(ยง6" + kings.size() + "ยง8)");
+			sender.sendMessage("ยง8ยง ยงa" + list.toString().trim() + "ยง8.");
 			return true;
 		}
 		
@@ -264,7 +264,7 @@ public class Kings extends Scenario implements Listener, CommandExecutor {
 				target.setMaxHealth(40);
 				target.setHealth(40);
 				
-				PlayerUtils.broadcast(Main.PREFIX + "งa" + target.getName() + " ง7is now a king on team ง6" + team.getName().substring(3) + "ง7.");
+				PlayerUtils.broadcast(Main.PREFIX + "ยงa" + target.getName() + " ยง7is now a king on team ยง6" + team.getName().substring(3) + "ยง7.");
 			}
 		}
 		return true;

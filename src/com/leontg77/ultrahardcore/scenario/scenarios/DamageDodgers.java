@@ -26,7 +26,7 @@ public class DamageDodgers extends Scenario implements Listener, CommandExecutor
 	private final Timer timer;
 	private final Game game;
 	
-	private static final String PREFIX = "ง4DamageDodgers ง8ป ง7";
+	private static final String PREFIX = "ยง4DamageDodgers ยง8ยง ยง7";
 	private static final int DAMAGE_AMOUNT = 10000;
 	
 	public DamageDodgers(Main plugin, Game game, Timer timer) {
@@ -75,8 +75,8 @@ public class DamageDodgers extends Scenario implements Listener, CommandExecutor
 			return;
 		}
 
-		PlayerUtils.broadcast(PREFIX + "งb" + player.getName() + " ง7failed to avoid damage!");
-		PlayerUtils.broadcast(PREFIX + "งb" + deaths + " ง7" + (deaths == 1 ? "player" : "players") + " have perished!");
+		PlayerUtils.broadcast(PREFIX + "ยงb" + player.getName() + " ยง7failed to avoid damage!");
+		PlayerUtils.broadcast(PREFIX + "ยงb" + deaths + " ยง7" + (deaths == 1 ? "player" : "players") + " have perished!");
 		
 		event.setDamage(DAMAGE_AMOUNT);
 		
@@ -102,7 +102,7 @@ public class DamageDodgers extends Scenario implements Listener, CommandExecutor
 				return true;
 			}
 			
-			PlayerUtils.broadcast(PREFIX + "งb" + amount + "ง7 amount of players has to die before Damage Dodgers disables.");
+			PlayerUtils.broadcast(PREFIX + "ยงb" + amount + "ยง7 amount of players has to die before Damage Dodgers disables.");
 			needed = amount;
 			return true;
 		}
@@ -112,8 +112,8 @@ public class DamageDodgers extends Scenario implements Listener, CommandExecutor
 			return true;
 		}
 		
-		sender.sendMessage(PREFIX + "งb" + deaths + "ง7 " + (deaths == 1 ? "player" : "players") + " have died.");
-		sender.sendMessage(PREFIX + "งb" + needed + "ง7 " + (needed == 1 ? "player" : "players") + " players must die in total.");
+		sender.sendMessage(PREFIX + "ยงb" + deaths + "ยง7 " + (deaths == 1 ? "player" : "players") + " have died.");
+		sender.sendMessage(PREFIX + "ยงb" + needed + "ยง7 " + (needed == 1 ? "player" : "players") + " players must die in total.");
 		return true;
 	}
 }

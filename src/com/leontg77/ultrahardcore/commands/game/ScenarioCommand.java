@@ -44,11 +44,11 @@ public class ScenarioCommand extends UHCCommand {
 					}
 					
 					if (scen.isEnabled()) {
-						sender.sendMessage(Main.PREFIX + "งa" + scen.getName() + " ง7is already enabled.");
+						sender.sendMessage(Main.PREFIX + "ยงa" + scen.getName() + " ยง7is already enabled.");
 						return true;
 					}
 
-					PlayerUtils.broadcast(Main.PREFIX + "งa" + scen.getName() + " ง7has been enabled.");
+					PlayerUtils.broadcast(Main.PREFIX + "ยงa" + scen.getName() + " ยง7has been enabled.");
 					scen.enable(plugin);
 					return true;
 				}
@@ -67,11 +67,11 @@ public class ScenarioCommand extends UHCCommand {
 					}
 					
 					if (!scen.isEnabled()) {
-						sender.sendMessage(Main.PREFIX + "งa" + scen.getName() + " ง7is not enabled.");
+						sender.sendMessage(Main.PREFIX + "ยงa" + scen.getName() + " ยง7is not enabled.");
 						return true;
 					}
 
-					PlayerUtils.broadcast(Main.PREFIX + "งa" + scen.getName() + " ง7has been disabled.");
+					PlayerUtils.broadcast(Main.PREFIX + "ยงa" + scen.getName() + " ยง7has been disabled.");
 					scen.disable();
 					return true;
 				}
@@ -84,18 +84,18 @@ public class ScenarioCommand extends UHCCommand {
 				for (Scenario scen : manager.getScenarios()) {
 					if (list.length() > 0) {
 						if (i == manager.getScenarios().size()) {
-							list.append("ง8 and ง7");
+							list.append("ยง8 and ยง7");
 						} else {
-							list.append("ง8, ง7");
+							list.append("ยง8, ยง7");
 						}
 					}
 					
-					list.append((scen.isEnabled() ? "งa" : "งc") + scen.getName());
+					list.append((scen.isEnabled() ? "ยงa" : "ยงc") + scen.getName());
 					i++;
 				}
 				
-				sender.sendMessage(Main.PREFIX + "List of all scenarios: ง8(ง6" + manager.getScenarios().size() + "ง8)");
-				sender.sendMessage("ง8ป ง7" + list.toString().trim());
+				sender.sendMessage(Main.PREFIX + "List of all scenarios: ยง8(ยง6" + manager.getScenarios().size() + "ยง8)");
+				sender.sendMessage("ยง8ยง ยง7" + list.toString().trim());
 				return true;
 			}
 
@@ -110,23 +110,23 @@ public class ScenarioCommand extends UHCCommand {
 					throw new CommandException("'" + args[1] + "' is not a scenario.");
 				}
 				
-				sender.sendMessage(Main.PREFIX + "Information about ง6" + scen.getName() + "ง8:");
-				sender.sendMessage("ง8ป งfงo" + scen.getDescription());
+				sender.sendMessage(Main.PREFIX + "Information about ยง6" + scen.getName() + "ยง8:");
+				sender.sendMessage("ยง8ยง ยงfยงo" + scen.getDescription());
 				return true;
 			}
 		}
 		
 		int size = manager.getEnabledScenarios().size();
 		
-       	sender.sendMessage(Main.PREFIX + "Currently enabled scenarios: ง8(ง6" + (size == 0 ? 1 : size) + "ง8)");
+       	sender.sendMessage(Main.PREFIX + "Currently enabled scenarios: ยง8(ยง6" + (size == 0 ? 1 : size) + "ยง8)");
 		
 		if (size == 0) {
-       		sender.sendMessage("ง8ป ง7Vanilla+ ง8- งfงoA normal UHC with a few tweaks.");
+       		sender.sendMessage("ยง8ยง ยง7Vanilla+ ยง8- ยงfยงoA normal UHC with a few tweaks.");
 			return true;
 		}
        	
        	for (Scenario scen : manager.getEnabledScenarios()) {
-       		sender.sendMessage("ง8ป ง7" + scen.getName() + " ง8- งfงo" + scen.getDescription());
+       		sender.sendMessage("ยง8ยง ยง7" + scen.getName() + " ยง8- ยงfยงo" + scen.getDescription());
        	}
 		return true;
 	}

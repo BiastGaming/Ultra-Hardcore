@@ -65,7 +65,7 @@ public class ClearXPCommand extends UHCCommand {
 		User user = plugin.getUser(target);
 		user.resetExp();
 
-		sender.sendMessage(Main.PREFIX + "You cleared งa" + target.getName() + "'s ง7xp level.");
+		sender.sendMessage(Main.PREFIX + "You cleared ยงa" + target.getName() + "'s ยง7xp level.");
 		target.sendMessage(Main.PREFIX + "Your xp level was cleared.");
 		return true;
 	}

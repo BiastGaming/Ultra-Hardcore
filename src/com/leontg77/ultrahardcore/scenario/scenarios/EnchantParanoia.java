@@ -27,7 +27,7 @@ public class EnchantParanoia extends Scenario implements Listener {
 	private BukkitRunnable task;
 	
 	public EnchantParanoia() {
-		super("EnchantParanoia", "You cannot see what enchants you have ง4งlNOT FINISHED!");
+		super("EnchantParanoia", "You cannot see what enchants you have ยง4ยงlNOT FINISHED!");
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class EnchantParanoia extends Scenario implements Listener {
 						ArrayList<String> lore = new ArrayList<String>();
 						
 						for (int i = 0; i < meta.getEnchants().size(); i++) {
-							lore.add("ง7Who knows...?");
+							lore.add("ยง7Who knows...?");
 						}
 						
 						meta.setLore(lore);
@@ -80,7 +80,7 @@ public class EnchantParanoia extends Scenario implements Listener {
 						ArrayList<String> lore = new ArrayList<String>();
 						
 						for (int i = 0; i < meta.getStoredEnchants().size(); i++) {
-							lore.add("ง7Who knows...?");
+							lore.add("ยง7Who knows...?");
 						}
 						
 						meta.setLore(lore);
@@ -102,7 +102,7 @@ public class EnchantParanoia extends Scenario implements Listener {
 						ArrayList<String> lore = new ArrayList<String>();
 						
 						for (int i = 0; i < meta.getStoredEnchants().size(); i++) {
-							lore.add("ง7Who knows...?");
+							lore.add("ยง7Who knows...?");
 						}
 						
 						meta.setLore(lore);
@@ -124,7 +124,7 @@ public class EnchantParanoia extends Scenario implements Listener {
 		List<String> lore = new ArrayList<String>();
 		
 		for (int i = 0; i < event.getEnchantsToAdd().size(); i++) {
-			lore.add("ง7Who knows...?");
+			lore.add("ยง7Who knows...?");
 		}
 		
 		meta.setLore(lore);
@@ -149,7 +149,7 @@ public class EnchantParanoia extends Scenario implements Listener {
 		ArrayList<String> lore = new ArrayList<String>();
 		
 		for (int i = 0; i < meta.getStoredEnchants().size(); i++) {
-			lore.add("ง7Who knows...?");
+			lore.add("ยง7Who knows...?");
 		}
 		
 		meta.setLore(lore);

@@ -72,7 +72,7 @@ public class ShootHealthFeature extends Feature implements Listener {
 				String percent = NumberUtils.makePercent(health);
 				
 				if (health > 0.0000) {
-					killer.sendMessage(Main.PREFIX + name(player)+ " ง7is now at งa" + percent + "%");
+					killer.sendMessage(Main.PREFIX + name(player)+ " ยง7is now at ยงa" + percent + "%");
 				}
 			}
 		}.runTaskLater(plugin, 1);

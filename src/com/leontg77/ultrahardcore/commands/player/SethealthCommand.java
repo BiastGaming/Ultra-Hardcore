@@ -49,7 +49,7 @@ public class SethealthCommand extends UHCCommand {
 				health = player.getMaxHealth();
 			}
 			
-			player.sendMessage(Main.PREFIX + "You set your health to ง6" + NumberUtils.makePercent(health).substring(2) + "%");
+			player.sendMessage(Main.PREFIX + "You set your health to ยง6" + NumberUtils.makePercent(health).substring(2) + "%");
 			player.setHealth(health);
 			return true;
 		}
@@ -66,7 +66,7 @@ public class SethealthCommand extends UHCCommand {
 				online.setHealth(hp);
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "All players health was set to ง6" + NumberUtils.makePercent(health).substring(2) + "%");
+			PlayerUtils.broadcast(Main.PREFIX + "All players health was set to ยง6" + NumberUtils.makePercent(health).substring(2) + "%");
 			return true;
 		}
 		
@@ -81,8 +81,8 @@ public class SethealthCommand extends UHCCommand {
 			health = target.getMaxHealth();
 		}
 
-		sender.sendMessage(Main.PREFIX + "You set งa" + target.getName() + "'s ง7health to ง6" + NumberUtils.makePercent(health).substring(2) + "%");
-		target.sendMessage(Main.PREFIX + "Your health was set to ง6" + NumberUtils.makePercent(health).substring(2) + "%");
+		sender.sendMessage(Main.PREFIX + "You set ยงa" + target.getName() + "'s ยง7health to ยง6" + NumberUtils.makePercent(health).substring(2) + "%");
+		target.sendMessage(Main.PREFIX + "Your health was set to ยง6" + NumberUtils.makePercent(health).substring(2) + "%");
 		
 		target.setHealth(health);
 		return true;

@@ -22,7 +22,7 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  * @author LeonTG77
  */
 public class Balance extends Scenario implements Listener {
-	private static final String PREFIX = "ง3Balance ง8ป ง7";
+	private static final String PREFIX = "ยง3Balance ยง8ยง ยง7";
 	
 	private final Game game;
 	
@@ -88,7 +88,7 @@ public class Balance extends Scenario implements Listener {
 		if (rand == 1) {
 			chance.put(player.getName(), chance.get(player.getName()) + 1);
 			
-			player.sendMessage(PREFIX + "Diamonds now have a งa1/" + chance.get(player.getName()) + " ง7chance to drop!");
+			player.sendMessage(PREFIX + "Diamonds now have a ยงa1/" + chance.get(player.getName()) + " ยง7chance to drop!");
 		} else {
 			BlockUtils.blockBreak(player, block);
 			BlockUtils.degradeDurabiliy(player);

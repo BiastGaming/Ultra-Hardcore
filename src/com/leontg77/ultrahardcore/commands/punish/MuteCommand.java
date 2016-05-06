@@ -54,7 +54,7 @@ public class MuteCommand extends UHCCommand {
     	}
 
 		if (user.isMuted()) {
-	    	PlayerUtils.broadcast(Main.PREFIX + "ง6" + target.getName() + " ง7has been unmuted.");
+	    	PlayerUtils.broadcast(Main.PREFIX + "ยง6" + target.getName() + " ยง7has been unmuted.");
 	    	PunishUtils.setPunishmentExpireToNow(user, PunishmentType.MUTE, user.getMuteExpiration() == null ? -1l : user.getMuteExpiration().getTime());
 	    	
 			user.unmute();
@@ -72,11 +72,11 @@ public class MuteCommand extends UHCCommand {
     	String reason = Joiner.on(' ').join(Arrays.copyOfRange(args, 2, args.length));
 		long time = DateUtils.parseDateDiff(args[1], true);
 		
-		PlayerUtils.broadcast(Main.PREFIX + "ง6" + target.getName() + " ง7has been muted for งa" + reason + "ง7. ง8(งa" + (time <= 0 ? "permanent" : DateUtils.formatDateDiff(time)) + "ง8)");
+		PlayerUtils.broadcast(Main.PREFIX + "ยง6" + target.getName() + " ยง7has been muted for ยงa" + reason + "ยง7. ยง8(ยงa" + (time <= 0 ? "permanent" : DateUtils.formatDateDiff(time)) + "ยง8)");
 		user.mute(reason, (time <= 0 ? null : new Date(time)));
 		
 		if (player != null) {
-			player.sendMessage(Main.PREFIX + "You have been muted for งa" + reason + "ง7.");
+			player.sendMessage(Main.PREFIX + "You have been muted for ยงa" + reason + "ยง7.");
 		}
 
     	PunishUtils.savePunishment(user, PunishmentType.MUTE, reason, new Date(time));

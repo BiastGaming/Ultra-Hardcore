@@ -176,9 +176,9 @@ public class ScatterCommand extends UHCCommand {
 			Bukkit.getPluginManager().callEvent(new ScatterEvent());
 			
 			if (teamSpread) {
-				PlayerUtils.broadcast(Main.PREFIX + "Scattering งa" + teams + " ง7teams and งa" + solo + " ง7solos...");
+				PlayerUtils.broadcast(Main.PREFIX + "Scattering ยงa" + teams + " ยง7teams and ยงa" + solo + " ยง7solos...");
 			} else {
-				PlayerUtils.broadcast(Main.PREFIX + "Scattering งa" + solo + " ง7players...");
+				PlayerUtils.broadcast(Main.PREFIX + "Scattering ยงa" + solo + " ยง7players...");
 			}
 			
 			for (Player online : Bukkit.getOnlinePlayers()) {
@@ -209,7 +209,7 @@ public class ScatterCommand extends UHCCommand {
 				throw new CommandException("'" + args[1] + "' is not online.");
 			}
 
-			PlayerUtils.broadcast(Main.PREFIX + "Scattering งa" + target.getName() + "ง7...");
+			PlayerUtils.broadcast(Main.PREFIX + "Scattering ยงa" + target.getName() + "ยง7...");
 			target.setWhitelisted(true);
 
 			if (teamSpread) {

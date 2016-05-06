@@ -86,7 +86,7 @@ public class BorderShrinkFeature extends Feature implements Listener {
 			return;
 		}
 
-		PlayerUtils.broadcast(Main.BORDER_PREFIX + "Border will now shrink to ง6300x300 ง7over งa" + timer.getMeetup() + " ง7minutes.");
+		PlayerUtils.broadcast(Main.BORDER_PREFIX + "Border will now shrink to ยง6300x300 ยง7over ยงa" + timer.getMeetup() + " ยง7minutes.");
 		
 		for (World world : game.getWorlds()) {
 			world.getWorldBorder().setSize(300, timer.getMeetupInSeconds());
@@ -99,7 +99,7 @@ public class BorderShrinkFeature extends Feature implements Listener {
 			return;
 		}
 		
-		PlayerUtils.broadcast(Main.BORDER_PREFIX + "Border will now shrink to ง6300x300 ง7over งa" + timer.getMeetup() + " ง7minutes.");
+		PlayerUtils.broadcast(Main.BORDER_PREFIX + "Border will now shrink to ยง6300x300 ยง7over ยงa" + timer.getMeetup() + " ยง7minutes.");
 		
 		for (World world : game.getWorlds()) {
 			world.getWorldBorder().setSize(300, timer.getMeetupInSeconds());
@@ -120,14 +120,14 @@ public class BorderShrinkFeature extends Feature implements Listener {
 			timeToNextShrink = 1320;
 			
 			PlayerUtils.broadcast(Main.BORDER_PREFIX + "Border has stopped shrinking.");
-			PlayerUtils.broadcast(Main.BORDER_PREFIX + "Next shrink is in งa22ง7 minutes.");
+			PlayerUtils.broadcast(Main.BORDER_PREFIX + "Next shrink is in ยงa22ยง7 minutes.");
 		}
 		
 		if (currentTask != null) {
 			return;
 		}
 		
-		PlayerUtils.broadcast(Main.BORDER_PREFIX + "The border starts shrinking in งa" + DateUtils.advancedTicksToString(timeToNextShrink) + "ง7.");
+		PlayerUtils.broadcast(Main.BORDER_PREFIX + "The border starts shrinking in ยงa" + DateUtils.advancedTicksToString(timeToNextShrink) + "ยง7.");
 		
 		currentTask = new BorderRunnable(game, timeToNextShrink);
 		currentTask.runTaskTimer(plugin, 20, 20);

@@ -184,8 +184,8 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
 			
 			if (args.length < 2) {
 				sender.sendMessage(ChatColor.GREEN + "Help for BestPvE:");
-				sender.sendMessage("§7- §f/pve add <player> - §oAdd a player to the list.");
-				sender.sendMessage("§7- §f/pve remove <player> - §oRemove a player from the list.");
+				sender.sendMessage("Â§7- Â§f/pve add <player> - Â§oAdd a player to the list.");
+				sender.sendMessage("Â§7- Â§f/pve remove <player> - Â§oRemove a player from the list.");
 				return true;
 			}
 			
@@ -214,8 +214,8 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
 			}
 
 			sender.sendMessage(ChatColor.GREEN + "Help for BestPvE:");
-			sender.sendMessage("§7- §f/pve add <player> - §oAdd a player to the list.");
-			sender.sendMessage("§7- §f/pve remove <player> - §oRemove a player from the list.");
+			sender.sendMessage("Â§7- Â§f/pve add <player> - Â§oAdd a player to the list.");
+			sender.sendMessage("Â§7- Â§f/pve remove <player> - Â§oRemove a player from the list.");
 		}
 		return true;
 	}

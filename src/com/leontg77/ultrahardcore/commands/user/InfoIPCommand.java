@@ -29,14 +29,14 @@ public class InfoIPCommand extends UHCCommand {
 		}
 		
 		String adress = args[0];
-		sender.sendMessage(Main.PREFIX + "Players with the IP: งa" + adress);
+		sender.sendMessage(Main.PREFIX + "Players with the IP: ยงa" + adress);
         
 		for (FileConfiguration file : FileUtils.getUserFiles()) {
 			if (!file.getStringList("ips").contains(adress)) {
 				continue;
 			}
 			
-			sender.sendMessage("ง8ป ง7" + file.getString("username", "Unknown"));
+			sender.sendMessage("ยง8ยง ยง7" + file.getString("username", "Unknown"));
 		}
 		return true;
 	}

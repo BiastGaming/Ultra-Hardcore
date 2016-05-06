@@ -86,7 +86,7 @@ public class CombatLogFeature extends Feature implements Listener {
 		combat.remove(player.getUniqueId());
 		
 		if (State.isState(State.INGAME)) {
-			PlayerUtils.broadcast(Main.PREFIX + "งc" + player.getName() + "ง7 left while in combat.");
+			PlayerUtils.broadcast(Main.PREFIX + "ยงc" + player.getName() + "ยง7 left while in combat.");
 		}
 		
 		player.setHealth(0.0D);

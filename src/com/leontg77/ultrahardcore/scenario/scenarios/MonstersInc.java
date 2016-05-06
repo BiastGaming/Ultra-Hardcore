@@ -26,7 +26,7 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class MonstersInc extends Scenario implements Listener {
-	public static final String PREFIX = "§bMonster's Inc §8» §7";
+	public static final String PREFIX = "Â§bMonster's Inc Â§8Â§ Â§7";
 	
 	private final ScatterManager scatter;
 
