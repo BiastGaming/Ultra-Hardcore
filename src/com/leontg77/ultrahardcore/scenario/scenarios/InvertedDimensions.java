@@ -24,6 +24,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
@@ -78,6 +79,15 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 		
 		totalChunks = 0;
 		task = null;
+	}
+
+	@EventHandler
+	public void on(BlockPhysicsEvent event) {
+		if (task == null) {
+			return;
+		}
+
+		event.setCancelled(true);
 	}
 
 	@EventHandler
@@ -243,7 +253,11 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 					PlayerUtils.broadcast(PREFIX + "The inverted dimensions generation has finished.");
 					
 					cancel();
-					task = null;
+					new BukkitRunnable() {
+						public void run() {
+							task = null;
+						}
+					}.runTaskLater(plugin, 40);
 					return;
 				}
 
@@ -277,6 +291,11 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 									break;
 								case NETHER_FENCE:
 									block.setType(Material.FENCE);
+									break;
+								case NETHER_BRICK_STAIRS:
+									byte id = block.getData();
+									block.setType(Material.WOOD_STAIRS);
+									block.setData(id);
 									break;
 								case STATIONARY_LAVA:
 								case LAVA:
@@ -313,6 +332,16 @@ public class InvertedDimensions extends Scenario implements CommandExecutor, Lis
 									break;
 								case FENCE:
 									block.setType(Material.NETHER_FENCE);
+									break;
+								case WOOD_STAIRS:
+								case SPRUCE_WOOD_STAIRS:
+								case BIRCH_WOOD_STAIRS:
+								case JUNGLE_WOOD_STAIRS:
+								case ACACIA_STAIRS:
+								case DARK_OAK_STAIRS:
+									byte id = block.getData();
+									block.setType(Material.NETHER_BRICK_STAIRS);
+									block.setData(id);
 									break;
 								case STATIONARY_WATER:
 								case WATER:
