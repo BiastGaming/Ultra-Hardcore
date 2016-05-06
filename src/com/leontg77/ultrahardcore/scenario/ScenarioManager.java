@@ -237,6 +237,7 @@ public class ScenarioManager {
 		scenarios.add(new TrainingRabbits(timer));
 		scenarios.add(new TripleOres(this));
 		scenarios.add(new UberHardcore(plugin));
+		scenarios.add(new UndergroundParallel(plugin));
 		scenarios.add(new VengefulSpirits(settings, feat));
 		scenarios.add(new Voidscape(plugin));
 		scenarios.add(new Webcage(game));
