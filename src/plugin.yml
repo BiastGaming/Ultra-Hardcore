@@ -277,5 +277,7 @@ commands:
     description: View what effects people have.
   super:
     description: Add or remove effects.
+  underpara:
+    description: Generate the underground parallel scenario.
   voidscape:
     description: Generate voidscape.
