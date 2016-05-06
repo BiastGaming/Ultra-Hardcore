@@ -170,7 +170,7 @@ public class ScenarioManager {
 		scenarios.add(new Depths());
 		scenarios.add(new Diamondless(cc));
 		scenarios.add(new DoubleOrNothing(game, cc));
-		scenarios.add(new DragonRush(spec));
+		scenarios.add(new DragonRush(plugin, spec));
 		scenarios.add(new Eggs());
 		scenarios.add(new EightLeggedFreaks(game));
 		scenarios.add(new EnchantedDeath());
@@ -209,7 +209,7 @@ public class ScenarioManager {
 		scenarios.add(new NoSprint());
 		scenarios.add(new OneNineCooldown(plugin));
 		scenarios.add(new Overcook(plugin, game));
-		scenarios.add(new Paranoia(game, board));
+		scenarios.add(new Paranoia(game, board, feat));
 		scenarios.add(new PeriodOfResistance(plugin));
 		scenarios.add(new Permakill(game));
 		scenarios.add(new PotentialHearts());
