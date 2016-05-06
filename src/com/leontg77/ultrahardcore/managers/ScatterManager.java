@@ -76,12 +76,12 @@ public class ScatterManager {
 	/**
 	 * List of blocks not to spawn on.
 	 */
-	private static final Set<Material> INVAILD_SPAWN_BLOCKS = ImmutableSet.of(
-			Material.STATIONARY_WATER, 
-			Material.WATER, 
-			Material.STATIONARY_LAVA,
-			Material.LAVA, 
-			Material.CACTUS
+	private static final Set<Material> VALID_SPAWN_BLOCKS = ImmutableSet.of(
+			Material.LEAVES, 
+			Material.LEAVES_2, 
+			Material.GRASS,
+			Material.SAND, 
+			Material.STONE
 	);
 
 	private final Map<String, Location> lateScatters = new HashMap<String, Location>();
@@ -215,7 +215,7 @@ public class ScatterManager {
 						if (i < locs.size()) {
 							Player host = Bukkit.getPlayer(game.getHost());
 							
-							if (State.isState(State.INGAME) || host == null || (!State.isState(State.SCATTER) && manager.getTeam(host) != null && manager.getTeam(host).getName().equals("spec"))) {
+							if (State.isState(State.INGAME) || host == null || (!State.isState(State.SCATTER) && manager.getTeam(host) != null && !manager.getTeam(host).getName().equals("spec"))) {
 								locs.get(i).getChunk().load(true);
 							} else {
 								host.teleport(locs.get(i));
@@ -399,19 +399,17 @@ public class ScatterManager {
 	 * @return True if its valid, false otherwise.
 	 */
 	private boolean isValid(Location loc) {
-		loc.setY(loc.getWorld().getHighestBlockYAt(loc));
+		loc.setY(LocationUtils.getHighestBlock(loc.clone()).getY());
 		
-		Material type = loc.add(0, -1, 0).getBlock().getType();
+		Material type = loc.getBlock().getType();
 		boolean valid = true;
 		
 		if (loc.getWorld().getWorldType() != WorldType.FLAT && loc.getY() < 60) {
 			valid = false;
 		}
 		
-		for (Material no : INVAILD_SPAWN_BLOCKS) {
-			if (type == no) {
-				valid = false;
-			}
+		if (!VALID_SPAWN_BLOCKS.contains(type)) {
+			valid = false;
 		}
 		
 		return valid;
