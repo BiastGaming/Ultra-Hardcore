@@ -27,7 +27,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author dans1988
  */
 public class SlimyCrack extends Scenario implements Listener, CommandExecutor {
-    public static final String PREFIX = "§aSlimyCrack §8» §f";
+    public static final String PREFIX = "Â§aSlimyCrack Â§8Â§ Â§f";
     
 	private static final int CHUNK_HEIGHT_LIMIT = 128;
     private static final int BLOCKS_PER_CHUNK = 16;
@@ -187,7 +187,7 @@ public class SlimyCrack extends Scenario implements Listener, CommandExecutor {
                         populate(world, chunk, width, length, useZ);
 						
 						for (Player online : Bukkit.getOnlinePlayers()) {
-							PacketUtils.sendAction(online, PREFIX + "Populated chunk at x = §a" + chunk.getX() + "§7, z = §a" + chunk.getZ() + "§7.");
+							PacketUtils.sendAction(online, PREFIX + "Populated chunk at x = Â§a" + chunk.getX() + "Â§7, z = Â§a" + chunk.getZ() + "Â§7.");
 						}
                     }
                 }.runTaskLater(plugin, delayMultiplier * speed);

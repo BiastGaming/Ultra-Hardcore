@@ -52,7 +52,7 @@ public class RespawnFeature extends Feature implements Listener {
 		}
 		
 		player.sendMessage(Main.PREFIX + "Thanks for playing a game provided by Arctic UHC!");
-		player.sendMessage(Main.PREFIX + "Follow us on twtter to know when our next games are: §a§o@ArcticUHC");
+		player.sendMessage(Main.PREFIX + "Follow us on twtter to know when our next games are: Â§aÂ§o@ArcticUHC");
 		player.sendMessage(Main.PREFIX + "Please do not spam, rage, spoil or be a bad sportsman.");
 		
 		if (!player.hasPermission("uhc.prelist") || game.isPrivateGame()) {

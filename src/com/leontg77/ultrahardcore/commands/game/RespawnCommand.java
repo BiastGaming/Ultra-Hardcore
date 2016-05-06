@@ -66,7 +66,7 @@ public class RespawnCommand extends UHCCommand {
 			online.showPlayer(target);
 		}
 		
-		sender.sendMessage(Main.PREFIX + "Sucessfully respawned งa" + target.getName() + "ง7.");
+		sender.sendMessage(Main.PREFIX + "Sucessfully respawned ยงa" + target.getName() + "ยง7.");
 		
 		if (!giveBasicStuff) {
 			return true;

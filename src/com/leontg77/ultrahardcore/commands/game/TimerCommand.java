@@ -104,7 +104,7 @@ public class TimerCommand extends UHCCommand {
         }
     	
     	if (args.length == 2) {
-        	toReturn.add("&7Game is closing in &8ป&a");
+        	toReturn.add("&7Game is closing in &8ยง&a");
     	}
 
     	return toReturn;

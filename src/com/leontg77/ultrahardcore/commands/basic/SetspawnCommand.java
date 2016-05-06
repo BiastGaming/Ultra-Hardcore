@@ -43,7 +43,7 @@ public class SetspawnCommand extends UHCCommand {
 		settings.getConfig().set("spawn.pitch", loc.getPitch());
         settings.saveConfig();
         
-        player.sendMessage(String.format(Main.PREFIX + "You have set the spawnpoint to W: งa%s ง7X: งa%s ง7Y: งa%s ง7Z: งa%sง7.", player.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ()));
+        player.sendMessage(String.format(Main.PREFIX + "You have set the spawnpoint to W: ยงa%s ยง7X: ยงa%s ยง7Y: ยงa%s ยง7Z: ยงa%sยง7.", player.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ()));
 		return true;
 	}
 

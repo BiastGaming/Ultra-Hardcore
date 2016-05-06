@@ -225,7 +225,7 @@ public class ScatterManager {
 
 							if (toScatter.size() > 1) {
 								for (Player online : Bukkit.getOnlinePlayers()) {
-									PacketUtils.sendAction(online, "ง7Loading scatter locations... ง8[งa" + i + "ง7/งa" + locs.size() + "ง8]");
+									PacketUtils.sendAction(online, "ยง7Loading scatter locations... ยง8[ยงa" + i + "ยง7/ยงa" + locs.size() + "ยง8]");
 								}
 							}
 						} else {
@@ -248,7 +248,7 @@ public class ScatterManager {
 										String scatter = names.get(i);
 										
 										if (scatter == null) {
-											PlayerUtils.broadcast("งcAn error occured while scattering a player.", "uhc.staff");
+											PlayerUtils.broadcast("ยงcAn error occured while scattering a player.", "uhc.staff");
 											i++;
 											return;
 										}
@@ -310,9 +310,9 @@ public class ScatterManager {
 										if (toScatter.size() > 1) {
 											for (Player online : Bukkit.getOnlinePlayers()) {
 												if (scatterTeams) {
-													PacketUtils.sendAction(online, "ง7Scattered ง6Team " + scatter.substring(3) + " ง8[งa" + i + "ง7/งa" + names.size() + "ง8]");
+													PacketUtils.sendAction(online, "ยง7Scattered ยง6Team " + scatter.substring(3) + " ยง8[ยงa" + i + "ยง7/ยงa" + names.size() + "ยง8]");
 												} else {
-													PacketUtils.sendAction(online, "ง7Scattered ง6" + scatter + " ง8[งa" + i + "ง7/งa" + names.size() + "ง8]");
+													PacketUtils.sendAction(online, "ยง7Scattered ยง6" + scatter + " ยง8[ยงa" + i + "ยง7/ยงa" + names.size() + "ยง8]");
 												}
 												
 											}

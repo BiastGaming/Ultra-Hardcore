@@ -29,7 +29,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class ChunkApocalypse extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "§b[§2ChunkApoc§b] §3";
+	public static final String PREFIX = "Â§b[Â§2ChunkApocÂ§b] Â§3";
 	
 	private final Main plugin;
 	
@@ -126,7 +126,7 @@ public class ChunkApocalypse extends Scenario implements Listener, CommandExecut
 				int percentCompleted = ((totalChunks - locations.size())*100 / totalChunks);
 				
 				for (Player online : Bukkit.getOnlinePlayers()) {
-					PacketUtils.sendAction(online, PREFIX + "Removed chunk at x:" + chunk.getX() + " z:" + chunk.getZ() + ", §6" + percentCompleted + "% §7finished");
+					PacketUtils.sendAction(online, PREFIX + "Removed chunk at x:" + chunk.getX() + " z:" + chunk.getZ() + ", Â§6" + percentCompleted + "% Â§7finished");
 				}
 			}
 		};

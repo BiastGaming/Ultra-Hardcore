@@ -81,7 +81,7 @@ public class MsCommand extends UHCCommand {
 			status = "Horrible";
 		}
 		
-		sender.sendMessage(Main.PREFIX + (sender == target ? "Your" : target.getName() + "'s") + " ping: " + color + ping + "ms ง8(ง6" + status + "ง8)");
+		sender.sendMessage(Main.PREFIX + (sender == target ? "Your" : target.getName() + "'s") + " ping: " + color + ping + "ms ยง8(ยง6" + status + "ยง8)");
 		return true;
 	}
 

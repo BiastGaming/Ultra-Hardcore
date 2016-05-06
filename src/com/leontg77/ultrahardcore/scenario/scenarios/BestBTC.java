@@ -167,8 +167,8 @@ public class BestBTC extends Scenario implements Listener, CommandExecutor {
 			
 			if (args.length < 2) {
 				sender.sendMessage(ChatColor.GREEN + "Help for BestBTC:");
-				sender.sendMessage("§7- §f/btc add <player> - §oAdd a player to the list.");
-				sender.sendMessage("§7- §f/btc remove <player> - §oRemove a player from the list.");
+				sender.sendMessage("Â§7- Â§f/btc add <player> - Â§oAdd a player to the list.");
+				sender.sendMessage("Â§7- Â§f/btc remove <player> - Â§oRemove a player from the list.");
 				return true;
 			}
 			
@@ -197,8 +197,8 @@ public class BestBTC extends Scenario implements Listener, CommandExecutor {
 			}
 
 			sender.sendMessage(ChatColor.GREEN + "Help for BestBTC:");
-			sender.sendMessage("§7- §f/btc add <player> - §oAdd a player to the list.");
-			sender.sendMessage("§7- §f/btc remove <player> - §oRemove a player from the list.");
+			sender.sendMessage("Â§7- Â§f/btc add <player> - Â§oAdd a player to the list.");
+			sender.sendMessage("Â§7- Â§f/btc remove <player> - Â§oRemove a player from the list.");
 		}
 		return true;
 	}

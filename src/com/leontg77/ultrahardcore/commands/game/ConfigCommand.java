@@ -101,9 +101,9 @@ public class ConfigCommand extends UHCCommand {
 			for (ConfigValue value : ConfigValue.values()) {
 				if (types.length() > 0) {
 					if (i == ConfigValue.values().length) {
-						types.append(" ง7andงa ");
+						types.append(" ยง7andยงa ");
 					} else {
-						types.append("ง7, งa");
+						types.append("ยง7, ยงa");
 					}
 				}
 				
@@ -111,7 +111,7 @@ public class ConfigCommand extends UHCCommand {
 				i++;
 			}
 			
-			sender.sendMessage(Main.PREFIX + "Available config types: งa" + types.toString().trim() + "ง7.");
+			sender.sendMessage(Main.PREFIX + "Available config types: ยงa" + types.toString().trim() + "ยง7.");
 			return true;
 		}
 		
@@ -132,7 +132,7 @@ public class ConfigCommand extends UHCCommand {
 				throw new CommandException("Apple rates cannot be higher than 10%");
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "Apple rates has been changed to งa" + NumberUtils.formatDouble(appleRate) + "%");
+			PlayerUtils.broadcast(Main.PREFIX + "Apple rates has been changed to ยงa" + NumberUtils.formatDouble(appleRate) + "%");
 			
 			feat.getFeature(AppleRatesFeature.class).setAppleRates(appleRate);
 			gui.getGUI(GameInfoGUI.class).update();
@@ -193,7 +193,7 @@ public class ConfigCommand extends UHCCommand {
 				throw new CommandException("'" + args[1] + "' is not a vaild state.");
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "The server is now in งa" + state.name().toLowerCase() + "ง7 mode.");
+			PlayerUtils.broadcast(Main.PREFIX + "The server is now in ยงa" + state.name().toLowerCase() + "ยง7 mode.");
 			State.setState(state);
 			break;
 		case FLINTRATES:
@@ -212,7 +212,7 @@ public class ConfigCommand extends UHCCommand {
 				throw new CommandException("Flint rates cannot be higher than 100%");
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "Flint rates has been changed to งa" + NumberUtils.formatDouble(flintRate) + "%");
+			PlayerUtils.broadcast(Main.PREFIX + "Flint rates has been changed to ยงa" + NumberUtils.formatDouble(flintRate) + "%");
 			
 			feat.getFeature(FlintRatesFeature.class).setFlintRates(flintRate);
 			gui.getGUI(GameInfoGUI.class).update();
@@ -229,7 +229,7 @@ public class ConfigCommand extends UHCCommand {
 				throw new CommandException("Heal amount cannot be negative.");
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "Golden heads now heal งa" + NumberUtils.formatDouble(healamount) + "ง7 hearts.");
+			PlayerUtils.broadcast(Main.PREFIX + "Golden heads now heal ยงa" + NumberUtils.formatDouble(healamount) + "ยง7 hearts.");
 			
 			feat.getFeature(GoldenHeadsFeature.class).setHealAmount(healamount);
 			gui.getGUI(GameInfoGUI.class).update();
@@ -240,7 +240,7 @@ public class ConfigCommand extends UHCCommand {
 				return true;
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "The host has been changed to งa" + args[1] + "ง7.");
+			PlayerUtils.broadcast(Main.PREFIX + "The host has been changed to ยงa" + args[1] + "ยง7.");
 			game.setHost(args[1]);
 			break;
 		case MATCHPOST:
@@ -255,7 +255,7 @@ public class ConfigCommand extends UHCCommand {
 				throw new CommandException("'" + args[1] + "' is not a valid match post.");
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "The matchpost has been changed to งa" + matchpost + "ง7.");
+			PlayerUtils.broadcast(Main.PREFIX + "The matchpost has been changed to ยงa" + matchpost + "ยง7.");
 			game.setMatchPost(matchpost);
 			break;
 		case MAXPLAYERS:
@@ -276,7 +276,7 @@ public class ConfigCommand extends UHCCommand {
 				return true;
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "The max player limit is now งa" + maxplayers + "ง7.");
+			PlayerUtils.broadcast(Main.PREFIX + "The max player limit is now ยงa" + maxplayers + "ยง7.");
 			game.setMaxPlayers(maxplayers);
 			break;
 		case MEETUP:
@@ -299,7 +299,7 @@ public class ConfigCommand extends UHCCommand {
 				throw new CommandException("Meetup and PvP cannot be at the same time.");
 			}
 
-			PlayerUtils.broadcast(Main.PREFIX + "Meetup is now งa" + meetup + " ง7minutes in.");
+			PlayerUtils.broadcast(Main.PREFIX + "Meetup is now ยงa" + meetup + " ยง7minutes in.");
 			game.setMeetup(meetup);
 			break;
 		case PVP:
@@ -322,7 +322,7 @@ public class ConfigCommand extends UHCCommand {
 				throw new CommandException("PvP and Meetup cannot be at the same time.");
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "PvP will now be enabled งa" + pvp + " ง7minutes in.");
+			PlayerUtils.broadcast(Main.PREFIX + "PvP will now be enabled ยงa" + pvp + " ยง7minutes in.");
 			game.setPvP(pvp);
 			break;
 		case PEARLDAMAGE:
@@ -340,7 +340,7 @@ public class ConfigCommand extends UHCCommand {
 			if (damage == 0.0) {
 				PlayerUtils.broadcast(Main.PREFIX + "Ender pearls will no longer deal damage.");
 			} else {
-				PlayerUtils.broadcast(Main.PREFIX + "Ender pearls will now deal งa" + NumberUtils.formatDouble(damage) + "ง7 hearts.");
+				PlayerUtils.broadcast(Main.PREFIX + "Ender pearls will now deal ยงa" + NumberUtils.formatDouble(damage) + "ยง7 hearts.");
 			}
 			
 			feat.getFeature(PearlDamageFeature.class).setPearlDamage(damage);
@@ -354,7 +354,7 @@ public class ConfigCommand extends UHCCommand {
 			
 			String scenarios = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
 			
-			PlayerUtils.broadcast(Main.PREFIX + "The gamemode is now งa" + game.getAdvancedTeamSize(true, true) + scenarios + "ง7.");
+			PlayerUtils.broadcast(Main.PREFIX + "The gamemode is now ยงa" + game.getAdvancedTeamSize(true, true) + scenarios + "ยง7.");
 			game.setScenarios(scenarios);
 			break;
 		case SHEARRATES:
@@ -373,7 +373,7 @@ public class ConfigCommand extends UHCCommand {
 				throw new CommandException("Shear rates cannot be higher than 100%");
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "Shear rates has been changed to งa" + NumberUtils.formatDouble(shearRate) + "%");
+			PlayerUtils.broadcast(Main.PREFIX + "Shear rates has been changed to ยงa" + NumberUtils.formatDouble(shearRate) + "%");
 			
 			feat.getFeature(ShearsFeature.class).setShearRates(shearRate);
 			gui.getGUI(GameInfoGUI.class).update();
@@ -390,7 +390,7 @@ public class ConfigCommand extends UHCCommand {
 				throw new CommandException("'" + args[1] + "' is not a valid teamsize.");
 			}
 			
-			PlayerUtils.broadcast(Main.PREFIX + "The gamemode is now งa" + teamsize + game.getScenarios() + "ง7.");
+			PlayerUtils.broadcast(Main.PREFIX + "The gamemode is now ยงa" + teamsize + game.getScenarios() + "ยง7.");
 			game.setTeamSize(args[1]);
 			break;
 		case WORLD:
@@ -413,7 +413,7 @@ public class ConfigCommand extends UHCCommand {
 			
 			String worldList = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
 			
-			PlayerUtils.broadcast(Main.PREFIX + "The game will now be played in 'งa" + worldList.replaceAll(" ", "ง7, งa") + "ง7'.");
+			PlayerUtils.broadcast(Main.PREFIX + "The game will now be played in 'ยงa" + worldList.replaceAll(" ", "ยง7, ยงa") + "ยง7'.");
 			game.setWorld(worlds.toArray(new String[worlds.size()]));
 			break;
 		default:

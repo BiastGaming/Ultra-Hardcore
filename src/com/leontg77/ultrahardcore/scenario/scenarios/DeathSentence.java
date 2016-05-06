@@ -30,7 +30,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class DeathSentence extends Scenario implements CommandExecutor, Listener {
-	private static final String PREFIX = "§7Death Sentence §8» §c";
+	private static final String PREFIX = "Â§7Death Sentence Â§8Â§ Â§c";
 	
 	private final Main plugin;
 	private final Game game;
@@ -215,7 +215,7 @@ public class DeathSentence extends Scenario implements CommandExecutor, Listener
 			color = ChatColor.GREEN;
 		}
 		
-		player.sendMessage(PREFIX + "§fYou have " + color + (timeL == 1 ? "1 minute" : timeL + " minutes") + " minute §7remaining.");
+		player.sendMessage(PREFIX + "Â§fYou have " + color + (timeL == 1 ? "1 minute" : timeL + " minutes") + " minute Â§7remaining.");
 		return true;
 	}
 }

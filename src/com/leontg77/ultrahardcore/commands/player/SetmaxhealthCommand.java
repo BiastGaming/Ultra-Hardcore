@@ -49,13 +49,13 @@ public class SetmaxhealthCommand extends UHCCommand {
 			
 			Player player = (Player) sender;
 			
-			player.sendMessage(Main.PREFIX + "You set your max health to ง6" + NumberUtils.makePercent(health).substring(2) + "%");
+			player.sendMessage(Main.PREFIX + "You set your max health to ยง6" + NumberUtils.makePercent(health).substring(2) + "%");
 			player.setMaxHealth(health);
 			return true;
 		}
 		
 		if (args[1].equals("*")) {
-			PlayerUtils.broadcast(Main.PREFIX + "All players max health was set to ง6" + NumberUtils.makePercent(health).substring(2) + "%");
+			PlayerUtils.broadcast(Main.PREFIX + "All players max health was set to ยง6" + NumberUtils.makePercent(health).substring(2) + "%");
 			
 			for (Player online : Bukkit.getOnlinePlayers()) {
 				online.setMaxHealth(health);
@@ -69,8 +69,8 @@ public class SetmaxhealthCommand extends UHCCommand {
 			throw new CommandException("'" + args[1] + "' is not online.");
 		}
 
-		sender.sendMessage(Main.PREFIX + "You set งa" + target.getName() + "'s ง7max health to ง6" + NumberUtils.makePercent(health).substring(2) + "%");
-		target.sendMessage(Main.PREFIX + "Your max health was set to ง6" + NumberUtils.makePercent(health).substring(2) + "%");
+		sender.sendMessage(Main.PREFIX + "You set ยงa" + target.getName() + "'s ยง7max health to ยง6" + NumberUtils.makePercent(health).substring(2) + "%");
+		target.sendMessage(Main.PREFIX + "Your max health was set to ยง6" + NumberUtils.makePercent(health).substring(2) + "%");
 		
 		target.setMaxHealth(health);
 		return true;

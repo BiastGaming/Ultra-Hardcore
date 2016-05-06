@@ -25,7 +25,7 @@ public class SpecChatCommand extends UHCCommand {
 		this.spec = spec;
 	}
 	
-	private static final String PREFIX = "ง5Spec Chat ง8ป งd";
+	private static final String PREFIX = "ยง5Spec Chat ยง8ยง ยงd";
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) throws CommandException {
@@ -44,16 +44,16 @@ public class SpecChatCommand extends UHCCommand {
         		continue;
         	}
         	
-        	online.sendMessage(PREFIX + sender.getName() + "ง8: งf" + message);
+        	online.sendMessage(PREFIX + sender.getName() + "ยง8: ยงf" + message);
         }
 
-		message = message.replaceAll("งl", "");
-		message = message.replaceAll("งo", "");
-		message = message.replaceAll("งr", "งf");
-		message = message.replaceAll("งm", "");
-		message = message.replaceAll("งn", "");
+		message = message.replaceAll("ยงl", "");
+		message = message.replaceAll("ยงo", "");
+		message = message.replaceAll("ยงr", "ยงf");
+		message = message.replaceAll("ยงm", "");
+		message = message.replaceAll("ยงn", "");
 		
-		Bukkit.getLogger().info(PREFIX + sender.getName() + "ง8: งf" + message);
+		Bukkit.getLogger().info(PREFIX + sender.getName() + "ยง8: ยงf" + message);
 		return true;
 	}
 

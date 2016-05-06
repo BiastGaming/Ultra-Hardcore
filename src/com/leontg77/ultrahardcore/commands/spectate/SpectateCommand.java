@@ -55,18 +55,18 @@ public class SpectateCommand extends UHCCommand {
 	    	for (String spectator : specs) {
 	    		if (spectatorList.length() > 0) {
 					if (i == specs.size()) {
-						spectatorList.append(" §8and §a");
+						spectatorList.append(" Â§8and Â§a");
 					} else {
-						spectatorList.append("§8, §a");
+						spectatorList.append("Â§8, Â§a");
 					}
 				}
 				
-				spectatorList.append((Bukkit.getPlayer(spectator) == null ? "§c" : "§a") + spectator);
+				spectatorList.append((Bukkit.getPlayer(spectator) == null ? "Â§c" : "Â§a") + spectator);
 				i++;
 			}
 	    			
-	    	sender.sendMessage(Main.PREFIX + "There are §6" + (i - 1) + " §7spectators.");
-	    	sender.sendMessage("§8» §7Spectators§8: §a" + spectatorList.toString() + "§8.");
+	    	sender.sendMessage(Main.PREFIX + "There are Â§6" + (i - 1) + " Â§7spectators.");
+	    	sender.sendMessage("Â§8Â§ Â§7SpectatorsÂ§8: Â§a" + spectatorList.toString() + "Â§8.");
 			return true;
 		}
 		

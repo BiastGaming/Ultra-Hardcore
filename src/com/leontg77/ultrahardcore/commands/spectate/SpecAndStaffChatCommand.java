@@ -29,7 +29,7 @@ public class SpecAndStaffChatCommand extends UHCCommand {
         this.spec = spec;
     }
 
-    private static final String PREFIX = "§cSpec & Staff Chat §8» §7";
+    private static final String PREFIX = "Â§cSpec & Staff Chat Â§8Â§ Â§7";
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
@@ -48,16 +48,16 @@ public class SpecAndStaffChatCommand extends UHCCommand {
                 continue;
             }
 
-            online.sendMessage(PREFIX + sender.getName() + "§8: §f" + message);
+            online.sendMessage(PREFIX + sender.getName() + "Â§8: Â§f" + message);
         }
 
-		message = message.replaceAll("§l", "");
-		message = message.replaceAll("§o", "");
-		message = message.replaceAll("§r", "§f");
-		message = message.replaceAll("§m", "");
-		message = message.replaceAll("§n", "");
+		message = message.replaceAll("Â§l", "");
+		message = message.replaceAll("Â§o", "");
+		message = message.replaceAll("Â§r", "Â§f");
+		message = message.replaceAll("Â§m", "");
+		message = message.replaceAll("Â§n", "");
 		
-		Bukkit.getLogger().info(PREFIX + sender.getName() + "§8: §f" + message);
+		Bukkit.getLogger().info(PREFIX + sender.getName() + "Â§8: Â§f" + message);
         return true;
     }
 

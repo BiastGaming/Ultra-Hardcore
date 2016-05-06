@@ -52,14 +52,14 @@ public class VoteCommand extends UHCCommand {
 		yes = 0;
 		no = 0;
         
-        PlayerUtils.broadcast(Main.PREFIX + "A vote has started for: ง6" + message + "ง7.");
-        PlayerUtils.broadcast("ง8ป ง7Say งa'y'ง7 or งc'n'ง7 in chat to vote.");
+        PlayerUtils.broadcast(Main.PREFIX + "A vote has started for: ยง6" + message + "ยง7.");
+        PlayerUtils.broadcast("ยง8ยง ยง7Say ยงa'y'ยง7 or ยงc'n'ยง7 in chat to vote.");
         
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "timer 30 &7The vote ends in &8ป&a");
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "timer 30 &7The vote ends in &8ยง&a");
         
         run = new BukkitRunnable() {
 			public void run() {
-				PlayerUtils.broadcast(Main.PREFIX + "The vote has ended, the results are: งa" + yes + " yes ง7and งc" + no + " noง7.");
+				PlayerUtils.broadcast(Main.PREFIX + "The vote has ended, the results are: ยงa" + yes + " yes ยง7and ยงc" + no + " noยง7.");
 				
 				run = null;
 				voted.clear();

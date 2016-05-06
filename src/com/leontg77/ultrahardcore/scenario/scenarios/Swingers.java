@@ -23,7 +23,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Swingers extends Scenario implements Listener {
-	public static final String PREFIX = "§dSwingers §8» §7";
+	public static final String PREFIX = "Â§dSwingers Â§8Â§ Â§7";
 	
 	private final TeamManager teams;
 	private final Game game;
@@ -88,7 +88,7 @@ public class Swingers extends Scenario implements Listener {
 			return;
 		}
 
-		PlayerUtils.broadcast(PREFIX + "Team §a" + team1.getName() + listPlayers(teams.getPlayers(team1)) + " §7and§a " + team2.getName() + listPlayers(teams.getPlayers(team2)) + " §7has found each other.");
+		PlayerUtils.broadcast(PREFIX + "Team Â§a" + team1.getName() + listPlayers(teams.getPlayers(team1)) + " Â§7andÂ§a " + team2.getName() + listPlayers(teams.getPlayers(team2)) + " Â§7has found each other.");
 		
 		for (OfflinePlayer players : teams.getPlayers(team1)) {
 			teams.joinTeam(team2, players);
@@ -106,12 +106,12 @@ public class Swingers extends Scenario implements Listener {
 		
 		for (OfflinePlayer player : list) {
 			if (builder.length() > 0) {
-				builder.append("§8, §7");
+				builder.append("Â§8, Â§7");
 			}
 			
-			builder.append("§7" + player.getName());
+			builder.append("Â§7" + player.getName());
 		}
 		
-		return "§8(" + builder.toString() + "§8)";
+		return "Â§8(" + builder.toString() + "Â§8)";
 	}
 }

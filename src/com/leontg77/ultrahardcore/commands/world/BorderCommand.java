@@ -50,7 +50,7 @@ public class BorderCommand extends UHCCommand {
 			int diameter = (int) border.getSize();
 			int radius = diameter / 2;
 			
-			sender.sendMessage(Main.PREFIX + "The border in " + (args.length == 0 ? "your world" : "ง7'ง6" + world.getName() + "ง7'") + " isง8: งa" + diameter + "x" + diameter + " ง8(ง7X/Z งa+" + radius + " -" + radius + "ง8)");
+			sender.sendMessage(Main.PREFIX + "The border in " + (args.length == 0 ? "your world" : "ยง7'ยง6" + world.getName() + "ยง7'") + " isยง8: ยงa" + diameter + "x" + diameter + " ยง8(ยง7X/Z ยงa+" + radius + " -" + radius + "ยง8)");
 			return true;
 		}
 
@@ -59,7 +59,7 @@ public class BorderCommand extends UHCCommand {
 		int diameter = parseInt(args[1], "diameter");
 		border.setSize(diameter);
 		
-		PlayerUtils.broadcast(Main.PREFIX + "The border in world 'ง6" + world.getName() + "ง7' has been setup with size งa" + diameter + "x" + diameter + "ง7.");
+		PlayerUtils.broadcast(Main.PREFIX + "The border in world 'ยง6" + world.getName() + "ยง7' has been setup with size ยงa" + diameter + "x" + diameter + "ยง7.");
 		return true;
 	}
 

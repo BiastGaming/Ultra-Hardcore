@@ -60,10 +60,10 @@ public class HealthCommand extends UHCCommand {
 		
 		double absHearts = craft.getHandle().getAbsorptionHearts();
 
-		sender.sendMessage(Main.PREFIX + (target == sender ? "Your health:" : "§a" + target.getName() + "'s §7health:"));
-		sender.sendMessage(Main.ARROW + "Health: §a" + NumberUtils.makePercent(health) + "%");
-		sender.sendMessage(Main.ARROW + "Max Health: §a" + NumberUtils.makePercent(maxhealth).substring(2) + "%");
-		sender.sendMessage(Main.ARROW + "Absorption hearts: §e" + NumberUtils.makePercent(absHearts).substring(2) + "%");
+		sender.sendMessage(Main.PREFIX + (target == sender ? "Your health:" : "Â§a" + target.getName() + "'s Â§7health:"));
+		sender.sendMessage(Main.ARROW + "Health: Â§a" + NumberUtils.makePercent(health) + "%");
+		sender.sendMessage(Main.ARROW + "Max Health: Â§a" + NumberUtils.makePercent(maxhealth).substring(2) + "%");
+		sender.sendMessage(Main.ARROW + "Absorption hearts: Â§e" + NumberUtils.makePercent(absHearts).substring(2) + "%");
 		return true;
 	}
 

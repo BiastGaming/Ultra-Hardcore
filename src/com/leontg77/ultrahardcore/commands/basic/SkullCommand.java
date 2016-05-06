@@ -54,10 +54,10 @@ public class SkullCommand extends UHCCommand {
 		item.setItemMeta(meta);
 		
 		PlayerUtils.giveItem(target, item);
-		target.sendMessage(Main.PREFIX + "You've been given the head of 'งa" + args[0] + "ง7'.");
+		target.sendMessage(Main.PREFIX + "You've been given the head of 'ยงa" + args[0] + "ยง7'.");
 		
 		if (target != sender) {
-			sender.sendMessage(Main.PREFIX + "You gave " + target.getName() + " the head of 'งa" + args[0] + "ง7'.");
+			sender.sendMessage(Main.PREFIX + "You gave " + target.getName() + " the head of 'ยงa" + args[0] + "ยง7'.");
 		}
 		return true;
 	}

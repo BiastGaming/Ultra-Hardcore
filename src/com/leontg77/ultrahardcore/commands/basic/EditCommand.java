@@ -66,7 +66,7 @@ public class EditCommand extends UHCCommand {
 		
 		String message = ChatColor.translateAlternateColorCodes('&', Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length)));
 		
-		player.sendMessage(Main.PREFIX + "You set the sign's งa" + line + " ง7line to: ง6" + message);
+		player.sendMessage(Main.PREFIX + "You set the sign's ยงa" + line + " ยง7line to: ยง6" + message);
 		line--;
 		
 		sign.setLine(line, message);

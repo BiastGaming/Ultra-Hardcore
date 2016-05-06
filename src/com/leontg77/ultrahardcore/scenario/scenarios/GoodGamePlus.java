@@ -31,7 +31,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class GoodGamePlus extends Scenario implements Listener {
-	private static final String PREFIX = "§aGood Game+ §8» §7";
+	private static final String PREFIX = "Â§aGood Game+ Â§8Â§ Â§7";
 
 	private final Main plugin;
 	private final Game game;

@@ -32,7 +32,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class PeriodOfResistance extends Scenario implements Listener, CommandExecutor {
-	private static final String PREFIX = "ง7[ง6Resistanceง7] ง7";
+	private static final String PREFIX = "ยง7[ยง6Resistanceยง7] ยง7";
 	
 	private final Main plugin;
 	
@@ -101,7 +101,7 @@ public class PeriodOfResistance extends Scenario implements Listener, CommandExe
 	                break;
 	            case 0:
 	        		current = types.get(rand.nextInt(types.size()));
-	                PlayerUtils.broadcast(PREFIX + "ง6All damage from ง7" + current.name().toLowerCase().replaceAll("_", " ") + "ง6 will no longer hurt you!");
+	                PlayerUtils.broadcast(PREFIX + "ยง6All damage from ยง7" + current.name().toLowerCase().replaceAll("_", " ") + "ยง6 will no longer hurt you!");
 
 	                seconds = 600;
 	                break;
@@ -205,12 +205,12 @@ public class PeriodOfResistance extends Scenario implements Listener, CommandExe
 		}
 		
 		if (current == null) {
-			sender.sendMessage(PREFIX + "ง6No resistant period has been set yet.");
+			sender.sendMessage(PREFIX + "ยง6No resistant period has been set yet.");
 			return true;
 		}
 		
-		sender.sendMessage(PREFIX + "ง6All damage from ง7" + current.name().toLowerCase().replaceAll("_", " ") + "ง6 will not hurt you!");
-		sender.sendMessage(PREFIX + "ง6The resistant period changes in ง7" + DateUtils.ticksToString(seconds) + "ง6.");
+		sender.sendMessage(PREFIX + "ยง6All damage from ยง7" + current.name().toLowerCase().replaceAll("_", " ") + "ยง6 will not hurt you!");
+		sender.sendMessage(PREFIX + "ยง6The resistant period changes in ยง7" + DateUtils.ticksToString(seconds) + "ยง6.");
 		return true;
 	}
 	

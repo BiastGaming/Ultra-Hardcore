@@ -14,7 +14,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class StaffChatCommand extends UHCCommand {
-	private static final String PREFIX = "ง4Staff Chat ง8ป งc";
+	private static final String PREFIX = "ยง4Staff Chat ยง8ยง ยงc";
 
 	public StaffChatCommand() {
 		super("ac", "<message>");
@@ -27,7 +27,7 @@ public class StaffChatCommand extends UHCCommand {
         } 
         
     	String message = Joiner.on(' ').join(args);
-		PlayerUtils.broadcast(PREFIX + sender.getName() + "ง8: งf" + message, "uhc.staff");
+		PlayerUtils.broadcast(PREFIX + sender.getName() + "ยง8: ยงf" + message, "uhc.staff");
 		return true;
 	}
 

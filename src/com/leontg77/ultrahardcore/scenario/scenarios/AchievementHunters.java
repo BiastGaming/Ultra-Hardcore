@@ -59,7 +59,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author dans1988, modified by LeonTG77
  */
 public class AchievementHunters extends Scenario implements CommandExecutor, Listener {
-	private static final String PREFIX = "§cAch. Hunters §8» §7";
+	private static final String PREFIX = "Â§cAch. Hunters Â§8Â§ Â§7";
 
 	private final Main plugin;
 	
@@ -269,7 +269,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
         awardPlayer(player, Achievement.FIRST_DAMAGE);
         
         if (!damaged.contains(player.getUniqueId())) {
-            PlayerUtils.broadcast(PREFIX + "§c" + player.getName() + " §7lost the iron man achievement!");
+            PlayerUtils.broadcast(PREFIX + "Â§c" + player.getName() + " Â§7lost the iron man achievement!");
             damaged.add(player.getUniqueId());
         }
         
@@ -726,7 +726,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
      * @param name The name of the getter.
      */
     private void broadcast(String name, Achievement ach) {
-    	PlayerUtils.broadcast(PREFIX + "§a" + NameUtils.capitalizeString(ach.name(), true) + " §7was awarded to §e" + name + "§7.");
+    	PlayerUtils.broadcast(PREFIX + "Â§a" + NameUtils.capitalizeString(ach.name(), true) + " Â§7was awarded to Â§e" + name + "Â§7.");
     }
 
     /**
@@ -755,9 +755,9 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
         	
         	if (list.length() > 0) {
         		if (i == Achievement.values().length) {
-        			list.append(" §7and §a");
+        			list.append(" Â§7and Â§a");
         		} else {
-        			list.append("§7, §a");
+        			list.append("Â§7, Â§a");
         		}
         	}
             
@@ -768,7 +768,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
             }
         }
         
-        sender.sendMessage(PREFIX + "Achievements: §8(§aGreen§7 = Available§8, §cRed §7= Taken§8)");
+        sender.sendMessage(PREFIX + "Achievements: Â§8(Â§aGreenÂ§7 = AvailableÂ§8, Â§cRed Â§7= TakenÂ§8)");
         sender.sendMessage(Main.ARROW + list.toString());
         return true;
     }

@@ -76,19 +76,19 @@ public class SpeedCommand extends UHCCommand {
 			target.setFlySpeed(speed);
 			
 			if (target == sender) {
-	    		sender.sendMessage(Main.PREFIX + "You set your flying speed to ง6" + orgSpeed + "ง7.");
+	    		sender.sendMessage(Main.PREFIX + "You set your flying speed to ยง6" + orgSpeed + "ยง7.");
 			} else {
-	    		sender.sendMessage(Main.PREFIX + "You set " + target.getName() + "'s flying speed to ง6" + orgSpeed + "ง7.");
-	    		target.sendMessage(Main.PREFIX + "Your flying speed was set to ง6" + orgSpeed + "ง7.");
+	    		sender.sendMessage(Main.PREFIX + "You set " + target.getName() + "'s flying speed to ยง6" + orgSpeed + "ยง7.");
+	    		target.sendMessage(Main.PREFIX + "Your flying speed was set to ยง6" + orgSpeed + "ยง7.");
 			}
 		} else {
 			target.setWalkSpeed(speed);
 			
 			if (target == sender) {
-	    		sender.sendMessage(Main.PREFIX + "You set your walking speed to ง6" + orgSpeed + "ง7.");
+	    		sender.sendMessage(Main.PREFIX + "You set your walking speed to ยง6" + orgSpeed + "ยง7.");
 			} else {
-	    		sender.sendMessage(Main.PREFIX + "You set " + target.getName() + "'s walking speed to ง6" + orgSpeed + "ง7.");
-	    		target.sendMessage(Main.PREFIX + "Your walking speed was set to ง6" + orgSpeed + "ง7.");
+	    		sender.sendMessage(Main.PREFIX + "You set " + target.getName() + "'s walking speed to ยง6" + orgSpeed + "ยง7.");
+	    		target.sendMessage(Main.PREFIX + "Your walking speed was set to ยง6" + orgSpeed + "ยง7.");
 			}
 		}
 		return true;

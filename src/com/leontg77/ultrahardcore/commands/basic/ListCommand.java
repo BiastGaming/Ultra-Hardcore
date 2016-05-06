@@ -54,22 +54,22 @@ public class ListCommand extends UHCCommand {
 		String donatorList = getListOf(players, Rank.DONATOR);
 		String playerList = getListOf(players, Rank.SPEC, Rank.DEFAULT);
     			
-    	sender.sendMessage(Main.PREFIX + "There are §6" + playersOnline + " §7out of§6 " + game.getMaxPlayers() + " §7players online.");
+    	sender.sendMessage(Main.PREFIX + "There are Â§6" + playersOnline + " Â§7out ofÂ§6 " + game.getMaxPlayers() + " Â§7players online.");
     	
     	if (!ownerList.isEmpty()) {
-        	sender.sendMessage("§8» §7Owners§8: §a" + ownerList + "§8.");
+        	sender.sendMessage("Â§8Â§ Â§7OwnersÂ§8: Â§a" + ownerList + "Â§8.");
     	}
     	
     	if (!staffList.isEmpty()) {
-        	sender.sendMessage("§8» §7Staff§8: §a" + staffList + "§8.");
+        	sender.sendMessage("Â§8Â§ Â§7StaffÂ§8: Â§a" + staffList + "Â§8.");
     	}
     	
     	if (!donatorList.isEmpty()) {
-        	sender.sendMessage("§8» §7Donators§8: §a" + donatorList + "§8.");
+        	sender.sendMessage("Â§8Â§ Â§7DonatorsÂ§8: Â§a" + donatorList + "Â§8.");
     	}
     	
     	if (!playerList.isEmpty()) {
-        	sender.sendMessage("§8» §7Players§8: §a" + playerList + "§8.");
+        	sender.sendMessage("Â§8Â§ Â§7PlayersÂ§8: Â§a" + playerList + "Â§8.");
     	}
 		return true;
 	}
@@ -99,9 +99,9 @@ public class ListCommand extends UHCCommand {
     		
     		if (list.length() > 0) {
 				if (i == players.size()) {
-					list.append(" §8and §a");
+					list.append(" Â§8and Â§a");
 				} else {
-					list.append("§8, §a");
+					list.append("Â§8, Â§a");
 				}
 			}
 			

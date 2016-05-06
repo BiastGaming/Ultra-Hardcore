@@ -59,21 +59,21 @@ public class IgnoreCommand extends UHCCommand {
 			
 			for (String ignored : ignoreList) {
 				if (i == ignoreList.size()) {
-					list.append(" ง8and ง7");
+					list.append(" ยง8and ยง7");
 				} else {
-					list.append("ง8, ง7");
+					list.append("ยง8, ยง7");
 				}
 				
 				for (FileConfiguration file : userFiles) {
 					if (file.getString("uuid", "none").equals(ignored)) {
-						list.append("ง7" + file.getString("name", "none"));
+						list.append("ยง7" + file.getString("name", "none"));
 						break;
 					}
 				}
 			}
 			
 			player.sendMessage(Main.PREFIX + "Currently ignoring:");
-			player.sendMessage("ง8ป ง7" + list.toString());
+			player.sendMessage("ยง8ยง ยง7" + list.toString());
 			return true;
 		}
 		
@@ -92,12 +92,12 @@ public class IgnoreCommand extends UHCCommand {
 		}
 		
 		if (user.isIgnoring(target)) {
-			player.sendMessage(Main.PREFIX + "You are no longer ignoring งa" + target.getName() + "ง7.");
+			player.sendMessage(Main.PREFIX + "You are no longer ignoring ยงa" + target.getName() + "ยง7.");
 			user.unIgnore(target);
 			return true;
 		} 
 		
-		player.sendMessage(Main.PREFIX + "You are now ignoring messages from งa" + target.getName() + "ง7.");
+		player.sendMessage(Main.PREFIX + "You are now ignoring messages from ยงa" + target.getName() + "ยง7.");
 		user.ignore(target);
 		return true;
 	}

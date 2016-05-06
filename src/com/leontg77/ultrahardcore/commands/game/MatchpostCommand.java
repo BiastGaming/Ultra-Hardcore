@@ -32,7 +32,7 @@ public class MatchpostCommand extends UHCCommand {
 			throw new CommandException("There are no matches running.");
 		}
 		
-		sender.sendMessage(Main.PREFIX + "Match post: §a" + game.getMatchPost());
+		sender.sendMessage(Main.PREFIX + "Match post: Â§a" + game.getMatchPost());
 		return true;
 	}
 

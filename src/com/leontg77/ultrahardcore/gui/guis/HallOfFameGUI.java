@@ -82,7 +82,7 @@ public class HallOfFameGUI extends GUI implements Listener {
 		
 		Map<Integer, Inventory> pages = hostInvs.get(host);
 		
-		if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNext page")) {
+		if (item.getItemMeta().getDisplayName().equalsIgnoreCase("Â§aNext page")) {
 			page++;
 			
 			if (!pages.containsKey(page)) {
@@ -93,7 +93,7 @@ public class HallOfFameGUI extends GUI implements Listener {
 			player.openInventory(pages.get(page));
 		}
 		
-		if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aPrevious page")) {
+		if (item.getItemMeta().getDisplayName().equalsIgnoreCase("Â§aPrevious page")) {
 			page--;
 			
 			if (!pages.containsKey(page)) {
@@ -147,7 +147,7 @@ public class HallOfFameGUI extends GUI implements Listener {
 			if (hostInvs.get(host).containsKey(current)) {
 				inv = hostInvs.get(host).get(current);
 			} else {
-				inv = Bukkit.createInventory(null, 54, "§4" + host + "'s HoF, Page " + current);
+				inv = Bukkit.createInventory(null, 54, "Â§4" + host + "'s HoF, Page " + current);
 				hostInvs.get(host).put(current, inv);
 			}
 			
@@ -167,34 +167,34 @@ public class HallOfFameGUI extends GUI implements Listener {
 				
 				ItemStack item = new ItemStack (Material.GOLDEN_APPLE, 1, isSpecial ? (short) 1 : (short) 0);
 				ItemMeta meta = item.getItemMeta();
-				meta.setDisplayName("§8» §6" + host + "'s #" + target + " §8«");
+				meta.setDisplayName("Â§8Â§ Â§6" + host + "'s #" + target + " Â§8Â§");
 				
 				ArrayList<String> lore = new ArrayList<String>();
-				lore.add("§7" + settings.getHOF().getString(host + ".games." + target + ".date", "N/A"));
+				lore.add("Â§7" + settings.getHOF().getString(host + ".games." + target + ".date", "N/A"));
 				lore.add(" ");
-				lore.add("§8» §cWinners:");
+				lore.add("Â§8Â§ Â§cWinners:");
 				
 				for (String winners : settings.getHOF().getStringList(path + ".winners")) {
-					lore.add("§8» §7" + winners);
+					lore.add("Â§8Â§ Â§7" + winners);
 				}
 				
 				lore.add(" ");
-				lore.add("§8» §cKills:");
-				lore.add("§8» §7" + settings.getHOF().getString(host + ".games." + target + ".kills", "-1"));
+				lore.add("Â§8Â§ Â§cKills:");
+				lore.add("Â§8Â§ Â§7" + settings.getHOF().getString(host + ".games." + target + ".kills", "-1"));
 				
 				String teamsize = settings.getHOF().getString(host + ".games." + target + ".teamsize", "FFA");
 				
 				if (!teamsize.isEmpty()) {
 					lore.add(" ");
-					lore.add("§8» §cTeamsize:");
-					lore.add("§8» §7" + teamsize);
+					lore.add("Â§8Â§ Â§cTeamsize:");
+					lore.add("Â§8Â§ Â§7" + teamsize);
 				}
 				
 				lore.add(" ");
-				lore.add("§8» §cScenario:");
+				lore.add("Â§8Â§ Â§cScenario:");
 				
 				for (String scenario : settings.getHOF().getString(host + ".games." + target + ".scenarios", "Vanilla+").split(", ")) {
-					lore.add("§8» §7" + scenario);
+					lore.add("Â§8Â§ Â§7" + scenario);
 				}
 				
 				lore.add(" ");
@@ -206,35 +206,35 @@ public class HallOfFameGUI extends GUI implements Listener {
 			ItemStack nextpage = new ItemStack (Material.ARROW);
 			ItemMeta pagemeta = nextpage.getItemMeta();
 			pagemeta.setDisplayName(ChatColor.GREEN + "Next page");
-			pagemeta.setLore(Arrays.asList("§7Switch to the next page."));
+			pagemeta.setLore(Arrays.asList("Â§7Switch to the next page."));
 			nextpage.setItemMeta(pagemeta);
 			
 			ItemStack prevpage = new ItemStack (Material.ARROW);
 			ItemMeta prevmeta = prevpage.getItemMeta();
 			prevmeta.setDisplayName(ChatColor.GREEN + "Previous page");
-			prevmeta.setLore(Arrays.asList("§7Switch to the previous page."));
+			prevmeta.setLore(Arrays.asList("Â§7Switch to the previous page."));
 			prevpage.setItemMeta(prevmeta);
 			
 			String name = settings.getHOF().getString(host + ".name", host);
 			
 			ItemStack head = new ItemStack (Material.SKULL_ITEM, 1, (short) 3);
 			SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-			headMeta.setDisplayName("§8» §6Host Info §8«");
+			headMeta.setDisplayName("Â§8Â§ Â§6Host Info Â§8Â§");
 			headMeta.setOwner(name);
 			
 			ArrayList<String> headLore = new ArrayList<String>();
 			headLore.add(" ");
-			headLore.add("§8» §7Total games hosted: §6" + settings.getHOF().getConfigurationSection(host + ".games").getKeys(false).size());
+			headLore.add("Â§8Â§ Â§7Total games hosted: Â§6" + settings.getHOF().getConfigurationSection(host + ".games").getKeys(false).size());
 			
 			try {
-				headLore.add("§8» §7Rank: §6" + NameUtils.capitalizeString(plugin.getUser(PlayerUtils.getOfflinePlayer(name)).getRank().name(), false));
+				headLore.add("Â§8Â§ Â§7Rank: Â§6" + NameUtils.capitalizeString(plugin.getUser(PlayerUtils.getOfflinePlayer(name)).getRank().name(), false));
 			} catch (Exception e) {
-				headLore.add("§8» §7Rank: §6This host has never joined the server.");
+				headLore.add("Â§8Â§ Â§7Rank: Â§6This host has never joined the server.");
 			}
 			
 			headLore.add(" ");
-			headLore.add("§8» §7Host name: §6" + host);
-			headLore.add("§8» §7IGN: §6" + name);
+			headLore.add("Â§8Â§ Â§7Host name: Â§6" + host);
+			headLore.add("Â§8Â§ Â§7IGN: Â§6" + name);
 			headLore.add(" ");
 			headMeta.setLore(headLore);
 			head.setItemMeta(headMeta);

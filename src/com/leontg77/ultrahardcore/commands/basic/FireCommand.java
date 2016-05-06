@@ -28,7 +28,7 @@ public class FireCommand extends UHCCommand {
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		PlayerUtils.broadcast(Main.PREFIX + "The firework show has started by ง6" + sender.getName() + "ง7!");
+		PlayerUtils.broadcast(Main.PREFIX + "The firework show has started by ยง6" + sender.getName() + "ยง7!");
 		
 		if (!(sender instanceof Player)) {
 			firework.startFireworkShow();

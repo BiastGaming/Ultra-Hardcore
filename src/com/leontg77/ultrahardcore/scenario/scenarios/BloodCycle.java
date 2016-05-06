@@ -45,7 +45,7 @@ public class BloodCycle extends Scenario implements Listener, CommandExecutor {
 			Material.REDSTONE_ORE, Material.DIAMOND_ORE, Material.EMERALD_ORE
 	);
 	
-	private static final String PREFIX = "§4§lBloodCycle §8» §7";
+	private static final String PREFIX = "Â§4Â§lBloodCycle Â§8Â§ Â§7";
 	
 	private BukkitRunnable task;
 	private Material current;
@@ -84,10 +84,10 @@ public class BloodCycle extends Scenario implements Listener, CommandExecutor {
 				
 				switch (seconds) {
 	            case 300:
-	                PlayerUtils.broadcast(PREFIX + "Changing damaging ore in §a5§7 minutes!");
+	                PlayerUtils.broadcast(PREFIX + "Changing damaging ore in Â§a5Â§7 minutes!");
 	                break;
 	            case 60:
-	                PlayerUtils.broadcast(PREFIX + "Changing damaging ore in §a1§7 minute!");
+	                PlayerUtils.broadcast(PREFIX + "Changing damaging ore in Â§a1Â§7 minute!");
 	                break;
 	            case 30:
 	            case 10:
@@ -95,14 +95,14 @@ public class BloodCycle extends Scenario implements Listener, CommandExecutor {
 	            case 4:
 	            case 3:
 	            case 2:
-	                PlayerUtils.broadcast(PREFIX + "Changing damaging ore in §a" + seconds + "§7 seconds!");
+	                PlayerUtils.broadcast(PREFIX + "Changing damaging ore in Â§a" + seconds + "Â§7 seconds!");
 	                break;
 	            case 1:
-	                PlayerUtils.broadcast(PREFIX + "Changing damaging ore in §a1§7 second!");
+	                PlayerUtils.broadcast(PREFIX + "Changing damaging ore in Â§a1Â§7 second!");
 	                break;
 	            case 0:
 	        		current = ORES.get(rand.nextInt(ORES.size()));
-	                PlayerUtils.broadcast(PREFIX + "§a" + NameUtils.capitalizeString(current.name(), true) + "§7 now has a chance of damaging you!");
+	                PlayerUtils.broadcast(PREFIX + "Â§a" + NameUtils.capitalizeString(current.name(), true) + "Â§7 now has a chance of damaging you!");
 
 	                seconds = 600;
 	                break;
@@ -218,12 +218,12 @@ public class BloodCycle extends Scenario implements Listener, CommandExecutor {
 		}
 		
 		if (current == null) {
-			sender.sendMessage(PREFIX + "§6No ore type has been set.");
+			sender.sendMessage(PREFIX + "Â§6No ore type has been set.");
 			return true;
 		}
 		
-		sender.sendMessage(PREFIX + "§a" + NameUtils.capitalizeString(current.name(), true) + "§7 has a chance of damaging you!");
-		sender.sendMessage(PREFIX + "§7The ore type changes in §6" + DateUtils.ticksToString(seconds) + "§7.");
+		sender.sendMessage(PREFIX + "Â§a" + NameUtils.capitalizeString(current.name(), true) + "Â§7 has a chance of damaging you!");
+		sender.sendMessage(PREFIX + "Â§7The ore type changes in Â§6" + DateUtils.ticksToString(seconds) + "Â§7.");
 		return true;
 	}
 }

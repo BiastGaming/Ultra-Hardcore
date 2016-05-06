@@ -60,12 +60,12 @@ public abstract class GUI {
 	
 		ItemStack black = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta blackMeta = black.getItemMeta();
-		blackMeta.setDisplayName("ง0:>"); // hidden easter egg :> 
+		blackMeta.setDisplayName("ยง0:>"); // hidden easter egg :>
 		black.setItemMeta(blackMeta);
 		
 		ItemStack gray = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 7);
 		ItemMeta grayMeta = black.getItemMeta();
-		grayMeta.setDisplayName("ง0:>"); // hidden easter egg :>
+		grayMeta.setDisplayName("ยง0:>"); // hidden easter egg :>
 		gray.setItemMeta(grayMeta);
 		
 		boolean bool = true;

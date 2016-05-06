@@ -68,7 +68,7 @@ public class LongshotFeature extends Feature implements Listener {
 			return;
 		}
 		
-		PlayerUtils.broadcast(Main.PREFIX + name(killer) + " ง7got a longshot of งa" + NumberUtils.formatDouble(distance) + " ง7blocks on ง6" + name(player) + "ง7.");
+		PlayerUtils.broadcast(Main.PREFIX + name(killer) + " ยง7got a longshot of ยงa" + NumberUtils.formatDouble(distance) + " ยง7blocks on ยง6" + name(player) + "ยง7.");
 	}
 	
 	/**

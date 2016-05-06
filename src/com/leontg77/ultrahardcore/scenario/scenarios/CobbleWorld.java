@@ -31,7 +31,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class CobbleWorld extends Scenario implements CommandExecutor, Listener {
-	public static final String PREFIX = "ง7Cobble World ง8ป งf";
+	public static final String PREFIX = "ยง7Cobble World ยง8ยง ยงf";
 	
 	private final Main plugin;
 	
@@ -116,7 +116,7 @@ public class CobbleWorld extends Scenario implements CommandExecutor, Listener {
 		
 		totalChunks = locs.size();
 
-		PlayerUtils.broadcast(PREFIX + "Starting cobble world generation in world 'งa" + world.getName() + "ง7'.");
+		PlayerUtils.broadcast(PREFIX + "Starting cobble world generation in world 'ยงa" + world.getName() + "ยง7'.");
 		
 		task = new BukkitRunnable() {
 			public void run() {
@@ -146,7 +146,7 @@ public class CobbleWorld extends Scenario implements CommandExecutor, Listener {
 				double completed = ((totalChunks - ((double) locs.size())) * 100 / totalChunks);
 				
 				for (Player online : Bukkit.getOnlinePlayers()) {
-					PacketUtils.sendAction(online, PREFIX + "Generating cobble world ง8(งa" + NumberUtils.formatPercentDouble(completed) + "%ง8)");
+					PacketUtils.sendAction(online, PREFIX + "Generating cobble world ยง8(ยงa" + NumberUtils.formatPercentDouble(completed) + "%ยง8)");
 				}
 			}
 		};

@@ -66,7 +66,7 @@ public class StatsGUI extends GUI implements Listener {
 		String name = user.getPlayer().getName();
 		
 		if (!inventories.containsKey(name)) {
-			inventories.put(name, Bukkit.createInventory(user.getPlayer(), InventoryType.HOPPER, "ง4" + name + "'s Stats"));
+			inventories.put(name, Bukkit.createInventory(user.getPlayer(), InventoryType.HOPPER, "ยง4" + name + "'s Stats"));
 			update(user);
 		}
 		
@@ -85,21 +85,21 @@ public class StatsGUI extends GUI implements Listener {
 		ItemStack general = new ItemStack (Material.SIGN);
 		ItemMeta generalMeta = general.getItemMeta();
 		
-		generalMeta.setDisplayName("ง8ป ง6General Stats ง8ซ");
+		generalMeta.setDisplayName("ยง8ยง ยง6General Stats ยง8ยง");
 		lore.add(" ");
-		lore.add("ง8ป ง7Games played: งa" + user.getStat(Stat.GAMESPLAYED));
-		lore.add("ง8ป ง7Wins: งa" + user.getStat(Stat.WINS));
+		lore.add("ยง8ยง ยง7Games played: ยงa" + user.getStat(Stat.GAMESPLAYED));
+		lore.add("ยง8ยง ยง7Wins: ยงa" + user.getStat(Stat.WINS));
 		lore.add(" ");
-		lore.add("ง8ป ง7Hostile kills: งa" + user.getStat(Stat.HOSTILEMOBKILLS));
-		lore.add("ง8ป ง7Animal kills: งa" + user.getStat(Stat.ANIMALKILLS));
+		lore.add("ยง8ยง ยง7Hostile kills: ยงa" + user.getStat(Stat.HOSTILEMOBKILLS));
+		lore.add("ยง8ยง ยง7Animal kills: ยงa" + user.getStat(Stat.ANIMALKILLS));
 		
 		String sDamage = NumberUtils.makePercent(user.getStatDouble(Stat.DAMAGETAKEN));
 		int iDamage = Integer.parseInt(sDamage.substring(2));
 		
-		lore.add("ง8ป ง7Damage taken: งa" + NumberUtils.formatInt(iDamage) + "%");
+		lore.add("ยง8ยง ยง7Damage taken: ยงa" + NumberUtils.formatInt(iDamage) + "%");
 		lore.add(" ");
-		lore.add("ง8ป ง7Longest Shot: งa" + NumberUtils.formatDouble(user.getStatDouble(Stat.LONGESTSHOT)));
-		lore.add("ง8ป ง7Levels Earned: งa" + user.getStat(Stat.LEVELS));
+		lore.add("ยง8ยง ยง7Longest Shot: ยงa" + NumberUtils.formatDouble(user.getStatDouble(Stat.LONGESTSHOT)));
+		lore.add("ยง8ยง ยง7Levels Earned: ยงa" + user.getStat(Stat.LEVELS));
 		lore.add(" ");
 		
 		generalMeta.setLore(lore);
@@ -110,13 +110,13 @@ public class StatsGUI extends GUI implements Listener {
 		ItemStack pvpmining = new ItemStack (Material.DIAMOND_AXE);
 		ItemMeta pvpminingMeta = pvpmining.getItemMeta();
 		
-		pvpminingMeta.setDisplayName("ง8ป ง6PvP & Mining Stats ง8ซ");
+		pvpminingMeta.setDisplayName("ยง8ยง ยง6PvP & Mining Stats ยง8ยง");
 		lore.add(" ");
-		lore.add("ง8ป ง7Highest Arena Killstreak: งa" + user.getStat(Stat.ARENAKILLSTREAK));
-		lore.add("ง8ป ง7Highest Killstreak: งa" + user.getStat(Stat.KILLSTREAK));
+		lore.add("ยง8ยง ยง7Highest Arena Killstreak: ยงa" + user.getStat(Stat.ARENAKILLSTREAK));
+		lore.add("ยง8ยง ยง7Highest Killstreak: ยงa" + user.getStat(Stat.KILLSTREAK));
 		lore.add(" ");
-		lore.add("ง8ป ง7Kills: งa" + user.getStat(Stat.KILLS));
-		lore.add("ง8ป ง7Deaths: งa" + user.getStat(Stat.DEATHS));
+		lore.add("ยง8ยง ยง7Kills: ยงa" + user.getStat(Stat.KILLS));
+		lore.add("ยง8ยง ยง7Deaths: ยงa" + user.getStat(Stat.DEATHS));
 		
 		double kdr;
 		
@@ -126,13 +126,13 @@ public class StatsGUI extends GUI implements Listener {
 			kdr = ((double) user.getStat(Stat.KILLS)) / ((double) user.getStat(Stat.DEATHS));
 		}
 		
-		lore.add("ง8ป ง7KDR: งa" + NumberUtils.formatDouble(kdr));
+		lore.add("ยง8ยง ยง7KDR: ยงa" + NumberUtils.formatDouble(kdr));
 		lore.add(" ");
-		lore.add("ง8ป ง7Diamonds mined: งa" + user.getStat(Stat.DIAMONDS));
-		lore.add("ง8ป ง7Gold mined: งa" + user.getStat(Stat.GOLD));
+		lore.add("ยง8ยง ยง7Diamonds mined: ยงa" + user.getStat(Stat.DIAMONDS));
+		lore.add("ยง8ยง ยง7Gold mined: ยงa" + user.getStat(Stat.GOLD));
 		lore.add(" ");
-		lore.add("ง8ป ง7Arena Kills: งa" + user.getStat(Stat.ARENAKILLS));
-		lore.add("ง8ป ง7Arena Deaths: งa" + user.getStat(Stat.ARENADEATHS));
+		lore.add("ยง8ยง ยง7Arena Kills: ยงa" + user.getStat(Stat.ARENAKILLS));
+		lore.add("ยง8ยง ยง7Arena Deaths: ยงa" + user.getStat(Stat.ARENADEATHS));
 		
 		double arenakdr;
 		
@@ -142,7 +142,7 @@ public class StatsGUI extends GUI implements Listener {
 			arenakdr = ((double) user.getStat(Stat.ARENAKILLS)) / ((double) user.getStat(Stat.ARENADEATHS));
 		}
 		
-		lore.add("ง8ป ง7Arena KDR: งa" + NumberUtils.formatDouble(arenakdr));
+		lore.add("ยง8ยง ยง7Arena KDR: ยงa" + NumberUtils.formatDouble(arenakdr));
 		lore.add(" ");
 		pvpminingMeta.setLore(lore); 
 		pvpminingMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS);
@@ -154,17 +154,17 @@ public class StatsGUI extends GUI implements Listener {
 		ItemStack misc = new ItemStack (Material.NETHER_STALK);
 		ItemMeta miscMeta = misc.getItemMeta();
 		
-		miscMeta.setDisplayName("ง8ป ง6Misc Stats ง8ซ");
+		miscMeta.setDisplayName("ยง8ยง ยง6Misc Stats ยง8ยง");
 		lore.add(" ");
-		lore.add("ง8ป ง7Golden Apples eaten: งa" + user.getStat(Stat.GOLDENAPPLESEATEN));
-		lore.add("ง8ป ง7Golden Heads eaten: งa" + user.getStat(Stat.GOLDENHEADSEATEN));
-		lore.add("ง8ป ง7Potions drunk: งa" + user.getStat(Stat.POTIONS));
+		lore.add("ยง8ยง ยง7Golden Apples eaten: ยงa" + user.getStat(Stat.GOLDENAPPLESEATEN));
+		lore.add("ยง8ยง ยง7Golden Heads eaten: ยงa" + user.getStat(Stat.GOLDENHEADSEATEN));
+		lore.add("ยง8ยง ยง7Potions drunk: ยงa" + user.getStat(Stat.POTIONS));
 		lore.add(" ");
-		lore.add("ง8ป ง7Nethers entered: งa" + user.getStat(Stat.NETHER));
-		lore.add("ง8ป ง7Ends entered: งa" + user.getStat(Stat.END));
+		lore.add("ยง8ยง ยง7Nethers entered: ยงa" + user.getStat(Stat.NETHER));
+		lore.add("ยง8ยง ยง7Ends entered: ยงa" + user.getStat(Stat.END));
 		lore.add(" ");
-		lore.add("ง8ป ง7Horses tamed: งa" + user.getStat(Stat.HORSESTAMED));
-		lore.add("ง8ป ง7Wolves tamed: งa" + user.getStat(Stat.WOLVESTAMED));
+		lore.add("ยง8ยง ยง7Horses tamed: ยงa" + user.getStat(Stat.HORSESTAMED));
+		lore.add("ยง8ยง ยง7Wolves tamed: ยงa" + user.getStat(Stat.WOLVESTAMED));
 		lore.add(" ");
 		
 		miscMeta.setLore(lore);

@@ -56,7 +56,7 @@ public class UnbanCommand extends UHCCommand {
 		}
 
 		
-		PlayerUtils.broadcast(Main.PREFIX + "ง6" + target + " ง7has been unbanned.");
+		PlayerUtils.broadcast(Main.PREFIX + "ยง6" + target + " ยง7has been unbanned.");
 		list.pardon(target);
 		return true;
 	}

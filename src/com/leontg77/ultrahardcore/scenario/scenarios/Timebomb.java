@@ -26,7 +26,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Timebomb extends Scenario implements Listener {
-	public static final String PREFIX = "ง4Timebomb ง8ป ง7";
+	public static final String PREFIX = "ยง4Timebomb ยง8ยง ยง7";
 
 	private final Main plugin;
 	private final Game game;
@@ -76,7 +76,7 @@ public class Timebomb extends Scenario implements Listener {
 
 		new BukkitRunnable() {
 			public void run() {
-				PlayerUtils.broadcast(PREFIX + ChatColor.GREEN + player.getName() + "'s ง7corpse has exploded!");
+				PlayerUtils.broadcast(PREFIX + ChatColor.GREEN + player.getName() + "'s ยง7corpse has exploded!");
 				
 				loc.getBlock().setType(Material.AIR);
 				

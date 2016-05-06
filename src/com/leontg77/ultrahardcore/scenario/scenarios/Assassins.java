@@ -43,7 +43,7 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
 		Bukkit.getPluginCommand("target").setExecutor(this);
 	}
 	
-	private static final String PREFIX = "§cAssassins §8» §7";
+	private static final String PREFIX = "Â§cAssassins Â§8Â§ Â§7";
 
 	private final Map<String, String> assassins = new HashMap<String, String>();
 	
@@ -99,7 +99,7 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
 		setTarget(assassin, target);
 		assassins.remove(player.getName());
 		
-		PlayerUtils.broadcast(PREFIX + "§a" + player.getName() + " §7was eliminated!");
+		PlayerUtils.broadcast(PREFIX + "Â§a" + player.getName() + " Â§7was eliminated!");
 		event.setDeathMessage(null);
 	}
 
@@ -146,7 +146,7 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
 			return true;
 		}
 
-		player.sendMessage(PREFIX + "Your target: §a" + getTarget(player.getName()));
+		player.sendMessage(PREFIX + "Your target: Â§a" + getTarget(player.getName()));
 		return true;
 	}
 
@@ -165,7 +165,7 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
 			return;
 		}
 		
-		player.sendMessage(PREFIX + "Your new target: §a" + target);
+		player.sendMessage(PREFIX + "Your new target: Â§a" + target);
 	}
 
 	/**

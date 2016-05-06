@@ -65,7 +65,7 @@ public class GameInfoCommand extends UHCCommand {
 				String name = lore.substring(6, lore.indexOf(':'));
 				
 				if (info.equalsIgnoreCase(name)) {
-					sender.sendMessage("§4§lUHC " + lore);
+					sender.sendMessage("Â§4Â§lUHC " + lore);
 					return true;
 				}
 			}

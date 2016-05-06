@@ -124,17 +124,17 @@ public abstract class ToggleableFeature extends Feature {
 		final List<String> lore = new ArrayList<String>();
 
 		lore.add(" ");
-		lore.add("§8» §7Currently: " + (isEnabled() ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
+		lore.add("Â§8Â§ Â§7Currently: " + (isEnabled() ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
 		lore.add(" ");
-		lore.add("§8» §cDescription:");
+		lore.add("Â§8Â§ Â§cDescription:");
 		
 		for (String split : newDesc.split(";")) {
-			lore.add("§8» §7" + split);
+			lore.add("Â§8Â§ Â§7" + split);
 		}
 		
 		lore.add(" ");
 		
-		meta.setDisplayName("§8» §6" + getName() + " §8«");
+		meta.setDisplayName("Â§8Â§ Â§6" + getName() + " Â§8Â§");
 		meta.setLore(lore);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_POTION_EFFECTS);
 		icon.setItemMeta(meta);

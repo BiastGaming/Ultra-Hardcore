@@ -89,7 +89,7 @@ public class SelectorGUI extends GUI implements Listener {
         	return;
         }
 			
-		if (!inv.getTitle().equals("§4Player Selector")) {
+		if (!inv.getTitle().equals("Â§4Player Selector")) {
 			return;
 		}
 		
@@ -101,7 +101,7 @@ public class SelectorGUI extends GUI implements Listener {
 		
 		int page = currentPage.get(player.getName());
 			
-		if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNext page")) {
+		if (item.getItemMeta().getDisplayName().equalsIgnoreCase("Â§aNext page")) {
 			page++;
 			
 			if (!inventories.containsKey(page)) {
@@ -113,7 +113,7 @@ public class SelectorGUI extends GUI implements Listener {
 			return;
 		}
 		
-		if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aPrevious page")) {
+		if (item.getItemMeta().getDisplayName().equalsIgnoreCase("Â§aPrevious page")) {
 			page--;
 			
 			if (!inventories.containsKey(page)) {
@@ -134,7 +134,7 @@ public class SelectorGUI extends GUI implements Listener {
 			return;
 		} 
 		
-		player.sendMessage(Main.PREFIX + "You teleported to §a" + target.getName() + "§7.");
+		player.sendMessage(Main.PREFIX + "You teleported to Â§a" + target.getName() + "Â§7.");
 		player.teleport(target);
 	} 
 	
@@ -170,7 +170,7 @@ public class SelectorGUI extends GUI implements Listener {
 			if (inventories.containsKey(current)) {
 				inv = inventories.get(current);
 			} else {
-				inv = Bukkit.createInventory(null, 54, "§4Player Selector");
+				inv = Bukkit.createInventory(null, 54, "Â§4Player Selector");
 				inventories.put(current, inv);
 			}
 			
@@ -189,8 +189,8 @@ public class SelectorGUI extends GUI implements Listener {
 				
 				ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 				SkullMeta meta = (SkullMeta) item.getItemMeta();
-				meta.setDisplayName("§a" + target.getName());
-				meta.setLore(Arrays.asList("§7Click to teleport."));
+				meta.setDisplayName("Â§a" + target.getName());
+				meta.setLore(Arrays.asList("Â§7Click to teleport."));
 				meta.setOwner(target.getName());
 				item.setItemMeta(meta);
 				inv.setItem(i, item);
@@ -199,13 +199,13 @@ public class SelectorGUI extends GUI implements Listener {
 			ItemStack nextpage = new ItemStack (Material.ARROW);
 			ItemMeta pagemeta = nextpage.getItemMeta();
 			pagemeta.setDisplayName(ChatColor.GREEN + "Next page");
-			pagemeta.setLore(Arrays.asList("§7Switch to the next page."));
+			pagemeta.setLore(Arrays.asList("Â§7Switch to the next page."));
 			nextpage.setItemMeta(pagemeta);
 			
 			ItemStack prevpage = new ItemStack (Material.ARROW);
 			ItemMeta prevmeta = prevpage.getItemMeta();
 			prevmeta.setDisplayName(ChatColor.GREEN + "Previous page");
-			prevmeta.setLore(Arrays.asList("§7Switch to the previous page."));
+			prevmeta.setLore(Arrays.asList("Â§7Switch to the previous page."));
 			prevpage.setItemMeta(prevmeta);
 			
 			if (current != 1) {

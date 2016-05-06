@@ -36,7 +36,7 @@ public class ViewDistanceCommand extends UHCCommand implements Listener {
 		}
 		
 		if (args.length == 0 || !sender.hasPermission(getPermission() + ".set")) {
-			throw new CommandException(Main.PREFIX + "Current view distance: งa" + viewDistance + " ง7chunks.");
+			throw new CommandException(Main.PREFIX + "Current view distance: ยงa" + viewDistance + " ยง7chunks.");
 		}
 		
 		int distance = parseInt(args[0], "distance");
@@ -47,7 +47,7 @@ public class ViewDistanceCommand extends UHCCommand implements Listener {
 		
 		viewDistance = distance;
 
-		PlayerUtils.broadcast(Main.PREFIX + "Setting server view distance to งa" + distance + " ง7chunks, this might lag.");
+		PlayerUtils.broadcast(Main.PREFIX + "Setting server view distance to ยงa" + distance + " ยง7chunks, this might lag.");
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
 			online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
@@ -57,7 +57,7 @@ public class ViewDistanceCommand extends UHCCommand implements Listener {
 			online.spigot().setViewDistance(distance);
 		}
 		
-		PlayerUtils.broadcast(Main.PREFIX + "Server view distance successfully updated to งa" + distance + " ง7chunks.");
+		PlayerUtils.broadcast(Main.PREFIX + "Server view distance successfully updated to ยงa" + distance + " ยง7chunks.");
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
 			online.playSound(online.getLocation(), Sound.SUCCESSFUL_HIT, 1, 1);

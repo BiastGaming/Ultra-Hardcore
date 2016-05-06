@@ -51,7 +51,7 @@ public class HOFCommand extends UHCCommand {
 					matchCount += settings.getHOF().getConfigurationSection(hostName + ".games").getKeys(false).size();
 				}
 				
-				sender.sendMessage(Main.PREFIX + "There's been a total of งa" + matchCount + " ง7games hosted here.");
+				sender.sendMessage(Main.PREFIX + "There's been a total of ยงa" + matchCount + " ยง7games hosted here.");
 				return true;
 			}
 			

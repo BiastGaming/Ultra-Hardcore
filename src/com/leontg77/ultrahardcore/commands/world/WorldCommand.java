@@ -99,7 +99,7 @@ public class WorldCommand extends UHCCommand {
 					throw new CommandException("Could not delete world '" + world.getName() + "'.");
 				}
 				
-				sender.sendMessage(Main.PREFIX + "World '§a" + world.getName() + "§7' has been deleted.");
+				sender.sendMessage(Main.PREFIX + "World 'Â§a" + world.getName() + "Â§7' has been deleted.");
 				return true;
 			}
 			
@@ -121,19 +121,19 @@ public class WorldCommand extends UHCCommand {
 					throw new CommandException("The world '" + args[1] + "' does not exist.");
 				}
 				
-				player.sendMessage(Main.PREFIX + "Teleported to world '§a" + world.getName() + "§7'.");
+				player.sendMessage(Main.PREFIX + "Teleported to world 'Â§a" + world.getName() + "Â§7'.");
 				player.teleport(world.getSpawnLocation());
 				return true;
 			}
 			
 			if (args[0].equalsIgnoreCase("list")) {
-				sender.sendMessage(Main.PREFIX + "Default worlds: §8(§62§8)");
-				sender.sendMessage("§8» §7lobby §8- §aNORMAL §8(§7Spawn World§8)");
-				sender.sendMessage("§8» §7arena §8- §aNORMAL §8(§7Arena World§8)");
-				sender.sendMessage(Main.PREFIX + "Game worlds: §8(§6" + (Bukkit.getWorlds().size() - 2) + "§8)");
+				sender.sendMessage(Main.PREFIX + "Default worlds: Â§8(Â§62Â§8)");
+				sender.sendMessage("Â§8Â§ Â§7lobby Â§8- Â§aNORMAL Â§8(Â§7Spawn WorldÂ§8)");
+				sender.sendMessage("Â§8Â§ Â§7arena Â§8- Â§aNORMAL Â§8(Â§7Arena WorldÂ§8)");
+				sender.sendMessage(Main.PREFIX + "Game worlds: Â§8(Â§6" + (Bukkit.getWorlds().size() - 2) + "Â§8)");
 				
 				if ((Bukkit.getWorlds().size() - 2) == 0) {
-					sender.sendMessage("§8» §7There are no game worlds.");
+					sender.sendMessage("Â§8Â§ Â§7There are no game worlds.");
 					return true;
 				}
 				
@@ -160,7 +160,7 @@ public class WorldCommand extends UHCCommand {
 						return true;
 					}
 					
-					sender.sendMessage("§8» §7" + world.getName() + " §8- " + color + world.getEnvironment().name() + " §8(§7" + (game.getWorlds().contains(world) ? "In use" : "Not used")+ "§8)");
+					sender.sendMessage("Â§8Â§ Â§7" + world.getName() + " Â§8- " + color + world.getEnvironment().name() + " Â§8(Â§7" + (game.getWorlds().contains(world) ? "In use" : "Not used")+ "Â§8)");
 				}
 				return true;
 			}
@@ -178,7 +178,7 @@ public class WorldCommand extends UHCCommand {
 				}
 				
 				manager.loadWorld(args[1]);
-				sender.sendMessage(Main.PREFIX + "World '§a" + args[1] + "§7' has been loaded.");
+				sender.sendMessage(Main.PREFIX + "World 'Â§a" + args[1] + "Â§7' has been loaded.");
 				return true;
 			}
 			
@@ -198,19 +198,19 @@ public class WorldCommand extends UHCCommand {
 					throw new CommandException("You cannot unload the lobby world.");
 				}
 				
-				sender.sendMessage(Main.PREFIX + "World '§a" + world.getName() + "§7' has been unloaded.");
+				sender.sendMessage(Main.PREFIX + "World 'Â§a" + world.getName() + "Â§7' has been unloaded.");
 				manager.unloadWorld(world);
 				return true;
 			}
 		}
 		
 		sender.sendMessage(Main.PREFIX + "World management help:");
-		sender.sendMessage("§8» §a/world create §8- §7§oCreate a world.");
-		sender.sendMessage("§8» §a/world delete §8- §7§oDelete a world.");
-		sender.sendMessage("§8» §a/world load §8- §7§oLoad a world.");
-		sender.sendMessage("§8» §a/world unload §8- §7§oUnload a world.");
-		sender.sendMessage("§8» §a/world list §8- §7§oList all worlds.");
-		sender.sendMessage("§8» §a/world tp §8- §7§oTeleport to a world.");
+		sender.sendMessage("Â§8Â§ Â§a/world create Â§8- Â§7Â§oCreate a world.");
+		sender.sendMessage("Â§8Â§ Â§a/world delete Â§8- Â§7Â§oDelete a world.");
+		sender.sendMessage("Â§8Â§ Â§a/world load Â§8- Â§7Â§oLoad a world.");
+		sender.sendMessage("Â§8Â§ Â§a/world unload Â§8- Â§7Â§oUnload a world.");
+		sender.sendMessage("Â§8Â§ Â§a/world list Â§8- Â§7Â§oList all worlds.");
+		sender.sendMessage("Â§8Â§ Â§a/world tp Â§8- Â§7Â§oTeleport to a world.");
 		return true;
 	}
 

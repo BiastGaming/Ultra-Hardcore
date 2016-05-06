@@ -243,91 +243,91 @@ public class TeamManager {
 		List<String> color = new ArrayList<String>();
 		teams.clear();
 
-		color.add("ง1");
-		color.add("ง2");
-		color.add("ง3");
-		color.add("ง4");
-		color.add("ง5");
-		color.add("ง6");
-		color.add("ง7");
-		color.add("ง8");
-		color.add("ง9");
-		color.add("งa");
-		color.add("งb");
-		color.add("งc");
-		color.add("งd");
-		color.add("งe");
-		color.add("งf");
+		color.add("ยง1");
+		color.add("ยง2");
+		color.add("ยง3");
+		color.add("ยง4");
+		color.add("ยง5");
+		color.add("ยง6");
+		color.add("ยง7");
+		color.add("ยง8");
+		color.add("ยง9");
+		color.add("ยงa");
+		color.add("ยงb");
+		color.add("ยงc");
+		color.add("ยงd");
+		color.add("ยงe");
+		color.add("ยงf");
 
 		Collections.shuffle(color);
 		
 		List<String> tempColorList = new ArrayList<String>();
 		
 		for (String li : color) {
-			tempColorList.add(li + "งo");
+			tempColorList.add(li + "ยงo");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งn");
+			tempColorList.add(li + "ยงn");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งm");
+			tempColorList.add(li + "ยงm");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งl");
+			tempColorList.add(li + "ยงl");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งmงn");
+			tempColorList.add(li + "ยงmยงn");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งoงn");
+			tempColorList.add(li + "ยงoยงn");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งoงm");
+			tempColorList.add(li + "ยงoยงm");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งlงn");
+			tempColorList.add(li + "ยงlยงn");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งlงm");
+			tempColorList.add(li + "ยงlยงm");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งoงnงm");
+			tempColorList.add(li + "ยงoยงnยงm");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งnงm");
+			tempColorList.add(li + "ยงnยงm");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งlงoงn");
+			tempColorList.add(li + "ยงlยงoยงn");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งlงoงm");
+			tempColorList.add(li + "ยงlยงoยงm");
 		}
 		
 		for (String li : color) {
-			tempColorList.add(li + "งlงoงnงm");
+			tempColorList.add(li + "ยงlยงoยงnยงm");
 		}
 
 		color.addAll(tempColorList);
 		
-		color.remove("ง7งo");
-		color.remove("งf");
+		color.remove("ยง7ยงo");
+		color.remove("ยงf");
 		
 		Team spec = (getTeam("spec") == null ? board.registerNewTeam("spec") : board.getTeam("spec"));
 		spec.setDisplayName("spec");
-		spec.setPrefix("ง7งo");
-		spec.setSuffix("งf");
+		spec.setPrefix("ยง7ยงo");
+		spec.setSuffix("ยงf");
 		
 		spec.setAllowFriendlyFire(false);
 		spec.setCanSeeFriendlyInvisibles(true);	
@@ -339,7 +339,7 @@ public class TeamManager {
 			Team team = (board.getTeam(teamName) == null ? board.registerNewTeam(teamName) : board.getTeam(teamName));
 			team.setDisplayName(teamName);
 			team.setPrefix(color.get(i));
-			team.setSuffix("งf");
+			team.setSuffix("ยงf");
 			
 			team.setAllowFriendlyFire(true);
 			team.setCanSeeFriendlyInvisibles(true);

@@ -67,13 +67,13 @@ public class NumberUtils {
 		final double percent = hearts * 10;
 		
 		if (percent >= 66) {
-			return "§a" + ((int) percent);
+			return "Â§a" + ((int) percent);
 		} else if (percent >= 33) {
-			return "§e" + ((int) percent);
+			return "Â§e" + ((int) percent);
 		} else if (percent == 0) {
-			return "§7" + ((int) percent);
+			return "Â§7" + ((int) percent);
 		} else {
-			return "§c" + ((int) percent);
+			return "Â§c" + ((int) percent);
 		}
 	}
 	

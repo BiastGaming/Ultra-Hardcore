@@ -37,7 +37,7 @@ public class TopStatsGUI extends GUI implements Listener {
 		super("Top Stats", "A inventory containing all the top 10 players with a stat.");
 	}
 
-	private final Inventory inv = Bukkit.createInventory(null, 45, "ง4Top 10 Stats");
+	private final Inventory inv = Bukkit.createInventory(null, 45, "ยง4Top 10 Stats");
 	
 	@Override
 	public void onSetup() {
@@ -155,7 +155,7 @@ public class TopStatsGUI extends GUI implements Listener {
 		ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 		SkullMeta meta = (SkullMeta) item.getItemMeta();
 
-		meta.setDisplayName("ง8ป ง6" + statName + " ง8ซ");
+		meta.setDisplayName("ยง8ยง ยง6" + statName + " ยง8ยง");
 		
 		List<String> lore = new ArrayList<String>();
 		lore.add(" ");
@@ -163,7 +163,7 @@ public class TopStatsGUI extends GUI implements Listener {
 		int number = 1;
 		
 		if (data.size() < 10) {
-			lore.add("งcLess than 10 players has joined the server.");
+			lore.add("ยงcLess than 10 players has joined the server.");
 		} else {
 			for (int i = data.size() - 1; i >= data.size() - 10; i--) {
 				if (i >= data.size()) {
@@ -181,13 +181,13 @@ public class TopStatsGUI extends GUI implements Listener {
 				int iDamage = Integer.parseInt(sDamage.substring(2));
 				
 				if (number == 10) {
-					lore.add("ง6#" + number + "ง8 | ง7" + name + " ง8ป งa" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
+					lore.add("ยง6#" + number + "ยง8 | ยง7" + name + " ยง8ยง ยงa" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
 				} else {
 					if (number == 1) {
 						meta.setOwner(name);
 					}
 					
-					lore.add(" ง6#" + number + "ง8  | ง7" + name + " ง8ป งa" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
+					lore.add(" ยง6#" + number + "ยง8  | ยง7" + name + " ยง8ยง ยงa" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
 				}
 
 				number++;

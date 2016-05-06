@@ -60,7 +60,7 @@ public class ParkourCommand extends UHCCommand {
 				throw new CommandException("You are currently not parkouring.");
 			}
 
-			player.sendMessage(Parkour.PREFIX + "You have used: §a" + DateUtils.formatDateDiff(parkour.getStartTime(player).getTime()));
+			player.sendMessage(Parkour.PREFIX + "You have used: Â§a" + DateUtils.formatDateDiff(parkour.getStartTime(player).getTime()));
 			return true;
 		case "checkpoint":
 			if (!parkour.isParkouring(player)) {

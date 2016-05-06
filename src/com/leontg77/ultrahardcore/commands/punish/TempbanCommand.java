@@ -77,7 +77,7 @@ public class TempbanCommand extends UHCCommand {
     	if (target == null) {
 	    	PunishUtils.savePunishment(user, PunishmentType.TEMPBAN, message, date);
 	    	
-			PlayerUtils.broadcast(Main.PREFIX + "ง6" + args[0] + " ง7has been temp-banned for งa" + message + "ง7. ง8(งa" + DateUtils.formatDateDiff(time) + "ง8)");
+			PlayerUtils.broadcast(Main.PREFIX + "ยง6" + args[0] + " ยง7has been temp-banned for ยงa" + message + "ยง7. ยง8(ยงa" + DateUtils.formatDateDiff(time) + "ยง8)");
 			
     		list.addBan(args[0], message, date, sender.getName());
 			board.resetScore(args[0]);
@@ -88,7 +88,7 @@ public class TempbanCommand extends UHCCommand {
 	    	throw new CommandException("You can't temp-ban this player.");
     	}
 		
-		PlayerUtils.broadcast(Main.PREFIX + "ง6" + target.getName() + " ง7has been temp-banned for งa" + message + "ง7. ง8(งa" + DateUtils.formatDateDiff(time) + "ง8)");
+		PlayerUtils.broadcast(Main.PREFIX + "ยง6" + target.getName() + " ยง7has been temp-banned for ยงa" + message + "ยง7. ยง8(ยงa" + DateUtils.formatDateDiff(time) + "ยง8)");
     	
     	BanEntry ban = list.addBan(target.getName(), message, date, sender.getName());
     	target.setWhitelisted(false);

@@ -40,7 +40,7 @@ public class Backpacks extends Scenario implements Listener, CommandExecutor {
 		plugin.getCommand("bp").setExecutor(this);
 	}
 
-	private static final String PREFIX = "ง6Backpacks ง8ป ง7";
+	private static final String PREFIX = "ยง6Backpacks ยง8ยง ยง7";
 	
 	@EventHandler
 	public void on(PlayerDeathEvent event) {

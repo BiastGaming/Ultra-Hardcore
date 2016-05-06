@@ -66,14 +66,14 @@ public class NearCommand extends UHCCommand {
 			}
 			
 			if (nearList.length() > 0) {
-				nearList.append("ง8, ");
+				nearList.append("ยง8, ");
 			}
 			
-			nearList.append(getTeamColorAndName(nearby) + "ง7(งc" + ((int) player.getLocation().distance(nearby.getLocation())) + "mง7)งa");
+			nearList.append(getTeamColorAndName(nearby) + "ยง7(ยงc" + ((int) player.getLocation().distance(nearby.getLocation())) + "mยง7)ยงa");
 		}
 		
-		player.sendMessage(Main.PREFIX + "Nearby players: ง8(ง7Radius: ง6" + radius + "ง8)");
-		player.sendMessage("ง8ป ง7" + (nearList.length() > 0 ? nearList.toString().trim() : "There are no players nearby."));
+		player.sendMessage(Main.PREFIX + "Nearby players: ยง8(ยง7Radius: ยง6" + radius + "ยง8)");
+		player.sendMessage("ยง8ยง ยง7" + (nearList.length() > 0 ? nearList.toString().trim() : "There are no players nearby."));
 		return true;
 	}
 
@@ -94,7 +94,7 @@ public class NearCommand extends UHCCommand {
 		Team team = teams.getTeam(player);
 		
 		if (team == null) {
-			return "งf" + player.getName();
+			return "ยงf" + player.getName();
 		}
 		
 		return team.getPrefix() + player.getName();

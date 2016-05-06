@@ -48,7 +48,7 @@ public class ConfigGUI extends GUI implements Listener {
 
 	@Override
 	public void onSetup() { // add items but glass first.
-		inv = Bukkit.createInventory(null, 54, "§4Game configuration.");
+		inv = Bukkit.createInventory(null, 54, "Â§4Game configuration.");
 		
 		glassify(inv); 
 		update();
@@ -117,7 +117,7 @@ public class ConfigGUI extends GUI implements Listener {
 		meta.setLore(toggle.getToggleItem().getItemMeta().getLore());
 		item.setItemMeta(meta);
 		
-		PlayerUtils.broadcast(Main.PREFIX + "§6" + name + " §7has been " + (toggle.isEnabled() ? "§aenabled" : "§cdisabled") + "§7.");
+		PlayerUtils.broadcast(Main.PREFIX + "Â§6" + name + " Â§7has been " + (toggle.isEnabled() ? "Â§aenabled" : "Â§cdisabled") + "Â§7.");
 		
 		gui.getGUI(GameInfoGUI.class).update();
 	}

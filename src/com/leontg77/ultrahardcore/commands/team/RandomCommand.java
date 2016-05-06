@@ -39,7 +39,7 @@ public class RandomCommand extends UHCCommand {
 		int amount = parseInt(args[1], "amount");
 		int size = parseInt(args[0], "teamsize");
 		
-		PlayerUtils.broadcast(TeamCommand.PREFIX + "Randomizing ง6" + amount + "ง7 teams of ง6" + size + "ง7.");
+		PlayerUtils.broadcast(TeamCommand.PREFIX + "Randomizing ยง6" + amount + "ยง7 teams of ยง6" + size + "ยง7.");
 		
 		for (int i = 0; i < amount; i++) {
 			List<Player> list = new ArrayList<Player>();
@@ -69,7 +69,7 @@ public class RandomCommand extends UHCCommand {
 			}
 			
 			if (team.getSize() > 0) {
-				teams.sendMessage(team, TeamCommand.PREFIX + "You were added to team ง6" + team.getName() + "ง7.");
+				teams.sendMessage(team, TeamCommand.PREFIX + "You were added to team ยง6" + team.getName() + "ยง7.");
 				
 				for (OfflinePlayer entry : teams.getPlayers(team)) {
 					Player player = entry.getPlayer();
@@ -90,7 +90,7 @@ public class RandomCommand extends UHCCommand {
 							continue;
 						}
 						
-						player.sendMessage(TeamCommand.PREFIX + "งa" + entryTwo);
+						player.sendMessage(TeamCommand.PREFIX + "ยงa" + entryTwo);
 					}
 				}
 			}

@@ -273,7 +273,7 @@ public class Game {
 	 */
 	public void setTeamSize(String teamSize) {
 		if (pregameBoard()) {
-			board.resetScore("ง8ป ง7" + getAdvancedTeamSize(true, false));
+			board.resetScore("ยง8ยง ยง7" + getAdvancedTeamSize(true, false));
 		}
 		
 		settings.getConfig().set("teamsize", teamSize);
@@ -284,7 +284,7 @@ public class Game {
 		}
 		
 		if (pregameBoard()) {
-			board.setScore("ง8ป ง7" + getAdvancedTeamSize(true, false), 6);
+			board.setScore("ยง8ยง ยง7" + getAdvancedTeamSize(true, false), 6);
 		}
 		
 		gui.getGUI(GameInfoGUI.class).update();
@@ -307,11 +307,11 @@ public class Game {
 	public void setScenarios(String scenarios) {
 		if (pregameBoard()) {
 			for (String scen : getScenarios().split(", ")) {
-				board.resetScore("ง8ป ง7" + scen);
+				board.resetScore("ยง8ยง ยง7" + scen);
 			}
 			
 			for (String scen : scenarios.split(", ")) {
-				board.setScore("ง8ป ง7" + scen, 3);
+				board.setScore("ยง8ยง ยง7" + scen, 3);
 			}
 		}
 		
@@ -339,7 +339,7 @@ public class Game {
 		settings.saveConfig();
 		
 		if (!isRecordedRound()) {
-			board.getKillsObjective().setDisplayName("ง4Arctic ง8ป ง7งo" + name.substring(0, Math.min(name.length(), 13)) + "งr");
+			board.getKillsObjective().setDisplayName("ยง4Arctic ยง8ยง ยง7ยงo" + name.substring(0, Math.min(name.length(), 13)) + "ยงr");
 		}
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
@@ -526,9 +526,9 @@ public class Game {
 		}
 		
 		if (enable) {
-			board.getKillsObjective().setDisplayName("ง8ป ง6" + getRRName() + "ง8 ซ");
+			board.getKillsObjective().setDisplayName("ยง8ยง ยง6" + getRRName() + "ยง8 ยง");
 		} else {
-			board.getKillsObjective().setDisplayName("ง4Arctic ง8ป ง7งo" + getHost().substring(0, Math.min(getHost().length(), 13)) + "งr");
+			board.getKillsObjective().setDisplayName("ยง4Arctic ยง8ยง ยง7ยงo" + getHost().substring(0, Math.min(getHost().length(), 13)) + "ยงr");
 		}
 	}
 
@@ -551,7 +551,7 @@ public class Game {
 		settings.saveConfig();
 		
 		if (isRecordedRound()) {
-			board.getKillsObjective().setDisplayName("ง8ป ง6" + getRRName() + "ง8 ซ");
+			board.getKillsObjective().setDisplayName("ยง8ยง ยง6" + getRRName() + "ยง8 ยง");
 		}
 	}
 

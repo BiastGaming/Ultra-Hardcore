@@ -169,7 +169,7 @@ public class SpecManager {
 		player.setWalkSpeed(0.2f);
 		player.setFlySpeed(0.1f);
 		
-		player.setPlayerListName("ง7งo" + player.getName());
+		player.setPlayerListName("ยง7ยงo" + player.getName());
 		
 		// I don't want the sidebar to have spec team names if they're on a team off.
 		if (teams.getTeam(player) == null) {

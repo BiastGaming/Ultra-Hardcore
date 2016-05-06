@@ -34,7 +34,7 @@ import com.leontg77.ultrahardcore.utils.EntityUtils;
  */
 @SuppressWarnings("unused")
 public class SoulBrothers extends Scenario implements CommandExecutor {
-	public static final String PREFIX = "§2Soul Brothers §8» §7";
+	public static final String PREFIX = "Â§2Soul Brothers Â§8Â§ Â§7";
 
 	private final Main plugin;
 	private final Game game;
@@ -108,15 +108,15 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
 		
 		if (args[0].equalsIgnoreCase("help")) {
 			sender.sendMessage(PREFIX + "Help with hosting Soul Brothers:");
-			sender.sendMessage(Main.ARROW + "§fFirst you decide how many worlds you need, then you create a world with a normal");
-			sender.sendMessage(Main.ARROW + "§fworld name for a normal game, just that you end the world name with _sb_[worldnumber].");
-			sender.sendMessage(Main.ARROW + "§fEx: 'leon_sb_1' and 'leon_sb_2' if you had 2 worlds (replace leon with your name).");
-			sender.sendMessage(Main.ARROW + "§fNormally the worlds have the same seed, but for the final world aka the one all gets");
-			sender.sendMessage(Main.ARROW + "§fscattered in at last needs to end with _sb_final! Ex: 'leon_sb_final'");
-			sender.sendMessage(Main.ARROW + "§fWhen you start the first scatter you do /soul scatter");
-			sender.sendMessage(Main.ARROW + "§fAnd for the final scatter you do /soul finalscatter, then /soul start to clear effects");
-			sender.sendMessage(Main.ARROW + "§fYou use normal /start after the first scatter but /soul start is there for no countdown");
-			sender.sendMessage(Main.ARROW + "§fand so it doesn't clear inventories. Have fun hosting, ask Leon if you got any questions!");
+			sender.sendMessage(Main.ARROW + "Â§fFirst you decide how many worlds you need, then you create a world with a normal");
+			sender.sendMessage(Main.ARROW + "Â§fworld name for a normal game, just that you end the world name with _sb_[worldnumber].");
+			sender.sendMessage(Main.ARROW + "Â§fEx: 'leon_sb_1' and 'leon_sb_2' if you had 2 worlds (replace leon with your name).");
+			sender.sendMessage(Main.ARROW + "Â§fNormally the worlds have the same seed, but for the final world aka the one all gets");
+			sender.sendMessage(Main.ARROW + "Â§fscattered in at last needs to end with _sb_final! Ex: 'leon_sb_final'");
+			sender.sendMessage(Main.ARROW + "Â§fWhen you start the first scatter you do /soul scatter");
+			sender.sendMessage(Main.ARROW + "Â§fAnd for the final scatter you do /soul finalscatter, then /soul start to clear effects");
+			sender.sendMessage(Main.ARROW + "Â§fYou use normal /start after the first scatter but /soul start is there for no countdown");
+			sender.sendMessage(Main.ARROW + "Â§fand so it doesn't clear inventories. Have fun hosting, ask Leon if you got any questions!");
 		}
 		
 		if (args[0].equalsIgnoreCase("scatter")) {

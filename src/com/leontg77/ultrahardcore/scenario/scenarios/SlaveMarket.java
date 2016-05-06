@@ -37,7 +37,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
-	private static final String PREFIX = "ง2Market ง8ป ง7";
+	private static final String PREFIX = "ยง2Market ยง8ยง ยง7";
 	
 	private final TeamManager teams;
 	private final Main plugin;
@@ -209,7 +209,7 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 					throw new CommandException("There are no more available teams.");
 				}
 				
-				PlayerUtils.broadcast(PREFIX + "งa" + target.getName() + " ง7has been selected as the slave owner of ง6Team " + team.getName().substring(3) + "ง7.");
+				PlayerUtils.broadcast(PREFIX + "ยงa" + target.getName() + " ยง7has been selected as the slave owner of ยง6Team " + team.getName().substring(3) + "ยง7.");
 				teams.joinTeam(team, target);
 				
 				int amount = 30;
@@ -234,7 +234,7 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 					throw new CommandException("'" + args[2] + "' is not online.");
 				}
 				
-				PlayerUtils.broadcast(PREFIX + "งa" + target.getName() + " ง7is no longer a slave owner.");
+				PlayerUtils.broadcast(PREFIX + "ยงa" + target.getName() + " ยง7is no longer a slave owner.");
 				
 				owners.remove(target.getName());
 				teams.leaveTeam(target, true);
@@ -250,9 +250,9 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 				for (String owner : owners) {
 					if (list.length() > 0) {
 						if (index == owners.size()) {
-							list.append(" ง8and งa");
+							list.append(" ยง8and ยงa");
 						} else {
-							list.append("ง8, งa");
+							list.append("ยง8, ยงa");
 						}
 					}
 					
@@ -260,8 +260,8 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 					index++;
 				}
 				
-				sender.sendMessage(PREFIX + "Current slave owners: ง8(ง6" + owners.size() + "ง8)");
-				sender.sendMessage("ง8ป ง7" + list.toString());
+				sender.sendMessage(PREFIX + "Current slave owners: ยง8(ยง6" + owners.size() + "ยง8)");
+				sender.sendMessage("ยง8ยง ยง7" + list.toString());
 				return true;
 			}
 			
@@ -311,7 +311,7 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 						    			return;
 						    		}
 						    		
-						    		PlayerUtils.broadcast(PREFIX + "งa" + slave.getName() + "ง7 was sold to งa" + winner.getName() + "ง7 for งa" + (biggestBid == 1 ? "1 diamond" : biggestBid + " diamonds") + "ง7.");
+						    		PlayerUtils.broadcast(PREFIX + "ยงa" + slave.getName() + "ยง7 was sold to ยงa" + winner.getName() + "ยง7 for ยงa" + (biggestBid == 1 ? "1 diamond" : biggestBid + " diamonds") + "ยง7.");
 
 									for (Player online : Bukkit.getOnlinePlayers()) {
 							    		online.playSound(online.getLocation(), Sound.FIREWORK_TWINKLE, 1, 1);
@@ -345,7 +345,7 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 				    					task.cancel();
 				    					task = null;
 				    					
-				    					PlayerUtils.broadcast(PREFIX + "งoNo more players to bid on!");
+				    					PlayerUtils.broadcast(PREFIX + "ยงoNo more players to bid on!");
 				    					return;
 				    				}
 				    				
@@ -358,7 +358,7 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 							    	biggestBid = -1;
 							    	bidTime = 5;
 							    	
-							    	PlayerUtils.broadcast(PREFIX + "งa" + currentSlave + "ง7 is now up for auction! Use งa/bidง7!");
+							    	PlayerUtils.broadcast(PREFIX + "ยงa" + currentSlave + "ยง7 is now up for auction! Use ยงa/bidยง7!");
 						    		
 									for (Player online : Bukkit.getOnlinePlayers()) {
 							    		online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 0);
@@ -367,7 +367,7 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 				    			}
 								
 								if (bidTime < 4) {
-									PlayerUtils.broadcast(PREFIX + "Bidding ends in งa" + bidTime + "ง7.");
+									PlayerUtils.broadcast(PREFIX + "Bidding ends in ยงa" + bidTime + "ยง7.");
 
 									for (Player online : Bukkit.getOnlinePlayers()) {
 							    		online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
@@ -381,7 +381,7 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 				    	return;
 					}
 					
-		    		PlayerUtils.broadcast(PREFIX + "Bidding starts in งa" + timeLeft + "ง7.");
+		    		PlayerUtils.broadcast(PREFIX + "Bidding starts in ยงa" + timeLeft + "ยง7.");
 		    		
 			    	for (Player online : Bukkit.getOnlinePlayers()) {
 			    		online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
@@ -447,7 +447,7 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 			throw new CommandException("You can't bid more diamonds than you have.");
 		}
 		
-		PlayerUtils.broadcast(PREFIX + "งa" + player.getName() + "ง7 has bid งa" + (amount == 1 ? "1 diamond" : amount + " diamonds") + "ง7.");
+		PlayerUtils.broadcast(PREFIX + "ยงa" + player.getName() + "ยง7 has bid ยงa" + (amount == 1 ? "1 diamond" : amount + " diamonds") + "ยง7.");
 
 		bidWinner = player.getName();
 		biggestBid = amount;

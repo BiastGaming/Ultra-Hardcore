@@ -55,7 +55,7 @@ public class TLCommand extends UHCCommand {
 		
 		final Location loc = player.getLocation();
 		
-		teams.sendMessage(team, TeamCommand.PREFIX + "ง6งo" + player.getName() + "ง8งo: ง7X: งa" + loc.getBlockX() + " ง7Y: งa" + loc.getBlockY() + " ง7Z: งa" + loc.getBlockZ() + " ง8(งc" + environment(loc.getWorld()) + "ง8)");
+		teams.sendMessage(team, TeamCommand.PREFIX + "ยง6ยงo" + player.getName() + "ยง8ยงo: ยง7X: ยงa" + loc.getBlockX() + " ยง7Y: ยงa" + loc.getBlockY() + " ยง7Z: ยงa" + loc.getBlockZ() + " ยง8(ยงc" + environment(loc.getWorld()) + "ยง8)");
 		return true;
 	}
 

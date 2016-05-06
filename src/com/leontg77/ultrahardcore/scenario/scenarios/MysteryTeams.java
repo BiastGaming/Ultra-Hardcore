@@ -52,7 +52,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author EXSolo, modified by LeonTG77
  */
 public class MysteryTeams extends Scenario implements Listener, CommandExecutor, TabCompleter {
-	private static final String PREFIX = "§6[§cMysteryTeams§6] §f";
+	private static final String PREFIX = "Â§6[Â§cMysteryTeamsÂ§6] Â§f";
 
 	private final SpecManager spec;
 	private final Game game;
@@ -160,14 +160,14 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
 		PlayerUtils.broadcast(PREFIX + team.getChatColor() + "Player from team " + team.getName() + " died.");
 		
 		if (team.getSize() > 0) {
-			PlayerUtils.broadcast(PREFIX + team.getChatColor() + "Team " + team.getName() + " has §f" + team.getSize() + team.getChatColor() + (team.getSize() > 1 ? " players" : " player") + " left");
+			PlayerUtils.broadcast(PREFIX + team.getChatColor() + "Team " + team.getName() + " has Â§f" + team.getSize() + team.getChatColor() + (team.getSize() > 1 ? " players" : " player") + " left");
 			return;
 		}
 		
 		currentTeams.remove(team);
 		
 		if (currentTeams.size() > 1) {
-			PlayerUtils.broadcast(PREFIX + team.getChatColor() + "Team " + team.getName() + " eliminated. There are §f" + currentTeams.size() + team.getChatColor() + " teams left.");
+			PlayerUtils.broadcast(PREFIX + team.getChatColor() + "Team " + team.getName() + " eliminated. There are Â§f" + currentTeams.size() + team.getChatColor() + " teams left.");
 			return;
 		}
 		
@@ -200,7 +200,7 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
 			sender.sendMessage(PREFIX + "All teamsizes:");
 			
 			for (MysteryTeam team : currentTeams) {
-				sender.sendMessage(PREFIX + team.getChatColor() + "Team " + team.getName().toLowerCase() + "'s teamsize: §f" + team.getSize());
+				sender.sendMessage(PREFIX + team.getChatColor() + "Team " + team.getName().toLowerCase() + "'s teamsize: Â§f" + team.getSize());
 			}
 			return true;
 		} 
@@ -220,7 +220,7 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
 				return true;
 			}
 
-			sender.sendMessage(PREFIX + "All Mystery Teams: §8(§f§oItalic §f= Dead§8)");
+			sender.sendMessage(PREFIX + "All Mystery Teams: Â§8(Â§fÂ§oItalic Â§f= DeadÂ§8)");
 			
 			for (Entry<MysteryTeam, List<UUID>> entry : originalTeams.entrySet()) { 
 				StringBuilder members = new StringBuilder();
@@ -232,9 +232,9 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
 				for (UUID member : uuids) {
 					if (members.length() > 0) {
 						if (i == uuids.size()) {
-							members.append(" §8and §f");
+							members.append(" Â§8and Â§f");
 						} else {
-							members.append("§8, §f");
+							members.append("Â§8, Â§f");
 						}
 					}
 					
@@ -249,7 +249,7 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
 					i++;
 				}
 				
-				sender.sendMessage(team.getChatColor() + team.getName() + ": §f" + members.toString().trim());
+				sender.sendMessage(team.getChatColor() + team.getName() + ": Â§f" + members.toString().trim());
 			}
 			return true;
 		}
@@ -280,7 +280,7 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
 			
 			OfflinePlayer offline = PlayerUtils.getOfflinePlayer(args[2]);
 			
-			sender.sendMessage(PREFIX + ChatColor.GREEN + offline.getName() + "§7 was added to team §6" + team.getName() + "§7.");
+			sender.sendMessage(PREFIX + ChatColor.GREEN + offline.getName() + "Â§7 was added to team Â§6" + team.getName() + "Â§7.");
 			team.addPlayer(offline);
 			return true;
 		} 
@@ -299,7 +299,7 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
 				return true;
 			}
 			
-			sender.sendMessage(PREFIX + ChatColor.GREEN + offline.getName() + " §7was removed from his team.");
+			sender.sendMessage(PREFIX + ChatColor.GREEN + offline.getName() + " Â§7was removed from his team.");
 			team.removePlayer(offline);
 			return true;
 		}
@@ -328,7 +328,7 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
 				team.removePlayer(teammate);
 			}
 			
-			sender.sendMessage(PREFIX + "Team §a" + team.getName() + " §7has been deleted.");
+			sender.sendMessage(PREFIX + "Team Â§a" + team.getName() + " Â§7has been deleted.");
 			return true;
 		}
 		
@@ -503,23 +503,23 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
 	 */
 	public boolean helpMenu(CommandSender sender) {
 		sender.sendMessage(PREFIX + "MysteryTeams Help Menu:");
-	    sender.sendMessage("§8- §f/mt teamsize §8- §7§oDisplay all teams current teamsize.");
+	    sender.sendMessage("Â§8- Â§f/mt teamsize Â§8- Â§7Â§oDisplay all teams current teamsize.");
 
 	    if (sender.hasPermission("uhc.staff")) {
-		    sender.sendMessage("§8- §f/mt list §8- §7§oDisplay all teams.");
+		    sender.sendMessage("Â§8- Â§f/mt list Â§8- Â§7Â§oDisplay all teams.");
 	    }
 	    
 	    if (!sender.hasPermission("uhc." + getName().toLowerCase())) {
 	    	return true;
 	    }
 
-	    sender.sendMessage("§8- §f/mt add <team> <player> §8- §7§oAdd the player to the team.");
-	    sender.sendMessage("§8- §f/mt remove <player> §8- §7§oRemove the player from his team.");
-	    sender.sendMessage("§8- §f/mt delete <team> §8- §7§oRemove all players from the team.");
-	    sender.sendMessage("§8- §f/mt mode <new mode> §8- §7§oChange the mystery team item to use.");
-	    sender.sendMessage("§8- §f/mt clear §8- §7§oClear all teams.");
-		sender.sendMessage("§8- §f/mt randomize <teamsize> <amount of teams> §8- §7§oRandomize the teams.");
-	    sender.sendMessage("§8- §f/mt give [player] §8- §7§oGive the banners to the given player or everyone.");
+	    sender.sendMessage("Â§8- Â§f/mt add <team> <player> Â§8- Â§7Â§oAdd the player to the team.");
+	    sender.sendMessage("Â§8- Â§f/mt remove <player> Â§8- Â§7Â§oRemove the player from his team.");
+	    sender.sendMessage("Â§8- Â§f/mt delete <team> Â§8- Â§7Â§oRemove all players from the team.");
+	    sender.sendMessage("Â§8- Â§f/mt mode <new mode> Â§8- Â§7Â§oChange the mystery team item to use.");
+	    sender.sendMessage("Â§8- Â§f/mt clear Â§8- Â§7Â§oClear all teams.");
+		sender.sendMessage("Â§8- Â§f/mt randomize <teamsize> <amount of teams> Â§8- Â§7Â§oRandomize the teams.");
+	    sender.sendMessage("Â§8- Â§f/mt give [player] Â§8- Â§7Â§oGive the banners to the given player or everyone.");
     	return true;
 	}
 	

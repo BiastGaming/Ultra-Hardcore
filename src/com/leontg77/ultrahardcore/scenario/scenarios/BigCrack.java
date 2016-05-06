@@ -27,7 +27,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author dans1988
  */
 public class BigCrack extends Scenario implements Listener, CommandExecutor {
-    public static final String PREFIX = "§bBigCrack §8» §7";
+    public static final String PREFIX = "Â§bBigCrack Â§8Â§ Â§7";
 	
 	private final Main plugin;
 
@@ -137,7 +137,7 @@ public class BigCrack extends Scenario implements Listener, CommandExecutor {
                         populate(world, chunk, width, length);
 						
 						for (Player online : Bukkit.getOnlinePlayers()) {
-							PacketUtils.sendAction(online, PREFIX + "Populated chunk at x = §a" + chunk.getX() + "§7, z = §a" + chunk.getZ() + "§7.");
+							PacketUtils.sendAction(online, PREFIX + "Populated chunk at x = Â§a" + chunk.getX() + "Â§7, z = Â§a" + chunk.getZ() + "Â§7.");
 						}
                     }
                 }.runTaskLater(plugin, delayMultiplier * speed);

@@ -32,8 +32,8 @@ public class TimeLeftCommand extends UHCCommand {
 	@Override
 	public boolean execute(final CommandSender sender, final String[] args) throws CommandException {
 		if (game.isRecordedRound()) {
-			sender.sendMessage(Main.PREFIX + "Current Episode: §a" + timer.getMeetup() + ".");
-			sender.sendMessage(Main.PREFIX + "Time to next episode: §a" + timer.getTimeSinceStart() + " minute(s).");
+			sender.sendMessage(Main.PREFIX + "Current Episode: Â§a" + timer.getMeetup() + ".");
+			sender.sendMessage(Main.PREFIX + "Time to next episode: Â§a" + timer.getTimeSinceStart() + " minute(s).");
 			return true;
 		}
 		
@@ -52,10 +52,10 @@ public class TimeLeftCommand extends UHCCommand {
 		int finalheal = 20 - timePassed;
 		
 		sender.sendMessage(Main.PREFIX + "UHC Game Timers:");
-		sender.sendMessage("§8» §7Time since start: §a" + DateUtils.ticksToString(timePassed));
-		sender.sendMessage("§8» " + (finalheal <= 0 ? "§eFinal heal has passed!" : "§7Final heal is given in: §a" + DateUtils.ticksToString(finalheal)));
-		sender.sendMessage("§8» " + (pvp <= 0 ? "§aPvP is enabled!" : "§7PvP enables in: §a" + DateUtils.ticksToString(pvp)));
-		sender.sendMessage("§8» " + (meetup <= 0 ? "§cMeetup is NOW!" : "§7Meetup in: §a" + DateUtils.ticksToString(meetup)));
+		sender.sendMessage("Â§8Â§ Â§7Time since start: Â§a" + DateUtils.ticksToString(timePassed));
+		sender.sendMessage("Â§8Â§ " + (finalheal <= 0 ? "Â§eFinal heal has passed!" : "Â§7Final heal is given in: Â§a" + DateUtils.ticksToString(finalheal)));
+		sender.sendMessage("Â§8Â§ " + (pvp <= 0 ? "Â§aPvP is enabled!" : "Â§7PvP enables in: Â§a" + DateUtils.ticksToString(pvp)));
+		sender.sendMessage("Â§8Â§ " + (meetup <= 0 ? "Â§cMeetup is NOW!" : "Â§7Meetup in: Â§a" + DateUtils.ticksToString(meetup)));
 		return true;
 	}
 

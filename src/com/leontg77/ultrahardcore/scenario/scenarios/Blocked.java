@@ -23,7 +23,7 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  */
 public class Blocked extends Scenario implements Listener {
 	private Map<String, List<Location>> mined = new HashMap<String, List<Location>>();
-    public static final String PREFIX = "§9§lBlocked §8» §7";
+    public static final String PREFIX = "Â§9Â§lBlocked Â§8Â§ Â§7";
 	
 	public Blocked() {
 		super("Blocked", "You can't break the blocks that you place. Other players can break blocks that you place, and you can break blocks that other players place.");

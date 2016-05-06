@@ -64,13 +64,13 @@ public class FlyCommand extends UHCCommand {
 		}
 		
 		if (target.getAllowFlight()) {
-			sender.sendMessage(Main.PREFIX + "You disabled งa" + target.getName() + "'s ง7fly mode.");
+			sender.sendMessage(Main.PREFIX + "You disabled ยงa" + target.getName() + "'s ยง7fly mode.");
 			target.sendMessage(Main.PREFIX + "Your fly mode is now disabled.");
 			
 			target.setAllowFlight(false);
 			target.setFlying(false);
 		} else {
-			sender.sendMessage(Main.PREFIX + "You enabled งa" + target.getName() + "'s ง7fly mode.");
+			sender.sendMessage(Main.PREFIX + "You enabled ยงa" + target.getName() + "'s ยง7fly mode.");
 			target.sendMessage(Main.PREFIX + "Your fly mode is now enabled.");
 			
 			target.setAllowFlight(true);

@@ -155,16 +155,16 @@ public class Main extends JavaPlugin {
 		new StaffLogManager(this);
 	}
 	
-	public static final String NO_PERMISSION_MESSAGE = "§cYou don't have permission.";
+	public static final String NO_PERMISSION_MESSAGE = "Â§cYou don't have permission.";
  
-	public static final String BORDER_PREFIX = "§cBorder §8» §7";
-	public static final String ALERT_PREFIX = "§6Alert §8» §7";
-	public static final String STAFF_PREFIX = "§cStaff §8» §7";
-	public static final String SPEC_PREFIX = "§5Spec §8» §7";
-	public static final String INFO_PREFIX = "§aInfo §8» §7";
-	public static final String SCEN_PREFIX = "§9Scenario §8» §7";
-	public static final String PREFIX = "§4§lUHC §8» §7";
-	public static final String ARROW = "§8» §7";
+	public static final String BORDER_PREFIX = "Â§cBorder Â§8Â§ Â§7";
+	public static final String ALERT_PREFIX = "Â§6Alert Â§8Â§ Â§7";
+	public static final String STAFF_PREFIX = "Â§cStaff Â§8Â§ Â§7";
+	public static final String SPEC_PREFIX = "Â§5Spec Â§8Â§ Â§7";
+	public static final String INFO_PREFIX = "Â§aInfo Â§8Â§ Â§7";
+	public static final String SCEN_PREFIX = "Â§9Scenario Â§8Â§ Â§7";
+	public static final String PREFIX = "Â§4Â§lUHC Â§8Â§ Â§7";
+	public static final String ARROW = "Â§8Â§ Â§7";
 	
 	@Override
 	public void onDisable() {

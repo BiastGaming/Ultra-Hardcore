@@ -37,7 +37,7 @@ import com.leontg77.ultrahardcore.utils.PacketUtils;
  * @author Bergasms
  */
 public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
-	private static final String PREFIX = "§4Pyrophobia §8» §7";
+	private static final String PREFIX = "Â§4Pyrophobia Â§8Â§ Â§7";
 	
 	private ArrayList<Location> locations;
 	private int generateTaskID;
@@ -214,7 +214,7 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 		int one = ((this.totalChunks - this.locations.size())*100 / totalChunks);
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
-			PacketUtils.sendAction(online, "§4§lPyrophobia §8» §7Processed: §6" + ((one / 2) + 50) + "%");
+			PacketUtils.sendAction(online, "Â§4Â§lPyrophobia Â§8Â§ Â§7Processed: Â§6" + ((one / 2) + 50) + "%");
 		}
 	}
 
@@ -242,7 +242,7 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 		int one = ((totalChunks - locations.size())*100 / totalChunks);
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
-			PacketUtils.sendAction(online, "§4§lPyrophobia §8» §7Processed: §6" + (one / 2) + "%");
+			PacketUtils.sendAction(online, "Â§4Â§lPyrophobia Â§8Â§ Â§7Processed: Â§6" + (one / 2) + "%");
 		}
 	}
 }

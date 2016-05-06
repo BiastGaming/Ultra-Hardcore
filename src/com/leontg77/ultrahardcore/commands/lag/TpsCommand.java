@@ -69,11 +69,11 @@ public class TpsCommand extends UHCCommand {
 		entities -= Bukkit.getOnlinePlayers().size();
 
 		sender.sendMessage(Main.PREFIX + "Server performance:");
-		sender.sendMessage("ง8งlป ง7Current TPS: " + color + tps + " ง8(ง6" + status + "ง8)");
-		sender.sendMessage("ง8งlป ง7Uptime: งa" + DateUtils.formatDateDiff(startTime));
-		sender.sendMessage("ง8งlป ง7RAM Usage: งa" + ramUsage + " MB ง8/ งa" + maxRAM + " MB");
-		sender.sendMessage("ง8งlป ง7Entities: งa" + entities);
-		sender.sendMessage("ง8งlป ง7Loaded chunks: งa" + chunks);
+		sender.sendMessage("ยง8ยงlยง ยง7Current TPS: " + color + tps + " ยง8(ยง6" + status + "ยง8)");
+		sender.sendMessage("ยง8ยงlยง ยง7Uptime: ยงa" + DateUtils.formatDateDiff(startTime));
+		sender.sendMessage("ยง8ยงlยง ยง7RAM Usage: ยงa" + ramUsage + " MB ยง8/ ยงa" + maxRAM + " MB");
+		sender.sendMessage("ยง8ยงlยง ยง7Entities: ยงa" + entities);
+		sender.sendMessage("ยง8ยงlยง ยง7Loaded chunks: ยงa" + chunks);
 		return true;
 	}
 

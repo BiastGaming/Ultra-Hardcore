@@ -26,7 +26,7 @@ public class BlockRush extends Scenario implements Listener {
 	private final Set<String> minedBlocks = new HashSet<String>();
 	
 	private static final ItemStack ITEM_TO_DROP = new ItemStack(Material.GOLD_INGOT);
-	private static final String PREFIX = "§6§lBlockRush §8» §e";
+	private static final String PREFIX = "Â§6Â§lBlockRush Â§8Â§ Â§e";
 	
 	public BlockRush() {
 		super("BlockRush", "Mining a specific block type for the first time drops 1 gold ingot.");
@@ -53,7 +53,7 @@ public class BlockRush extends Scenario implements Listener {
 			return;
 		}
 		
-		PlayerUtils.broadcast(PREFIX + player.getName() + "§7 was the first to break §e" + name.toLowerCase().replaceAll("_", " ") + "§7.");
+		PlayerUtils.broadcast(PREFIX + player.getName() + "Â§7 was the first to break Â§e" + name.toLowerCase().replaceAll("_", " ") + "Â§7.");
 		minedBlocks.add(name);
 		
 		BlockUtils.dropItem(block.getLocation().add(0.5, 0.7, 0.5), ITEM_TO_DROP);

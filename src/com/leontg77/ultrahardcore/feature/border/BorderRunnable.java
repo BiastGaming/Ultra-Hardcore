@@ -46,7 +46,7 @@ public class BorderRunnable extends BukkitRunnable {
 		case 3:
 		case 2:
 		case 1:
-			PlayerUtils.broadcast(Main.BORDER_PREFIX + "The border starts shrinking in งa" + DateUtils.advancedTicksToString(next) + "ง7.");
+			PlayerUtils.broadcast(Main.BORDER_PREFIX + "The border starts shrinking in ยงa" + DateUtils.advancedTicksToString(next) + "ยง7.");
 			break;
 		case 0:
 			int size = 300;
@@ -60,7 +60,7 @@ public class BorderRunnable extends BukkitRunnable {
 				break;
 			}
 				
-			PlayerUtils.broadcast(Main.BORDER_PREFIX + "Border will now shrink to ง6" + size + "x" + size + " ง7over งa10 ง7minutes.");
+			PlayerUtils.broadcast(Main.BORDER_PREFIX + "Border will now shrink to ยง6" + size + "x" + size + " ยง7over ยงa10 ยง7minutes.");
 			
 			for (Player online : Bukkit.getOnlinePlayers()) {
 				online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 0);
@@ -82,7 +82,7 @@ public class BorderRunnable extends BukkitRunnable {
 				return;
 			}
 			
-			PlayerUtils.broadcast(Main.BORDER_PREFIX + "Next shrink is in งa15ง7 minutes.");
+			PlayerUtils.broadcast(Main.BORDER_PREFIX + "Next shrink is in ยงa15ยง7 minutes.");
 			
 			next = 900;
 			break;

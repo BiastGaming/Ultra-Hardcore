@@ -49,7 +49,7 @@ public class KickCommand extends UHCCommand {
 		    	online.kickPlayer(message);
 			}
 			
-	    	PlayerUtils.broadcast(Main.PREFIX + "All normal players has been kicked for ง6" + message);
+	    	PlayerUtils.broadcast(Main.PREFIX + "All normal players has been kicked for ยง6" + message);
 			return true;
 		}
 
@@ -62,7 +62,7 @@ public class KickCommand extends UHCCommand {
 		    	online.kickPlayer(message);
 			}
 			
-	    	PlayerUtils.broadcast(Main.PREFIX + "All players has been kicked for ง6" + message);
+	    	PlayerUtils.broadcast(Main.PREFIX + "All players has been kicked for ยง6" + message);
 			return true;
 		}
     	
@@ -78,7 +78,7 @@ public class KickCommand extends UHCCommand {
 	    	throw new CommandException("'" + args[0] + "' is a staff member and can't be kicked.");
     	}
     	
-    	PlayerUtils.broadcast(Main.PREFIX + "ง6" + target.getName() + " ง7has been kicked for งa" + message, "uhc.kick");
+    	PlayerUtils.broadcast(Main.PREFIX + "ยง6" + target.getName() + " ยง7has been kicked for ยงa" + message, "uhc.kick");
     	target.kickPlayer(message);
     	PunishUtils.savePunishment(user, PunishmentType.KICK, message, null);
 		return true;

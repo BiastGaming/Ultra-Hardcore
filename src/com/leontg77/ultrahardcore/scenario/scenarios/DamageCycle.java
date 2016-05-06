@@ -33,7 +33,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class DamageCycle extends Scenario implements Listener, CommandExecutor {
-	private static final String PREFIX = "§7[§8DamageCycle§7] ";
+	private static final String PREFIX = "Â§7[Â§8DamageCycleÂ§7] ";
 	private static final int DAMAGE_AMOUNT = 10000;
 	
 	private final Main plugin;
@@ -102,7 +102,7 @@ public class DamageCycle extends Scenario implements Listener, CommandExecutor {
 	                break;
 	            case 0:
 	        		current = types.get(rand.nextInt(types.size()));
-	                PlayerUtils.broadcast(PREFIX + "§6All damage from §7" + current.name().toLowerCase().replaceAll("_", " ") + "§6 will now instant kill you!");
+	                PlayerUtils.broadcast(PREFIX + "Â§6All damage from Â§7" + current.name().toLowerCase().replaceAll("_", " ") + "Â§6 will now instant kill you!");
 
 	                seconds = 600;
 	                break;
@@ -206,12 +206,12 @@ public class DamageCycle extends Scenario implements Listener, CommandExecutor {
 		}
 		
 		if (current == null) {
-			sender.sendMessage(PREFIX + "§6No damage type has been set yet.");
+			sender.sendMessage(PREFIX + "Â§6No damage type has been set yet.");
 			return true;
 		}
 		
-		sender.sendMessage(PREFIX + "§6All damage from §7" + current.name().toLowerCase().replaceAll("_", " ") + "§6 will instant kill you!");
-		sender.sendMessage(PREFIX + "§6The damage type changes in §7" + DateUtils.ticksToString(seconds) + "§6.");
+		sender.sendMessage(PREFIX + "Â§6All damage from Â§7" + current.name().toLowerCase().replaceAll("_", " ") + "Â§6 will instant kill you!");
+		sender.sendMessage(PREFIX + "Â§6The damage type changes in Â§7" + DateUtils.ticksToString(seconds) + "Â§6.");
 		return true;
 	}
 }

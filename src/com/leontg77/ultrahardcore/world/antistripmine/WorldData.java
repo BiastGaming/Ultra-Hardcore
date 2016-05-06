@@ -100,12 +100,12 @@ public class WorldData {
 			return;
 		}
 		
-		sender.sendMessage(Main.PREFIX + world + ": Average งa" + (total / chunks) + " ง7ns per chunk ง8(ง7" + (total / chunks / 1.0E9D) + "s)");
+		sender.sendMessage(Main.PREFIX + world + ": Average ยงa" + (total / chunks) + " ยง7ns per chunk ยง8(ยง7" + (total / chunks / 1.0E9D) + "s)");
 		
 		for (Material type : remaining.keySet()) {
 			int amount = remaining.get(type);
 			
-			sender.sendMessage("ง8ป ง7" + type.name() + "ง8: งa" + amount + " ง7remaining in ง6" + chunks + " ง7chunks ง8(ง7average ง6" + (amount / chunks) + " ง7per chunkง8)");
+			sender.sendMessage("ยง8ยง ยง7" + type.name() + "ยง8: ยงa" + amount + " ยง7remaining in ยง6" + chunks + " ยง7chunks ยง8(ยง7average ยง6" + (amount / chunks) + " ยง7per chunkยง8)");
 		}
 	}
 

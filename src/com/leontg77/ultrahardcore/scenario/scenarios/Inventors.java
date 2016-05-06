@@ -21,7 +21,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class Inventors extends Scenario implements Listener {
 	private final Set<String> craftedItems = new HashSet<String>();
-	private static final String PREFIX = "§a§lInventors §8» §f";
+	private static final String PREFIX = "Â§aÂ§lInventors Â§8Â§ Â§f";
 
 	public Inventors() {
 		super("Inventors", "The first person to craft any item will be broadcasted in chat.");
@@ -48,7 +48,7 @@ public class Inventors extends Scenario implements Listener {
 			return;
 		}
 		
-		PlayerUtils.broadcast(PREFIX + player.getName() + "§7 was the first to craft §f" + name.toLowerCase().replaceAll("_", " ") + "§7.");
+		PlayerUtils.broadcast(PREFIX + player.getName() + "Â§7 was the first to craft Â§f" + name.toLowerCase().replaceAll("_", " ") + "Â§7.");
 		craftedItems.add(name);
 	}
 }

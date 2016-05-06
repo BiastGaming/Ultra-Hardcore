@@ -59,7 +59,7 @@ public class ArenaCommand extends UHCCommand {
 					}
 					
 					PlayerUtils.broadcast(Arena.PREFIX + "The arena has been enabled.");
-					PlayerUtils.broadcast(Arena.PREFIX + "You can use §a/a §7to join it.");
+					PlayerUtils.broadcast(Arena.PREFIX + "You can use Â§a/a Â§7to join it.");
 					
 					arena.enable();
 					return true;
@@ -140,7 +140,7 @@ public class ArenaCommand extends UHCCommand {
 		}
 
 		if (parkour.isParkouring(player)) {
-			throw new CommandException("You cannot join the arena while parkouring\n§cTo leave the parkour use /parkour leave!");
+			throw new CommandException("You cannot join the arena while parkouring\nÂ§cTo leave the parkour use /parkour leave!");
 		}
 
 		if (spec.isSpectating(player)) {

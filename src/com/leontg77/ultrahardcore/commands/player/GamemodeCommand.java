@@ -62,7 +62,7 @@ public class GamemodeCommand extends UHCCommand {
 				throw new CommandException("You cannot change your gamemode while spectating.");
 			}
 			
-			player.sendMessage(Main.PREFIX + "You are now in ง6" + mode.name().toLowerCase() + " ง7mode.");
+			player.sendMessage(Main.PREFIX + "You are now in ยง6" + mode.name().toLowerCase() + " ยง7mode.");
 			player.setGameMode(mode);
 			return true;
 		}
@@ -73,8 +73,8 @@ public class GamemodeCommand extends UHCCommand {
 			throw new CommandException("'" + args[1] + "' is not online.");
 		}
 
-		sender.sendMessage(Main.PREFIX + "You have changed งa" + target.getName() + "'s ง7gamemode to ง6" + mode.name().toLowerCase() + " ง7mode.");
-		target.sendMessage(Main.PREFIX + "You are now in ง6" + mode.name().toLowerCase() + " ง7mode.");
+		sender.sendMessage(Main.PREFIX + "You have changed ยงa" + target.getName() + "'s ยง7gamemode to ยง6" + mode.name().toLowerCase() + " ยง7mode.");
+		target.sendMessage(Main.PREFIX + "You are now in ยง6" + mode.name().toLowerCase() + " ยง7mode.");
 		
 		target.setGameMode(mode);
 		return true;

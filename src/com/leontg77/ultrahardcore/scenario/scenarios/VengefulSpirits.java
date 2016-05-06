@@ -27,7 +27,7 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  * @author LeonTG77
  */
 public class VengefulSpirits extends Scenario implements Listener {
-	private static final String PREFIX = "§fThe Spirit of ";
+	private static final String PREFIX = "Â§fThe Spirit of ";
 	
 	private final FeatureManager feat;
 	private final Settings settings;
