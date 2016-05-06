@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +18,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -74,10 +76,15 @@ public class SpectatorListener implements Listener {
 		}
 		
 		if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+			Block block = event.getClickedBlock();
+			
+			if (block != null && action == Action.RIGHT_CLICK_BLOCK && block instanceof InventoryHolder) {
+				return;
+			}
+			
 			SelectorGUI sel = gui.getGUI(SelectorGUI.class);
 			
 			sel.currentPage.put(player.getName(), 1);
-			
 			player.openInventory(sel.get());
 			return;
 		} 
