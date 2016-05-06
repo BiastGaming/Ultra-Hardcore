@@ -15,6 +15,8 @@ import org.bukkit.scoreboard.DisplaySlot;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.feature.FeatureManager;
+import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -27,8 +29,10 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class Paranoia extends Scenario implements Listener {
 	public static final String PREFIX = "§cParanoia §8» §a";
 	
-	private final BoardManager board;
 	private final Game game;
+	
+	private final FeatureManager feat;
+	private final BoardManager board;
 	
 	/**
 	 * Paranoia class constructor.
@@ -36,11 +40,13 @@ public class Paranoia extends Scenario implements Listener {
 	 * @param game The game class.
 	 * @param board The board manager class.
 	 */
-	public Paranoia(Game game, BoardManager board) {
+	public Paranoia(Game game, BoardManager board, FeatureManager feat) {
 		super("Paranoia", "Your coordinates are broadcasted when you mine diamonds/gold, craft or eat an golden apple, you craft an anvil or enchantment table or you die");
 		
-		this.board = board;
 		this.game = game;
+		
+		this.board = board;
+		this.feat = feat;
 	}
 
 	@Override
@@ -65,10 +71,23 @@ public class Paranoia extends Scenario implements Listener {
 		if (!game.getPlayers().contains(player)) {
 			return;
 		}
+
+		GoldenHeadsFeature ghead = feat.getFeature(GoldenHeadsFeature.class);
 		
+		ItemStack item = event.getItem();
 		Location loc = player.getLocation();
 		
-		if (event.getItem().getType() == Material.GOLDEN_APPLE) {
+		if (item.getType() == Material.GOLDEN_APPLE) {
+			if (ghead.isGoldenHead(item)) {
+				PlayerUtils.broadcast(PREFIX + player.getName() + "§f ate a §5Golden Head §fat " + location(loc));
+				return;
+			}
+			
+			if (item.getDurability() == 1) {
+				PlayerUtils.broadcast(PREFIX + player.getName() + "§f ate a §dNotch Apple §fat " + location(loc));
+				return;
+			}
+			
 			PlayerUtils.broadcast(PREFIX + player.getName() + "§f ate a §eGolden Apple §fat " + location(loc));
 		}
 	}
@@ -85,15 +104,28 @@ public class Paranoia extends Scenario implements Listener {
 		if (!game.getPlayers().contains(player)) {
 			return;
 		}
-		
+
+		GoldenHeadsFeature ghead = feat.getFeature(GoldenHeadsFeature.class);
 		ItemStack result = event.getRecipe().getResult();
 		
 		if (result.getType() == Material.GOLDEN_APPLE) {
+			if (ghead.isGoldenHead(result)) {
+				PlayerUtils.broadcast(PREFIX + player.getName() + "§f crafted a §5Golden Head §fat " + location(loc));
+				return;
+			}
+			
+			if (result.getDurability() == 1) {
+				PlayerUtils.broadcast(PREFIX + player.getName() + "§f crafted a §dNotch Apple §fat " + location(loc));
+				return;
+			}
+			
 			PlayerUtils.broadcast(PREFIX + player.getName() + "§f crafted a §eGolden Apple §fat " + location(loc));
+			return;
 		}
 		
 		if (result.getType() == Material.ANVIL) {
 			PlayerUtils.broadcast(PREFIX + player.getName() + "§f crafted an §dAnvil §fat " + location(loc));
+			return;
 		}
 		
 		if (result.getType() == Material.ENCHANTMENT_TABLE) {
