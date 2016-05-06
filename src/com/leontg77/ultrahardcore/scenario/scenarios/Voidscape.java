@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.leontg77.ultrahardcore.Main;
@@ -62,6 +63,15 @@ public class Voidscape extends Scenario implements CommandExecutor, Listener {
 		
 		totalChunks = 0;
 		task = null;
+	}
+
+	@EventHandler
+	public void on(BlockPhysicsEvent event) {
+		if (task == null) {
+			return;
+		}
+
+		event.setCancelled(true);
 	}
 
 	@EventHandler
@@ -124,7 +134,11 @@ public class Voidscape extends Scenario implements CommandExecutor, Listener {
 					PlayerUtils.broadcast(PREFIX + "The voidscape generation has finished.");
 					
 					cancel();
-					task = null;
+					new BukkitRunnable() {
+						public void run() {
+							task = null;
+						}
+					}.runTaskLater(plugin, 40);
 					return;
 				}
 
