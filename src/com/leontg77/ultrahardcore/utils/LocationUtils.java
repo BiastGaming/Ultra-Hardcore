@@ -73,6 +73,7 @@ public class LocationUtils {
 				return loc.getWorld().getBlockAt(loc.getBlockX(), i, loc.getBlockZ()).getLocation();
 			}
 		}
+		
 		return loc;
 	}
 	
