@@ -124,6 +124,7 @@ public class PermissionsManager {
 		perm.setPermission("uhc.tp", true);
 		perm.setPermission("uhc.back", true);
 		perm.setPermission("uhc.specandstaffchat", true);
+		perm.setPermission("uhc.spectatorchatprotection", true);
 		
 		if (UBL_COMMITEE_UUIDS.contains(player.getUniqueId().toString())) {
 			perm.setPermission("uhc.prelist", true);

@@ -16,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.InventoryHolder;
@@ -40,6 +41,7 @@ import com.leontg77.ultrahardcore.utils.LocationUtils;
  * @author LeonTG77
  */
 public class SpectatorListener implements Listener {
+	private final Main plugin;
 	private final Game game;
 
 	private final SpecManager spec;
@@ -49,13 +51,15 @@ public class SpectatorListener implements Listener {
 	
 	/**
 	 * Spectator listener class constructor.
-	 * 
+	 *
+	 * @param plugin
 	 * @param game The game class.
 	 * @param spec The spectator manager class.
 	 * @param gui The inv gui class.
 	 * @param nether The nether feature class.
 	 */
-	public SpectatorListener(Game game, SpecManager spec, GUIManager gui, NetherFeature nether) {
+	public SpectatorListener(Main plugin, Game game, SpecManager spec, GUIManager gui, NetherFeature nether) {
+		this.plugin = plugin;
 		this.game = game;
 		
 		this.spec = spec;
@@ -65,6 +69,22 @@ public class SpectatorListener implements Listener {
 	}
 	
 	private final Random rand = new Random();
+
+	@EventHandler
+	public void on(AsyncPlayerChatEvent event) {
+		Player player = event.getPlayer();
+		if (!spec.isSpectating(player)) {
+			return;
+		}
+
+		if (!spec.getSpecChatProtected().contains(player.getName())) {
+			return;
+		}
+
+		event.setCancelled(true);
+		String message = event.getMessage();
+		Bukkit.getScheduler().runTask(plugin, () -> player.performCommand("specchat " + message));
+	}
 
 	@EventHandler
     public void on(PlayerInteractEvent event) {	

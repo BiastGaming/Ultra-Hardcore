@@ -258,7 +258,7 @@ public class Main extends JavaPlugin {
 		manager.registerEvents(new PlayerListener(this, spec), this);
 		manager.registerEvents(new ProtectionListener(game), this);
 		manager.registerEvents(new PushToSpawnListener(this, parkour), this);
-		manager.registerEvents(new SpectatorListener(game, spec, gui, feat.getFeature(NetherFeature.class)), this);
+		manager.registerEvents(new SpectatorListener(this, game, spec, gui, feat.getFeature(NetherFeature.class)), this);
 		manager.registerEvents(new StatsListener(this, arena, game, board, teams, feat.getFeature(GoldenHeadsFeature.class)), this);
 		manager.registerEvents(new WorldListener(arena), this);
 		manager.registerEvents(new UBLListener(ubl), this);
