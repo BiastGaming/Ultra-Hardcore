@@ -3,6 +3,7 @@ package com.leontg77.ultrahardcore.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.leontg77.ultrahardcore.commands.spectate.SpectatorChatProtectionCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -294,6 +295,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 		cmds.add(new InvseeCommand(gui, spec));
 		cmds.add(new NearCommand(spec, teams));
 		cmds.add(new SpectateCommand(game, spec));
+		cmds.add(new SpectatorChatProtectionCommand(spec));
 		cmds.add(new SpecAndStaffChatCommand(spec));
 		cmds.add(new SpecChatCommand(spec));
 		cmds.add(new SpeedCommand(spec));

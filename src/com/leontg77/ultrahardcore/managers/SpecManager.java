@@ -84,6 +84,7 @@ public class SpecManager {
 	private final Set<String> spectators = new HashSet<String>();
 	private final Set<String> specinfo = new HashSet<String>();
 	private final Set<String> cmdspies = new HashSet<String>();
+	private final Set<String> specchatprotected = new HashSet<String>();
 	
 	/**
 	 * Get the instance of the specinfo class.
@@ -119,6 +120,13 @@ public class SpecManager {
 	 */
 	public Set<String> getCommandSpies() {
 		return cmdspies;
+	}
+
+	/**
+	 * @return List of players that have spectator chat protection enabled.
+	 */
+	public Set<String> getSpecChatProtected() {
+		return specchatprotected;
 	}
 	
 	/**
@@ -204,7 +212,6 @@ public class SpecManager {
 	 * Disable spectator mode for the given player.
 	 * 
 	 * @param player the player disabling for.
-	 * @param force force the disabling.
 	 */
 	public void disableSpecmode(Player player) {
 		player.setGameMode(GameMode.SURVIVAL);
