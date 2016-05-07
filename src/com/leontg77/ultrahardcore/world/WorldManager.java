@@ -90,10 +90,14 @@ public class WorldManager {
 		creator.type(type);
 		creator.seed(seed);
 		
-		if (newStone) {
-			creator.generatorSettings("{\"useMonuments\":false}");
+		if (type == WorldType.FLAT) {
+			creator.generatorSettings("3;minecraft:bedrock,2*minecraft:dirt,minecraft:grass;1;village(size=65535 distance=9)");
 		} else {
-			creator.generatorSettings("{\"useMonuments\":false,\"graniteSize\":1,\"graniteCount\":0,\"graniteMinHeight\":0,\"graniteMaxHeight\":0,\"dioriteSize\":1,\"dioriteCount\":0,\"dioriteMinHeight\":0,\"dioriteMaxHeight\":0,\"andesiteSize\":1,\"andesiteCount\":0,\"andesiteMinHeight\":0,\"andesiteMaxHeight\":0}");
+			if (newStone) {
+				creator.generatorSettings("{\"useMonuments\":false}");
+			} else {
+				creator.generatorSettings("{\"useMonuments\":false,\"graniteSize\":1,\"graniteCount\":0,\"graniteMinHeight\":0,\"graniteMaxHeight\":0,\"dioriteSize\":1,\"dioriteCount\":0,\"dioriteMinHeight\":0,\"dioriteMaxHeight\":0,\"andesiteSize\":1,\"andesiteCount\":0,\"andesiteMinHeight\":0,\"andesiteMaxHeight\":0}");
+			}
 		}
 		
 		World world = creator.createWorld();
@@ -125,10 +129,6 @@ public class WorldManager {
 	 * @return True if it was deleted, false otherwise.
 	 */
 	public boolean deleteWorld(World world) {
-		for (Player player : world.getPlayers()) {
-			player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
-		}
-		
 		for (Player player : world.getPlayers()) {
 			player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
 		}
