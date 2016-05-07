@@ -147,8 +147,8 @@ public class InfoCommand extends UHCCommand {
 				String reason = user.getFile().getString("punishments." + punish + ".reason", "none");
 				
 				long created = user.getFile().getLong("punishments." + punish + ".created", -1l);
-				long expire = user.getFile().getLong("punishments." + punish + ".expires", -1l);
-
+				long expire = user.getFile().getLong("punishments." + punish + ".expires", -1l); 
+				
 				String from = created == -1l ? "now" : dateFormat.format(new Date(created));
 				String to = expire == -1l ? "forever" : dateFormat.format(new Date(expire));
 
