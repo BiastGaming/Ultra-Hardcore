@@ -131,6 +131,17 @@ public class PunishUtils {
 				break;
 			}
 		}
+
+		for (String punish : user.getFile().getConfigurationSection("punishments").getKeys(false)) {
+			long created = user.getFile().getLong("punishments." + punish + ".created", -2l);
+			long expires = user.getFile().getLong("punishments." + punish + ".expires", -2l);
+			
+			if ((expires - created) < 300000) {
+				user.getFile().set("punishments." + punish, null);
+				user.saveFile();
+				break;
+			}
+		}
 	}
 	
 	/**
