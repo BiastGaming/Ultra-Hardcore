@@ -498,7 +498,7 @@ public class SpecInfo implements Listener {
 
 					String kHealth = NumberUtils.makePercent(killer.getHealth()).substring(2) + "%";
 					
-					broadcast("§8(§cPvP§8) §7" + name(killer) + "§8 -§7M§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8] [§7§oD: §c§o" + distance + "§8]");
+					broadcast("§8(§cPvP§8) §7" + name(killer) + "§8 -§7M§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8] [§7§oD: §c§o" + distance + "§8]");
 					return;
 				}
 				
@@ -512,13 +512,13 @@ public class SpecInfo implements Listener {
 						String kHealth = NumberUtils.makePercent(shooter.getHealth()).substring(2) + "%";
 						
 						if (proj instanceof Arrow) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7B§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7B§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (proj instanceof Snowball) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7S§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7S§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (proj instanceof Egg) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7E§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7E§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (!(proj instanceof FishHook) && !(proj instanceof EnderPearl)) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7???§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7???§8» §7" + name(player) + " §8[§a" + kHealth + " §7» §a" + pHealth + "§8] [§6" + taken + "§8]");
 						}
 						return;
 					} 
