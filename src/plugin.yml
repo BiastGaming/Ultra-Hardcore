@@ -150,6 +150,7 @@ commands:
     description: Talk in StaffChat.
   spectatorchatprotection:
     description: Enable/disable spectator chat protection.
+    aliases: [scp]
   start:
     description: Start command.
   stats:
