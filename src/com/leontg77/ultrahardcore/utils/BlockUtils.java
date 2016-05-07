@@ -136,7 +136,7 @@ public class BlockUtils {
 		return block.getState().getData().toItemStack().getDurability();
 	}
 
-	private static final int VEIN_LIMIT = 30;
+	private static final int VEIN_LIMIT = 100;
 
 	/**
 	 * Get the ore vein at the given location.
