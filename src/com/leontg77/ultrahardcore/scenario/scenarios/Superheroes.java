@@ -122,10 +122,10 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
 		
 		if (args.length == 0) {
 			sender.sendMessage(Main.PREFIX + "Help for Superheroes:");
-			sender.sendMessage("§8§ §7/super list §8- §f§oList all classes and who has them.");
-			sender.sendMessage("§8§ §7/super apply §8- §f§oReapply the effects.");
-			sender.sendMessage("§8§ §7/super set <player> §8- §f§oAdd a random effect to a player.");
-			sender.sendMessage("§8§ §7/super clear <player> §8- §f§oClears the players effects.");
+			sender.sendMessage(Main.ARROW + "/super list §8- §f§oList all classes and who has them.");
+			sender.sendMessage(Main.ARROW + "/super apply §8- §f§oReapply the effects.");
+			sender.sendMessage(Main.ARROW + "/super set <player> §8- §f§oAdd a random effect to a player.");
+			sender.sendMessage(Main.ARROW + "/super clear <player> §8- §f§oClears the players effects.");
 			return true;
 		}
 		
@@ -239,19 +239,19 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
 			}
 			
 			sender.sendMessage(Main.PREFIX + "List of types:");
-			sender.sendMessage("§8§ §7Health: " + health.toString().trim());
-			sender.sendMessage("§8§ §7Invis: " + invis.toString().trim());
-			sender.sendMessage("§8§ §7Jump: " + jump.toString().trim());
-			sender.sendMessage("§8§ §7Resistance: " + resistance.toString().trim());
-			sender.sendMessage("§8§ §7Speed: " + speed.toString().trim());
-			sender.sendMessage("§8§ §7Strength: " + strength.toString().trim());
+			sender.sendMessage(Main.ARROW + "Health: " + health.toString().trim());
+			sender.sendMessage(Main.ARROW + "Invis: " + invis.toString().trim());
+			sender.sendMessage(Main.ARROW + "Jump: " + jump.toString().trim());
+			sender.sendMessage(Main.ARROW + "Resistance: " + resistance.toString().trim());
+			sender.sendMessage(Main.ARROW + "Speed: " + speed.toString().trim());
+			sender.sendMessage(Main.ARROW + "Strength: " + strength.toString().trim());
 		}
 		
 		sender.sendMessage(Main.PREFIX + "Help for Superheroes:");
-		sender.sendMessage("§8§ §7/super list §8- §f§oList all classes and who has them.");
-		sender.sendMessage("§8§ §7/super apply §8- §f§oReapply the effects.");
-		sender.sendMessage("§8§ §7/super set <player> §8- §f§oAdd a random effect to a player.");
-		sender.sendMessage("§8§ §7/super clear <player> §8- §f§oClears the players effects.");
+		sender.sendMessage(Main.ARROW + "/super list §8- §f§oList all classes and who has them.");
+		sender.sendMessage(Main.ARROW + "/super apply §8- §f§oReapply the effects.");
+		sender.sendMessage(Main.ARROW + "/super set <player> §8- §f§oAdd a random effect to a player.");
+		sender.sendMessage(Main.ARROW + "/super clear <player> §8- §f§oClears the players effects.");
 		return true;
 	}
 	

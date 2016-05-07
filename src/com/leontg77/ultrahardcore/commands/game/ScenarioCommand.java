@@ -95,7 +95,7 @@ public class ScenarioCommand extends UHCCommand {
 				}
 				
 				sender.sendMessage(Main.PREFIX + "List of all scenarios: §8(§6" + manager.getScenarios().size() + "§8)");
-				sender.sendMessage("§8§ §7" + list.toString().trim());
+				sender.sendMessage(Main.ARROW + list.toString().trim());
 				return true;
 			}
 
@@ -111,7 +111,7 @@ public class ScenarioCommand extends UHCCommand {
 				}
 				
 				sender.sendMessage(Main.PREFIX + "Information about §6" + scen.getName() + "§8:");
-				sender.sendMessage("§8§ §f§o" + scen.getDescription());
+				sender.sendMessage(Main.ARROW + "§f§o" + scen.getDescription());
 				return true;
 			}
 		}
@@ -121,12 +121,12 @@ public class ScenarioCommand extends UHCCommand {
        	sender.sendMessage(Main.PREFIX + "Currently enabled scenarios: §8(§6" + (size == 0 ? 1 : size) + "§8)");
 		
 		if (size == 0) {
-       		sender.sendMessage("§8§ §7Vanilla+ §8- §f§oA normal UHC with a few tweaks.");
+       		sender.sendMessage(Main.ARROW + "Vanilla+ §8- §f§oA normal UHC with a few tweaks.");
 			return true;
 		}
        	
        	for (Scenario scen : manager.getEnabledScenarios()) {
-       		sender.sendMessage("§8§ §7" + scen.getName() + " §8- §f§o" + scen.getDescription());
+       		sender.sendMessage(Main.ARROW + scen.getName() + " §8- §f§o" + scen.getDescription());
        	}
 		return true;
 	}

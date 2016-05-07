@@ -85,21 +85,21 @@ public class StatsGUI extends GUI implements Listener {
 		ItemStack general = new ItemStack (Material.SIGN);
 		ItemMeta generalMeta = general.getItemMeta();
 		
-		generalMeta.setDisplayName("§8§ §6General Stats §8§");
+		generalMeta.setDisplayName("§8» §6General Stats §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Games played: §a" + user.getStat(Stat.GAMESPLAYED));
-		lore.add("§8§ §7Wins: §a" + user.getStat(Stat.WINS));
+		lore.add("§8» §7Games played: §a" + user.getStat(Stat.GAMESPLAYED));
+		lore.add("§8» §7Wins: §a" + user.getStat(Stat.WINS));
 		lore.add(" ");
-		lore.add("§8§ §7Hostile kills: §a" + user.getStat(Stat.HOSTILEMOBKILLS));
-		lore.add("§8§ §7Animal kills: §a" + user.getStat(Stat.ANIMALKILLS));
+		lore.add("§8» §7Hostile kills: §a" + user.getStat(Stat.HOSTILEMOBKILLS));
+		lore.add("§8» §7Animal kills: §a" + user.getStat(Stat.ANIMALKILLS));
 		
 		String sDamage = NumberUtils.makePercent(user.getStatDouble(Stat.DAMAGETAKEN));
 		int iDamage = Integer.parseInt(sDamage.substring(2));
 		
-		lore.add("§8§ §7Damage taken: §a" + NumberUtils.formatInt(iDamage) + "%");
+		lore.add("§8» §7Damage taken: §a" + NumberUtils.formatInt(iDamage) + "%");
 		lore.add(" ");
-		lore.add("§8§ §7Longest Shot: §a" + NumberUtils.formatDouble(user.getStatDouble(Stat.LONGESTSHOT)));
-		lore.add("§8§ §7Levels Earned: §a" + user.getStat(Stat.LEVELS));
+		lore.add("§8» §7Longest Shot: §a" + NumberUtils.formatDouble(user.getStatDouble(Stat.LONGESTSHOT)));
+		lore.add("§8» §7Levels Earned: §a" + user.getStat(Stat.LEVELS));
 		lore.add(" ");
 		
 		generalMeta.setLore(lore);
@@ -110,13 +110,13 @@ public class StatsGUI extends GUI implements Listener {
 		ItemStack pvpmining = new ItemStack (Material.DIAMOND_AXE);
 		ItemMeta pvpminingMeta = pvpmining.getItemMeta();
 		
-		pvpminingMeta.setDisplayName("§8§ §6PvP & Mining Stats §8§");
+		pvpminingMeta.setDisplayName("§8» §6PvP & Mining Stats §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Highest Arena Killstreak: §a" + user.getStat(Stat.ARENAKILLSTREAK));
-		lore.add("§8§ §7Highest Killstreak: §a" + user.getStat(Stat.KILLSTREAK));
+		lore.add("§8» §7Highest Arena Killstreak: §a" + user.getStat(Stat.ARENAKILLSTREAK));
+		lore.add("§8» §7Highest Killstreak: §a" + user.getStat(Stat.KILLSTREAK));
 		lore.add(" ");
-		lore.add("§8§ §7Kills: §a" + user.getStat(Stat.KILLS));
-		lore.add("§8§ §7Deaths: §a" + user.getStat(Stat.DEATHS));
+		lore.add("§8» §7Kills: §a" + user.getStat(Stat.KILLS));
+		lore.add("§8» §7Deaths: §a" + user.getStat(Stat.DEATHS));
 		
 		double kdr;
 		
@@ -126,13 +126,13 @@ public class StatsGUI extends GUI implements Listener {
 			kdr = ((double) user.getStat(Stat.KILLS)) / ((double) user.getStat(Stat.DEATHS));
 		}
 		
-		lore.add("§8§ §7KDR: §a" + NumberUtils.formatDouble(kdr));
+		lore.add("§8» §7KDR: §a" + NumberUtils.formatDouble(kdr));
 		lore.add(" ");
-		lore.add("§8§ §7Diamonds mined: §a" + user.getStat(Stat.DIAMONDS));
-		lore.add("§8§ §7Gold mined: §a" + user.getStat(Stat.GOLD));
+		lore.add("§8» §7Diamonds mined: §a" + user.getStat(Stat.DIAMONDS));
+		lore.add("§8» §7Gold mined: §a" + user.getStat(Stat.GOLD));
 		lore.add(" ");
-		lore.add("§8§ §7Arena Kills: §a" + user.getStat(Stat.ARENAKILLS));
-		lore.add("§8§ §7Arena Deaths: §a" + user.getStat(Stat.ARENADEATHS));
+		lore.add("§8» §7Arena Kills: §a" + user.getStat(Stat.ARENAKILLS));
+		lore.add("§8» §7Arena Deaths: §a" + user.getStat(Stat.ARENADEATHS));
 		
 		double arenakdr;
 		
@@ -142,7 +142,7 @@ public class StatsGUI extends GUI implements Listener {
 			arenakdr = ((double) user.getStat(Stat.ARENAKILLS)) / ((double) user.getStat(Stat.ARENADEATHS));
 		}
 		
-		lore.add("§8§ §7Arena KDR: §a" + NumberUtils.formatDouble(arenakdr));
+		lore.add("§8» §7Arena KDR: §a" + NumberUtils.formatDouble(arenakdr));
 		lore.add(" ");
 		pvpminingMeta.setLore(lore); 
 		pvpminingMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS);
@@ -154,17 +154,17 @@ public class StatsGUI extends GUI implements Listener {
 		ItemStack misc = new ItemStack (Material.NETHER_STALK);
 		ItemMeta miscMeta = misc.getItemMeta();
 		
-		miscMeta.setDisplayName("§8§ §6Misc Stats §8§");
+		miscMeta.setDisplayName("§8» §6Misc Stats §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Golden Apples eaten: §a" + user.getStat(Stat.GOLDENAPPLESEATEN));
-		lore.add("§8§ §7Golden Heads eaten: §a" + user.getStat(Stat.GOLDENHEADSEATEN));
-		lore.add("§8§ §7Potions drunk: §a" + user.getStat(Stat.POTIONS));
+		lore.add("§8» §7Golden Apples eaten: §a" + user.getStat(Stat.GOLDENAPPLESEATEN));
+		lore.add("§8» §7Golden Heads eaten: §a" + user.getStat(Stat.GOLDENHEADSEATEN));
+		lore.add("§8» §7Potions drunk: §a" + user.getStat(Stat.POTIONS));
 		lore.add(" ");
-		lore.add("§8§ §7Nethers entered: §a" + user.getStat(Stat.NETHER));
-		lore.add("§8§ §7Ends entered: §a" + user.getStat(Stat.END));
+		lore.add("§8» §7Nethers entered: §a" + user.getStat(Stat.NETHER));
+		lore.add("§8» §7Ends entered: §a" + user.getStat(Stat.END));
 		lore.add(" ");
-		lore.add("§8§ §7Horses tamed: §a" + user.getStat(Stat.HORSESTAMED));
-		lore.add("§8§ §7Wolves tamed: §a" + user.getStat(Stat.WOLVESTAMED));
+		lore.add("§8» §7Horses tamed: §a" + user.getStat(Stat.HORSESTAMED));
+		lore.add("§8» §7Wolves tamed: §a" + user.getStat(Stat.WOLVESTAMED));
 		lore.add(" ");
 		
 		miscMeta.setLore(lore);

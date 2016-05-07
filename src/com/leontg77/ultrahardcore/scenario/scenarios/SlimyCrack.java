@@ -27,7 +27,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author dans1988
  */
 public class SlimyCrack extends Scenario implements Listener, CommandExecutor {
-    public static final String PREFIX = "§aSlimyCrack §8§ §f";
+    public static final String PREFIX = "§aSlimyCrack §8» §f";
     
 	private static final int CHUNK_HEIGHT_LIMIT = 128;
     private static final int BLOCKS_PER_CHUNK = 16;

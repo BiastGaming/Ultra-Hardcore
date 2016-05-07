@@ -57,19 +57,19 @@ public class ListCommand extends UHCCommand {
     	sender.sendMessage(Main.PREFIX + "There are §6" + playersOnline + " §7out of§6 " + game.getMaxPlayers() + " §7players online.");
     	
     	if (!ownerList.isEmpty()) {
-        	sender.sendMessage("§8§ §7Owners§8: §a" + ownerList + "§8.");
+        	sender.sendMessage(Main.ARROW + "Owners§8: §a" + ownerList + "§8.");
     	}
     	
     	if (!staffList.isEmpty()) {
-        	sender.sendMessage("§8§ §7Staff§8: §a" + staffList + "§8.");
+        	sender.sendMessage(Main.ARROW + "Staff§8: §a" + staffList + "§8.");
     	}
     	
     	if (!donatorList.isEmpty()) {
-        	sender.sendMessage("§8§ §7Donators§8: §a" + donatorList + "§8.");
+        	sender.sendMessage(Main.ARROW + "Donators§8: §a" + donatorList + "§8.");
     	}
     	
     	if (!playerList.isEmpty()) {
-        	sender.sendMessage("§8§ §7Players§8: §a" + playerList + "§8.");
+        	sender.sendMessage(Main.ARROW + "Players§8: §a" + playerList + "§8.");
     	}
 		return true;
 	}

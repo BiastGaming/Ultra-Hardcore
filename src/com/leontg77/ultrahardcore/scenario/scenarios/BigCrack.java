@@ -27,7 +27,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author dans1988
  */
 public class BigCrack extends Scenario implements Listener, CommandExecutor {
-    public static final String PREFIX = "§bBigCrack §8§ §7";
+    public static final String PREFIX = "§bBigCrack §8» §7";
 	
 	private final Main plugin;
 

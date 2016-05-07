@@ -26,7 +26,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Timebomb extends Scenario implements Listener {
-	public static final String PREFIX = "§4Timebomb §8§ §7";
+	public static final String PREFIX = "§4Timebomb §8» §7";
 
 	private final Main plugin;
 	private final Game game;

@@ -157,14 +157,14 @@ public class Main extends JavaPlugin {
 	
 	public static final String NO_PERMISSION_MESSAGE = "§cYou don't have permission.";
  
-	public static final String BORDER_PREFIX = "§cBorder §8§ §7";
-	public static final String ALERT_PREFIX = "§6Alert §8§ §7";
-	public static final String STAFF_PREFIX = "§cStaff §8§ §7";
-	public static final String SPEC_PREFIX = "§5Spec §8§ §7";
-	public static final String INFO_PREFIX = "§aInfo §8§ §7";
-	public static final String SCEN_PREFIX = "§9Scenario §8§ §7";
-	public static final String PREFIX = "§4§lUHC §8§ §7";
-	public static final String ARROW = "§8§ §7";
+	public static final String BORDER_PREFIX = "§cBorder §8» §7";
+	public static final String ALERT_PREFIX = "§6Alert §8» §7";
+	public static final String STAFF_PREFIX = "§cStaff §8» §7";
+	public static final String SPEC_PREFIX = "§5Spec §8» §7";
+	public static final String INFO_PREFIX = "§aInfo §8» §7";
+	public static final String SCEN_PREFIX = "§9Scenario §8» §7";
+	public static final String PREFIX = "§4§lUHC §8» §7";
+	public static final String ARROW = "§8» §7";
 	
 	@Override
 	public void onDisable() {
@@ -228,7 +228,7 @@ public class Main extends JavaPlugin {
 
 		scen.registerScenarios(arena, game, timer, teams, spec, settings, feat, scatter, board);
 		feat.registerFeatures(arena, game, timer, board, teams, spec, enchPreview, hardHearts, scen);
-		cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter, ubl);
+		cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter, ubl, antiSM);
 
 		swap.setup();
 		worlds.loadWorlds();

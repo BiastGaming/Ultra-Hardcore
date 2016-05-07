@@ -30,7 +30,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class DeathSentence extends Scenario implements CommandExecutor, Listener {
-	private static final String PREFIX = "§7Death Sentence §8§ §c";
+	private static final String PREFIX = "§7Death Sentence §8» §c";
 	
 	private final Main plugin;
 	private final Game game;

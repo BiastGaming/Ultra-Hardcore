@@ -105,7 +105,7 @@ public class WorldData {
 		for (Material type : remaining.keySet()) {
 			int amount = remaining.get(type);
 			
-			sender.sendMessage("§8§ §7" + type.name() + "§8: §a" + amount + " §7remaining in §6" + chunks + " §7chunks §8(§7average §6" + (amount / chunks) + " §7per chunk§8)");
+			sender.sendMessage(Main.ARROW + type.name() + "§8: §a" + amount + " §7remaining in §6" + chunks + " §7chunks §8(§7average §6" + (amount / chunks) + " §7per chunk§8)");
 		}
 	}
 

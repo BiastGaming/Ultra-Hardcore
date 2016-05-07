@@ -39,7 +39,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Snowday extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "§fSnowday §8§ §7";
+	public static final String PREFIX = "§fSnowday §8» §7";
 
 	private final Main plugin;
 	private final Game game;

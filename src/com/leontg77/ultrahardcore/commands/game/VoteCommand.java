@@ -53,9 +53,9 @@ public class VoteCommand extends UHCCommand {
 		no = 0;
         
         PlayerUtils.broadcast(Main.PREFIX + "A vote has started for: §6" + message + "§7.");
-        PlayerUtils.broadcast("§8§ §7Say §a'y'§7 or §c'n'§7 in chat to vote.");
+        PlayerUtils.broadcast(Main.ARROW + "Say §a'y'§7 or §c'n'§7 in chat to vote.");
         
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "timer 30 &7The vote ends in &8§&a");
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "timer 30 &7The vote ends in &8»&a");
         
         run = new BukkitRunnable() {
 			public void run() {

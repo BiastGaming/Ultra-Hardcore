@@ -48,7 +48,7 @@ public class AssaultAndBattery extends Scenario implements Listener, CommandExec
 	
 	private final Map<String, Type> types = new HashMap<String, Type>();
 	
-	private static final String PREFIX = "§bA&B §8§ §7";
+	private static final String PREFIX = "§bA&B §8» §7";
 
 	@Override
 	public void onDisable() {
@@ -235,13 +235,13 @@ public class AssaultAndBattery extends Scenario implements Listener, CommandExec
 			}
 			
 			player.sendMessage(PREFIX + "§8====§e Assaulters §8====");
-			player.sendMessage("§8§ §7" + (assault.length() == 0 ? "None" : assault.toString()) + "§8.");
+			player.sendMessage("§8» §7" + (assault.length() == 0 ? "None" : assault.toString()) + "§8.");
 			
 			player.sendMessage(PREFIX + "§8====§e Batteries §8====");
-			player.sendMessage("§8§ §7" + (battery.length() == 0 ? "None" : battery.toString()) + "§8.");
+			player.sendMessage("§8» §7" + (battery.length() == 0 ? "None" : battery.toString()) + "§8.");
 			
 			player.sendMessage(PREFIX + "§8====§e Both §8====");
-			player.sendMessage("§8§ §7" + (both.length() == 0 ? "None" : both.toString()) + "§8.");
+			player.sendMessage("§8» §7" + (both.length() == 0 ? "None" : both.toString()) + "§8.");
 		}
 		return true;
 	}

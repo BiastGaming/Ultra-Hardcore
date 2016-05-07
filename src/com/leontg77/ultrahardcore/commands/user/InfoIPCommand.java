@@ -36,7 +36,7 @@ public class InfoIPCommand extends UHCCommand {
 				continue;
 			}
 			
-			sender.sendMessage("§8§ §7" + file.getString("username", "Unknown"));
+			sender.sendMessage(Main.ARROW + file.getString("username", "Unknown"));
 		}
 		return true;
 	}

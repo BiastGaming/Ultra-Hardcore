@@ -22,7 +22,7 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class BenchBlitz extends Scenario implements Listener {
-	private static final String PREFIX = "§6§lBenchBlitz §8§ §7";
+	private static final String PREFIX = "§6§lBenchBlitz §8» §7";
 
 	private final Game game;
 	

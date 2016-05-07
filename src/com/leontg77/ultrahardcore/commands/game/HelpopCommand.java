@@ -22,7 +22,7 @@ import com.leontg77.ultrahardcore.managers.SpecManager;
  * @author LeonTG77
  */
 public class HelpopCommand extends UHCCommand {
-	private static final String PREFIX = "§4Help§8-§4Op §8§ §7";
+	private static final String PREFIX = "§4Help§8-§4Op §8» §7";
 	
 	private final SpecManager spec;
 	private final Main plugin;

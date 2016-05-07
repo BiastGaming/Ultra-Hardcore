@@ -27,7 +27,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Paranoia extends Scenario implements Listener {
-	public static final String PREFIX = "§cParanoia §8§ §a";
+	public static final String PREFIX = "§cParanoia §8» §a";
 	
 	private final Game game;
 	

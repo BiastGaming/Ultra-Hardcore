@@ -21,7 +21,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class Inventors extends Scenario implements Listener {
 	private final Set<String> craftedItems = new HashSet<String>();
-	private static final String PREFIX = "§a§lInventors §8§ §f";
+	private static final String PREFIX = "§aInventors §8» §f";
 
 	public Inventors() {
 		super("Inventors", "The first person to craft any item will be broadcasted in chat.");

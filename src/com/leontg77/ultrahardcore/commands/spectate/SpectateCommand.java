@@ -66,7 +66,7 @@ public class SpectateCommand extends UHCCommand {
 			}
 	    			
 	    	sender.sendMessage(Main.PREFIX + "There are §6" + (i - 1) + " §7spectators.");
-	    	sender.sendMessage("§8§ §7Spectators§8: §a" + spectatorList.toString() + "§8.");
+	    	sender.sendMessage(Main.ARROW + "Spectators§8: §a" + spectatorList.toString() + "§8.");
 			return true;
 		}
 		

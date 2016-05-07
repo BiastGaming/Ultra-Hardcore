@@ -73,7 +73,7 @@ public class NearCommand extends UHCCommand {
 		}
 		
 		player.sendMessage(Main.PREFIX + "Nearby players: §8(§7Radius: §6" + radius + "§8)");
-		player.sendMessage("§8§ §7" + (nearList.length() > 0 ? nearList.toString().trim() : "There are no players nearby."));
+		player.sendMessage(Main.ARROW + (nearList.length() > 0 ? nearList.toString().trim() : "There are no players nearby."));
 		return true;
 	}
 

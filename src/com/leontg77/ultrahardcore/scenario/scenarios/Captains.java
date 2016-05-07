@@ -25,7 +25,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Captains extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "§6Captains §8§ §7";
+	public static final String PREFIX = "§6Captains §8» §7";
 	
 	private final TeamManager teams;
 	private final SpecManager spec;

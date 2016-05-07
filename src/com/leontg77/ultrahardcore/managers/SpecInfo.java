@@ -1,7 +1,9 @@
 package com.leontg77.ultrahardcore.managers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -160,7 +162,7 @@ public class SpecInfo implements Listener {
 			return;
 		}
 		
-		Set<Block> vein = new HashSet<Block>();
+		List<Block> vein = new ArrayList<Block>();
 		BlockUtils.getVein(loc.getBlock(), vein);
 		
 		int amount = vein.size();
@@ -183,10 +185,10 @@ public class SpecInfo implements Listener {
 			}
 		} else {
 			if (block.getType() == Material.GOLD_ORE) {
-				broadcast(name(player) + " §8§ §6Gold §8[§7V: §6" + amount + "§8] [§7T: §6" + total.get(type) + "§8]");
+				broadcast(name(player) + " §8» §6Gold §8[§7V: §6" + amount + "§8] [§7T: §6" + total.get(type) + "§8]");
 			} 
 			else if (block.getType() == Material.DIAMOND_ORE) {
-				broadcast(name(player) + " §8§ §bDiamonds §8[§7V: §b" + amount + "§8] [§7T: §b" + total.get(type) + "§8]");
+				broadcast(name(player) + " §8» §bDiamonds §8[§7V: §b" + amount + "§8] [§7T: §b" + total.get(type) + "§8]");
 			}
 		}
 	}
@@ -216,7 +218,7 @@ public class SpecInfo implements Listener {
 		Location from = event.getFrom();
 		Location to = event.getTo();
 		
-		broadcast("§8(§5Pearl§8) §7" + name(player) + " §8§ §d" + NumberUtils.formatDouble(from.distance(to)) + " blocks");
+		broadcast("§8(§5Pearl§8) §7" + name(player) + " §8» §d" + NumberUtils.formatDouble(from.distance(to)) + " blocks");
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -263,7 +265,7 @@ public class SpecInfo implements Listener {
 			break;
 		}
 		
-		broadcast("§8(§dPortal§8) §7" + name(player) + "§8 § " + fromEnv + " §7-§ " + toEnv);
+		broadcast("§8(§dPortal§8) §7" + name(player) + "§8 » " + fromEnv + " §7-» " + toEnv);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -274,16 +276,16 @@ public class SpecInfo implements Listener {
 		switch (item.getType()) {
 		case GOLDEN_APPLE:
 			if (item.hasItemMeta() && item.getItemMeta().hasLore() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("§6Golden Head")) {
-				broadcast("§8(§aHeal§8) §7" + name(player) + "§8 § §5Golden Head");
+				broadcast("§8(§aHeal§8) §7" + name(player) + "§8 » §5Golden Head");
 				return;
 			}
 			
 			if (item.getDurability() == 1) {
-				broadcast("§8(§aHeal§8) §7" + name(player) + "§8 § §dNotch Apple");
+				broadcast("§8(§aHeal§8) §7" + name(player) + "§8 » §dNotch Apple");
 				return;
 			}
 			
-			broadcast("§8(§aHeal§8) §7" + name(player) + "§8 § §6Golden Apple");
+			broadcast("§8(§aHeal§8) §7" + name(player) + "§8 » §6Golden Apple");
 			return;
 		case POTION:
 			Potion pot;
@@ -305,11 +307,11 @@ public class SpecInfo implements Listener {
 				int duration = effect.getDuration() / 20;
 				
 				if (duration > 0) {
-					broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7D§8§ §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.ticksToString(duration) + "§8]");
+					broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7D§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.ticksToString(duration) + "§8]");
 					continue;
 				}
 				
-				broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7D§8§ §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8]");
+				broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7D§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8]");
 			}
 			return;
 		default:
@@ -345,11 +347,11 @@ public class SpecInfo implements Listener {
 			int duration = effect.getDuration() / 20;
 			
 			if (duration > 0) {
-				broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7S§8§ §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.ticksToString(duration) + "§8]");
+				broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7S§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.ticksToString(duration) + "§8]");
 				continue;
 			}
 			
-			broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7S§8§ §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8]");
+			broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7S§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8]");
 		}
 	}
 
@@ -365,43 +367,43 @@ public class SpecInfo implements Listener {
 		switch (item.getType()) {
 		case GOLDEN_APPLE:
 			if (item.hasItemMeta() && item.getItemMeta().hasLore() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("§6Golden Head")) {
-				broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §5Golden Head");
+				broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §5Golden Head");
 				return;
 			}
 			
 			if (item.getDurability() == 1) {
-				broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §dNotch Apple");
+				broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §dNotch Apple");
 				return;
 			}
 			
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §6Golden Apple");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §6Golden Apple");
 			return;
 		case DIAMOND_HELMET:
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §bDia. Helmet");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §bDia. Helmet");
 			return;
 		case DIAMOND_CHESTPLATE:
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §bDia. Chestplate");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §bDia. Chestplate");
 			return;
 		case DIAMOND_LEGGINGS:
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §bDia. Leggings");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §bDia. Leggings");
 			return;
 		case DIAMOND_BOOTS:
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §bDia. Boots");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §bDia. Boots");
 			return;
 		case DIAMOND_SWORD:
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §bDia. Sword");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §bDia. Sword");
 			return;
 		case BOW:
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §aBow");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §aBow");
 			return;
 		case ANVIL:
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §aAnvil");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §aAnvil");
 			return;
 		case ENCHANTMENT_TABLE:
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §dEnchant. Table");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §dEnchant. Table");
 			return;
 		case BREWING_STAND_ITEM:
-			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 § §aBrewing Stand");
+			broadcast("§8(§2Craft§8) §7" + name(player) + "§8 » §aBrewing Stand");
 			return;
 		default:
 			return;
@@ -457,7 +459,7 @@ public class SpecInfo implements Listener {
 				String health = NumberUtils.makePercent(player.getHealth()).substring(2) + "%";
 				String taken = NumberUtils.makePercent(damage).substring(2) + "%";
 				
-				broadcast("§8(§5PvE§8) §7" + name(player) + "§8 -§ §d" + name + " §8[§a" + health + "§8] [§6" + taken + "§8]");
+				broadcast("§8(§5PvE§8) §7" + name(player) + "§8 -» §d" + name + " §8[§a" + health + "§8] [§6" + taken + "§8]");
 			}
 		}.runTaskLater(plugin, 1);
 	}
@@ -496,7 +498,7 @@ public class SpecInfo implements Listener {
 
 					String kHealth = NumberUtils.makePercent(killer.getHealth()).substring(2) + "%";
 					
-					broadcast("§8(§cPvP§8) §7" + name(killer) + "§8 -§7M§8§ §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8] [§7§oD: §c§o" + distance + "§8]");
+					broadcast("§8(§cPvP§8) §7" + name(killer) + "§8 -§7M§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8] [§7§oD: §c§o" + distance + "§8]");
 					return;
 				}
 				
@@ -510,29 +512,29 @@ public class SpecInfo implements Listener {
 						String kHealth = NumberUtils.makePercent(shooter.getHealth()).substring(2) + "%";
 						
 						if (proj instanceof Arrow) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7B§8§ §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7B§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (proj instanceof Snowball) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7S§8§ §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7S§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (proj instanceof Egg) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7E§8§ §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7E§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
 						} else if (!(proj instanceof FishHook) && !(proj instanceof EnderPearl)) {
-							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7???§8§ §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
+							broadcast("§8(§cPvP§8) §7" + name(shooter) + "§8 -§7???§8» §7" + name(player) + " §8[§a" + kHealth + " §7§ §a" + pHealth + "§8] [§6" + taken + "§8]");
 						}
 						return;
 					} 
 						
 					if (proj.getShooter() instanceof LivingEntity) {
 						LivingEntity entity = (LivingEntity) proj.getShooter();
-						broadcast("§8(§5PvE§8) §7" + name(player) + "§8 §- §d" + EntityUtils.getMobName(entity) + " §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
+						broadcast("§8(§5PvE§8) §7" + name(player) + "§8 «- §d" + EntityUtils.getMobName(entity) + " §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
 						return;
 					}
 					
-					broadcast("§8(§5PvE§8) §7" + name(player) + "§8 §- §dProjectile §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
+					broadcast("§8(§5PvE§8) §7" + name(player) + "§8 «- §dProjectile §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
 					return;
 				} 
 
 				Entity entity = event.getDamager();
-				broadcast("§8(§5PvE§8) §7" + name(player) + "§8 §- §d" + EntityUtils.getMobName(entity) + " §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
+				broadcast("§8(§5PvE§8) §7" + name(player) + "§8 «- §d" + EntityUtils.getMobName(entity) + " §8[§a" + pHealth + "§8] [§6" + taken + "§8]");
 			}
 		}.runTaskLater(plugin, 1);
 	}

@@ -18,6 +18,7 @@ import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils;
 
 /**
  * BanIP command class
@@ -65,14 +66,7 @@ public class BanIPCommand extends UHCCommand {
 			PlayerDeathEvent event = new PlayerDeathEvent(online, new ArrayList<ItemStack>(), 0, null);
 			Bukkit.getPluginManager().callEvent(event);
 			
-			online.kickPlayer(
-	    	"§8§ §7You have been §4IP banned §7from §6Arctic UHC §8§" +
-	    	"\n" + 
-	    	"\n§cReason §8§ §7" + message +
-	    	"\n§cBanned by §8§ §7" + sender.getName() +
- 			"\n" +
-	   		"\n§8§ §7If you would like to appeal, DM our twitter §a@ArcticUHC §8§"
-	    	);
+			online.kickPlayer(String.format(PunishUtils.getIPBanMessageFormat(), message, sender.getName()));
     	}
 		return true;
 	}

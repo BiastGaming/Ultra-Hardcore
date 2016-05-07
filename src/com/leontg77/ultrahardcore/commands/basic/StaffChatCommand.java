@@ -14,7 +14,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class StaffChatCommand extends UHCCommand {
-	private static final String PREFIX = "§4Staff Chat §8§ §c";
+	private static final String PREFIX = "§4Staff Chat §8» §c";
 
 	public StaffChatCommand() {
 		super("ac", "<message>");

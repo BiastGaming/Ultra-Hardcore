@@ -26,7 +26,7 @@ public class DamageDodgers extends Scenario implements Listener, CommandExecutor
 	private final Timer timer;
 	private final Game game;
 	
-	private static final String PREFIX = "§4DamageDodgers §8§ §7";
+	private static final String PREFIX = "§4DamageDodgers §8» §7";
 	private static final int DAMAGE_AMOUNT = 10000;
 	
 	public DamageDodgers(Main plugin, Game game, Timer timer) {

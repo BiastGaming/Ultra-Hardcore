@@ -43,7 +43,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class GlassWorld extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "§6Glass World §8§ §7";
+	public static final String PREFIX = "§6Glass World §8» §7";
 	
 	private final Main plugin;
 	private final Game game;

@@ -1,7 +1,7 @@
 package com.leontg77.ultrahardcore.utils;
 
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -144,7 +144,7 @@ public class BlockUtils {
 	 * @param loc The location to get it at.
 	 * @return The list of the locations of the vein blocks, null if this wasn't an ore.
 	 */
-	public static void getVein(Block start, Set<Block> vein) {
+	public static void getVein(Block start, List<Block> vein) {
 		if (vein.size() > VEIN_LIMIT) {
 			return;
 		}

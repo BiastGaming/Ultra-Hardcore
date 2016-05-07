@@ -22,12 +22,12 @@ public class PunishUtils {
 	 */
 	public static String getBanMessageFormat() {
 		return
-		"§8§ §7You have been §4banned §7from §6Arctic UHC §8§" +
+		"§8» §7You have been §4banned §7from §6Arctic UHC §8«" +
 		"\n" + 
-		"\n§cReason §8§ §7%s" +
-		"\n§cBanned by §8§ §7%s" +
+		"\n§cReason §8» §7%s" +
+		"\n§cBanned by §8» §7%s" +
 		"\n" +
-		"\n§8§ §7If you would like to appeal, DM our twitter §a@ArcticUHC §8§"
+		"\n§8» §7If you would like to appeal, DM our twitter §a@ArcticUHC §8«"
 		;
 	}
 
@@ -40,12 +40,12 @@ public class PunishUtils {
 	 */
 	public static String getIPBanMessageFormat() {
 		return
-		"§8§ §7You have been §4IP banned §7from §6Arctic UHC §8§" +
+		"§8» §7You have been §4IP banned §7from §6Arctic UHC §8«" +
 		"\n" + 
-		"\n§cReason §8§ §7%s" +
-		"\n§cBanned by §8§ §7%s" +
+		"\n§cReason §8» §7%s" +
+		"\n§cBanned by §8» §7%s" +
 		"\n" +
-		"\n§8§ §7If you would like to appeal, DM our twitter §a@ArcticUHC §8§"
+		"\n§8» §7If you would like to appeal, DM our twitter §a@ArcticUHC §8«"
 		;
 	}
 
@@ -58,13 +58,13 @@ public class PunishUtils {
 	 */
 	public static String getTempbanMessageFormat() {
 		return 
-		"§8§ §7You have been §4temp-banned §7from §6Arctic UHC §8§" +
+		"§8» §7You have been §4temp-banned §7from §6Arctic UHC §8«" +
 		"\n" + 
-		"\n§cReason §8§ §7%s" +
-		"\n§cBanned by §8§ §7%s" +
-		"\n§cExpires in §8§ §7%s" +
+		"\n§cReason §8» §7%s" +
+		"\n§cBanned by §8» §7%s" +
+		"\n§cExpires in §8» §7%s" +
 		"\n" +
-		"\n§8§ §7If you would like to appeal, DM our twitter §a@ArcticUHC §8§"
+		"\n§8» §7If you would like to appeal, DM our twitter §a@ArcticUHC §8«"
 		;
 	}
 
@@ -77,12 +77,12 @@ public class PunishUtils {
 	 */
 	public static String getDQMessageFormat() {
 		return 
-		"§8§ §7You have been §cdisqualified §7from this game §8§" +
+		"§8» §7You have been §cdisqualified §7from this game §8«" +
 		"\n" + 
-		"\n§cReason §8§ §7%s" +
-		"\n§cDQ'ed by §8§ §7%s" +
+		"\n§cReason §8» §7%s" +
+		"\n§cDQ'ed by §8» §7%s" +
 		"\n" + 
-		"\n§8§ §7Don't worry, this is not a perma ban. §8§"
+		"\n§8» §7Don't worry, this is not a perma ban. §8«"
 		;
 	}
 	

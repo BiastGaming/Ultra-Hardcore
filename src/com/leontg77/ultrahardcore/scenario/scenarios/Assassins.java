@@ -43,7 +43,7 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
 		Bukkit.getPluginCommand("target").setExecutor(this);
 	}
 	
-	private static final String PREFIX = "§cAssassins §8§ §7";
+	private static final String PREFIX = "§cAssassins §8» §7";
 
 	private final Map<String, String> assassins = new HashMap<String, String>();
 	

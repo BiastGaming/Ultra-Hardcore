@@ -34,7 +34,7 @@ import com.leontg77.ultrahardcore.utils.EntityUtils;
  */
 @SuppressWarnings("unused")
 public class SoulBrothers extends Scenario implements CommandExecutor {
-	public static final String PREFIX = "§2Soul Brothers §8§ §7";
+	public static final String PREFIX = "§2Soul Brothers §8» §7";
 
 	private final Main plugin;
 	private final Game game;

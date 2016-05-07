@@ -19,7 +19,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class LAFS extends Scenario implements Listener {
-	public static final String PREFIX = "§dLAFS §8§ §7";
+	public static final String PREFIX = "§dLAFS §8» §7";
 	
 	private final TeamManager teams;
 	private final Game game;

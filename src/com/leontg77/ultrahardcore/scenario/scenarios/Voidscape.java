@@ -32,7 +32,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Voidscape extends Scenario implements CommandExecutor, Listener {
-	public static final String PREFIX = "§9Voidscape §8§ §7";
+	public static final String PREFIX = "§9Voidscape §8» §7";
 	
 	private final Main plugin;
 	

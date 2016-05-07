@@ -76,7 +76,7 @@ public class DeathMessageFeature extends Feature implements Listener {
 		}
 
 		if (killer == null) {
-			PlayerUtils.broadcast("§8§ §f" + deathMessage);
+			PlayerUtils.broadcast("§8» §f" + deathMessage);
 			return;
 		}
 		
@@ -94,13 +94,13 @@ public class DeathMessageFeature extends Feature implements Listener {
 				deathMessage += shotDistance;
 			}
 			
-			PlayerUtils.broadcast("§8§ §f" + deathMessage);
+			PlayerUtils.broadcast("§8» §f" + deathMessage);
 			return;
 		}
 			
 		String name = item.getItemMeta().getDisplayName();
 		
-		ComponentBuilder builder = new ComponentBuilder("§8§ §f" + deathMessage.replace("[" + name + "]", ""));
+		ComponentBuilder builder = new ComponentBuilder("§8» §f" + deathMessage.replace("[" + name + "]", ""));
 		String color = killer.getItemInHand().getEnchantments().isEmpty() ? "§f" : "§b";
 
 		StringBuilder colored = new StringBuilder();
@@ -122,7 +122,7 @@ public class DeathMessageFeature extends Feature implements Listener {
 			online.spigot().sendMessage(result);
 		}
 		
-		Bukkit.getLogger().info("§8§ §f" + deathMessage);
+		Bukkit.getLogger().info("§8» §f" + deathMessage);
 	}
 	
 	/**

@@ -42,7 +42,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Flooded extends Scenario implements CommandExecutor, Listener {
-	public static final String PREFIX = "§9Flooded §8§ §7";
+	public static final String PREFIX = "§9Flooded §8» §7";
 
 	private final Main plugin;
 	private final Game game;

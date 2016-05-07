@@ -48,7 +48,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;
  * @author LeonTG77
  */
 public class InvertedDimensions extends Scenario implements CommandExecutor, Listener {
-	public static final String PREFIX = "§cInverted Dimensions §8§ §7";
+	public static final String PREFIX = "§cInverted Dimensions §8» §7";
 	
 	private final Main plugin;
 	

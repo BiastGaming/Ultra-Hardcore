@@ -25,7 +25,7 @@ public class SpecChatCommand extends UHCCommand {
 		this.spec = spec;
 	}
 	
-	private static final String PREFIX = "§5Spec Chat §8§ §d";
+	private static final String PREFIX = "§5Spec Chat §8» §d";
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) throws CommandException {

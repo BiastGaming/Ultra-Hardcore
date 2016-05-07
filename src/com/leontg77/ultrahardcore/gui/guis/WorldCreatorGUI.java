@@ -216,12 +216,12 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack newStone = new ItemStack(Material.STONE, 1, (short) 2);
 		ItemMeta newStoneMeta = newStone.getItemMeta();
 		
-		newStoneMeta.setDisplayName("§8§ §61.8 Stone §8§");
+		newStoneMeta.setDisplayName("§8» §61.8 Stone §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Currently: " + (newstone ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
+		lore.add("§8» §7Currently: " + (newstone ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
 		lore.add(" ");
-		lore.add("§8§ §cDescription:");
-		lore.add("§8§ §7Granite, Diorite and Andesite in caves.");
+		lore.add("§8» §cDescription:");
+		lore.add("§8» §7Granite, Diorite and Andesite in caves.");
 		lore.add(" ");
 		newStoneMeta.setLore(lore);
 		newStone.setItemMeta(newStoneMeta);
@@ -232,13 +232,13 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack antiSM = new ItemStack(Material.DIAMOND_PICKAXE);
 		ItemMeta antiSMMeta = antiSM.getItemMeta();
 		
-		antiSMMeta.setDisplayName("§8§ §6Stripmining §8§");
+		antiSMMeta.setDisplayName("§8» §6Stripmining §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Currently: " + (antiStripmine ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
+		lore.add("§8» §7Currently: " + (antiStripmine ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
 		lore.add(" ");
-		lore.add("§8§ §cDescription:");
-		lore.add("§8§ §7If enabled it removes diamonds, lapis");
-		lore.add("§8§ §7and gold outside of caves.");
+		lore.add("§8» §cDescription:");
+		lore.add("§8» §7If enabled it removes diamonds, lapis");
+		lore.add("§8» §7and gold outside of caves.");
 		lore.add(" ");
 		antiSMMeta.setLore(lore);
 		antiSMMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -250,12 +250,12 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack oreLimiter = new ItemStack(Material.DIAMOND_ORE);
 		ItemMeta oreLimiterMeta = oreLimiter.getItemMeta();
 		
-		oreLimiterMeta.setDisplayName("§8§ §6Ore Limiter §8§");
+		oreLimiterMeta.setDisplayName("§8§ §6Ore Limiter §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Currently: " + (orelimiter ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
+		lore.add("§8» §7Currently: " + (orelimiter ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
 		lore.add(" ");
-		lore.add("§8§ §cDescription:");
-		lore.add("§8§ §7Limit the amount of cave ores.");
+		lore.add("§8» §cDescription:");
+		lore.add("§8» §7Limit the amount of cave ores.");
 		lore.add(" ");
 		oreLimiterMeta.setLore(lore);
 		oreLimiter.setItemMeta(oreLimiterMeta);
@@ -266,12 +266,12 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack TBA = new ItemStack(Material.EMPTY_MAP);
 		ItemMeta TBAMeta = TBA.getItemMeta();
 		
-		TBAMeta.setDisplayName("§8§ §6Moved 0,0 §8§");
+		TBAMeta.setDisplayName("§8» §6Moved 0,0 §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Currently: " + (moved ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
+		lore.add("§8» §7Currently: " + (moved ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
 		lore.add(" ");
-		lore.add("§8§ §cDescription:");
-		lore.add("§8§ §7Makes the center at the world not at 0,0.");
+		lore.add("§8» §cDescription:");
+		lore.add("§8» §7Makes the center at the world not at 0,0.");
 		lore.add(" ");
 		TBAMeta.setLore(lore);
 		TBA.setItemMeta(TBAMeta);
@@ -282,12 +282,12 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack worldType = new ItemStack(Material.GRASS);
 		ItemMeta typeMeta = worldType.getItemMeta();
 		
-		typeMeta.setDisplayName("§8§ §6World Type §8§");
+		typeMeta.setDisplayName("§8» §6World Type §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Currently: §e" + NameUtils.capitalizeString(type.name(), true));
+		lore.add("§8» §7Currently: §e" + NameUtils.capitalizeString(type.name(), true));
 		lore.add(" ");
-		lore.add("§8§ §cDescription:");
-		lore.add("§8§ §7The world type, duh.");
+		lore.add("§8» §cDescription:");
+		lore.add("§8» §7The world type, duh.");
 		lore.add(" ");
 		typeMeta.setLore(lore);
 		worldType.setItemMeta(typeMeta);
@@ -298,12 +298,12 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack nether = new ItemStack(Material.NETHER_STALK);
 		ItemMeta netherMeta = nether.getItemMeta();
 		
-		netherMeta.setDisplayName("§8§ §6Nether §8§");
+		netherMeta.setDisplayName("§8» §6Nether §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Currently: " + (netherD ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
+		lore.add("§8» §7Currently: " + (netherD ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
 		lore.add(" ");
-		lore.add("§8§ §cDescription:");
-		lore.add("§8§ §7The nether dimention.");
+		lore.add("§8» §cDescription:");
+		lore.add("§8» §7The nether dimention.");
 		lore.add(" ");
 		netherMeta.setLore(lore);
 		nether.setItemMeta(netherMeta);
@@ -314,12 +314,12 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack end = new ItemStack(Material.ENDER_PORTAL_FRAME);
 		ItemMeta newStoneMeta1 = end.getItemMeta();
 		
-		newStoneMeta1.setDisplayName("§8§ §6The End §8§");
+		newStoneMeta1.setDisplayName("§8» §6The End §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Currently: " + (endD ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
+		lore.add("§8» §7Currently: " + (endD ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
 		lore.add(" ");
-		lore.add("§8§ §cDescription:");
-		lore.add("§8§ §7The end dimention.");
+		lore.add("§8» §cDescription:");
+		lore.add("§8» §7The end dimention.");
 		lore.add(" ");
 		newStoneMeta1.setLore(lore);
 		end.setItemMeta(newStoneMeta1);
@@ -330,9 +330,9 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack confirm = new ItemStack(Material.INK_SACK, 1, (short) 10);
 		ItemMeta confirmMeta = confirm.getItemMeta();
 		
-		confirmMeta.setDisplayName("§8§ §aConfirm §8§");
+		confirmMeta.setDisplayName("§8» §aConfirm §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Create the world.");
+		lore.add("§8» §7Create the world.");
 		lore.add(" ");
 		confirmMeta.setLore(lore);
 		confirm.setItemMeta(confirmMeta);
@@ -343,9 +343,9 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack cancel = new ItemStack(Material.INK_SACK, 1, (short) 1);
 		ItemMeta cancelMeta = cancel.getItemMeta();
 		
-		cancelMeta.setDisplayName("§8§ §cCancel §8§");
+		cancelMeta.setDisplayName("§8» §cCancel §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Cancel the world creation.");
+		lore.add("§8» §7Cancel the world creation.");
 		lore.add(" ");
 		cancelMeta.setLore(lore);
 		cancel.setItemMeta(cancelMeta);
@@ -356,12 +356,12 @@ public class WorldCreatorGUI extends GUI implements Listener {
 		ItemStack info = new ItemStack(Material.BOOK);
 		ItemMeta infoMeta = info.getItemMeta();
 		
-		infoMeta.setDisplayName("§8§ §6World Information §8§");
+		infoMeta.setDisplayName("§8» §6World Information §8«");
 		lore.add(" ");
-		lore.add("§8§ §7Name: §a" + name);
+		lore.add("§8» §7Name: §a" + name);
 		lore.add(" ");
-		lore.add("§8§ §7Map Size: §a" + diameter + "x" + diameter);
-		lore.add("§8§ §7Seed: §a" + seed);
+		lore.add("§8» §7Map Size: §a" + diameter + "x" + diameter);
+		lore.add("§8» §7Seed: §a" + seed);
 		lore.add(" ");
 		infoMeta.setLore(lore);
 		info.setItemMeta(infoMeta);

@@ -37,7 +37,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
-	private static final String PREFIX = "§2Market §8§ §7";
+	private static final String PREFIX = "§2Market §8» §7";
 	
 	private final TeamManager teams;
 	private final Main plugin;
@@ -261,7 +261,7 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
 				}
 				
 				sender.sendMessage(PREFIX + "Current slave owners: §8(§6" + owners.size() + "§8)");
-				sender.sendMessage("§8§ §7" + list.toString());
+				sender.sendMessage(Main.ARROW + list.toString());
 				return true;
 			}
 			

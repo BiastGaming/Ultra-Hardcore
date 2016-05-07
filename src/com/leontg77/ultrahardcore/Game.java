@@ -273,7 +273,7 @@ public class Game {
 	 */
 	public void setTeamSize(String teamSize) {
 		if (pregameBoard()) {
-			board.resetScore("§8§ §7" + getAdvancedTeamSize(true, false));
+			board.resetScore("§8» §7" + getAdvancedTeamSize(true, false));
 		}
 		
 		settings.getConfig().set("teamsize", teamSize);
@@ -284,7 +284,7 @@ public class Game {
 		}
 		
 		if (pregameBoard()) {
-			board.setScore("§8§ §7" + getAdvancedTeamSize(true, false), 6);
+			board.setScore("§8» §7" + getAdvancedTeamSize(true, false), 6);
 		}
 		
 		gui.getGUI(GameInfoGUI.class).update();
@@ -307,11 +307,11 @@ public class Game {
 	public void setScenarios(String scenarios) {
 		if (pregameBoard()) {
 			for (String scen : getScenarios().split(", ")) {
-				board.resetScore("§8§ §7" + scen);
+				board.resetScore("§8» §7" + scen);
 			}
 			
 			for (String scen : scenarios.split(", ")) {
-				board.setScore("§8§ §7" + scen, 3);
+				board.setScore("§8» §7" + scen, 3);
 			}
 		}
 		
@@ -339,7 +339,7 @@ public class Game {
 		settings.saveConfig();
 		
 		if (!isRecordedRound()) {
-			board.getKillsObjective().setDisplayName("§4Arctic §8§ §7§o" + name.substring(0, Math.min(name.length(), 13)) + "§r");
+			board.getKillsObjective().setDisplayName("§4Arctic §8» §7§o" + name.substring(0, Math.min(name.length(), 13)) + "§r");
 		}
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
@@ -526,9 +526,9 @@ public class Game {
 		}
 		
 		if (enable) {
-			board.getKillsObjective().setDisplayName("§8§ §6" + getRRName() + "§8 §");
+			board.getKillsObjective().setDisplayName("§8» §6" + getRRName() + "§8 §");
 		} else {
-			board.getKillsObjective().setDisplayName("§4Arctic §8§ §7§o" + getHost().substring(0, Math.min(getHost().length(), 13)) + "§r");
+			board.getKillsObjective().setDisplayName("§4Arctic §8» §7§o" + getHost().substring(0, Math.min(getHost().length(), 13)) + "§r");
 		}
 	}
 
@@ -551,7 +551,7 @@ public class Game {
 		settings.saveConfig();
 		
 		if (isRecordedRound()) {
-			board.getKillsObjective().setDisplayName("§8§ §6" + getRRName() + "§8 §");
+			board.getKillsObjective().setDisplayName("§8» §6" + getRRName() + "§8 §");
 		}
 	}
 

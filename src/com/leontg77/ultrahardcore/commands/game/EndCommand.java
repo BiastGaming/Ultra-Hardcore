@@ -238,7 +238,7 @@ public class EndCommand extends UHCCommand {
 				game.setHost("None");
 				
 				String kickMessage = 
-				"§8§ §cThanks for playing! §8§" +
+				"§8» §cThanks for playing! §8«" +
 			    "\n" + 
 			    "\n§7If you'd like to know about updates and upcoming games," +
 			    "\n§7you can follow us on twitter §a@ArcticUHC§7!";

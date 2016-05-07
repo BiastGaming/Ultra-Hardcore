@@ -115,32 +115,32 @@ public class InfoCommand extends UHCCommand {
 		Format date = new SimpleDateFormat("E, MMM. dd, yyyy 'at' HH:mm 'UTC'", Locale.US); 
 
 		sender.sendMessage(Main.PREFIX + "Info about §6" + target.getName() + "§8: (§7Currently: " + (target.getPlayer() == null ? "§cOffline" : "§aOnline") + "§8)");
-		sender.sendMessage("§8§ §m--------------------------------------§8 §");
-		sender.sendMessage("§8§ §7UUID: §a" + user.getFile().getString("uuid"));
-		sender.sendMessage("§8§ §7First Joined: §6" + date.format(new Date(user.getFile().getLong("firstjoined"))));
-		sender.sendMessage("§8§ §7Last login: §6" + DateUtils.formatDateDiff(user.getFile().getLong("lastlogin")));
-		sender.sendMessage("§8§ §7Last logout: §6" + (lastlogout == -1l ? "§cHasn't logged out" : DateUtils.formatDateDiff(lastlogout)));
-		sender.sendMessage("§8§ §m--------------------------------------§8 §");
-		sender.sendMessage("§8§ §7IPs: §8(§aGreen §7= Current IP§8)");
-		sender.sendMessage("§8§ §7" + ips.toString().trim());
-		sender.sendMessage("§8§ §m--------------------------------------§8 §");
+		sender.sendMessage("§8» §m--------------------------------------§8 «");
+		sender.sendMessage("§8» §7UUID: §a" + user.getFile().getString("uuid"));
+		sender.sendMessage("§8» §7First Joined: §6" + date.format(new Date(user.getFile().getLong("firstjoined"))));
+		sender.sendMessage("§8» §7Last login: §6" + DateUtils.formatDateDiff(user.getFile().getLong("lastlogin")));
+		sender.sendMessage("§8» §7Last logout: §6" + (lastlogout == -1l ? "§cHasn't logged out" : DateUtils.formatDateDiff(lastlogout)));
+		sender.sendMessage("§8» §m--------------------------------------§8 «");
+		sender.sendMessage("§8» §7IPs: §8(§aGreen §7= Current IP§8)");
+		sender.sendMessage("§8» §7" + ips.toString().trim());
+		sender.sendMessage("§8» §m--------------------------------------§8 «");
 		if (user.getAlts().isEmpty()) {
-			sender.sendMessage("§8§ §7Possible Alts: §cNone");
+			sender.sendMessage("§8» §7Possible Alts: §cNone");
 		} else {
 			String alts = user.getAlts().toString();
-			sender.sendMessage("§8§ §7Possible Alts: §8(§aOnline§7, §cOffline§7, §4Banned§7, §6UBL'ed§8)");
-			sender.sendMessage("§8§ §7" + alts.substring(1, alts.length() - 1) + "§8.");
+			sender.sendMessage("§8» §7Possible Alts: §8(§aOnline§7, §cOffline§7, §4Banned§7, §6UBL'ed§8)");
+			sender.sendMessage("§8» §7" + alts.substring(1, alts.length() - 1) + "§8.");
 		}
-		sender.sendMessage("§8§ §m--------------------------------------§8 §");
-		sender.sendMessage("§8§ §7UBL'ed: §6" + ublMessage);
-		sender.sendMessage("§8§ §7Banned: §6" + banMessage);
-		sender.sendMessage("§8§ §7Muted: §6" + muteMessage);
-		sender.sendMessage("§8§ §m--------------------------------------§8 §");
+		sender.sendMessage("§8» §m--------------------------------------§8 «");
+		sender.sendMessage("§8» §7UBL'ed: §6" + ublMessage);
+		sender.sendMessage("§8» §7Banned: §6" + banMessage);
+		sender.sendMessage("§8» §7Muted: §6" + muteMessage);
+		sender.sendMessage("§8» §m--------------------------------------§8 «");
 		if (!user.getFile().contains("punishments")) {
-			sender.sendMessage("§8§ §7Punishments: §cNone");
+			sender.sendMessage("§8» §7Punishments: §cNone");
 		} else {
 			Format dateFormat = new SimpleDateFormat("dd/MM/yyyy '@' HH:mm", Locale.US); 
-			sender.sendMessage("§8§ §7Punishments:");
+			sender.sendMessage("§8» §7Punishments:");
 			
 			for (String punish : user.getFile().getConfigurationSection("punishments").getKeys(false)) {
 				PunishmentType type = PunishmentType.valueOf(user.getFile().getString("punishments." + punish + ".type", "MUTE"));
@@ -153,13 +153,13 @@ public class InfoCommand extends UHCCommand {
 				String to = expire == -1l ? "forever" : dateFormat.format(new Date(expire));
 
 				if (type == PunishmentType.KICK || type == PunishmentType.DISQUALIFY) {
-					sender.sendMessage("§8§ (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + reason + " §8- §7" + from);
-				} else {
-					sender.sendMessage("§8§ (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + reason + " §8- §7" + from + " §8-§ §7" + to);
+					sender.sendMessage("§8» (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + reason + " §8- §7" + from);
+				} else { 
+					sender.sendMessage("§8» (" + type.getColor() + NameUtils.capitalizeString(type.name(), false) + "§8) §a" + reason + " §8- §7" + from + " §8-» §7" + to);
 				}
 			}
 		}
-		sender.sendMessage("§8§ §m--------------------------------------§8 §");
+		sender.sendMessage("§8» §m--------------------------------------§8 «");
 		return true;
 	}
 

@@ -59,7 +59,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author dans1988, modified by LeonTG77
  */
 public class AchievementHunters extends Scenario implements CommandExecutor, Listener {
-	private static final String PREFIX = "§cAch. Hunters §8§ §7";
+	private static final String PREFIX = "§cAch. Hunters §8» §7";
 
 	private final Main plugin;
 	

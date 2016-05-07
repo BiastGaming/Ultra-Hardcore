@@ -233,7 +233,7 @@ public class Kings extends Scenario implements Listener, CommandExecutor {
 			}
 			
 			sender.sendMessage(Main.PREFIX + "Current kings: §8(§6" + kings.size() + "§8)");
-			sender.sendMessage("§8§ §a" + list.toString().trim() + "§8.");
+			sender.sendMessage("§8» §a" + list.toString().trim() + "§8.");
 			return true;
 		}
 		

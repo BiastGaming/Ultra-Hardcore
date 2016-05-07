@@ -155,7 +155,7 @@ public class TopStatsGUI extends GUI implements Listener {
 		ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 		SkullMeta meta = (SkullMeta) item.getItemMeta();
 
-		meta.setDisplayName("§8§ §6" + statName + " §8§");
+		meta.setDisplayName("§8» §6" + statName + " §8«");
 		
 		List<String> lore = new ArrayList<String>();
 		lore.add(" ");
@@ -181,13 +181,13 @@ public class TopStatsGUI extends GUI implements Listener {
 				int iDamage = Integer.parseInt(sDamage.substring(2));
 				
 				if (number == 10) {
-					lore.add("§6#" + number + "§8 | §7" + name + " §8§ §a" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
+					lore.add("§6#" + number + "§8 | §7" + name + " §8» §a" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
 				} else {
 					if (number == 1) {
 						meta.setOwner(name);
 					}
 					
-					lore.add(" §6#" + number + "§8  | §7" + name + " §8§ §a" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
+					lore.add(" §6#" + number + "§8  | §7" + name + " §8» §a" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
 				}
 
 				number++;

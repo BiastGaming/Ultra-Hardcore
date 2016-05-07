@@ -37,7 +37,7 @@ import com.leontg77.ultrahardcore.utils.PacketUtils;
  * @author Bergasms
  */
 public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
-	private static final String PREFIX = "§4Pyrophobia §8§ §7";
+	private static final String PREFIX = "§4Pyrophobia §8» §7";
 	
 	private ArrayList<Location> locations;
 	private int generateTaskID;
@@ -117,7 +117,7 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 			}
 			
 			if (args.length == 0) {
-				player.sendMessage(Main.PREFIX.replaceAll("UHC", "Pyrophobia") + "Starting PyroPhobia convertion.");
+				player.sendMessage(PREFIX + "Starting PyroPhobia convertion.");
 				convertToPyro(player.getWorld(), 1100);
 				return true;
 			}
@@ -131,7 +131,7 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 				return true;
 			}
 
-			player.sendMessage(Main.PREFIX.replaceAll("UHC", "Pyrophobia") + "Starting PyroPhobia convertion.");
+			player.sendMessage(PREFIX + "Starting PyroPhobia convertion.");
 			convertToPyro(player.getWorld(), radius);
 		}
 		return true;
@@ -165,7 +165,7 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 	protected void completedForReal() {
 		Bukkit.getServer().getScheduler().cancelTask(this.generateTaskID);
 		this.generateTaskID = -1;
-		Bukkit.getServer().broadcastMessage(Main.PREFIX.replaceAll("UHC", "Pyrophobia") + "World Converted");
+		Bukkit.getServer().broadcastMessage(PREFIX + "World Converted");
 	}
 
 	private void convertToPyro(final World w, final int radius) {
@@ -214,7 +214,7 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 		int one = ((this.totalChunks - this.locations.size())*100 / totalChunks);
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
-			PacketUtils.sendAction(online, "§4§lPyrophobia §8§ §7Processed: §6" + ((one / 2) + 50) + "%");
+			PacketUtils.sendAction(online, PREFIX + "Processed: §6" + ((one / 2) + 50) + "%");
 		}
 	}
 
@@ -242,7 +242,7 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 		int one = ((totalChunks - locations.size())*100 / totalChunks);
 		
 		for (Player online : Bukkit.getOnlinePlayers()) {
-			PacketUtils.sendAction(online, "§4§lPyrophobia §8§ §7Processed: §6" + (one / 2) + "%");
+			PacketUtils.sendAction(online, PREFIX + "Processed: §6" + (one / 2) + "%");
 		}
 	}
 }

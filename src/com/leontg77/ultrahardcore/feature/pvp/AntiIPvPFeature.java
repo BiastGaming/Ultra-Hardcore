@@ -216,7 +216,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
 			final Location pLoc = inWorld.getLocation();
 			
 			if (pLoc.getBlockX() == loc.getBlockX() && pLoc.getBlockY() < loc.getBlockY() && loc.getBlockZ() == pLoc.getBlockZ()) {
-				PlayerUtils.broadcast(PREFIX + "§c" + iPvPer.getName() + " §8-§ §a" + inWorld.getName() + " §8[§7Suffocation§8]", "uhc.staff");
+				PlayerUtils.broadcast(PREFIX + "§c" + iPvPer.getName() + " §8-» §a" + inWorld.getName() + " §8[§7Suffocation§8]", "uhc.staff");
 				isPlayerBelow = true;
 				break;
 			}
@@ -272,7 +272,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
 			final Location pLoc = inWorld.getLocation();
 			
 			if (below.getType() == Material.AIR && pLoc.getBlockX() == loc.getBlockX() && pLoc.getBlockY() < loc.getBlockY() && loc.getBlockZ() == pLoc.getBlockZ()) {
-				PlayerUtils.broadcast(PREFIX + "§c" + iPvPer.getName() + " §8-§ §a" + inWorld.getName() + " §8[§7" + NameUtils.capitalizeString(block.getType().name(), true) + "§8]", "uhc.staff");
+				PlayerUtils.broadcast(PREFIX + "§c" + iPvPer.getName() + " §8-» §a" + inWorld.getName() + " §8[§7" + NameUtils.capitalizeString(block.getType().name(), true) + "§8]", "uhc.staff");
 				isPlayerBelow = true;
 				break;
 			}
@@ -313,7 +313,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
 			Location pLoc = inWorld.getLocation();
 			
 			if (pLoc.getBlockX() == loc.getBlockX() && pLoc.getBlockY() == loc.clone().add(0, 1, 0).getBlockY() && loc.getBlockZ() == pLoc.getBlockZ()) {
-				PlayerUtils.broadcast(PREFIX + "§c" + iPvPer.getName() + " §8-§ §a" + inWorld.getName() + " §8[§7Spleef§8]", "uhc.staff");
+				PlayerUtils.broadcast(PREFIX + "§c" + iPvPer.getName() + " §8-» §a" + inWorld.getName() + " §8[§7Spleef§8]", "uhc.staff");
 				isPlayerAbove = true;
 				break;
 			}
@@ -353,7 +353,7 @@ public class AntiIPvPFeature extends Feature implements Listener {
 				continue;
 			}
 
-			PlayerUtils.broadcast(PREFIX + "§c" + iPvPer.getName() + " §8-§ §a" + nearby.getName() + " §8[§7" + NameUtils.capitalizeString(iPvPer.getItemInHand().getType().name(), true) + "§8]", "uhc.staff");
+			PlayerUtils.broadcast(PREFIX + "§c" + iPvPer.getName() + " §8-» §a" + nearby.getName() + " §8[§7" + NameUtils.capitalizeString(iPvPer.getItemInHand().getType().name(), true) + "§8]", "uhc.staff");
 			return true;
 		}
     	

@@ -26,7 +26,7 @@ public class AchievementParanoia extends Scenario implements Listener {
 		this.game = game;	
 	}
 
-	private static final String PREFIX = "§cAchParanoia §8§ §7";
+	private static final String PREFIX = "§cAchParanoia §8» §7";
 	
 	@Override
 	public void onDisable() {}

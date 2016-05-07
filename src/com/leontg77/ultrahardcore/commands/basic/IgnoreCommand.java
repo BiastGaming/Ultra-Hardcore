@@ -73,7 +73,7 @@ public class IgnoreCommand extends UHCCommand {
 			}
 			
 			player.sendMessage(Main.PREFIX + "Currently ignoring:");
-			player.sendMessage("§8§ §7" + list.toString());
+			player.sendMessage(Main.ARROW + list.toString());
 			return true;
 		}
 		

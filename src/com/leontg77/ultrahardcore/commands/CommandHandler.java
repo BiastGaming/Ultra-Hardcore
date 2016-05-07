@@ -107,6 +107,7 @@ import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 import com.leontg77.ultrahardcore.world.WorldManager;
+import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
 
 /**
  * Command handler class.
@@ -214,7 +215,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 	/**
 	 * Register all the commands.
 	 */
-	public void registerCommands(Game game, Data data, Arena arena, Parkour parkour, Settings settings, GUIManager gui, BoardManager board, SpecManager spec, FeatureManager feat, ScenarioManager scen, WorldManager manager, Timer timer, TeamManager teams, FireworkManager firework, ScatterManager scatter, UBL ubl) {
+	public void registerCommands(Game game, Data data, Arena arena, Parkour parkour, Settings settings, GUIManager gui, BoardManager board, SpecManager spec, FeatureManager feat, ScenarioManager scen, WorldManager manager, Timer timer, TeamManager teams, FireworkManager firework, ScatterManager scatter, UBL ubl, AntiStripmine antiSM) {
 		// arena
 		cmds.add(new ArenaCommand(arena, game, parkour, spec, board));
 		cmds.add(new HotbarCommand(plugin, arena));
@@ -317,7 +318,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 		cmds.add(new BorderCommand());
 		cmds.add(new PregenCommand());
 		cmds.add(new PvPCommand());
-		cmds.add(new WorldCommand(game, settings, gui, manager));
+		cmds.add(new WorldCommand(game, settings, antiSM, gui, manager));
 		
 		for (UHCCommand cmd : cmds) {
 			PluginCommand pCmd = plugin.getCommand(cmd.getName());

@@ -1,7 +1,7 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -37,7 +37,7 @@ public class Timber extends Scenario implements Listener {
 			return;
 		}
 
-		Set<Block> vein = new HashSet<Block>();
+		List<Block> vein = new ArrayList<Block>();
 		BlockUtils.getVein(block, vein);
 		
 		for (Block ore : vein) {	

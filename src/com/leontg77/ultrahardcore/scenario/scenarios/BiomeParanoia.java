@@ -22,7 +22,7 @@ import com.leontg77.ultrahardcore.utils.NameUtils;
  * @author LeonTG77
  */
 public class BiomeParanoia extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "§5BiomeParanoia §8§ §7";
+	public static final String PREFIX = "§5BiomeParanoia §8» §7";
 	
 	private final SpecManager spec;
 

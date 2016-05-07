@@ -26,6 +26,7 @@ import com.leontg77.ultrahardcore.scenario.scenarios.SelfDiagnosis;
 import com.leontg77.ultrahardcore.scenario.scenarios.TeamHealth;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import com.leontg77.ultrahardcore.utils.PunishUtils;
 
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -47,7 +48,7 @@ public class TeamCommand extends UHCCommand {
 	private final BoardManager board;
 	private final TeamManager teams;
 	
-	public static final String PREFIX = "§4Team §8§ §7";
+	public static final String PREFIX = "§4Team §8» §7";
 	
 	public TeamCommand(Game game, BoardManager board, TeamManager teams, ScenarioManager scen) {
 		super("team", "");
@@ -200,8 +201,8 @@ public class TeamCommand extends UHCCommand {
 
 			if (game.pregameBoard()) {
 				board.setScore("§e ", 14);
-				board.setScore("§8§ §cTeam:", 13);
-				board.setScore("§8§ §7/team", 12);
+				board.setScore("§8» §cTeam:", 13);
+				board.setScore("§8» §7/team", 12);
 			}
 			
 			game.setTeamManagement(true, teamsize);
@@ -219,8 +220,8 @@ public class TeamCommand extends UHCCommand {
 
 			if (game.pregameBoard()) {
 				board.resetScore("§e ");
-				board.resetScore("§8§ §cTeam:");
-				board.resetScore("§8§ §7/team");
+				board.resetScore("§8» §cTeam:");
+				board.resetScore("§8» §7/team");
 			}
 			
 			PlayerUtils.broadcast(Main.PREFIX + "Team Management has been disabled.");
@@ -592,14 +593,7 @@ public class TeamCommand extends UHCCommand {
 					if (teams.getTeam(online) == null) {
 						online.setWhitelisted(false);
 						
-						online.kickPlayer(
-						"§8§ §7You have been §cdisqualified §7from this game §8§" +
-						"\n" + 
-						"\n§cReason §8§ §7Solos are not allowed!" +
-						"\n§cDQ'ed by §8§ §7" + sender.getName() +
-						"\n" + 
-						"\n§8§ §7Don't worry, this is not a perma ban. §8§"
-						);
+						online.kickPlayer(String.format(PunishUtils.getDQMessageFormat(), "Solos are not allowed!", sender.getName()));
 					}
 
 					online.sendMessage(PREFIX + "All solos has been kicked!");
@@ -607,14 +601,7 @@ public class TeamCommand extends UHCCommand {
 					if (team != null && team.getSize() == size) {
 						online.setWhitelisted(false);
 						
-						online.kickPlayer(
-						"§8§ §7You have been §cdisqualified §7from this game §8§" +
-						"\n" + 
-						"\n§cReason §8§ §7To" + size + " are not allowed!" +
-						"\n§cDQ'ed by §8§ §7" + sender.getName() +
-						"\n" + 
-						"\n§8§ §7Don't worry, this is not a perma ban. §8§"
-						);
+						online.kickPlayer(String.format(PunishUtils.getDQMessageFormat(), "To" + size + " are not allowed!", sender.getName()));
 					}
 					
 					online.sendMessage(PREFIX + "All To" + size + " has been kicked!");
@@ -777,34 +764,34 @@ public class TeamCommand extends UHCCommand {
 	 */
 	public boolean helpMenu(CommandSender sender) {
 		sender.sendMessage(PREFIX + "Team management help:");
-		sender.sendMessage("§8§ §f/pm <message> §7- §f§oTalk in team chat.");
-		sender.sendMessage("§8§ §f/tl §7- §f§oTell your coords to your teammates.");
-		sender.sendMessage("§8§ §f/pmores §7- §f§oBroadcast ores in your inventory to your team.");
-		sender.sendMessage("§8§ §f/pmminedores §7- §f§oBroadcast your mined ores to your team.");
-		sender.sendMessage("§8§ §f/team info [player] §7- §f§oDisplay your or the targets team info.");
-		sender.sendMessage("§8§ §f/team list §7- §f§oList all teams.");
+		sender.sendMessage("§8» §f/pm <message> §7- §f§oTalk in team chat.");
+		sender.sendMessage("§8» §f/tl §7- §f§oTell your coords to your teammates.");
+		sender.sendMessage("§8» §f/pmores §7- §f§oBroadcast ores in your inventory to your team.");
+		sender.sendMessage("§8» §f/pmminedores §7- §f§oBroadcast your mined ores to your team.");
+		sender.sendMessage("§8» §f/team info [player] §7- §f§oDisplay your or the targets team info.");
+		sender.sendMessage("§8» §f/team list §7- §f§oList all teams.");
 		
 		if (game.teamManagement()) {
-			sender.sendMessage("§8§ §f/team create §7- §f§oCreate a team.");
-			sender.sendMessage("§8§ §f/team leave §7- §f§oLeave your team.");
-			sender.sendMessage("§8§ §f/team invite <player> §7- §f§oInvite a player to your team.");
-			sender.sendMessage("§8§ §f/team kick <player> §7- §f§oKick a player to your team.");
-			sender.sendMessage("§8§ §f/team accept <player> §7- §f§oAccept the players request.");
-			sender.sendMessage("§8§ §f/team deny <player> §7- §f§oDeny the players request.");
+			sender.sendMessage("§8» §f/team create §7- §f§oCreate a team.");
+			sender.sendMessage("§8» §f/team leave §7- §f§oLeave your team.");
+			sender.sendMessage("§8» §f/team invite <player> §7- §f§oInvite a player to your team.");
+			sender.sendMessage("§8» §f/team kick <player> §7- §f§oKick a player to your team.");
+			sender.sendMessage("§8» §f/team accept <player> §7- §f§oAccept the players request.");
+			sender.sendMessage("§8» §f/team deny <player> §7- §f§oDeny the players request.");
 		}
 		
 		if (sender.hasPermission(ADMIN_PERM)) {
 			sender.sendMessage(PREFIX + "Team management Admin help:");
-			sender.sendMessage("§8§ §f/team enable <teamsize> §7- §f§oEnable team management.");
-			sender.sendMessage("§8§ §f/team disable §7- §f§oDisable team management.");
-			sender.sendMessage("§8§ §f/team ct <players...> §7- §f§oCreate a team with the following players.");
-			sender.sendMessage("§8§ §f/team add <team> <player> §7- §f§oAdd a player to a team.");
-			sender.sendMessage("§8§ §f/team remove <player> §7- §f§oRemove a player from his team.");
-			sender.sendMessage("§8§ §f/team delete <team> §7- §f§oEmpty a specific team.");
-			sender.sendMessage("§8§ §f/team friendlyfire <true|false> §7- §f§oToggle FriendlyFire.");
-			sender.sendMessage("§8§ §f/team dq <size> §7- §f§oKicks all players on a team with the that teamsize.");
-			sender.sendMessage("§8§ §f/team color §7- §f§oRecolor all teams.");
-			sender.sendMessage("§8§ §f/team clear §7- §f§oClear all teams.");
+			sender.sendMessage("§8» §f/team enable <teamsize> §7- §f§oEnable team management.");
+			sender.sendMessage("§8» §f/team disable §7- §f§oDisable team management.");
+			sender.sendMessage("§8» §f/team ct <players...> §7- §f§oCreate a team with the following players.");
+			sender.sendMessage("§8» §f/team add <team> <player> §7- §f§oAdd a player to a team.");
+			sender.sendMessage("§8» §f/team remove <player> §7- §f§oRemove a player from his team.");
+			sender.sendMessage("§8» §f/team delete <team> §7- §f§oEmpty a specific team.");
+			sender.sendMessage("§8» §f/team friendlyfire <true|false> §7- §f§oToggle FriendlyFire.");
+			sender.sendMessage("§8» §f/team dq <size> §7- §f§oKicks all players on a team with the that teamsize.");
+			sender.sendMessage("§8» §f/team color §7- §f§oRecolor all teams.");
+			sender.sendMessage("§8» §f/team clear §7- §f§oClear all teams.");
 		}
 		return true;
 	}

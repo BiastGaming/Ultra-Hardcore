@@ -59,25 +59,25 @@ public class BoardCommand extends UHCCommand {
 
 		if (game.teamManagement()) {
 			board.setScore("§e ", 14);
-			board.setScore("§8§ §cTeam:", 13);
-			board.setScore("§8§ §7/team", 12);
+			board.setScore("§8» §cTeam:", 13);
+			board.setScore("§8» §7/team", 12);
 		}
 		
 		if (arena.isEnabled()) {
 			board.setScore("§a ", 11);
-			board.setScore("§8§ §cArena:", 10);
-			board.setScore("§8§ §7/a ", 9);
+			board.setScore("§8» §cArena:", 10);
+			board.setScore("§8» §7/a ", 9);
 		}
 
 		board.setScore("§b ", 8);
-		board.setScore("§8§ §cTeamsize:", 7);
-		board.setScore("§8§ §7" + game.getAdvancedTeamSize(true, false), 6);
+		board.setScore("§8» §cTeamsize:", 7);
+		board.setScore("§8» §7" + game.getAdvancedTeamSize(true, false), 6);
 		
 		board.setScore("§c ", 5);
-		board.setScore("§8§ §cScenarios:", 4);
+		board.setScore("§8» §cScenarios:", 4);
 		
 		for (String scen : game.getScenarios().split(", ")) {
-			board.setScore("§8§ §7" + scen, 3);
+			board.setScore("§8» §7" + scen, 3);
 		}
 		
 		board.setScore("§d ", 2);

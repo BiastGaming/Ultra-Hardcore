@@ -22,7 +22,7 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  * @author LeonTG77
  */
 public class Balance extends Scenario implements Listener {
-	private static final String PREFIX = "§3Balance §8§ §7";
+	private static final String PREFIX = "§3Balance §8» §7";
 	
 	private final Game game;
 	

@@ -247,7 +247,7 @@ public class SpectatorListener implements Listener {
 			}
 
 			player.sendMessage(Main.PREFIX + "Players in the nether:");
-			player.sendMessage("§8§ §7" + nether.toString().trim());
+			player.sendMessage(Main.ARROW + nether.toString().trim());
 			
 			event.setCancelled(true);
 		}

@@ -42,7 +42,7 @@ import com.leontg77.ultrahardcore.world.WorldManager;
  * @author LeonTG77
  */
 public class Arena {
-	public static final String PREFIX = "§4Arena §8§ §7";
+	public static final String PREFIX = "§4Arena §8» §7";
 	
 	private final Main plugin;
 	
@@ -98,7 +98,7 @@ public class Arena {
 			killboard = score.registerNewObjective("arenaKills", "dummy");
 		}
 		
-		killboard.setDisplayName("§4Arena §8§ §7§oUse /a to join§r");
+		killboard.setDisplayName("§4Arena §8» §7§oUse /a to join§r");
 		
 		if (game.arenaBoard()) {
 			killboard.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -126,8 +126,8 @@ public class Arena {
 		
 		if (game.pregameBoard()) {
 			board.setScore("§a ", 11);
-			board.setScore("§8§ §cArena:", 10);
-			board.setScore("§8§ §7/a ", 9);
+			board.setScore("§8» §cArena:", 10);
+			board.setScore("§8» §7/a ", 9);
 		}
 		
 		if (game.arenaBoard()) {
@@ -137,7 +137,7 @@ public class Arena {
 			game.setArenaBoard(true);
 		}
 		
-		setScore("§8§ §9§oNext Reset ", 30);
+		setScore("§8» §9§oNext Reset ", 30);
 
 		if (regenTask == null) {
 			regenTask = new BukkitRunnable() {
@@ -146,7 +146,7 @@ public class Arena {
 				public void run() {
 					time--;
 
-					setScore("§8§ §9§oNext Reset ", (int) ((time / 60) + 1));
+					setScore("§8» §9§oNext Reset ", (int) ((time / 60) + 1));
 					
 					switch (time) {
 					case 900:
@@ -230,8 +230,8 @@ public class Arena {
 		
 		if (game.pregameBoard()) {
 			board.resetScore("§a ");
-			board.resetScore("§8§ §cArena:");
-			board.resetScore("§8§ §7/a ");
+			board.resetScore("§8» §cArena:");
+			board.resetScore("§8» §7/a ");
 		}
 		
 		if (game.arenaBoard()) {
@@ -247,7 +247,7 @@ public class Arena {
 			}
 		}
 
-		resetScore("§8§ §9§oNext Reset ");
+		resetScore("§8» §9§oNext Reset ");
 		players.clear();
 
 		if (regenTask != null) {

@@ -26,7 +26,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Lootcrates extends Scenario implements Listener {
-	private static final String PREFIX = "§9Lootcrates §8§ §7";
+	private static final String PREFIX = "§9Lootcrates §8» §7";
 	
 	private final Main plugin;
 	private final Game game;

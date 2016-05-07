@@ -52,10 +52,10 @@ public class TimeLeftCommand extends UHCCommand {
 		int finalheal = 20 - timePassed;
 		
 		sender.sendMessage(Main.PREFIX + "UHC Game Timers:");
-		sender.sendMessage("§8§ §7Time since start: §a" + DateUtils.ticksToString(timePassed));
-		sender.sendMessage("§8§ " + (finalheal <= 0 ? "§eFinal heal has passed!" : "§7Final heal is given in: §a" + DateUtils.ticksToString(finalheal)));
-		sender.sendMessage("§8§ " + (pvp <= 0 ? "§aPvP is enabled!" : "§7PvP enables in: §a" + DateUtils.ticksToString(pvp)));
-		sender.sendMessage("§8§ " + (meetup <= 0 ? "§cMeetup is NOW!" : "§7Meetup in: §a" + DateUtils.ticksToString(meetup)));
+		sender.sendMessage(Main.ARROW + "Time since start: §a" + DateUtils.ticksToString(timePassed));
+		sender.sendMessage(Main.ARROW + (finalheal <= 0 ? "§eFinal heal has passed!" : "§7Final heal is given in: §a" + DateUtils.ticksToString(finalheal)));
+		sender.sendMessage(Main.ARROW + (pvp <= 0 ? "§aPvP is enabled!" : "§7PvP enables in: §a" + DateUtils.ticksToString(pvp)));
+		sender.sendMessage(Main.ARROW + (meetup <= 0 ? "§cMeetup is NOW!" : "§7Meetup in: §a" + DateUtils.ticksToString(meetup)));
 		return true;
 	}
 

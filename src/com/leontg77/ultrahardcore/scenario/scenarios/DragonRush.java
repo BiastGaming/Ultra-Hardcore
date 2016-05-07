@@ -40,7 +40,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class DragonRush extends Scenario implements Listener, CommandExecutor {
-	public static final String PREFIX = "§cDragon Rush §8§ §7";
+	public static final String PREFIX = "§cDragon Rush §8» §7";
 
 	private final List<Location> portalBlocks = new ArrayList<Location>();
 	

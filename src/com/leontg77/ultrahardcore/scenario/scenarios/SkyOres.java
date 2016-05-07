@@ -32,7 +32,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class SkyOres extends Scenario implements CommandExecutor, Listener {
-	public static final String PREFIX = "§fSkyOres §8§ §7";
+	public static final String PREFIX = "§fSkyOres §8» §7";
 	
 	private final Main plugin;
 	

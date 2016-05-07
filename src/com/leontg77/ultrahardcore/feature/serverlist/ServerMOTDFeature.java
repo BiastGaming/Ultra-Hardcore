@@ -28,9 +28,9 @@ public class ServerMOTDFeature extends Feature implements Listener {
 		final String motd = getMOTDMessage();
 		
 		event.setMotd(
-			"§4§lArctic UHC §8§ §6" + motd + " §8§ [§71.8§8] [§7EU§8]" +
+			"§4§lArctic UHC §8» §6" + motd + " §8« [§71.8§8] [§7EU§8]" +
 			"\n" +	
-			"§8§ " + info
+			"§8» " + info
 		); 
 		
 		event.setMaxPlayers(game.getMaxPlayers());
