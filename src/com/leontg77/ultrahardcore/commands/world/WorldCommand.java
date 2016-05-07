@@ -18,6 +18,7 @@ import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.gui.guis.WorldCreatorGUI;
 import com.leontg77.ultrahardcore.world.WorldManager;
+import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
 
 /**
  * World command class.
@@ -25,14 +26,18 @@ import com.leontg77.ultrahardcore.world.WorldManager;
  * @author LeonTG77
  */
 public class WorldCommand extends UHCCommand {
+	private final AntiStripmine antiSM;
+	
 	private final Settings settings;
 	private final Game game;
 	
 	private final WorldManager manager;
 	private final GUIManager gui;
 
-	public WorldCommand(Game game, Settings settings, GUIManager gui, WorldManager manager) {
+	public WorldCommand(Game game, Settings settings, AntiStripmine antiSM, GUIManager gui, WorldManager manager) {
 		super("world", "");
+		
+		this.antiSM = antiSM;
 
 		this.settings = settings;
 		this.game = game;
@@ -128,12 +133,12 @@ public class WorldCommand extends UHCCommand {
 			
 			if (args[0].equalsIgnoreCase("list")) {
 				sender.sendMessage(Main.PREFIX + "Default worlds: §8(§62§8)");
-				sender.sendMessage("§8§ §7lobby §8- §aNORMAL §8(§7Spawn World§8)");
-				sender.sendMessage("§8§ §7arena §8- §aNORMAL §8(§7Arena World§8)");
+				sender.sendMessage(Main.ARROW + "lobby §8- §aNORMAL §8(§7Spawn World§8)");
+				sender.sendMessage(Main.ARROW + "arena §8- §aNORMAL §8(§7Arena World§8)");
 				sender.sendMessage(Main.PREFIX + "Game worlds: §8(§6" + (Bukkit.getWorlds().size() - 2) + "§8)");
 				
 				if ((Bukkit.getWorlds().size() - 2) == 0) {
-					sender.sendMessage("§8§ §7There are no game worlds.");
+					sender.sendMessage(Main.ARROW + "There are no game worlds.");
 					return true;
 				}
 				
@@ -160,7 +165,7 @@ public class WorldCommand extends UHCCommand {
 						return true;
 					}
 					
-					sender.sendMessage("§8§ §7" + world.getName() + " §8- " + color + world.getEnvironment().name() + " §8(§7" + (game.getWorlds().contains(world) ? "In use" : "Not used")+ "§8)");
+					sender.sendMessage(Main.ARROW + world.getName() + " §8- " + color + world.getEnvironment().name() + " §8(§7" + (game.getWorlds().contains(world) ? "§6In use" : "§7Not used")+ "§8)");
 				}
 				return true;
 			}
@@ -202,15 +207,31 @@ public class WorldCommand extends UHCCommand {
 				manager.unloadWorld(world);
 				return true;
 			}
+			
+			if (args[0].equalsIgnoreCase("data")) {
+				if (args.length > 0) {
+					World world = Bukkit.getWorld(args[1]);
+					
+					if (world == null) {
+						throw new CommandException("The world '" + args[1] + "' does not exist.");
+					}
+					
+					antiSM.getWorldData(world).displayStats(sender);
+				}
+				
+				antiSM.displayStats(sender);
+				return true;
+			}
 		}
 		
 		sender.sendMessage(Main.PREFIX + "World management help:");
-		sender.sendMessage("§8§ §a/world create §8- §7§oCreate a world.");
-		sender.sendMessage("§8§ §a/world delete §8- §7§oDelete a world.");
-		sender.sendMessage("§8§ §a/world load §8- §7§oLoad a world.");
-		sender.sendMessage("§8§ §a/world unload §8- §7§oUnload a world.");
-		sender.sendMessage("§8§ §a/world list §8- §7§oList all worlds.");
-		sender.sendMessage("§8§ §a/world tp §8- §7§oTeleport to a world.");
+		sender.sendMessage("§8» §a/world create §8- §7§oCreate a world.");
+		sender.sendMessage("§8» §a/world delete §8- §7§oDelete a world.");
+		sender.sendMessage("§8» §a/world load §8- §7§oLoad a world.");
+		sender.sendMessage("§8» §a/world unload §8- §7§oUnload a world.");
+		sender.sendMessage("§8» §a/world list §8- §7§oList all worlds.");
+		sender.sendMessage("§8» §a/world tp §8- §7§oTeleport to a world.");
+		sender.sendMessage("§8» §a/world data [world] §8- §7§oDisplay AntiStripmine info.");
 		return true;
 	}
 
@@ -225,6 +246,7 @@ public class WorldCommand extends UHCCommand {
 			toReturn.add("tp");
 			toReturn.add("load");
 			toReturn.add("unload");
+			toReturn.add("data");
 		}
 		
 		if (args.length == 2) {
@@ -238,6 +260,7 @@ public class WorldCommand extends UHCCommand {
 			case "unload":
 			case "tp":
 			case "delete":
+			case "data":
 				for (World world : Bukkit.getWorlds()) {
 					toReturn.add(world.getName());
 				}
