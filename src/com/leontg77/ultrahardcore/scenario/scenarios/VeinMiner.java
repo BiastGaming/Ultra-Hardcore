@@ -61,11 +61,11 @@ public class VeinMiner extends Scenario implements Listener {
 					return;
 				}
 				
-				Block block = vein.remove(0);
+				Block thisBlock = vein.remove(0);
 				
-				BlockUtils.blockBreak(player, block);
-				block.breakNaturally(player.getItemInHand());
+				BlockUtils.blockBreak(null, thisBlock);
+				thisBlock.breakNaturally(player.getItemInHand());
 			}
-		}.runTaskTimer(plugin, 5, 5);
+		}.runTaskTimer(plugin, 1, 1);
 	}
 }
