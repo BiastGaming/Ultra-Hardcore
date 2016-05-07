@@ -129,12 +129,12 @@ public abstract class ToggleableFeature extends Feature {
 		lore.add("§8» §cDescription:");
 		
 		for (String split : newDesc.split(";")) {
-			lore.add("§8§ §7" + split);
+			lore.add("§8» §7" + split);
 		}
 		
 		lore.add(" ");
 		
-		meta.setDisplayName("§8» §6" + getName() + " §8§");
+		meta.setDisplayName("§8» §6" + getName() + " §8«");
 		meta.setLore(lore);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_POTION_EFFECTS);
 		icon.setItemMeta(meta);
