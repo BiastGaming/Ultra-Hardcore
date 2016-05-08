@@ -72,6 +72,10 @@ public class SpectatorListener implements Listener {
 
 	@EventHandler
 	public void on(AsyncPlayerChatEvent event) {
+		if (game.isPrivateGame() || game.isRecordedRound()) {
+			return;
+		}
+		
 		Player player = event.getPlayer();
 		
 		if (!spec.isSpectating(player)) {
