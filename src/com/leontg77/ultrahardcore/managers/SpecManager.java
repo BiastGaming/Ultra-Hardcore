@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.google.common.collect.ImmutableSet;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
 
@@ -192,6 +193,10 @@ public class SpecManager {
 			cmdspies.remove(player.getName());
 		}
 		
+		if (user.getRank() == Rank.DEFAULT && !specchatprotected.contains(player.getName())) {
+			specchatprotected.add(player.getName());
+		}
+		
 		player.getInventory().setItem(1, tp);
 		player.getInventory().setItem(3, compass);
 		player.getInventory().setItem(5, nether);
@@ -225,6 +230,7 @@ public class SpecManager {
 		
 		player.setPlayerListName(null);
 
+		specchatprotected.remove(player.getName());
 		spectators.remove(player.getName());
 		specinfo.remove(player.getName());
 		cmdspies.add(player.getName());
