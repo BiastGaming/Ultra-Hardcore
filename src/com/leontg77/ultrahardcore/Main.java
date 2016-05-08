@@ -248,7 +248,6 @@ public class Main extends JavaPlugin {
 		PluginManager manager = Bukkit.getPluginManager(); 
 
 		protocol.addPacketListener(new SaturationConcealer(this));
-		protocol.addPacketListener(new PingConcealer(this));
 		
 		// register all listeners.
 		manager.registerEvents(new AnvilListener(this), this);
