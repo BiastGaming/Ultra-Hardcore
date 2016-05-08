@@ -148,9 +148,8 @@ commands:
     aliases: [spread]
   ac:
     description: Talk in StaffChat.
-  spectatorchatprotection:
+  scp:
     description: Enable/disable spectator chat protection.
-    aliases: [scp]
   start:
     description: Start command.
   stats:
