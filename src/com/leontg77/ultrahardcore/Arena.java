@@ -31,6 +31,7 @@ import com.google.common.collect.ImmutableList;
 import com.leontg77.ultrahardcore.listeners.ArenaListener;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
+import com.leontg77.ultrahardcore.utils.PacketUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 import com.leontg77.ultrahardcore.world.WorldManager;
 
@@ -151,15 +152,31 @@ public class Arena {
 					switch (time) {
 					case 900:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a15 §7minutes.");
+						
+						for (Player arena : getPlayers()) {
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a15 §7minutes!", 1, 1, 1);
+						}
 						break;
 					case 600:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a10 §7minutes.");
+						
+						for (Player arena : getPlayers()) {
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a10 §7minutes!", 1, 1, 1);
+						}
 						break;
 					case 300:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a5 §7minutes.");
+						
+						for (Player arena : getPlayers()) {
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a5 §7minutes!", 1, 1, 1);
+						}
 						break;
 					case 60:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a1 §7minute.");
+						
+						for (Player arena : getPlayers()) {
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a1 §7minute!", 1, 1, 1);
+						}
 						break;
 					case 30:
 					case 10:
@@ -168,9 +185,17 @@ public class Arena {
 					case 3:
 					case 2:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a" + time + " §7seconds.");
+						
+						for (Player arena : getPlayers()) {
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a" + time + " §7seconds!", 1, 1, 1);
+						}
 						break;
 					case 1:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a1 §7second.");
+						
+						for (Player arena : getPlayers()) {
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a1 §7second!", 1, 1, 1);
+						}
 						break;
 					case 0:
 						time = 1800;
