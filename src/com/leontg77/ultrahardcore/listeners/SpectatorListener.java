@@ -89,7 +89,7 @@ public class SpectatorListener implements Listener {
 		}
 		
 		event.setCancelled(true);
-		Bukkit.getScheduler().runTask(plugin, () -> player.performCommand("specchat " + message));
+		Bukkit.getScheduler().runTask(plugin, () -> player.performCommand("sc " + message));
 	}
 
 	@EventHandler
