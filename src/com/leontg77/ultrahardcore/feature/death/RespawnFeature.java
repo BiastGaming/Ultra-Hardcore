@@ -55,7 +55,7 @@ public class RespawnFeature extends Feature implements Listener {
 		player.sendMessage(Main.PREFIX + "Follow us on twtter to know when our next games are: §a§o@ArcticUHC");
 		player.sendMessage(Main.PREFIX + "Please do not spam, rage, spoil or be a bad sportsman.");
 		
-		if (!player.hasPermission("uhc.prelist") || game.isPrivateGame()) {
+		if (!game.isPrivateGame() && !player.hasPermission("uhc.prelist")) {
 			player.sendMessage(Main.PREFIX + "You may stay as long as you want (You are vanished).");
 			return;
 		}
