@@ -1,42 +1,64 @@
 package com.leontg77.ultrahardcore.commands.spectate;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.managers.SpecManager;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 
-import java.util.List;
-import java.util.Set;
-
+/**
+ * SpecChatProtection command class.
+ * 
+ * @author D4mnX
+ */
 public class SpectatorChatProtectionCommand extends UHCCommand {
+    private final SpecManager manager;
 
-    protected final SpecManager specManager;
-
-    public SpectatorChatProtectionCommand(SpecManager specManager) {
-        super("spectatorchatprotection", "<on|off|toggle>");
-        this.specManager = specManager;
+    public SpectatorChatProtectionCommand(SpecManager manager) {
+        super("scp", "<on|off|toggle> [player]");
+        
+        this.manager = manager;
     }
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        if (!(sender instanceof Player)) {
-            throw new CommandException("Command intended for players only");
+        if (args.length == 0) {
+        	return false;
         }
 
+        Player target = null;
+        
+        if (args.length == 1 || !sender.hasPermission(getPermission() + ".other")) {
+            if (!(sender instanceof Player)) {
+                throw new CommandException("Only players can protect themselves from talking in the chat.");
+            }
+            
+            target = (Player) sender;
+        } else {
+        	target = Bukkit.getPlayer(args[1]);
+        	
+        	if (target == null) {
+        		throw new CommandException("'" + args[1] + "' is not online.");
+        	}
+        }
+        
         String name = sender.getName();
-        if (!specManager.getSpectators().contains(name)) {
-            sender.sendMessage(Main.PREFIX + "You are not spectating.");
+        
+        if (!manager.isSpectating(target)) {
+            sender.sendMessage(Main.PREFIX + (target == sender ? "You are" : target.getName() + " is") + " not spectating.");
             return true;
         }
 
-        Set<String> specChatProtected = specManager.getSpecChatProtected();
+        Set<String> chatProtection = manager.getSpecChatProtected();
 
-        boolean currentlyProtectedStatus = specChatProtected.contains(name);
+        boolean currentStatus = chatProtection.contains(name);
         boolean newStatus;
 
         if (args[0].equalsIgnoreCase("on")) {
@@ -44,23 +66,30 @@ public class SpectatorChatProtectionCommand extends UHCCommand {
         } else if (args[0].equals("off")) {
             newStatus = false;
         } else if (args[0].equals("toggle")) {
-            newStatus = !currentlyProtectedStatus;
+            newStatus = !currentStatus;
         } else {
             return false;
         }
 
-        if (currentlyProtectedStatus == newStatus) {
-            sender.sendMessage(Main.PREFIX + "Your spectator chat protection is already " +
-                    (currentlyProtectedStatus ? "enabled." : "disabled."));
+        if (currentStatus == newStatus) {
+            sender.sendMessage(Main.PREFIX + (target == sender ? "Your" : target.getName() + "'s") + " spectator chat protection is already " + (currentStatus ? "enabled." : "disabled."));
             return true;
         }
 
         if (newStatus) {
-            specChatProtected.add(name);
-            sender.sendMessage(Main.PREFIX + "You have enabled spectator chat protection.");
+            chatProtection.add(name);
+            
+            sender.sendMessage(Main.PREFIX + "You have enabled " + (target == sender ? "your" : target.getName() + "'s") + " spectator chat protection.");
+            if (sender != target) {
+            	target.sendMessage(Main.PREFIX + "Your spectator chat protection has been enabled.");
+            }
         } else {
-            specChatProtected.remove(name);
-            sender.sendMessage(Main.PREFIX + "You have disabled spectator chat protection.");
+            chatProtection.remove(name);
+            
+            sender.sendMessage(Main.PREFIX + "You have disabled " + (target == sender ? "your" : target.getName() + "'s") + " spectator chat protection.");
+            if (sender != target) {
+            	target.sendMessage(Main.PREFIX + "Your spectator chat protection has been disabled.");
+            }
         }
 
         return true;
@@ -68,6 +97,22 @@ public class SpectatorChatProtectionCommand extends UHCCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
-        return StringUtil.copyPartialMatches(args[0], ImmutableList.of("on", "off", "toggle"), Lists.newArrayList());
+		List<String> toReturn = new ArrayList<String>();
+    	
+		if (args.length == 1) {
+			toReturn.add("on");
+        	toReturn.add("off");
+        	toReturn.add("toggle");
+        }
+		
+		if (args.length == 2) {
+			if (!sender.hasPermission(getPermission() + ".other")) {
+		        return new ArrayList<String>();
+			}
+			
+			return allPlayers();
+        }
+		
+		return toReturn;
     }
 }
