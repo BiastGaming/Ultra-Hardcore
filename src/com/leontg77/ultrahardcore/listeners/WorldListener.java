@@ -51,6 +51,8 @@ public class WorldListener implements Listener {
 
 			if (arena.wasEnabled) {
 				arena.enable();
+				PlayerUtils.broadcast(Arena.PREFIX + "The arena has been enabled.");
+				PlayerUtils.broadcast(Arena.PREFIX + "You can use §a/a §7to join it.");
 			}
 
 			arena.wasEnabled = false;
