@@ -18,16 +18,22 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import com.google.common.collect.ImmutableSet;
+import com.leontg77.ultrahardcore.Main;
 
 /**
- * Block utilities class.
- * <p>
- * Contains block related methods.
+ * A class with block releated utils methods.
  * 
  * @author LeonTG77
  */
+@SuppressWarnings("deprecation")
 public class BlockUtils {
-	private static final Random rand = new Random();
+	private final Main plugin;
+	
+	public BlockUtils(Main plugin) {
+		this.plugin = plugin;
+	}
+	
+	private static final Random RANDOM = new Random();
 
 	/**
 	 * Display the block breaking sound and particles.
@@ -35,18 +41,12 @@ public class BlockUtils {
 	 * @param player The player who mined the block.
 	 * @param block The block that was broken.
 	 */
-	@SuppressWarnings("deprecation")
-	public static void blockBreak(final Player player, final Block block) {
-		// Loop all players that are in the world.
+	public static void blockBreak(Player player, Block block) {
 		for (Player online : block.getWorld().getPlayers()) {
-			// we do not want to display it to the breaker himself, that is done
-			// automaticly.
-			if (player != null && online == player) {
-				continue;
+			if (player != null && online == player) { 
+				continue; // do not play effect for breaker if any, because they already see/hear it.
 			}
 
-			// play the effect STEP_SOUND with the given block id at the blocks
-			// location.
 			online.playEffect(block.getLocation(), Effect.STEP_SOUND, block.getTypeId());
 		}
 	}
@@ -58,15 +58,14 @@ public class BlockUtils {
 	 * @param loc The location dropping at.
 	 * @param toDrop The item dropping.
 	 */
-	public static void dropItem(final Location loc, final ItemStack toDrop) {
+	public static void dropItem(Location loc, ItemStack toDrop) {
 		// wait 2 ticks before dropping the item, because then the block won't push the item.
 		new BukkitRunnable() {
 			public void run() {
-				// spawn item.
 				Item item = loc.getWorld().dropItem(loc, toDrop);
 				item.setVelocity(randomOffset());
 			}
-		}.runTaskLater(Bukkit.getPluginManager().getPlugin("UHC"), 2);
+		}.runTaskLater(plugin, 2);
 	}
 
 	/**
@@ -90,7 +89,7 @@ public class BlockUtils {
 		if (item.containsEnchantment(Enchantment.DURABILITY)) {
 			double chance = (100 / (item.getEnchantmentLevel(Enchantment.DURABILITY) + 1));
 
-			if (rand.nextDouble() <= (chance / 100)) {
+			if (RANDOM.nextDouble() <= (chance / 100)) {
 				durability++;
 			}
 		} else {
@@ -117,11 +116,11 @@ public class BlockUtils {
 	private static Vector randomOffset() {
 		// don't ask me for why these numbers, I was just testing different
 		// onces and these seemed to work the best.
-		double offsetX = rand.nextDouble() / 20;
-		double offsetZ = rand.nextDouble() / 20;
+		double offsetX = RANDOM.nextDouble() / 20;
+		double offsetZ = RANDOM.nextDouble() / 20;
 
-		offsetX = offsetX - (rand.nextDouble() / 20);
-		offsetZ = offsetZ - (rand.nextDouble() / 20);
+		offsetX = offsetX - (RANDOM.nextDouble() / 20);
+		offsetZ = offsetZ - (RANDOM.nextDouble() / 20);
 
 		return new Vector(offsetX, 0.2, offsetZ);
 	}
@@ -136,7 +135,7 @@ public class BlockUtils {
 		return block.getState().getData().toItemStack().getDurability();
 	}
 
-	private static final int VEIN_LIMIT = 100;
+	private static final int VEIN_LIMIT = 30;
 
 	/**
 	 * Get the ore vein at the given location.
