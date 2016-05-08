@@ -73,6 +73,7 @@ public class SpectatorListener implements Listener {
 	@EventHandler
 	public void on(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
+		
 		if (!spec.isSpectating(player)) {
 			return;
 		}
@@ -81,8 +82,13 @@ public class SpectatorListener implements Listener {
 			return;
 		}
 
-		event.setCancelled(true);
 		String message = event.getMessage();
+		
+		if (message.equalsIgnoreCase("gg")) {
+			return;
+		}
+		
+		event.setCancelled(true);
 		Bukkit.getScheduler().runTask(plugin, () -> player.performCommand("specchat " + message));
 	}
 
