@@ -3,6 +3,7 @@ package com.leontg77.ultrahardcore.utils;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.base.Preconditions;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -27,12 +28,20 @@ import com.leontg77.ultrahardcore.Main;
  */
 @SuppressWarnings("deprecation")
 public class BlockUtils {
-	private final Main plugin;
-	
-	public BlockUtils(Main plugin) {
-		this.plugin = plugin;
+	private static Main plugin;
+
+	/**
+	 * Set the plugin instance the BlockUtils class
+	 * will use for scheduling tasks etc.
+	 * @param plugin The main class.
+	 * @throws IllegalStateException If this method was already invoked
+	 */
+	public static void setPlugin(Main plugin) {
+		Preconditions.checkArgument(plugin != null, "Plugin cannot be null");
+		Preconditions.checkState(BlockUtils.plugin == null, "BlockUtils already has a plugin instance set");
+		BlockUtils.plugin = plugin;
 	}
-	
+
 	private static final Random RANDOM = new Random();
 
 	/**
@@ -139,8 +148,7 @@ public class BlockUtils {
 
 	/**
 	 * Get the ore vein at the given location.
-	 * 
-	 * @param loc The location to get it at.
+	 *
 	 * @return The list of the locations of the vein blocks, null if this wasn't an ore.
 	 */
 	public static void getVein(Block start, List<Block> vein) {

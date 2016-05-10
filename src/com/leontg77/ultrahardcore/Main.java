@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import com.leontg77.ultrahardcore.utils.BlockUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Logger;
@@ -209,6 +210,7 @@ public class Main extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		BlockUtils.setPlugin(this);
 		instances();
 		
 		PluginDescriptionFile file = getDescription();
