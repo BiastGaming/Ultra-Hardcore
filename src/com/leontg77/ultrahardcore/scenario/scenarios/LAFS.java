@@ -50,7 +50,7 @@ public class LAFS extends Scenario implements Listener {
 		Player clicked = (Player) event.getRightClicked();
 		Player player = event.getPlayer();
 		
-		if (!game.getPlayers().contains(player) && !game.getPlayers().contains(clicked)) {
+		if (!game.getPlayers().contains(player) || !game.getPlayers().contains(clicked)) {
 			return;
 		}
 		
