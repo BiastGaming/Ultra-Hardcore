@@ -178,6 +178,7 @@ public class ScenarioManager {
 		scenarios.add(new Entropy(plugin, game));
 		scenarios.add(new Fallout(plugin, game));
 		scenarios.add(new Fireless());
+		scenarios.add(new FlatWorld(game));
 		scenarios.add(new Flooded(plugin, game));
 		scenarios.add(new FlowerPower());
 		scenarios.add(new Genie());
@@ -213,6 +214,8 @@ public class ScenarioManager {
 		scenarios.add(new Paranoia(game, board, feat));
 		scenarios.add(new PeriodOfResistance(plugin));
 		scenarios.add(new Permakill(game));
+		scenarios.add(new Popcorn(plugin, spec));
+		scenarios.add(new PopcornPlus(plugin, spec));
 		scenarios.add(new PotentialHearts());
 		scenarios.add(new PotentialMoles(plugin, getScenario(Moles.class)));
 		scenarios.add(new PotentialPermanent(settings, feat));
