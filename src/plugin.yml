@@ -1,6 +1,6 @@
 name: UHC
 main: com.leontg77.ultrahardcore.Main
-version: 1.10.4
+version: 1.11.9
 author: LeonTG77
 description: A private UHC plugin made for ArcticUHC ONLY.
 softdepend: [ProtocolLib, Pregenner]
