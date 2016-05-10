@@ -193,6 +193,7 @@ public class ScenarioManager {
 		scenarios.add(new InfiniteEnchanter());
 		scenarios.add(new Inventors());
 		scenarios.add(new InvertedDimensions(plugin));
+		scenarios.add(new InvertedParallel(plugin));
 		scenarios.add(new Kings(plugin, teams));
 		scenarios.add(new Krenzinator());
 		scenarios.add(new LAFS(game, teams));

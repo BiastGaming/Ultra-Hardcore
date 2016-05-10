@@ -246,6 +246,8 @@ commands:
     description: Generate the glass world scenario.
   invert:
     description: Generate the inverted dimentions scenario.
+  invertpara:
+    description: Generate the inverted parallel scenario.
   kings:
     description: Manage kings.
   molehelp:
