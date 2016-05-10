@@ -276,21 +276,6 @@ public class InvertedParallel extends Scenario implements CommandExecutor, Liste
                                     blockInParallel.setType(Material.GRAVEL);
                                     break;
                                 case DOUBLE_PLANT:
-                                    break;
-                                default:
-                                    blockInParallel.setType(blockOnSurface.getType());
-                                    blockInParallel.setData(blockOnSurface.getData());
-
-                                    if (blockOnSurface.getState() instanceof InventoryHolder) {
-                                        InventoryHolder surfaceInv = (InventoryHolder) blockOnSurface.getState();
-                                        InventoryHolder inv = (InventoryHolder) blockInParallel.getState();
-
-                                        inv.getInventory().setContents(surfaceInv.getInventory().getContents());
-                                    }
-                                    break;
-                            }
-
-                            switch (blockInParallel.getType()) {
                                 case YELLOW_FLOWER:
                                 case RED_ROSE:
                                 case LONG_GRASS:
@@ -335,6 +320,15 @@ public class InvertedParallel extends Scenario implements CommandExecutor, Liste
                                     }.runTaskLater(plugin, 600);
                                     break;
                                 default:
+                                    blockInParallel.setType(blockOnSurface.getType());
+                                    blockInParallel.setData(blockOnSurface.getData());
+
+                                    if (blockOnSurface.getState() instanceof InventoryHolder) {
+                                        InventoryHolder surfaceInv = (InventoryHolder) blockOnSurface.getState();
+                                        InventoryHolder inv = (InventoryHolder) blockInParallel.getState();
+
+                                        inv.getInventory().setContents(surfaceInv.getInventory().getContents());
+                                    }
                                     break;
                             }
                         }
