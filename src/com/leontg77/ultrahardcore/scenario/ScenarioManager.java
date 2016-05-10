@@ -214,8 +214,8 @@ public class ScenarioManager {
 		scenarios.add(new Paranoia(game, board, feat));
 		scenarios.add(new PeriodOfResistance(plugin));
 		scenarios.add(new Permakill(game));
-		scenarios.add(new Popcorn(plugin, spec));
-		scenarios.add(new PopcornPlus(plugin, spec));
+		scenarios.add(new Popcorn(plugin, game));
+		scenarios.add(new PopcornPlus(plugin, game));
 		scenarios.add(new PotentialHearts());
 		scenarios.add(new PotentialMoles(plugin, getScenario(Moles.class)));
 		scenarios.add(new PotentialPermanent(settings, feat));
