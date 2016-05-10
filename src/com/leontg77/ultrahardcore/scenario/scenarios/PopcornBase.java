@@ -1,36 +1,43 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
-import com.leontg77.ultrahardcore.events.GameStartEvent;
-import com.leontg77.ultrahardcore.managers.SpecManager;
-import com.leontg77.ultrahardcore.scenario.Scenario;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import com.google.common.collect.ImmutableList;
+import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.events.GameStartEvent;
+import com.leontg77.ultrahardcore.scenario.Scenario;
 
+/**
+ * Popcorn scenario base class.
+ * 
+ * @author D4mnX
+ */
 class PopcornBase extends Scenario {
-
     protected static final List<PushingDirection> DIRECTIONS = ImmutableList.copyOf(PushingDirection.values());
 
     protected final Main plugin;
-    protected final SpecManager spec;
+    protected final Game game;
+    
     protected final double pushingSpeed;
     protected final long intervalInTicks;
+    
     protected final Random random = new Random();
     protected Optional<BukkitTask> currentTask = Optional.empty();
 
-    PopcornBase(String name, Main plugin, SpecManager spec, double pushingSpeed, long intervalInTicks) {
+    PopcornBase(String name, Main plugin, Game game, double pushingSpeed, long intervalInTicks) {
         super(name, "You get constantly nudged in random directions. Fall damage is off.");
         this.plugin = plugin;
-        this.spec = spec;
+        this.game = game;
         this.pushingSpeed = pushingSpeed;
         this.intervalInTicks = intervalInTicks;
     }
@@ -59,9 +66,7 @@ class PopcornBase extends Scenario {
         }
 
         BukkitTask task = Bukkit.getScheduler().runTaskTimer(plugin,
-                () -> Bukkit.getOnlinePlayers().stream()
-                        .filter(player -> !spec.isSpectating(player))
-                        .forEach(this::pushPlayer),
+                () -> game.getPlayers().stream().forEach(this::pushPlayer),
                 intervalInTicks, intervalInTicks
         );
         currentTask = Optional.of(task);
@@ -77,7 +82,7 @@ class PopcornBase extends Scenario {
         SOUTH(0,0,1),
         WEST(-1,0,0),
         EAST(1,0,0),
-        UPWARDS(0, 1, 1);
+        UPWARDS(0, 1, 0);
 
         private final double dx;
         private final double dy;
