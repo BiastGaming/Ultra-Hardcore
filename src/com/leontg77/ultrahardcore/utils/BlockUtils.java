@@ -3,8 +3,6 @@ package com.leontg77.ultrahardcore.utils;
 import java.util.List;
 import java.util.Random;
 
-import com.google.common.base.Preconditions;
-import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import com.leontg77.ultrahardcore.Main;
 
@@ -29,19 +28,20 @@ import com.leontg77.ultrahardcore.Main;
 @SuppressWarnings("deprecation")
 public class BlockUtils {
 	private static Main plugin;
-
+	 
 	/**
-	 * Set the plugin instance the BlockUtils class
-	 * will use for scheduling tasks etc.
+	 * Set the plugin instance the BlockUtils class will use for scheduling tasks etc.
+	 * 
 	 * @param plugin The main class.
 	 * @throws IllegalStateException If this method was already invoked
 	 */
 	public static void setPlugin(Main plugin) {
 		Preconditions.checkArgument(plugin != null, "Plugin cannot be null");
-		Preconditions.checkState(BlockUtils.plugin == null, "BlockUtils already has a plugin instance set");
-		BlockUtils.plugin = plugin;
+	 	Preconditions.checkState(BlockUtils.plugin == null, "BlockUtils already has a plugin instance set");
+	 	
+	 	BlockUtils.plugin = plugin;
 	}
-
+	
 	private static final Random RANDOM = new Random();
 
 	/**
@@ -68,13 +68,12 @@ public class BlockUtils {
 	 * @param toDrop The item dropping.
 	 */
 	public static void dropItem(Location loc, ItemStack toDrop) {
-		// wait 2 ticks before dropping the item, because then the block won't push the item.
 		new BukkitRunnable() {
 			public void run() {
 				Item item = loc.getWorld().dropItem(loc, toDrop);
 				item.setVelocity(randomOffset());
 			}
-		}.runTaskLater(plugin, 2);
+		}.runTaskLater(plugin, 2); // wait 2 ticks before dropping the item, so the block won't push the item.
 	}
 
 	/**
@@ -83,11 +82,10 @@ public class BlockUtils {
 	 * 
 	 * @param player The item owner.
 	 */
-	public static void degradeDurabiliy(final Player player) {
-		final ItemStack item = player.getItemInHand();
+	public static void degradeDurabiliy(Player player) {
+		ItemStack item = player.getItemInHand();
 
-		// if the item is air, a bow or it's max durability is 0 (only
-		// weapons/tools doesn't have it as 0) return.
+		// max durability doesn't count for blocks, only tools (except the bow?)
 		if (item.getType() == Material.AIR || item.getType() == Material.BOW || item.getType().getMaxDurability() == 0) {
 			return;
 		}
@@ -105,8 +103,6 @@ public class BlockUtils {
 			durability++;
 		}
 
-		// if theres no more durability left, play the break sound, remove the
-		// item and return.
 		if (durability >= item.getType().getMaxDurability()) {
 			player.getWorld().playSound(player.getLocation(), Sound.ITEM_BREAK, 1, 1);
 			player.setItemInHand(new ItemStack(Material.AIR));
@@ -140,16 +136,17 @@ public class BlockUtils {
 	 * @param block The block checking.
 	 * @return The durability of the block.
 	 */
-	public static int getDurability(final Block block) {
+	public static int getDurability(Block block) {
 		return block.getState().getData().toItemStack().getDurability();
 	}
 
 	private static final int VEIN_LIMIT = 30;
 
 	/**
-	 * Get the ore vein at the given location.
-	 *
-	 * @return The list of the locations of the vein blocks, null if this wasn't an ore.
+	 * Get the ore vein at the given location and add it to the given list.
+	 * 
+	 * @param start The block to start from.
+	 * @param vein The list of blocks in the vein to modify.
 	 */
 	public static void getVein(Block start, List<Block> vein) {
 		if (vein.size() > VEIN_LIMIT) {
