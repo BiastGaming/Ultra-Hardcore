@@ -463,9 +463,12 @@ public class User {
 
         int baseX = config.getInt("locs.scatter.x");
         int baseZ = config.getInt("locs.scatter.z");
+        
         Random random = new Random();
         Location location;
+        
         int attempts = 0;
+        
         while (true) {
             if (attempts++ > maximumAttempts) {
                 return null;
@@ -475,6 +478,7 @@ public class User {
             int offsetZ = random.nextInt(maximumOffset*2) - maximumOffset + 1;
 
             location = new Location(world, baseX + offsetX + 0.5, 255, baseZ + offsetZ + 0.5);
+            
             if (LocationUtils.isOutsideOfBorder(location)) {
                 continue;
             }
@@ -484,11 +488,13 @@ public class User {
             }
 
             int y = LocationUtils.highestTeleportableYAtLocation(location);
+            
             if (y == -1) {
                 return null;
             }
 
             location.setY(y + 1);
+            
             return location;
         }
 	}
@@ -501,7 +507,7 @@ public class User {
 	 * @param player The player to ignore
 	 */
 	public void ignore(Player player) {
-		final List<String> ignoreList = config.getStringList(IGNORE_PATH);
+		List<String> ignoreList = config.getStringList(IGNORE_PATH);
 		ignoreList.add(player.getUniqueId().toString());
 		
 		config.set(IGNORE_PATH, ignoreList);
@@ -514,7 +520,7 @@ public class User {
 	 * @param player The player to stop ignoring
 	 */
 	public void unIgnore(Player player) {
-		final List<String> ignoreList = config.getStringList(IGNORE_PATH);
+		List<String> ignoreList = config.getStringList(IGNORE_PATH);
 		ignoreList.remove(player.getUniqueId().toString());
 		
 		config.set(IGNORE_PATH, ignoreList);
@@ -529,6 +535,12 @@ public class User {
 	 */
 	public boolean isIgnoring(Player player) {
 		if (getRank().getLevel() >= Rank.STAFF.getLevel()) {
+			return false;
+		}
+		
+		User other = plugin.getUser(player);
+		
+		if (other.getRank().getLevel() >= Rank.STAFF.getLevel()) {
 			return false;
 		}
 		
@@ -627,7 +639,7 @@ public class User {
 				saveFile();
 			}
 		} else {
-			if (State.isState(State.INGAME)) {
+			if (State.isState(State.INGAME) || stat == Stat.WINS || stat == Stat.GAMESPLAYED) {
 				config.set("stats." + statName, value);
 				saveFile();
 			}
@@ -640,24 +652,7 @@ public class User {
 	 * @param stat the stat increasing.
 	 */
 	public void increaseStat(Stat stat) {
-		if (game.isRecordedRound() || game.isPrivateGame()) {
-			return;
-		}
-		
-		String statName = stat.name().toLowerCase();
-		double current = config.getDouble("stats." + statName, 0);
-		
-		if (stat == Stat.ARENADEATHS || stat == Stat.ARENAKILLSTREAK || stat == Stat.ARENAKILLS) {
-			if (!Bukkit.hasWhitelist()) {
-				config.set("stats." + statName, current + 1);
-				saveFile();
-			}
-		} else {
-			if (State.isState(State.INGAME) || stat == Stat.WINS || stat == Stat.GAMESPLAYED) {
-				config.set("stats." + statName, current + 1);
-				saveFile();
-			}
-		}
+		setStat(stat, getStatDouble(stat) + 1);
 	}
 	
 	/**
