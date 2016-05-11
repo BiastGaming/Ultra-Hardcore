@@ -1,6 +1,8 @@
 package com.leontg77.ultrahardcore.managers;
 
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -44,18 +46,21 @@ public class FireworkManager {
 		Firework item = loc.getWorld().spawn(loc, Firework.class);
 		FireworkMeta meta = item.getFireworkMeta();
 
-		Builder builder = FireworkEffect.builder();
+		Stream.generate(() -> {
+			Builder builder = FireworkEffect.builder();
 
-		builder.flicker(rand.nextBoolean());
-		builder.trail(rand.nextBoolean());
-		builder.withColor(randomColor());
-		builder.with(randomType());
-		
-		if (rand.nextBoolean()) {
-			builder.withFade(randomColor());
-		}
+			builder.flicker(rand.nextBoolean());
+			builder.trail(rand.nextBoolean());
+			builder.withColor(Stream.generate(this::randomColor).limit(rand.nextInt(5) + 1).collect(Collectors.toList()));
+			builder.with(randomType());
 
-		meta.addEffect(builder.build());
+			if (rand.nextBoolean()) {
+				builder.withFade(Stream.generate(this::randomColor).limit(rand.nextInt(5) + 1).collect(Collectors.toList()));
+			}
+
+			return builder.build();
+		}).limit(rand.nextInt(2) + 1).forEach(meta::addEffect);
+
 		meta.setPower(rand.nextInt(2) + 1);
 		item.setFireworkMeta(meta);
 	}
