@@ -259,10 +259,9 @@ public class ScatterManager {
 											Team team = manager.getTeam(scatter);
 											
 											for (OfflinePlayer teammate : manager.getPlayers(team)) {
+												Location fixedScatterLocation = getFixedScatterLocation(teammate.getName());
 												Player toScatter = teammate.getPlayer();
-												User user = plugin.getUser(toScatter);
 
-												Location fixedScatterLocation = user.getFixedScatterLocation(world);
 												if (fixedScatterLocation != null && team.getSize() == 1) {
 													scatterLocation = fixedScatterLocation;
 												}
@@ -280,23 +279,20 @@ public class ScatterManager {
 														}
 													}
 
-
-													user.increaseStat(Stat.GAMESPLAYED);
-													
+													plugin.getUser(toScatter).increaseStat(Stat.GAMESPLAYED);
 													toScatter.teleport(scatterLocation);
 												}
 											}
 											
 											scatterLocs.remove(scatter);
 										} else {
+											Location fixedScatterLocation = getFixedScatterLocation(scatter);
 											Player toScatter = Bukkit.getPlayer(scatter);
-											User user = plugin.getUser(toScatter);
 
-											Location fixedScatterLocation = user.getFixedScatterLocation(world);
 											if (fixedScatterLocation != null) {
 												scatterLocation = fixedScatterLocation;
 											}
-											
+
 											if (toScatter == null) {
 												lateScatters.put(scatter, scatterLocation);
 												scatterLocs.remove(scatter);
@@ -311,8 +307,7 @@ public class ScatterManager {
 													}
 												}
 
-												user.increaseStat(Stat.GAMESPLAYED);
-												
+												plugin.getUser(toScatter).increaseStat(Stat.GAMESPLAYED);
 												toScatter.teleport(scatterLocation);
 												scatterLocs.remove(scatter);
 											}
@@ -351,6 +346,18 @@ public class ScatterManager {
 				}.runTaskTimer(plugin, 5, 5);
 			}
 		}.runTaskLater(plugin, 60);
+	}
+
+	public Location getFixedScatterLocation(String name) {
+		OfflinePlayer offlinePlayer = PlayerUtils.getOfflinePlayer(name);
+		User user;
+		try {
+			user = plugin.getUser(offlinePlayer);
+		} catch (CommandException e) {
+			return null;
+		}
+
+		return user.getFixedScatterLocation(world);
 	}
 	
 	/**
