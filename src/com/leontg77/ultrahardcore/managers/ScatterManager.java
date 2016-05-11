@@ -252,15 +252,23 @@ public class ScatterManager {
 											i++;
 											return;
 										}
-										
+
+										Location scatterLocation = scatterLocs.get(scatter);
+
 										if (scatterTeams) {
 											Team team = manager.getTeam(scatter);
 											
 											for (OfflinePlayer teammate : manager.getPlayers(team)) {
 												Player toScatter = teammate.getPlayer();
+												User user = plugin.getUser(toScatter);
+
+												Location fixedScatterLocation = user.getFixedScatterLocation(world);
+												if (fixedScatterLocation != null && team.getSize() == 1) {
+													scatterLocation = fixedScatterLocation;
+												}
 												
 												if (toScatter == null) {
-													lateScatters.put(teammate.getName(), scatterLocs.get(scatter));
+													lateScatters.put(teammate.getName(), scatterLocation);
 												} else {
 													if (State.isState(State.SCATTER)) {
 														for (PotionEffect effect : FREEZE_EFFECTS) {
@@ -272,19 +280,25 @@ public class ScatterManager {
 														}
 													}
 
-													User user = plugin.getUser(toScatter);
+
 													user.increaseStat(Stat.GAMESPLAYED);
 													
-													toScatter.teleport(scatterLocs.get(scatter));
+													toScatter.teleport(scatterLocation);
 												}
 											}
 											
 											scatterLocs.remove(scatter);
 										} else {
 											Player toScatter = Bukkit.getPlayer(scatter);
+											User user = plugin.getUser(toScatter);
+
+											Location fixedScatterLocation = user.getFixedScatterLocation(world);
+											if (fixedScatterLocation != null) {
+												scatterLocation = fixedScatterLocation;
+											}
 											
 											if (toScatter == null) {
-												lateScatters.put(scatter, scatterLocs.get(scatter));
+												lateScatters.put(scatter, scatterLocation);
 												scatterLocs.remove(scatter);
 											} else {
 												if (State.isState(State.SCATTER)) {
@@ -297,10 +311,9 @@ public class ScatterManager {
 													}
 												}
 
-												User user = plugin.getUser(toScatter);
 												user.increaseStat(Stat.GAMESPLAYED);
 												
-												toScatter.teleport(scatterLocs.get(scatter));
+												toScatter.teleport(scatterLocation);
 												scatterLocs.remove(scatter);
 											}
 										}
@@ -398,7 +411,7 @@ public class ScatterManager {
 	 * @param loc the location.
 	 * @return True if its valid, false otherwise.
 	 */
-	private boolean isValid(Location loc) {
+	public static boolean isValid(Location loc) {
 		loc.setY(LocationUtils.getHighestBlock(loc.clone()).getY());
 		
 		Material type = loc.getBlock().getType();
