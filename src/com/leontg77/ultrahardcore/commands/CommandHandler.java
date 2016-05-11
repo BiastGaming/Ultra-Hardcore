@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.leontg77.ultrahardcore.commands.spectate.SpectatorChatProtectionCommand;
+import com.leontg77.ultrahardcore.commands.user.SetFixedScatterLocationCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -313,6 +314,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 		cmds.add(new InfoCommand(plugin, ubl));
 		cmds.add(new InfoIPCommand());
 		cmds.add(new RankCommand(plugin));
+		cmds.add(new SetFixedScatterLocationCommand(plugin));
 		cmds.add(new StatsCommand(plugin, game, gui));
 		cmds.add(new TopCommand(game, gui));
 		

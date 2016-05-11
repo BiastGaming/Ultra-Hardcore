@@ -139,6 +139,9 @@ commands:
   spectate:
     description: Change your spectator status.
     aliases: [spec]
+  setfixedscatterlocation:
+    description: Set fixed scatter locations for players.
+    aliases: [fsl]
   setspawn:
     description: Set the lobby spawn point.
   speed:

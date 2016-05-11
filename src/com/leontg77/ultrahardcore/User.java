@@ -5,9 +5,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
+import com.leontg77.ultrahardcore.managers.ScatterManager;
+import com.leontg77.ultrahardcore.utils.LocationUtils;
 import org.bukkit.BanList;
 import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
@@ -321,7 +324,7 @@ public class User {
 	/**
 	 * Set the death location of the player.
 	 * 
-	 * @param location The death loc.
+	 * @param loc The death loc.
 	 */
 	public void setDeathLoc(Location loc) {
 		if (loc == null) {
@@ -369,7 +372,7 @@ public class User {
 	/**
 	 * Set the last location of the player.
 	 * 
-	 * @param location The last loc.
+	 * @param loc The last loc.
 	 */
 	public void setLastLoc(Location loc) {
 		if (loc == null) {
@@ -413,7 +416,83 @@ public class User {
 		
 		return loc;
 	}
-	
+
+	/**
+	 * Set the fixed scatter location to be used for this player in the
+	 * {@link com.leontg77.ultrahardcore.managers.ScatterManager}.
+	 * @param x The x-coordinate the player should always be scattered at
+	 * @param z The z-coordinate the player should always be scattered at
+	 */
+	public void setFixedScatterLocation(int x, int z) {
+		config.set("locs.scatter.x", x);
+		config.set("locs.scatter.z", z);
+		saveFile();
+	}
+
+	/**
+	 * Delete the fixed scatter location for this player, causing him to be scattered normally again.
+	 */
+	public void deleteFixedScatterLocation() {
+		config.set("locs.scatter", null);
+		saveFile();
+	}
+
+    /**
+     * Get the fixed scatter location for the player in the given world with default parameters.
+     * See {@link #getFixedScatterLocation(World, int, int)}.
+     * @param world The world to scatter the player in
+     * @return The fixed scatter location, or null if it's not set, invalid for the given world
+     * or the maximum attempts have been reached.
+     */
+    public Location getFixedScatterLocation(World world) {
+        return getFixedScatterLocation(world, 50, 50);
+    }
+
+	/**
+	 * Get the fixed scatter location for the player in the given world.
+	 * @param world The world to scatter the player in
+     * @param maximumOffset The maximum distance the player should be randomly offset
+     * @param maximumAttempts The maximum attempts of getting the scatter location
+	 * @return The fixed scatter location, or null if it's not set, invalid for the given world
+     * or the maximum attempts have been reached.
+     */
+	public Location getFixedScatterLocation(World world, int maximumOffset, int maximumAttempts) {
+		if (!config.contains("locs.scatter")) {
+			return null;
+		}
+
+        int baseX = config.getInt("locs.scatter.x");
+        int baseZ = config.getInt("locs.scatter.z");
+        Random random = new Random();
+        Location location;
+        int attempts = 0;
+        while (true) {
+            if (attempts++ > maximumAttempts) {
+                return null;
+            }
+
+            int offsetX = random.nextInt(maximumOffset*2) - maximumOffset + 1;
+            int offsetZ = random.nextInt(maximumOffset*2) - maximumOffset + 1;
+
+            location = new Location(world, baseX + offsetX + 0.5, 255, baseZ + offsetZ + 0.5);
+            if (LocationUtils.isOutsideOfBorder(location)) {
+                continue;
+            }
+
+            if (!ScatterManager.isValid(location)) {
+                continue;
+            }
+
+            int y = LocationUtils.highestTeleportableYAtLocation(location);
+            if (y == -1) {
+                return null;
+            }
+
+            location.setY(y + 1);
+            return location;
+        }
+	}
+
 	private static final String IGNORE_PATH = "ignoreList";
 	
 	/**
