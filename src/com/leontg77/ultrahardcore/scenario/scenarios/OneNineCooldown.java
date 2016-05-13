@@ -1,27 +1,28 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-
-import org.apache.commons.lang.StringUtils;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
+import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.scenario.Scenario;
+import com.leontg77.ultrahardcore.utils.PacketUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerAnimationEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitTask;
 
-import com.google.common.collect.Maps;
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.scenario.Scenario;
-import com.leontg77.ultrahardcore.utils.PacketUtils;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * OneNineCooldown scenario class.
@@ -29,10 +30,9 @@ import com.leontg77.ultrahardcore.utils.PacketUtils;
  * @author D4nnX
  */
 public class OneNineCooldown extends Scenario implements Listener {
-    protected final Map<UUID, Long> lastHitTimes = Maps.newHashMap();
 
-    private BukkitRunnable task;
-    private final Main plugin;
+    protected final Main plugin;
+    protected final Map<Player, Cooldown> cooldowns = Maps.newHashMap();
 
     /**
      * OneNineCooldown class constructor.
@@ -45,94 +45,122 @@ public class OneNineCooldown extends Scenario implements Listener {
         this.plugin = plugin;
     }
 
+    protected Optional<BukkitTask> task = Optional.empty();
 
     @Override
     public void onEnable() {
-        task = new BukkitRunnable() {
-            @Override
-            public void run() {
-                Bukkit.getOnlinePlayers().forEach(OneNineCooldown.this::displayTitle);
-            }
-        };
-        task.runTaskTimer(plugin, 1L, 1L);
+        if (task.isPresent()) {
+            return;
+        }
+
+        task = Optional.of(Bukkit.getScheduler().runTaskTimer(plugin,
+                () -> cooldowns.values().forEach(Cooldown::onTick),
+                1L, 1L
+        ));
     }
 
     @Override
     public void onDisable() {
-        lastHitTimes.clear();
-        
-        if (task != null) {
-        	task.cancel();
-        }
+        task.ifPresent(BukkitTask::cancel);
+        cooldowns.clear();
     }
 
-    protected void displayTitle(Player player) {
-        Optional<Long> millisSinceLastHit = getMillisSinceLastHit(player);
-        
-        if (!millisSinceLastHit.isPresent()) {
-            return;
-        }
-
-        int grayBars = millisSinceLastHit.get().intValue() / 50;
-        int redBars = 12 - grayBars;
-        String subtitle = "Cooldown: " + ChatColor.RED + StringUtils.repeat("\u275A", redBars) + ChatColor.GRAY + StringUtils.repeat("\u275A", grayBars);
-        PacketUtils.sendAction(player, subtitle);
+    protected Cooldown getCooldown(Player player) {
+        return cooldowns.computeIfAbsent(player, Cooldown::new);
     }
 
-    protected void playerClicked(Player player) {
-        lastHitTimes.put(player.getUniqueId(), System.currentTimeMillis());
-        displayTitle(player);
-    }
-
-    protected Optional<Long> getMillisSinceLastHit(Player player) {
-        UUID uuid = player.getUniqueId();
-        Long lastHitTime = lastHitTimes.get(uuid);
-        
-        if (lastHitTime == null) {
-            return Optional.empty();
-        }
-
-        long difference = System.currentTimeMillis() - lastHitTime;
-        
-        if (difference > 600) {
-            lastHitTimes.remove(uuid);
-            return Optional.empty();
-        }
-
-        return Optional.of(difference);
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void on(PlayerInteractEvent event) {
-        if (event.getAction() != Action.LEFT_CLICK_AIR) {
-            return;
-        }
-
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void on(PlayerAnimationEvent event) {
         Player player = event.getPlayer();
-        playerClicked(player);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> getCooldown(player).handleItemUsed(), 1L);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void on(PlayerItemHeldEvent event) {
+        Player player = event.getPlayer();
+        int newSlot = event.getNewSlot();
+        ItemStack item = player.getInventory().getItem(newSlot);
+        if (item == null) {
+            return;
+        }
+
+        getCooldown(player).handleItemUsed(item.getType());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void on(EntityDamageByEntityEvent event) {
+    protected void on(EntityDamageByEntityEvent event) {
         Entity damager = event.getDamager();
-        
         if (!(damager instanceof Player)) {
             return;
         }
 
         Player player = (Player) damager;
-        Optional<Long> millisSinceLastHit = getMillisSinceLastHit(player);
-        
-        if (millisSinceLastHit.isPresent()) {
-            double damageMultiplier = ((double) millisSinceLastHit.get()) / 600;
-            event.setDamage(event.getDamage() * damageMultiplier);
-        }
-
-        playerClicked(player);
+        Cooldown cooldown = getCooldown(player);
+        Optional<Double> damageModifier = cooldown.getDamageModifier();
+        damageModifier.ifPresent((mod) -> event.setDamage(event.getDamage() * mod));
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler
     protected void on(PlayerQuitEvent event) {
-        lastHitTimes.remove(event.getPlayer().getUniqueId());
+        cooldowns.remove(event.getPlayer());
+    }
+
+    public class Cooldown {
+        private final Player player;
+        private long timeSinceLastClick = 0;
+
+        public Cooldown(Player player) {
+            this.player = player;
+        }
+
+        public void handleItemUsed() {
+            handleItemUsed(player.getItemInHand().getType());
+        }
+
+        public void handleItemUsed(Material material) {
+            // Method may be called from scheduled tasks, check if still enabled
+            if (!isEnabled()) {
+                return;
+            }
+
+            List<String> weaponMaterialEndings = ImmutableList.of("_SWORD", "_AXE", "_PICKAXE", "_SPADE");
+            if (!weaponMaterialEndings.stream().anyMatch(material.name()::endsWith)) {
+                return;
+            }
+
+            timeSinceLastClick = 0;
+            updateActionbar();
+        }
+
+        public void onTick() {
+            timeSinceLastClick++;
+            updateActionbar();
+        }
+
+        public Optional<Double> getDamageModifier() {
+            if (timeSinceLastClick > 12) {
+                return Optional.empty();
+            }
+
+            // Taken from minecraft wiki
+            double modifier = 0.2 + Math.pow((timeSinceLastClick + 0.5) / 12.5d, 2) * 0.8;
+            modifier = Math.min(1d, modifier);
+            modifier = Math.max(0.2d, modifier);
+            return Optional.of(modifier);
+        }
+
+        public void updateActionbar() {
+            if (timeSinceLastClick > 12) {
+                PacketUtils.sendAction(player, "");
+                return;
+            }
+
+            long grayBars = timeSinceLastClick;
+            long darkGrayBars = 12 - timeSinceLastClick;
+            String grayBarsString = "§7" + StringUtils.repeat(".", (int)grayBars);
+            String darkGrayBarsString = "§8" + StringUtils.repeat(".", (int)darkGrayBars);
+            String bars = grayBarsString + darkGrayBarsString;
+            PacketUtils.sendAction(player, bars);
+        }
     }
 }
