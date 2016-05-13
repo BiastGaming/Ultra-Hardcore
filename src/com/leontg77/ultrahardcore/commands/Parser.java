@@ -139,11 +139,11 @@ public class Parser {
 	 * @throws CommandException If the string typed isn't an boolean, this will send the sender a message.
 	 */
 	public boolean parseBoolean(String parse) throws CommandException {
-		if (parse.equalsIgnoreCase("true") || parse.equalsIgnoreCase("on")) {
+		if (parse.equalsIgnoreCase("true") || parse.equalsIgnoreCase("yes") || parse.equalsIgnoreCase("on")) {
 			return true;
 		} 
 
-		if (parse.equalsIgnoreCase("false") || parse.equalsIgnoreCase("off")) {
+		if (parse.equalsIgnoreCase("false") || parse.equalsIgnoreCase("no") || parse.equalsIgnoreCase("off")) {
 			return false;
 		}
 
