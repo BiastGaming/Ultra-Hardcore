@@ -245,14 +245,20 @@ public class InvertedParallel extends Scenario implements CommandExecutor, Liste
                                     }
                                     randomPerLogs -= 24.5D;
 
-                                    if (randomPerLogs < 24.0D) {
+                                    if (randomPerLogs < 23.5D) {
                                         blockInParallel.setType(Material.IRON_ORE);
                                         break;
                                     }
-                                    randomPerLogs -= 24.0D;
+                                    randomPerLogs -= 23.5D;
 
                                     if (randomPerLogs < 1.0D) {
                                         blockInParallel.setType(Material.GOLD_ORE);
+                                        break;
+                                    }
+                                    randomPerLogs -= 1.0D;
+
+                                    if (randomPerLogs < 0.5D) {
+                                        blockInParallel.setType(Material.LAPIS_ORE);
                                         break;
                                     }
 
