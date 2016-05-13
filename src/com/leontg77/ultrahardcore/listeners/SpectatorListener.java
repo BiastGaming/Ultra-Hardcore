@@ -72,10 +72,6 @@ public class SpectatorListener implements Listener {
 
 	@EventHandler
 	public void on(AsyncPlayerChatEvent event) {
-		if (game.isPrivateGame() || game.isRecordedRound()) {
-			return;
-		}
-		
 		Player player = event.getPlayer();
 		
 		if (!spec.isSpectating(player)) {
@@ -87,10 +83,6 @@ public class SpectatorListener implements Listener {
 		}
 
 		String message = event.getMessage();
-		
-		if (message.equalsIgnoreCase("gg")) {
-			return;
-		}
 		
 		event.setCancelled(true);
 		Bukkit.getScheduler().runTask(plugin, () -> player.performCommand("sc " + message));

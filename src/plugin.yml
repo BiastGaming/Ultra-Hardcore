@@ -52,6 +52,10 @@ commands:
     description: Start the firework show.
   fly:
     description: Toggle someones fly mode.
+  g:
+    description: Talk in global chat while having spectator chat protection.
+  gg:
+    description: Alias for '/g gg'.
   gamemode:
     description: Change your gamemode.
     aliases: [gm]

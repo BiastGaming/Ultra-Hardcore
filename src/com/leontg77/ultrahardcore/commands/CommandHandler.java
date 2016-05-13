@@ -3,6 +3,8 @@ package com.leontg77.ultrahardcore.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.leontg77.ultrahardcore.commands.spectate.GlobalChatCommand;
+import com.leontg77.ultrahardcore.commands.spectate.GoodGameCommand;
 import com.leontg77.ultrahardcore.commands.spectate.SpectatorChatProtectionCommand;
 import com.leontg77.ultrahardcore.commands.user.SetFixedScatterLocationCommand;
 import org.bukkit.ChatColor;
@@ -293,6 +295,9 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 
 		// spectate
 		cmds.add(new BackCommand(plugin, spec));
+		GlobalChatCommand globalChatCommand = new GlobalChatCommand(plugin, game, spec);
+		cmds.add(globalChatCommand);
+		cmds.add(new GoodGameCommand(globalChatCommand));
 		cmds.add(new InvseeCommand(gui, spec));
 		cmds.add(new NearCommand(spec, teams));
 		cmds.add(new SpectateCommand(game, spec));
