@@ -151,14 +151,13 @@ public class OneNineCooldown extends Scenario implements Listener {
 
         public void updateActionbar() {
             if (timeSinceLastClick > 12) {
-                PacketUtils.sendAction(player, "");
                 return;
             }
 
             long grayBars = timeSinceLastClick;
             long darkGrayBars = 12 - timeSinceLastClick;
-            String grayBarsString = "§7" + StringUtils.repeat(".", (int)grayBars);
-            String darkGrayBarsString = "§8" + StringUtils.repeat(".", (int)darkGrayBars);
+            String grayBarsString = "§f" + StringUtils.repeat("\u275A", (int)grayBars);
+            String darkGrayBarsString = "§a" + StringUtils.repeat("\u275A", (int)darkGrayBars);
             String bars = grayBarsString + darkGrayBarsString;
             PacketUtils.sendAction(player, bars);
         }
