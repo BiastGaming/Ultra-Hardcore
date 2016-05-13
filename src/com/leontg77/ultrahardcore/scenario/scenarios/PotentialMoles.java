@@ -1,10 +1,8 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.events.PvPEnableEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
@@ -31,10 +29,5 @@ public class PotentialMoles extends Scenario implements Listener {
 	@Override
 	public void onEnable() {
 		moles.enable(plugin);
-	}
-	
-	@EventHandler
-	public void on(PvPEnableEvent event) {
-		moles.on(event); // we need make the moles plugin run the onpvpenableevent as well.
 	}
 }
