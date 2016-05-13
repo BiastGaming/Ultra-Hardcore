@@ -2,9 +2,12 @@ package com.leontg77.ultrahardcore.listeners;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.UUID;
 
+import com.google.common.collect.ImmutableList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -97,7 +100,7 @@ public class LogoutListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void onPlayerKick(PlayerKickEvent event) {
 		if (event.getReason().equals("disconnect.spam")) {
@@ -106,6 +109,14 @@ public class LogoutListener implements Listener {
 		
 		if (event.getReason().startsWith("§")) {
 			return;
+		}
+
+		if (event.getReason().equals("You have been idle for too long!") &&
+				ImmutableList.of(
+						"8b2b2e07-b694-4bd0-8f1b-ba99a267be41",
+						"679021a8-67c1-4317-8323-4b2b839a01f6"
+				).contains(event.getPlayer().getUniqueId().toString())) {
+			event.setReason("You have been coding for too long!");
 		}
 		
 		event.setReason("§8» §7" + event.getReason() + " §8«");
