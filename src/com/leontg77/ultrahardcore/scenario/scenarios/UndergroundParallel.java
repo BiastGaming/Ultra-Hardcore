@@ -41,8 +41,7 @@ public class UndergroundParallel extends Scenario implements CommandExecutor, Li
 	/**
 	 * Voidscape scenario class constructor.
 	 * 
-	 * @param plugin
-	 *            The main class.
+	 * @param plugin The main class.
 	 */
 	public UndergroundParallel(Main plugin) {
 		super("UndergroundParallel", "The surface is replicated underground beneath y42.");
@@ -160,48 +159,54 @@ public class UndergroundParallel extends Scenario implements CommandExecutor, Li
 							switch (surface.getType()) {
 							case LEAVES:
 							case LEAVES_2:
-						        double randomPerLogs = rand.nextDouble() * 100;
-						        
-						        if (randomPerLogs < 50.0D) {
+								double randomPerLogs = rand.nextDouble() * 100;
+								
+								if (randomPerLogs < 50.0D) {
 									block.setType(Material.STONE); 
 									break;
-						        }
-						        randomPerLogs -= 50.0D;
-						        
-						        if (randomPerLogs < 24.5D) {
+								}
+								randomPerLogs -= 50.0D;
+								
+								if (randomPerLogs < 24.5D) {
 									block.setType(Material.COAL_ORE); 
 									break;
-						        }
-						        randomPerLogs -= 24.5D;
-						        
-						        if (randomPerLogs < 24.0D) {
+								}
+								randomPerLogs -= 24.5D;
+								
+								if (randomPerLogs < 23.5D) {
 									block.setType(Material.IRON_ORE); 
 									break;
-						        }
-						        randomPerLogs -= 24.0D;
-						        
-						        if (randomPerLogs < 1.0D) {
+								}
+								randomPerLogs -= 23.5D;
+								
+								if (randomPerLogs < 1.0D) {
 									block.setType(Material.GOLD_ORE); 
 									break;
-						        }
-						        
+								}
+								randomPerLogs -= 1.0D;
+
+								if (randomPerLogs < 0.5D) {
+									block.setType(Material.LAPIS_ORE);
+									break;
+								}
+								
 								block.setType(Material.DIAMOND_ORE);
 								break;
 							case LOG:
 							case LOG_2:
-						        double randomPerLeaves = rand.nextDouble() * 100;
-						        
-						        if (randomPerLeaves < 5.0D) {
+								double randomPerLeaves = rand.nextDouble() * 100;
+								
+								if (randomPerLeaves < 5.0D) {
 									block.setType(Material.REDSTONE_ORE); 
 									break;
-						        }
-						        randomPerLeaves -= 5.0D;
-						        
-						        if (randomPerLeaves < 5.0D) {
+								}
+								randomPerLeaves -= 5.0D;
+								
+								if (randomPerLeaves < 5.0D) {
 									block.setType(Material.GLOWSTONE); 
 									break;
-						        }
-						        
+								}
+								
 								block.setType(Material.GRAVEL); 
 								break;
 							default:
