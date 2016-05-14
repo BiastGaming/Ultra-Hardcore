@@ -151,8 +151,6 @@ public class Main extends JavaPlugin {
 		cmd = new CommandHandler(this);
 		
 		timer = new Timer(this, game, gui, scen, feat, board, spec);
-		
-		new StaffLogManager(this);
 	}
 	
 	public static final String NO_PERMISSION_MESSAGE = "§cYou don't have permission.";
