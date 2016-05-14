@@ -39,11 +39,15 @@ public class FileUtils {
 			return;
 		}
 		
+		Bukkit.getLogger().info("Loading user files...");
+		
 		files.clear();
 		
 		for (File file : folder.listFiles()) {
 			files.add(YamlConfiguration.loadConfiguration(file));
 		}
+		
+		Bukkit.getLogger().info("User files loaded.");
 	}
 	
 	/**
