@@ -2,17 +2,15 @@ package com.leontg77.ultrahardcore.listeners;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
-import java.util.UUID;
 
-import com.google.common.collect.ImmutableList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
 
+import com.google.common.collect.ImmutableList;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
