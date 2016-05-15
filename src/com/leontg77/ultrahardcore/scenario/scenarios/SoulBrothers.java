@@ -11,6 +11,7 @@ import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.scenario.scenarios.soulbrothers.PlayerTeleporter;
 import com.leontg77.ultrahardcore.scenario.scenarios.soulbrothers.SoulBrothersTeamTeleportTask;
+import com.leontg77.ultrahardcore.utils.PlayerUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -135,7 +136,7 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
 			} else {
 				teams = Lists.newArrayList();
 				for (String player : args) {
-					Team team = this.teams.getTeam(player);
+					Team team = this.teams.getTeam(PlayerUtils.getOfflinePlayer(player));
 					if (team == null) {
 						sender.sendMessage(PREFIX + player + " is not on a team.");
 					} else {
