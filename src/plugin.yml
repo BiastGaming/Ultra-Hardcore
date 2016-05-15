@@ -286,6 +286,8 @@ commands:
     description: Generate the snowday scenario.
   slist:
     description: View what effects people have.
+  soul:
+    description: View what effects people have.
   super:
     description: Add or remove effects.
   genportal:

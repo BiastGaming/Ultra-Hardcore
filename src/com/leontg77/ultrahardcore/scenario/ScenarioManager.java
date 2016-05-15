@@ -231,6 +231,7 @@ public class ScenarioManager {
 		scenarios.add(new SlimyCrack(plugin));
 		scenarios.add(new Snowday(plugin, game));
 		scenarios.add(new Superheroes(plugin, teams));
+		scenarios.add(new SoulBrothers(plugin, game, teams, scatter));
 		scenarios.add(new Swingers(game, teams));
 		scenarios.add(new Switcheroo());
 		scenarios.add(new TeamHealth(plugin, game, board, teams));
