@@ -81,7 +81,9 @@ public class ScatterManager {
 			Material.LEAVES_2, 
 			Material.GRASS,
 			Material.SAND, 
-			Material.STONE
+			Material.STONE,
+			Material.NETHERRACK,
+			Material.ENDER_STONE
 	);
 
 	private final Map<String, Location> lateScatters = new HashMap<String, Location>();
