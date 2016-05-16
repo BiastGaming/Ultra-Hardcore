@@ -129,6 +129,7 @@ public class ScenarioManager {
 		scenarios.add(new Balance(game));
 		scenarios.add(new BaldChicken());
 		scenarios.add(new Barebones(game, cc));
+		scenarios.add(new BarrierWorld(plugin));
 		scenarios.add(new BedBombs(game));
 		scenarios.add(new BenchBlitz(game));
 		scenarios.add(new BestBTC(plugin, timer));
@@ -200,7 +201,7 @@ public class ScenarioManager {
 		scenarios.add(new LAFS(game, teams));
 		scenarios.add(new Landmines(plugin, game, spec));
 		scenarios.add(new Lootcrates(plugin, game));
-		scenarios.add(new LWCM(game, teams));
+		scenarios.add(new LWCM(plugin, game, teams));
 		scenarios.add(new MeleeFun(plugin));
 		scenarios.add(new Moles(plugin, this, teams, spec));
 		scenarios.add(new MonstersInc(scatter));
@@ -230,8 +231,8 @@ public class ScenarioManager {
 		scenarios.add(new SlaveMarket(plugin, teams));
 		scenarios.add(new SlimyCrack(plugin));
 		scenarios.add(new Snowday(plugin, game));
-		scenarios.add(new Superheroes(plugin, teams));
 		scenarios.add(new SoulBrothers(plugin, game, teams, scatter));
+		scenarios.add(new Superheroes(plugin, teams));
 		scenarios.add(new Swingers(game, teams));
 		scenarios.add(new Switcheroo());
 		scenarios.add(new TeamHealth(plugin, game, board, teams));
