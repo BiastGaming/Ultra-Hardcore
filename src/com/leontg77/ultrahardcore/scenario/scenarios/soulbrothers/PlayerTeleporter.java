@@ -11,6 +11,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Player Teleporter class.
+ * 
+ * @author D4mnX
+ */
 public class PlayerTeleporter implements Listener {
 
     public enum Result {
@@ -20,22 +25,32 @@ public class PlayerTeleporter implements Listener {
 
     protected final Map<UUID, Location> scheduledLocations = Maps.newHashMap();
 
-    public Result teleport(OfflinePlayer player, Location location) {
+    /**
+     * Teleport the given offline player to the given location.
+     * <p>
+     * Teleports on login if needed.
+     * 
+     * @param player The player to teleport.
+     * @param loc The location to teleport to.
+     * @return The result of the teleport.
+     */
+    public Result teleport(OfflinePlayer player, Location loc) {
         boolean isOnline = player.isOnline();
 
         if (isOnline) {
-            player.getPlayer().teleport(location);
+            player.getPlayer().teleport(loc);
         } else {
-            scheduledLocations.put(player.getUniqueId(), location);
+            scheduledLocations.put(player.getUniqueId(), loc);
         }
 
         return isOnline ? Result.INSTANT : Result.ON_NEXT_LOGIN;
     }
 
     @EventHandler
-    protected void on(PlayerJoinEvent event) {
+    public void on(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
+        
         scheduledLocations.computeIfPresent(uuid, (uuid1, location) -> {
             player.teleport(location);
             return null;
