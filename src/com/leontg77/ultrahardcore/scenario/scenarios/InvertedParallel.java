@@ -291,6 +291,11 @@ public class InvertedParallel extends Scenario implements CommandExecutor, Liste
                                         blockInParallel.setType(Material.AIR);
                                     }
                                     break;
+                                case SNOW:
+                                case SNOW_BLOCK:
+                                case WATER_LILY:
+                                    blockInParallel.setType(Material.AIR);
+                                    break;
                                 case GRASS:
                                 case DIRT:
                                     blockInParallel.setType(Material.NETHERRACK);
@@ -319,6 +324,8 @@ public class InvertedParallel extends Scenario implements CommandExecutor, Liste
                                 case WATER:
                                 case ICE:
                                 case OBSIDIAN:
+                                    blockInParallel.setType(Material.LAVA);
+                                    
                                     new BukkitRunnable() {
                                         public void run() {
                                             blockInParallel.setType(Material.LAVA);
