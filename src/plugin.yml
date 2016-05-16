@@ -1,6 +1,6 @@
 name: UHC
 main: com.leontg77.ultrahardcore.Main
-version: 1.11.9
+version: 1.11.15
 author: LeonTG77
 description: A private UHC plugin made for ArcticUHC ONLY.
 softdepend: [ProtocolLib, Pregenner]
@@ -213,6 +213,8 @@ commands:
     description: View who has what AssaultAndBarrery type.
   bp:
     description: Open your backpack.
+  barrierworld:
+    description: Generate the barrier world scenario.
   btc:
     description: Add or remove someone from the BestBTC list.
   btclist:
@@ -284,9 +286,9 @@ commands:
     description: Generate the SlimyCrack.
   snowday:
     description: Generate the snowday scenario.
-  slist:
-    description: View what effects people have.
   soul:
+    description: Manage soul brother scatters.
+  slist:
     description: View what effects people have.
   super:
     description: Add or remove effects.
