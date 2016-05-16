@@ -46,12 +46,12 @@ public class OnlineCount extends PacketAdapter {
 
         int count = plugin.getOnlineCount();
         
-        if (game.isPrivateGame() || game.isRecordedRound()) {
-        	count = 0;
-        }
-        
         if (State.isState(State.INGAME)) {
         	count = game.getPlayers().size();
+        }
+        
+        if (game.isPrivateGame() || game.isRecordedRound()) {
+        	count = 0;
         }
         
         WrappedServerPing ping = event.getPacket().getServerPings().read(0);
