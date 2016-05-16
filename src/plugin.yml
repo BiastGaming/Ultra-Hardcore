@@ -287,7 +287,9 @@ commands:
   snowday:
     description: Generate the snowday scenario.
   soul:
-    description: Manage soul brother scatters.
+    description: Manage soul brother scatter.
+  lwcm:
+    description: Manage LWCM scatter.
   slist:
     description: View what effects people have.
   super:
