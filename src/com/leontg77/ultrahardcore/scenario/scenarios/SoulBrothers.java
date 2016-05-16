@@ -1,6 +1,23 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import com.google.common.collect.Collections2;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.event.HandlerList;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Team;
+
 import com.google.common.collect.Lists;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
@@ -11,57 +28,60 @@ import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.scenario.scenarios.soulbrothers.PlayerTeleporter;
 import com.leontg77.ultrahardcore.scenario.scenarios.soulbrothers.SoulBrothersTeamTeleportTask;
-import com.leontg77.ultrahardcore.utils.PlayerUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scoreboard.Team;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Soul Brothers scenario class.
  * 
  * @author LeonTG77
  */
-@SuppressWarnings("unused")
 public class SoulBrothers extends Scenario implements CommandExecutor {
 	public static final String PREFIX = "§2Soul Brothers §8» §7";
+	
+	private final PlayerTeleporter teleporter;
 
 	private final Main plugin;
 	private final Game game;
-	private final TeamManager teams;
+
 	private final ScatterManager scatter;
-	private final PlayerTeleporter teleporter = new PlayerTeleporter();
+	private final TeamManager teams;
 	
 	/**
 	 * Soul Brothers scenario class constructor.
-	 *  @param plugin The main class.
+	 * 
+	 * @param plugin The main class.
 	 * @param game The game class.
-	 * @param scatter The scatter class.
+	 * @param teams The team manager class.
+	 * @param scatter The scatter manager class.
 	 */
 	public SoulBrothers(Main plugin, Game game, TeamManager teams, ScatterManager scatter) {
 		super("SoulBrothers", "All teammates are seperated into their own worlds, at some point they will be teleported to a final world together.");
 
+		this.teleporter = new PlayerTeleporter();
+		
 		this.plugin = plugin;
 		this.game = game;
-		this.teams = teams;
-		this.scatter = scatter;
 
+		this.scatter = scatter;
+		this.teams = teams;
+		
 		plugin.getCommand("soul").setExecutor(this);
-		Bukkit.getPluginManager().registerEvents(teleporter, plugin);
 	}
 
+	@Override
+	public void onDisable() {
+		HandlerList.unregisterAll(teleporter);
+	}
+	
+	@Override
+	public void onEnable() {
+		Bukkit.getPluginManager().registerEvents(teleporter, plugin);
+	}
+	
+	/**
+	 * Get all the first worlds for teams to be in.
+	 * 
+	 * @return The worlds.
+	 */
 	public List<World> getWorlds() {
 		List<World> worlds = new ArrayList<>();
 		
@@ -74,6 +94,11 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
 		return worlds;
 	}
 	
+	/**
+	 * Get the final world to be teleported into.
+	 * 
+	 * @return The world.
+	 */
 	public World getFinalWorld() {
 		for (World world : game.getWorlds()) {
 			if (world.getName().toLowerCase().endsWith("_sb_final")) {
@@ -105,6 +130,7 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
 		}
 		
 		if (args.length == 0) {
+			sender.sendMessage(PREFIX + "Usage: /soul <help/scatter/finalscatter/start>");
 			return true;
 		}
 		
@@ -131,12 +157,14 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
 			}
 
 			Collection<Team> teams;
+			
 			if (args.length == 1) {
 				teams = this.teams.getTeamsWithPlayers();
 			} else {
 				teams = Lists.newArrayList();
 				for (String player : args) {
-					Team team = this.teams.getTeam(PlayerUtils.getOfflinePlayer(player));
+					Team team = this.teams.getTeam(player);
+					
 					if (team == null) {
 						sender.sendMessage(PREFIX + player + " is not on a team.");
 					} else {
@@ -151,6 +179,7 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
 		
 		if (args[0].equalsIgnoreCase("finalscatter")) {
 			World finalWorld = getFinalWorld();
+			
 			if (finalWorld == null) {
 				sender.sendMessage(PREFIX + "There is no world name that ends with '_sb_final'.");
 				return true;
@@ -164,23 +193,21 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
 					.collect(Collectors.toList());
 
 			State.setState(State.SCATTER);
+			
 			try {
 				scatter.scatter(toScatter);
 			} catch (CommandException e) {
 				throw new AssertionError(e);
 			}
+			return true;
 		}
 		
 		if (args[0].equalsIgnoreCase("start")) {
 			State.setState(State.INGAME);
 
-			Set<PotionEffectType> removedTypes = ScatterManager.FREEZE_EFFECTS.stream()
-					.map(PotionEffect::getType)
-					.collect(Collectors.toSet());
+			Set<PotionEffectType> removedTypes = ScatterManager.FREEZE_EFFECTS.stream().map(PotionEffect::getType).collect(Collectors.toSet());
 			game.getPlayers().stream().forEach(player -> removedTypes.forEach(player::removePotionEffect));
 		}
-		
 		return true;
 	}
-	
 }
