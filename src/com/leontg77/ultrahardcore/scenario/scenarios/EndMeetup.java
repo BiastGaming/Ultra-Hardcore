@@ -8,6 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EnderCrystal;
+import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -108,11 +110,9 @@ public class EndMeetup extends Scenario implements Listener {
 		event.setTo(locs.get(0));
 
 		for (Entity entity : event.getTo().getWorld().getEntities()) {
-			if (entity instanceof Player) {
-				continue;
+			if (entity instanceof Enderman || entity instanceof EnderCrystal || entity instanceof EnderDragon) {
+				entity.remove();
 			}
-			
-			entity.remove();
 		}
 	}
 	
