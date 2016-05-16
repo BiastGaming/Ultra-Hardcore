@@ -147,7 +147,7 @@ public class Arena {
 				public void run() {
 					time--;
 
-					setScore("§8» §9§oNext Reset ", (int) ((time / 60) + 1));
+					setScore("§8» §9§oNext Reset", (int) ((time / 60) + 1));
 					
 					switch (time) {
 					case 900:
