@@ -16,7 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.leontg77.ultrahardcore.Game;
@@ -165,16 +164,6 @@ public class LoginListener implements Listener {
 		}
 		
 		if (scatter.needsLateScatter(player) && !scatter.isScattering()) {
-			if (State.isState(State.INGAME)) {
-				for (PotionEffect effect : ScatterManager.FREEZE_EFFECTS) {
-					if (player.hasPotionEffect(effect.getType())) {
-						player.removePotionEffect(effect.getType());
-					}
-					
-					player.addPotionEffect(effect);
-				}
-			}
-			
 			PlayerUtils.broadcast(Main.ARROW + "§8- §a" + player.getName() + " §7scheduled scatter.");
 			scatter.handleLateScatter(player);
 		}
