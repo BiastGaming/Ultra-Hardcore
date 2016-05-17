@@ -224,6 +224,7 @@ public class ScenarioManager {
 		scenarios.add(new Pyrophobia(plugin));
 		scenarios.add(new RewardingLongshots());
 		scenarios.add(new RewardingLongshotsPlus());
+		scenarios.add(new Rodless());
 		scenarios.add(new SelfDiagnosis(plugin, game, board));
 		scenarios.add(new SharedHealth(plugin, game, teams));
 		scenarios.add(new SkyClean());
