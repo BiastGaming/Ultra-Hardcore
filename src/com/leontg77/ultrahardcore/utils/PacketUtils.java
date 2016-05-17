@@ -131,10 +131,12 @@ public class PacketUtils {
 	public static void sendTitle(Player player, String title, String subtitle, int in, int stay, int out) {
 		IChatBaseComponent titleJSON = ChatSerializer.a("{'text': '" + title + "'}");
 		IChatBaseComponent subtitleJSON = ChatSerializer.a("{'text': '" + subtitle + "'}");
-	 
+
+		PacketPlayOutTitle timesPacket = new PacketPlayOutTitle(EnumTitleAction.TIMES, titleJSON, in, stay, out);
 		PacketPlayOutTitle titlePacket = new PacketPlayOutTitle(EnumTitleAction.TITLE, titleJSON, in, stay, out);
 		PacketPlayOutTitle subtitlePacket = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, subtitleJSON, in, stay, out);
-        
+
+        sendPacket(player, timesPacket);
         sendPacket(player, titlePacket);
         sendPacket(player, subtitlePacket);
     }
