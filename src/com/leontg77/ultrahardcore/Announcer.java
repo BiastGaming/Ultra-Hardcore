@@ -48,7 +48,8 @@ public class Announcer {
 			"You can view the top 10 stats with §e/top§7.",
 			"View the border size with §e/border§7.",
 			"Wondering how long it is until PvP/Meetup? Use §e/timeleft§7.",
-			"View the enabled scenario(s) by doing §e/scen§7."
+			"View the enabled scenario(s) by doing §e/scen§7.",
+			"Check if you are combat tagged with §a/ct§7."
 	);
 	
 	private final Random rand = new Random();
@@ -59,7 +60,7 @@ public class Announcer {
 	public void startAnnouncer() {
 		new BukkitRunnable() {
 			public void run() {
-				if (game.isRecordedRound() || game.isPrivateGame() || State.isState(State.SCATTER)) {
+				if (game.isRecordedRound() || game.isPrivateGame() || !State.isState(State.INGAME)) {
 					return;
 				}
 				
