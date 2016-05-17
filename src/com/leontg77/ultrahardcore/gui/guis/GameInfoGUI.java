@@ -373,6 +373,9 @@ public class GameInfoGUI extends GUI implements Listener {
 		lore.add("§a/pm §8» §7§oTalk in team chat.");
 		lore.add("§a/tl §8» §7§oTell your team your coords.");
 		lore.add(" ");
+		lore.add("§a/ct §8» §7§oCheck if you are in combat.");
+		lore.add("§a/hotbar §8» §7§oChange your arena hotbar setup.");
+		lore.add(" ");
 		commandsMeta.setLore(lore);
 		commands.setItemMeta(commandsMeta);
 		lore.clear();
