@@ -49,7 +49,7 @@ public class SpectatorChatProtectionCommand extends UHCCommand {
         	}
         }
         
-        String name = sender.getName();
+        String name = target.getName();
         
         if (!manager.isSpectating(target)) {
             sender.sendMessage(Main.PREFIX + (target == sender ? "You are" : target.getName() + " is") + " not spectating.");
