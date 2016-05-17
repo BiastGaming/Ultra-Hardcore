@@ -131,26 +131,7 @@ public class CombatLogFeature extends Feature implements Listener {
 				return;
 			}
 			
-			final UUID killerUUID = killer.getUniqueId();
-			
-			combat.put(killerUUID, 25);
-			
-			if (!combatTask.containsKey(killerUUID)) {
-				combatTask.put(killerUUID, new BukkitRunnable() {
-					public void run() {
-						combat.put(killerUUID, combat.get(killerUUID) - 1);
-						
-						if (combat.get(killerUUID) == 0) {
-							combat.remove(killerUUID);
-							combatTask.remove(killerUUID);
-							
-							cancel();
-						}
-					}
-				});
-				
-				combatTask.get(killerUUID).runTaskTimer(plugin, 20L, 20L);
-			}
+			handle(killer.getUniqueId());
 		} 
 		
 		if (damager instanceof Projectile) {
@@ -174,47 +155,35 @@ public class CombatLogFeature extends Feature implements Listener {
 				return;
 			}
 			
-			final UUID killerUUID = killer.getUniqueId();
-			
-			combat.put(killerUUID, 25);
-			
-			if (!combatTask.containsKey(killerUUID)) {
-				combatTask.put(killerUUID, new BukkitRunnable() {
-					public void run() {
-						combat.put(killerUUID, combat.get(killerUUID) - 1);
-						
-						if (combat.get(killerUUID) == 0) {
-							combat.remove(killerUUID);
-							combatTask.remove(killerUUID);
-							
-							cancel();
-						}
-					}
-				});
-				
-				combatTask.get(killerUUID).runTaskTimer(plugin, 20L, 20L);
-			}
+			handle(killer.getUniqueId());
 		}
 		
-		final UUID playerUUID = player.getUniqueId();
+		handle(player.getUniqueId());
+	}
+	
+	/**
+	 * Handle combat log for the given UUID.
+	 * 
+	 * @param uuid The UUID.
+	 */
+	private void handle(UUID uuid) {
+		combat.put(uuid, 15);
 		
-		combat.put(playerUUID, 25);
-		
-		if (!combatTask.containsKey(playerUUID)) {
-			combatTask.put(playerUUID, new BukkitRunnable() {
+		if (!combatTask.containsKey(uuid)) {
+			combatTask.put(uuid, new BukkitRunnable() {
 				public void run() {
-					combat.put(playerUUID, combat.get(playerUUID) - 1);
+					combat.put(uuid, combat.get(uuid) - 1);
 					
-					if (combat.get(playerUUID) == 0) {
-						combatTask.remove(playerUUID);
-						combat.remove(playerUUID);
+					if (combat.get(uuid) == 0) {
+						combatTask.remove(uuid);
+						combat.remove(uuid);
 						
 						cancel();
 					}
 				}
 			});
 			
-			combatTask.get(playerUUID).runTaskTimer(plugin, 20L, 20L);
+			combatTask.get(uuid).runTaskTimer(plugin, 20L, 20L);
 		}
 	}
 }
