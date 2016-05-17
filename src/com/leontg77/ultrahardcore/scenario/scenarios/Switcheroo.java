@@ -1,9 +1,9 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -43,11 +43,11 @@ public class Switcheroo extends Scenario implements Listener {
 		
 		Player player = (Player) entity;
 		
-		if (!(damager instanceof Projectile)) {
+		if (!(damager instanceof Arrow)) {
 			return;
 		}
 		
-		Projectile proj = (Projectile) damager;
+		Arrow proj = (Arrow) damager;
 		
 		if (!(proj.getShooter() instanceof Player)) {
 			return;
