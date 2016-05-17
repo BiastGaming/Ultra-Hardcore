@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EnderCrystal;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Enderman;
@@ -38,7 +39,7 @@ public class EndMeetup extends Scenario implements Listener {
 	private final Game game;
 	
 	public EndMeetup(Game game, ScatterManager scatter) {
-		super("EndMeetup", "Meetup will be in the end, a portal will be made at 0,0 and lit at meetup, going into the end will put you in a random location and give you 15 seconds of resistance(to prevent spawn killing), The dragon is already dead and endermens are disabled.");
+		super("EndMeetup", "Meetup will be in the end, a portal will be lit at 0,0 and pvp will be disabled in other worlds as soon as meetup occurs, going into the end will put you in a random location and give you 20 seconds of resistance(to prevent spawn killing), The dragon is already dead and endermens are disabled.");
 
 		this.scatter = scatter;
 		this.game = game;
@@ -50,6 +51,19 @@ public class EndMeetup extends Scenario implements Listener {
 		
 		if (world == null) {
 			return;
+		}
+		
+		for (World gameW : game.getWorlds()) {
+			if (gameW.getEnvironment() != Environment.THE_END) {
+				gameW.setPVP(false);
+				continue;
+			}
+			
+			for (Entity entity : gameW.getEntities()) {
+				if (entity instanceof Enderman || entity instanceof EnderCrystal || entity instanceof EnderDragon) {
+					entity.remove();
+				}
+			}
 		}
 		
 		Location highest = LocationUtils.getHighestBlock(new Location(world, 0.5, 0, 0.5));
@@ -75,7 +89,7 @@ public class EndMeetup extends Scenario implements Listener {
 					continue;
 				}
 				
-				Block blockAbove = new Location(world, x, highest.getBlockY() + 1, z).getBlock();
+				Block blockAbove = block.getRelative(BlockFace.UP);
 				blockAbove.setType(Material.ENDER_PORTAL_FRAME);
 				blockAbove.setData((byte) 4); 
 			}
@@ -105,15 +119,11 @@ public class EndMeetup extends Scenario implements Listener {
 			event.setCancelled(true);
 			return;
 		}
-		
-		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 400, 10));
-		event.setTo(locs.get(0));
 
-		for (Entity entity : event.getTo().getWorld().getEntities()) {
-			if (entity instanceof Enderman || entity instanceof EnderCrystal || entity instanceof EnderDragon) {
-				entity.remove();
-			}
-		}
+		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 400, 10));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 10));
+		
+		event.setTo(locs.get(0));
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
