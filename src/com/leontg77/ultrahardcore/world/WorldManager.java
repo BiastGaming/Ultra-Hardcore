@@ -13,6 +13,7 @@ import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
 
 import com.leontg77.ultrahardcore.Settings;
+import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.utils.FileUtils;
 import com.leontg77.ultrahardcore.utils.LocationUtils;
@@ -161,10 +162,6 @@ public class WorldManager {
 		WorldCreator creator = new WorldCreator(name);
 		creator.generateStructures(true);
 		
-		if (settings.getWorlds().getBoolean(name + ".newStone", true)) {
-			creator.generatorSettings("{\"graniteSize\":1,\"graniteCount\":0,\"graniteMinHeight\":0,\"graniteMaxHeight\":0,\"dioriteSize\":1,\"dioriteCount\":0,\"dioriteMinHeight\":0,\"dioriteMaxHeight\":0,\"andesiteSize\":1,\"andesiteCount\":0,\"andesiteMinHeight\":0,\"andesiteMaxHeight\":0}");
-		}
-		
 		long seed = settings.getWorlds().getLong(name + ".seed", 2347862349786234l);
 		Environment environment = Environment.valueOf(settings.getWorlds().getString(name + ".environment", Environment.NORMAL.name()));
 		WorldType worldtype = WorldType.valueOf(settings.getWorlds().getString(name + ".worldtype", WorldType.NORMAL.name()));
@@ -173,8 +170,25 @@ public class WorldManager {
 		creator.type(worldtype);
 		creator.seed(seed);
 		
+		if (worldtype == WorldType.FLAT) {
+			creator.generatorSettings("3;minecraft:bedrock,2*minecraft:dirt,minecraft:grass;1;village(size=65535 distance=9)");
+		} else {
+			if (settings.getWorlds().getBoolean(name + ".newStone", true)) {
+				creator.generatorSettings("{\"useMonuments\":false}");
+			} else {
+				creator.generatorSettings("{\"useMonuments\":false,\"graniteSize\":1,\"graniteCount\":0,\"graniteMinHeight\":0,\"graniteMaxHeight\":0,\"dioriteSize\":1,\"dioriteCount\":0,\"dioriteMinHeight\":0,\"dioriteMaxHeight\":0,\"andesiteSize\":1,\"andesiteCount\":0,\"andesiteMinHeight\":0,\"andesiteMaxHeight\":0}");
+			}
+		}
+		
 		World world = creator.createWorld();
 		world.setDifficulty(Difficulty.HARD);
+		
+		if (State.isState(State.INGAME) && settings.getConfig().getStringList("world").contains(world.getName())) {
+			world.setSpawnFlags(true, true);
+		} else {
+			world.setSpawnFlags(false, true);
+		}
+		
 		world.save();
 	}
 	
