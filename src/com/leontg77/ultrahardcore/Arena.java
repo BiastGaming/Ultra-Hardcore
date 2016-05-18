@@ -138,7 +138,7 @@ public class Arena {
 			game.setArenaBoard(true);
 		}
 		
-		setScore("§8» §9§oNext Reset ", 30);
+		setScore("§8» §9§oNext Reset", 30);
 
 		if (regenTask == null) {
 			regenTask = new BukkitRunnable() {
@@ -154,28 +154,28 @@ public class Arena {
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a15 §7minutes.");
 						
 						for (Player arena : getPlayers()) {
-							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a15 §7minutes!", 1, 1, 1);
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a15 §7minutes!", 1, 10, 1);
 						}
 						break;
 					case 600:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a10 §7minutes.");
 						
 						for (Player arena : getPlayers()) {
-							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a10 §7minutes!", 1, 1, 1);
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a10 §7minutes!", 1, 10, 1);
 						}
 						break;
 					case 300:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a5 §7minutes.");
 						
 						for (Player arena : getPlayers()) {
-							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a5 §7minutes!", 1, 1, 1);
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a5 §7minutes!", 1, 10, 1);
 						}
 						break;
 					case 60:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a1 §7minute.");
 						
 						for (Player arena : getPlayers()) {
-							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a1 §7minute!", 1, 1, 1);
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a1 §7minute!", 1, 10, 1);
 						}
 						break;
 					case 30:
@@ -187,14 +187,14 @@ public class Arena {
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a" + time + " §7seconds.");
 						
 						for (Player arena : getPlayers()) {
-							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a" + time + " §7seconds!", 1, 1, 1);
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a" + time + " §7seconds!", 1, 10, 1);
 						}
 						break;
 					case 1:
 						PlayerUtils.broadcast(PREFIX + "The arena will reset in §a1 §7second.");
 						
 						for (Player arena : getPlayers()) {
-							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a1 §7second!", 1, 1, 1);
+							PacketUtils.sendTitle(arena, "§4Arena Reset!", "§7Next one is in §a1 §7second!", 1, 10, 1);
 						}
 						break;
 					case 0:
