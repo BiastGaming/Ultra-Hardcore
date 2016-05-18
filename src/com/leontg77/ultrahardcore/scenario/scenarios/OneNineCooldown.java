@@ -158,7 +158,8 @@ public class OneNineCooldown extends Scenario implements Listener {
             long darkGrayBars = 12 - timeSinceLastClick;
             String grayBarsString = "§f" + StringUtils.repeat("\u275A", (int)grayBars);
             String darkGrayBarsString = "§a" + StringUtils.repeat("\u275A", (int)darkGrayBars);
-            String bars = grayBarsString + darkGrayBarsString;
+            String leftPadding = StringUtils.repeat(" ", 12);
+            String bars = leftPadding + grayBarsString + darkGrayBarsString;
             PacketUtils.sendAction(player, bars);
         }
     }
