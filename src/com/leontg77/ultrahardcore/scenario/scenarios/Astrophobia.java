@@ -3,7 +3,6 @@ package com.leontg77.ultrahardcore.scenario.scenarios;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;

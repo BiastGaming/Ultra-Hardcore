@@ -179,24 +179,24 @@ public class Main extends JavaPlugin {
         }
 
         if (State.isState(State.NOT_RUNNING)) {
-              for (File cFile : folder.listFiles()) {
-                  FileConfiguration conf = YamlConfiguration.loadConfiguration(cFile);
+            for (File cFile : folder.listFiles()) {
+                FileConfiguration conf = YamlConfiguration.loadConfiguration(cFile);
+                
+                if (!conf.contains("uuid")) {
+                    cFile.delete();
+                    continue;
+                } 
 
-                  if (!conf.contains("uuid")) {
-                      cFile.delete();
-                      continue;
-                  }
+                if (conf.contains("locs")) {
+                    conf.set("locs", null);
+                }
 
-                  if (conf.contains("locs")) {
-                        conf.set("locs", null);
-                  }
-
-                  try {
+                try {
                     conf.save(cFile);
                 } catch (Exception e) {
                     continue;
                 }
-              }
+            }
         }
     }
 
