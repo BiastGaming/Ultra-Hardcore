@@ -16,25 +16,25 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
  */
 public class NotchApplesFeature extends ToggleableFeature implements Listener {
 
-	public NotchApplesFeature() {
-		super("Notch Apples", "A powerful golden apple crafted with golden blocks.");
-		
-		icon.setType(Material.GOLDEN_APPLE);
-		icon.setDurability((short) 1);
-		
-		slot = 2;
-	}
+    public NotchApplesFeature() {
+        super("Notch Apples", "A powerful golden apple crafted with golden blocks.");
+
+        icon.setType(Material.GOLDEN_APPLE);
+        icon.setDurability((short) 1);
+
+        slot = 2;
+    }
 
     @EventHandler
     public void on(final PrepareItemCraftEvent event) {
         if (isEnabled()) {
-        	return;
+            return;
         }
 
         final Recipe recipe = event.getRecipe();
 
         if (recipe.getResult().getType() != Material.GOLDEN_APPLE) {
-        	return;
+            return;
         }
 
         if (recipe.getResult().getDurability() == 1) {

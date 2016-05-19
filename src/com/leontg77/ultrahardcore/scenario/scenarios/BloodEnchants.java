@@ -15,21 +15,21 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class BloodEnchants extends Scenario implements Listener {
-	
-	/**
-	 * BloodEnchants class constructor.
-	 */
-	public BloodEnchants() {
-		super("BloodEnchants", "When you enchant any item for any amount of levels, you take half a heart of damage.");
-	}
 
-	@EventHandler
-	public void on(EnchantItemEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		Player player = event.getEnchanter();
-		PlayerUtils.damage(player, 1);
-	}
+    /**
+     * BloodEnchants class constructor.
+     */
+    public BloodEnchants() {
+        super("BloodEnchants", "When you enchant any item for any amount of levels, you take half a heart of damage.");
+    }
+
+    @EventHandler
+    public void on(EnchantItemEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        Player player = event.getEnchanter();
+        PlayerUtils.damage(player, 1);
+    }
 }

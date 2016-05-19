@@ -18,23 +18,23 @@ import com.leontg77.ultrahardcore.Main;
  * @see licenses/UHC
  */
 public class HardcoreHearts extends PacketAdapter {
-	private final ProtocolManager manager;
+    private final ProtocolManager manager;
 
-	/**
-	 * Constructor for HardcoreHearts.
-	 * 
-	 * @param plugin The main class of the plugin.
-	 */
-	public HardcoreHearts(Main plugin) {
-		super(plugin, ListenerPriority.NORMAL, Play.Server.LOGIN);
-		
-		manager = ProtocolLibrary.getProtocolManager();
-	}
+    /**
+     * Constructor for HardcoreHearts.
+     *
+     * @param plugin The main class of the plugin.
+     */
+    public HardcoreHearts(Main plugin) {
+        super(plugin, ListenerPriority.NORMAL, Play.Server.LOGIN);
+
+        manager = ProtocolLibrary.getProtocolManager();
+    }
 
     @Override
     public void onPacketSending(PacketEvent event) {
         if (!event.getPacketType().equals(Play.Server.LOGIN)) {
-        	return;
+            return;
         }
         
         event.getPacket().getBooleans().write(0, true);
@@ -44,13 +44,13 @@ public class HardcoreHearts extends PacketAdapter {
      * Enable the hardcore hearts.
      */
     public void enable() {
-	    manager.addPacketListener(this);
+        manager.addPacketListener(this);
     }    
     
     /**
      * Disable the hardcore hearts.
      */
     public void disable() {
-	    manager.removePacketListener(this);
+        manager.removePacketListener(this);
     }
-}	
+}

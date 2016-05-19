@@ -17,27 +17,27 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class UBLListener implements Listener {
-	private final UBL ubl;
-	
-	public UBLListener(UBL ubl) {
-		this.ubl = ubl;
-	}
-	
-	@EventHandler(priority = EventPriority.HIGHEST)
+    private final UBL ubl;
+
+    public UBLListener(UBL ubl) {
+        this.ubl = ubl;
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void on(AsyncPlayerPreLoginEvent event) {
-    	UUID uuid = event.getUniqueId();
-		
-		if (!ubl.isBanned(uuid)) {
+        UUID uuid = event.getUniqueId();
+
+        if (!ubl.isBanned(uuid)) {
             return;
         }
-		
+
         BanEntry entry = ubl.getBanEntry(uuid);
         
         if (entry == null) {
-        	return; // shouldn't happen but incase...
+            return; // shouldn't happen but incase...
         }
-    	
-    	PlayerUtils.broadcast(Main.PREFIX + "§c" + event.getName() + " §7tried to join while being UBL'ed for: §c" + entry.getData("Reason"), "uhc.staff");
+
+        PlayerUtils.broadcast(Main.PREFIX + "§c" + event.getName() + " §7tried to join while being UBL'ed for: §c" + entry.getData("Reason"), "uhc.staff");
         event.disallow(Result.KICK_BANNED, ubl.getBanMessage(uuid));
     }
 }

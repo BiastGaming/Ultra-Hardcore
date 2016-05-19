@@ -16,21 +16,21 @@ import com.leontg77.ultrahardcore.utils.PacketUtils;
  */
 public class TabUpdaterFeature extends Feature {
 
-	/**
-	 * Tab updater class constructor.
-	 * 
-	 * @param plugin The main class.
-	 * @param game The game class.
-	 */
-	public TabUpdaterFeature(final Main plugin, final Game game) {
-		super("Tab Updater", "Updates the tab list for all players.");
-		
-		new BukkitRunnable() {
-			public void run() {
-				for (Player online : Bukkit.getOnlinePlayers()) {
-					PacketUtils.setTabList(online, plugin, game);
-				}
-			}
-		}.runTaskTimer(plugin, 5, 5);
-	}
+    /**
+     * Tab updater class constructor.
+     *
+     * @param plugin The main class.
+     * @param game The game class.
+     */
+    public TabUpdaterFeature(final Main plugin, final Game game) {
+        super("Tab Updater", "Updates the tab list for all players.");
+
+        new BukkitRunnable() {
+            public void run() {
+                for (Player online : Bukkit.getOnlinePlayers()) {
+                    PacketUtils.setTabList(online, plugin, game);
+                }
+            }
+        }.runTaskTimer(plugin, 5, 5);
+    }
 }

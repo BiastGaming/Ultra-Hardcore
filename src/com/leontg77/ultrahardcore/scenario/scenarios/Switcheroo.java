@@ -18,47 +18,47 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  */
 public class Switcheroo extends Scenario implements Listener {
 
-	public Switcheroo() {
-		super("Switcheroo", "When you shoot someone, you trade places with them");
-	}
+    public Switcheroo() {
+        super("Switcheroo", "When you shoot someone, you trade places with them");
+    }
 
-	@Override
-	public void onDisable() {}
+    @Override
+    public void onDisable() {}
 
-	@Override
-	public void onEnable() {}
-	
-	@EventHandler
-	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		Entity damager = event.getDamager();
-		Entity entity = event.getEntity();
-		
-		if (!(entity instanceof Player)) {
-			return;
-		}
-		
-		Player player = (Player) entity;
-		
-		if (!(damager instanceof Arrow)) {
-			return;
-		}
-		
-		Arrow proj = (Arrow) damager;
-		
-		if (!(proj.getShooter() instanceof Player)) {
-			return;
-		}
-		
-		Player shooter = (Player) proj.getShooter();
-		
-		Location loc1 = player.getLocation();
-		Location loc2 = shooter.getLocation();
+    @Override
+    public void onEnable() {}
 
-		shooter.teleport(loc1);
-		player.teleport(loc2);
-	}
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        Entity damager = event.getDamager();
+        Entity entity = event.getEntity();
+
+        if (!(entity instanceof Player)) {
+            return;
+        }
+
+        Player player = (Player) entity;
+
+        if (!(damager instanceof Arrow)) {
+            return;
+        }
+
+        Arrow proj = (Arrow) damager;
+
+        if (!(proj.getShooter() instanceof Player)) {
+            return;
+        }
+
+        Player shooter = (Player) proj.getShooter();
+
+        Location loc1 = player.getLocation();
+        Location loc2 = shooter.getLocation();
+
+        shooter.teleport(loc1);
+        player.teleport(loc2);
+    }
 }

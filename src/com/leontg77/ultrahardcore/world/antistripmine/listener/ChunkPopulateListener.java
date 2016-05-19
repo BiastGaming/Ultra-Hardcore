@@ -18,40 +18,40 @@ import com.leontg77.ultrahardcore.world.antistripmine.WorldData;
  * @author LeonTG77
  */
 public class ChunkPopulateListener implements Listener {
-	private final AntiStripmine antiSM;
-	private final Main plugin;
-	
-	/**
-	 * Chunk populate listener class constructor.
-	 * 
-	 * @param plugin The main class.
-	 * @param antiSM The anti stripmine class.
-	 */
-	public ChunkPopulateListener(Main plugin, AntiStripmine antiSM) {
-		this.antiSM = antiSM;
-		this.plugin = plugin;
-	}
+    private final AntiStripmine antiSM;
+    private final Main plugin;
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void on(ChunkPopulateEvent event) {
-		Chunk chunk = event.getChunk();
-		World world = event.getWorld();
-		
-		WorldData data = antiSM.getWorldData(world);
-		
-		if (data == null) {
-			return;
-		}
-		
-		ChunkOreRemover remover = new ChunkOreRemover(antiSM, data, chunk);
-		
-		if (antiSM.wasChecked(remover)) {
-			plugin.getLogger().warning("Populated " + data.getWorld().getName() + " " + remover.toString() + " again");
-			
-			antiSM.queue(remover);
-		} else {
-			data.logQueued(remover);
-			antiSM.queue(remover);
-		}
-	}
+    /**
+     * Chunk populate listener class constructor.
+     *
+     * @param plugin The main class.
+     * @param antiSM The anti stripmine class.
+     */
+    public ChunkPopulateListener(Main plugin, AntiStripmine antiSM) {
+        this.antiSM = antiSM;
+        this.plugin = plugin;
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void on(ChunkPopulateEvent event) {
+        Chunk chunk = event.getChunk();
+        World world = event.getWorld();
+
+        WorldData data = antiSM.getWorldData(world);
+
+        if (data == null) {
+            return;
+        }
+
+        ChunkOreRemover remover = new ChunkOreRemover(antiSM, data, chunk);
+
+        if (antiSM.wasChecked(remover)) {
+            plugin.getLogger().warning("Populated " + data.getWorld().getName() + " " + remover.toString() + " again");
+
+            antiSM.queue(remover);
+        } else {
+            data.logQueued(remover);
+            antiSM.queue(remover);
+        }
+    }
 }

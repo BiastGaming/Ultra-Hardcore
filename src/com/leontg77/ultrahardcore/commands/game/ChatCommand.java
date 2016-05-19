@@ -17,56 +17,56 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * 
  * @author LeonTG77
  */
-public class ChatCommand extends UHCCommand {	
-	private final Game game;
+public class ChatCommand extends UHCCommand {
+    private final Game game;
 
-	public ChatCommand(Game game) {
-		super("chat", "<clear|mute>");
-		
-		this.game = game;
-	}
+    public ChatCommand(Game game) {
+        super("chat", "<clear|mute>");
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) {
-		if (args.length == 0) {
-			return false;
-		}
-		
-		if (args[0].equalsIgnoreCase("mute")) {
-			if (game.isMuted()) {
-				PlayerUtils.broadcast(Main.PREFIX + "The chat has been enabled.");
-				game.setMuted(false);
-				return true;
-			} 
-			
-			PlayerUtils.broadcast(Main.PREFIX + "The chat has been disabled.");
-			game.setMuted(true);
-			return true;
-		}
-		
-		if (args[0].equalsIgnoreCase("clear")) {
-			for (Player online : Bukkit.getOnlinePlayers()) {
-				for (int i = 0; i < 150; i++) {
-					online.sendMessage("§0");
-				}
-			}
-			
-			PlayerUtils.broadcast(Main.PREFIX + "The chat has been cleared.");
-			return true;
-		}
-		
-		return false;
-	}
+        this.game = game;
+    }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		List<String> toReturn = new ArrayList<String>();
-		
-		if (args.length == 1) {
-	    	toReturn.add("clear");
-	    	toReturn.add("mute");
+    @Override
+    public boolean execute(CommandSender sender, String[] args) {
+        if (args.length == 0) {
+            return false;
         }
-    	
-    	return toReturn;
-	}
+
+        if (args[0].equalsIgnoreCase("mute")) {
+            if (game.isMuted()) {
+                PlayerUtils.broadcast(Main.PREFIX + "The chat has been enabled.");
+                game.setMuted(false);
+                return true;
+            }
+
+            PlayerUtils.broadcast(Main.PREFIX + "The chat has been disabled.");
+            game.setMuted(true);
+            return true;
+        }
+
+        if (args[0].equalsIgnoreCase("clear")) {
+            for (Player online : Bukkit.getOnlinePlayers()) {
+                for (int i = 0; i < 150; i++) {
+                    online.sendMessage("§0");
+                }
+            }
+
+            PlayerUtils.broadcast(Main.PREFIX + "The chat has been cleared.");
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        List<String> toReturn = new ArrayList<String>();
+
+        if (args.length == 1) {
+            toReturn.add("clear");
+            toReturn.add("mute");
+        }
+
+        return toReturn;
+    }
 }

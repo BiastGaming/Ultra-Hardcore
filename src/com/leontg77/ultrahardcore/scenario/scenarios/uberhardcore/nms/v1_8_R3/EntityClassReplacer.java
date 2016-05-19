@@ -26,7 +26,7 @@ public class EntityClassReplacer implements com.leontg77.ultrahardcore.scenario.
         this.logger = logger;
     }
 
-	@Override
+    @Override
     public void replaceClasses(Class current, Class replacement) {
         // doesn't currently exist
         if (!classToIdMapping.containsKey(current)) {

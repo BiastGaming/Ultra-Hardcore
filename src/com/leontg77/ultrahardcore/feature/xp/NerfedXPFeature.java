@@ -14,19 +14,19 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
  */
 public class NerfedXPFeature extends ToggleableFeature implements Listener {
 
-	public NerfedXPFeature() {
-		super("Nerfed XP", "Make all xp you pick up be 50% less than normal.");
-		
-		icon.setType(Material.EXP_BOTTLE);
-		slot = 31;
-	}
+    public NerfedXPFeature() {
+        super("Nerfed XP", "Make all xp you pick up be 50% less than normal.");
 
-	@EventHandler
+        icon.setType(Material.EXP_BOTTLE);
+        slot = 31;
+    }
+
+    @EventHandler
     public void on(PlayerExpChangeEvent event) {
-		if (!isEnabled()) {
-			return;
-		}
-		
-    	event.setAmount(event.getAmount() / 2);
+        if (!isEnabled()) {
+            return;
+        }
+
+        event.setAmount(event.getAmount() / 2);
     }
 }

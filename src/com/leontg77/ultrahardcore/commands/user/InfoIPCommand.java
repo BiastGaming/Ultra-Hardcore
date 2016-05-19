@@ -16,33 +16,33 @@ import com.leontg77.ultrahardcore.utils.FileUtils;
  * 
  * @author LeonTG77
  */
-public class InfoIPCommand extends UHCCommand {	
+public class InfoIPCommand extends UHCCommand {
 
-	public InfoIPCommand() {
-		super("infoip", "<ip>");
-	}
+    public InfoIPCommand() {
+        super("infoip", "<ip>");
+    }
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (args.length == 0) {
-			return false;
-		}
-		
-		String adress = args[0];
-		sender.sendMessage(Main.PREFIX + "Players with the IP: §a" + adress);
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (args.length == 0) {
+            return false;
+        }
+
+        String adress = args[0];
+        sender.sendMessage(Main.PREFIX + "Players with the IP: §a" + adress);
         
-		for (FileConfiguration file : FileUtils.getUserFiles()) {
-			if (!file.getStringList("ips").contains(adress)) {
-				continue;
-			}
-			
-			sender.sendMessage(Main.ARROW + file.getString("username", "Unknown"));
-		}
-		return true;
-	}
+        for (FileConfiguration file : FileUtils.getUserFiles()) {
+            if (!file.getStringList("ips").contains(adress)) {
+                continue;
+            }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return new ArrayList<String>();
-	}
+            sender.sendMessage(Main.ARROW + file.getString("username", "Unknown"));
+        }
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return new ArrayList<String>();
+    }
 }

@@ -29,20 +29,20 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
  * @author LeonTG77
  */
 public class HorseArmorFeature extends ToggleableFeature implements Listener {
-	private static final Set<Material> DISABLED = ImmutableSet.of(Material.IRON_BARDING, Material.GOLD_BARDING, Material.DIAMOND_BARDING);
+    private static final Set<Material> DISABLED = ImmutableSet.of(Material.IRON_BARDING, Material.GOLD_BARDING, Material.DIAMOND_BARDING);
 
-	public HorseArmorFeature() {
-		super("Horse Armor", "Iron/Gold/Diamond armor for horses.");
-		
-		icon.setType(Material.IRON_BARDING);
-		slot = 25;
-	}
+    public HorseArmorFeature() {
+        super("Horse Armor", "Iron/Gold/Diamond armor for horses.");
+
+        icon.setType(Material.IRON_BARDING);
+        slot = 25;
+    }
 
     @Override
     public void onDisable() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!player.isInsideVehicle()) {
-            	continue;
+                continue;
             }
             
             final Entity vehicle = player.getVehicle();
@@ -56,11 +56,11 @@ public class HorseArmorFeature extends ToggleableFeature implements Listener {
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void on(EntityMountEvent event) {
         if (isEnabled()) {
-        	return;
+            return;
         }
         
         if (event.getEntityType() != EntityType.PLAYER || event.getMount().getType() != EntityType.HORSE) {
-        	return;
+            return;
         }
 
         if (removeHorseArmour((Horse) event.getMount())) {
@@ -72,16 +72,16 @@ public class HorseArmorFeature extends ToggleableFeature implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void on(InventoryDragEvent event) {
         if (isEnabled()) {
-        	return;
+            return;
         }
 
         if (!(event.getView().getTopInventory() instanceof HorseInventory)) {
-        	return;
+            return;
         }
 
         // if it's not a disabled type do nothing
         if (!DISABLED.contains(event.getOldCursor().getType())) {
-        	return;
+            return;
         }
 
         event.getWhoClicked().sendMessage(Main.PREFIX + "Horse Armor is disabled.");
@@ -91,16 +91,16 @@ public class HorseArmorFeature extends ToggleableFeature implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void on(InventoryClickEvent event) {
         if (isEnabled()) {
-        	return;
+            return;
         }
 
         if (!(event.getView().getTopInventory() instanceof HorseInventory)) {
-        	return;
+            return;
         }
 
         // clicked outside of the window
         if (event.getClickedInventory() == null) {
-        	return;
+            return;
         }
 
         InventoryType clicked = event.getClickedInventory().getType();
@@ -109,28 +109,28 @@ public class HorseArmorFeature extends ToggleableFeature implements Listener {
         Optional<ItemStack> relevant = Optional.absent();
         switch (event.getAction()) {
         case MOVE_TO_OTHER_INVENTORY:
-        	// only worry about player -> horse
-        	if (clicked == InventoryType.PLAYER) {
-        		relevant = Optional.fromNullable(event.getCurrentItem());
-        	}
-        	break;
+            // only worry about player -> horse
+            if (clicked == InventoryType.PLAYER) {
+                relevant = Optional.fromNullable(event.getCurrentItem());
+            }
+            break;
         case PLACE_ALL:
         case PLACE_SOME:
         case PLACE_ONE:
         case SWAP_WITH_CURSOR:
-        	// only worry about within the horse
-        	if (clicked != InventoryType.PLAYER) {
-        		relevant = Optional.fromNullable(event.getCursor());
-        	}
-        	break;
+            // only worry about within the horse
+            if (clicked != InventoryType.PLAYER) {
+                relevant = Optional.fromNullable(event.getCursor());
+            }
+            break;
         case HOTBAR_SWAP:
-        	// only worry about within a horse
-        	if (clicked != InventoryType.PLAYER) {
-        		relevant = Optional.fromNullable(event.getWhoClicked().getInventory().getItem(event.getHotbarButton()));
-        	}
-        	break;
-		default:
-			break;
+            // only worry about within a horse
+            if (clicked != InventoryType.PLAYER) {
+                relevant = Optional.fromNullable(event.getWhoClicked().getInventory().getItem(event.getHotbarButton()));
+            }
+            break;
+        default:
+            break;
         }
 
         if (relevant.isPresent() && DISABLED.contains(relevant.get().getType())) {

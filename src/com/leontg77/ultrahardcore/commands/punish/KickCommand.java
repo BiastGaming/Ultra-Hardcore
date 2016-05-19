@@ -23,80 +23,80 @@ import com.leontg77.ultrahardcore.utils.PunishUtils.PunishmentType;
  * 
  * @author LeonTG77
  */
-public class KickCommand extends UHCCommand {	
-	private final Main plugin;
+public class KickCommand extends UHCCommand {
+    private final Main plugin;
 
-	public KickCommand(Main plugin) {
-		super("kick", "<player> <reason>");
-		
-		this.plugin = plugin;
-	}
+    public KickCommand(Main plugin) {
+        super("kick", "<player> <reason>");
 
-	@Override
-	public boolean execute(final CommandSender sender, final String[] args) throws CommandException {
-		if (args.length < 2) {
-			return false;
-		}
+        this.plugin = plugin;
+    }
 
-		final String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
+    @Override
+    public boolean execute(final CommandSender sender, final String[] args) throws CommandException {
+        if (args.length < 2) {
+            return false;
+        }
 
-		if (args[0].equals("*")) {
-			for (Player online : Bukkit.getOnlinePlayers()) {
-				if (online.hasPermission("uhc.prelist")) {
-					continue;
-				}
-				
-		    	online.kickPlayer(message);
-			}
-			
-	    	PlayerUtils.broadcast(Main.PREFIX + "All normal players has been kicked for §6" + message);
-			return true;
-		}
+        final String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length));
 
-		if (args[0].equals("**")) {
-			for (Player online : Bukkit.getOnlinePlayers()) {
-				if (online.isOp()) {
-					continue;
-				}
-				
-		    	online.kickPlayer(message);
-			}
-			
-	    	PlayerUtils.broadcast(Main.PREFIX + "All players has been kicked for §6" + message);
-			return true;
-		}
-    	
-    	Player target = Bukkit.getPlayer(args[0]);
-		
-    	if (target == null) {
-    		throw new CommandException("'" + args[0] + "' is not online.");
-		}
-    	
-    	User user = plugin.getUser(target);
+        if (args[0].equals("*")) {
+            for (Player online : Bukkit.getOnlinePlayers()) {
+                if (online.hasPermission("uhc.prelist")) {
+                    continue;
+                }
 
-    	if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
-	    	throw new CommandException("'" + args[0] + "' is a staff member and can't be kicked.");
-    	}
-    	
-    	PlayerUtils.broadcast(Main.PREFIX + "§6" + target.getName() + " §7has been kicked for §a" + message, "uhc.kick");
-    	target.kickPlayer(message);
-    	PunishUtils.savePunishment(user, PunishmentType.KICK, message, null);
-		return true;
-	}
+                online.kickPlayer(message);
+            }
 
-	@Override
-	public List<String> tabComplete(final CommandSender sender, final String[] args) {
-		List<String> toReturn = new ArrayList<String>();
-		
-		if (args.length == 1) {
-			toReturn.add("*");
-			toReturn.add("**");
-			
-			for (String name : allPlayers()) {
-				toReturn.add(name);
-			}
-		}
-		
-		return toReturn;
-	}
+            PlayerUtils.broadcast(Main.PREFIX + "All normal players has been kicked for §6" + message);
+            return true;
+        }
+
+        if (args[0].equals("**")) {
+            for (Player online : Bukkit.getOnlinePlayers()) {
+                if (online.isOp()) {
+                    continue;
+                }
+
+                online.kickPlayer(message);
+            }
+
+            PlayerUtils.broadcast(Main.PREFIX + "All players has been kicked for §6" + message);
+            return true;
+        }
+
+        Player target = Bukkit.getPlayer(args[0]);
+
+        if (target == null) {
+            throw new CommandException("'" + args[0] + "' is not online.");
+        }
+
+        User user = plugin.getUser(target);
+
+        if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+            throw new CommandException("'" + args[0] + "' is a staff member and can't be kicked.");
+        }
+
+        PlayerUtils.broadcast(Main.PREFIX + "§6" + target.getName() + " §7has been kicked for §a" + message, "uhc.kick");
+        target.kickPlayer(message);
+        PunishUtils.savePunishment(user, PunishmentType.KICK, message, null);
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(final CommandSender sender, final String[] args) {
+        List<String> toReturn = new ArrayList<String>();
+
+        if (args.length == 1) {
+            toReturn.add("*");
+            toReturn.add("**");
+
+            for (String name : allPlayers()) {
+                toReturn.add(name);
+            }
+        }
+
+        return toReturn;
+    }
 }

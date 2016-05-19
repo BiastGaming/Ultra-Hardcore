@@ -20,43 +20,43 @@ import com.leontg77.ultrahardcore.utils.NumberUtils;
  * @author LeonTG77
  */
 public class BedBombs extends Scenario implements Listener {
-	private final Game game;
-	
-	public BedBombs(Game game) {
-		super("BedBombs", "Beds explode in the overworld.");
-		
-		this.game = game;
-	}
-	
-	@EventHandler
-	public void on(PlayerInteractEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		Block block = event.getClickedBlock();
-		Player player = event.getPlayer();
-		
-		if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-			return;
-		}
-		
-		if (block == null) {
-			return;
-		}
-		
-		if (!game.getPlayers().contains(player)) {
-			return;
-		}
-		
-		if (block.getType() != Material.BED_BLOCK) {
-			return;
-		}
-		
-		block.setType(Material.AIR);
-		event.setCancelled(true);
-		
-		Location loc = block.getLocation();
-		block.getWorld().createExplosion(loc.getX(), loc.getY(), loc.getZ(), NumberUtils.randomIntBetween(4, 6), false, true);
-	}
+    private final Game game;
+
+    public BedBombs(Game game) {
+        super("BedBombs", "Beds explode in the overworld.");
+
+        this.game = game;
+    }
+
+    @EventHandler
+    public void on(PlayerInteractEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        Block block = event.getClickedBlock();
+        Player player = event.getPlayer();
+
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+            return;
+        }
+
+        if (block == null) {
+            return;
+        }
+
+        if (!game.getPlayers().contains(player)) {
+            return;
+        }
+
+        if (block.getType() != Material.BED_BLOCK) {
+            return;
+        }
+
+        block.setType(Material.AIR);
+        event.setCancelled(true);
+
+        Location loc = block.getLocation();
+        block.getWorld().createExplosion(loc.getX(), loc.getY(), loc.getZ(), NumberUtils.randomIntBetween(4, 6), false, true);
+    }
 }

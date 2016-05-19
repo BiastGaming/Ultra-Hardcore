@@ -16,23 +16,23 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  */
 public class Bow extends Scenario implements Listener {
 
-	public Bow() {
-		super("Bow", "All kinds of melee, including sword, punch, or axe, is disabled. Even iPVP is disabled. The only way to damage a player is with a bow. You are able to damage mobs with sword/melee, however.");
-	}
+    public Bow() {
+        super("Bow", "All kinds of melee, including sword, punch, or axe, is disabled. Even iPVP is disabled. The only way to damage a player is with a bow. You are able to damage mobs with sword/melee, however.");
+    }
 
     @EventHandler(ignoreCancelled = true)
     public void on(EntityDamageByEntityEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
         
-	    Entity damager = event.getDamager();
-	    Entity entity = event.getEntity();
-	    
-	    if (!(entity instanceof Player) || !(damager instanceof Player)) {
-	    	return;
-	    }
-	    
-	    event.setCancelled(true);
+        Entity damager = event.getDamager();
+        Entity entity = event.getEntity();
+
+        if (!(entity instanceof Player) || !(damager instanceof Player)) {
+            return;
+        }
+
+        event.setCancelled(true);
     }
 }

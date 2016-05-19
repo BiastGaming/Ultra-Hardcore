@@ -21,56 +21,56 @@ import com.leontg77.ultrahardcore.managers.TeamManager;
  * @author LeonTG77
  */
 public class SidebarResetFeature extends ToggleableFeature implements Listener {
-	private final Arena arena;
-	private final Game game;
-	
-	private final BoardManager board;
-	private final TeamManager teams;
+    private final Arena arena;
+    private final Game game;
 
-	public SidebarResetFeature(Arena arena, Game game, BoardManager board, TeamManager teams) {
-		super("Sidebar Reset", "Make dead players sidebar score get reset when they die.");
+    private final BoardManager board;
+    private final TeamManager teams;
 
-		icon.setType(Material.SIGN);
-		slot = 5;
-		
-		this.arena = arena;
-		this.game = game;
-		
-		this.board = board;
-		this.teams = teams;
-	}
+    public SidebarResetFeature(Arena arena, Game game, BoardManager board, TeamManager teams) {
+        super("Sidebar Reset", "Make dead players sidebar score get reset when they die.");
 
-	@EventHandler(priority = EventPriority.HIGH)
-	public void on(final PlayerDeathEvent event) {
-		if (!isEnabled() || game.isRecordedRound()) {
-			return;
-		}
-		
-		Player player = event.getEntity();
-		
-		// the arena has it's own way of doing deaths.
-		if (arena.isEnabled() && arena.hasPlayer(player)) {
-			return;
-		}
-	    
-	    if (!State.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
-	    	return;
-	    }
+        icon.setType(Material.SIGN);
+        slot = 5;
 
-		Player killer = player.getKiller();
+        this.arena = arena;
+        this.game = game;
 
-		if (killer == null) {
-	        board.resetScore(player.getName());
-			return;
-		}
-		
-		Team pteam = teams.getTeam(player);
-		Team team = teams.getTeam(killer);
-		
-		if (pteam != null && pteam.equals(team)) {
-			return;
-		}
-		
-		board.resetScore(player.getName());
-	}
+        this.board = board;
+        this.teams = teams;
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void on(final PlayerDeathEvent event) {
+        if (!isEnabled() || game.isRecordedRound()) {
+            return;
+        }
+
+        Player player = event.getEntity();
+
+        // the arena has it's own way of doing deaths.
+        if (arena.isEnabled() && arena.hasPlayer(player)) {
+            return;
+        }
+
+        if (!State.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
+            return;
+        }
+
+        Player killer = player.getKiller();
+
+        if (killer == null) {
+            board.resetScore(player.getName());
+            return;
+        }
+
+        Team pteam = teams.getTeam(player);
+        Team team = teams.getTeam(killer);
+
+        if (pteam != null && pteam.equals(team)) {
+            return;
+        }
+
+        board.resetScore(player.getName());
+    }
 }

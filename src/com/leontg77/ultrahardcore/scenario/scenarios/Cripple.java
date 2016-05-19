@@ -19,34 +19,34 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  */
 public class Cripple extends Scenario implements Listener {
 
-	public Cripple() {
-		super("Cripple", "If you take fall damage you will get slowness for 30 seconds");
-	}
+    public Cripple() {
+        super("Cripple", "If you take fall damage you will get slowness for 30 seconds");
+    }
 
-	@Override
-	public void onDisable() {}
+    @Override
+    public void onDisable() {}
 
-	@Override
-	public void onEnable() {}
-	
-	@EventHandler
-	public void on(EntityDamageEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		final Entity entity = event.getEntity();
-		
-		if (!(entity instanceof Player)) {
-			return;
-		}
-		
-		Player player = (Player) entity;
-		
-		if (event.getCause() != DamageCause.FALL) {
-			return;
-		}
-		
-		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 600, 0));
-	}
+    @Override
+    public void onEnable() {}
+
+    @EventHandler
+    public void on(EntityDamageEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        final Entity entity = event.getEntity();
+
+        if (!(entity instanceof Player)) {
+            return;
+        }
+
+        Player player = (Player) entity;
+
+        if (event.getCause() != DamageCause.FALL) {
+            return;
+        }
+
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 600, 0));
+    }
 }

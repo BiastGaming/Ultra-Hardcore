@@ -17,39 +17,39 @@ import com.leontg77.ultrahardcore.commands.UHCCommand;
  * 
  * @author LeonTG77
  */
-public class TextCommand extends UHCCommand {	
+public class TextCommand extends UHCCommand {
 
-	public TextCommand() {
-		super("text", "<message>");
-	}
+    public TextCommand() {
+        super("text", "<message>");
+    }
 
-	@Override
-	public boolean execute(final CommandSender sender, final String[] args) throws CommandException {
-		if (!(sender instanceof Player)) {
-			throw new CommandException("Only players can spawn floating texts.");
-		}
-		
-		if (args.length == 0) {
-			return false;
-		}
-		
-		final Player player = (Player) sender;
+    @Override
+    public boolean execute(final CommandSender sender, final String[] args) throws CommandException {
+        if (!(sender instanceof Player)) {
+            throw new CommandException("Only players can spawn floating texts.");
+        }
 
-		final String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
-		final ArmorStand stand = player.getWorld().spawn(player.getLocation(), ArmorStand.class);
-		
-		stand.setCustomName(ChatColor.translateAlternateColorCodes('&', message));
-		
-		stand.setCustomNameVisible(true);
-		stand.setSmall(true);
-		
-		stand.setGravity(false);
-		stand.setVisible(false);
-		return true;
-	}
+        if (args.length == 0) {
+            return false;
+        }
 
-	@Override
-	public List<String> tabComplete(final CommandSender sender, final String[] args) {
-		return allPlayers();
-	}
+        final Player player = (Player) sender;
+
+        final String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
+        final ArmorStand stand = player.getWorld().spawn(player.getLocation(), ArmorStand.class);
+
+        stand.setCustomName(ChatColor.translateAlternateColorCodes('&', message));
+
+        stand.setCustomNameVisible(true);
+        stand.setSmall(true);
+
+        stand.setGravity(false);
+        stand.setVisible(false);
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(final CommandSender sender, final String[] args) {
+        return allPlayers();
+    }
 }

@@ -18,30 +18,30 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class FireCommand extends UHCCommand {
-	private final FireworkManager firework;
+    private final FireworkManager firework;
 
-	public FireCommand(FireworkManager firework) {
-		super("fire", "");
-		
-		this.firework = firework;
-	}
+    public FireCommand(FireworkManager firework) {
+        super("fire", "");
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		PlayerUtils.broadcast(Main.PREFIX + "The firework show has started by §6" + sender.getName() + "§7!");
-		
-		if (!(sender instanceof Player)) {
-			firework.startFireworkShow();
-			return true;
-		}
-		
-		Player player = (Player) sender;
-		firework.startFireworkShow(player.getLocation());
-		return true;
-	}
+        this.firework = firework;
+    }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return new ArrayList<String>();
-	}
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        PlayerUtils.broadcast(Main.PREFIX + "The firework show has started by §6" + sender.getName() + "§7!");
+
+        if (!(sender instanceof Player)) {
+            firework.startFireworkShow();
+            return true;
+        }
+
+        Player player = (Player) sender;
+        firework.startFireworkShow(player.getLocation());
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return new ArrayList<String>();
+    }
 }

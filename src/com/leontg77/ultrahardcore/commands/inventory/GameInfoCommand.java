@@ -20,90 +20,90 @@ import com.leontg77.ultrahardcore.gui.guis.GameInfoGUI;
  * @author LeonTG77
  */
 public class GameInfoCommand extends UHCCommand {
-	private final GUIManager gui;
+    private final GUIManager gui;
 
-	public GameInfoCommand(GUIManager gui) {
-		super("uhc", "");
-		
-		this.gui = gui;
-	}
+    public GameInfoCommand(GUIManager gui) {
+        super("uhc", "");
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (!(sender instanceof Player)) {
-			throw new CommandException("Only players can view the game info inventory.");
-		}
+        this.gui = gui;
+    }
 
-		Inventory inv = gui.getGUI(GameInfoGUI.class).get();
-		Player player = (Player) sender;
-		
-		if (args.length == 0) {
-			player.openInventory(inv);
-			return true;
-		}
-		
-		String info = Joiner.on(' ').join(args);
-		
-		for (ItemStack item : inv.getContents()) {
-			if (item == null) {
-				continue;
-			}
-			
-			if (!item.hasItemMeta() || !item.getItemMeta().hasLore()) {
-				continue;
-			}
-			
-			for (String lore : item.getItemMeta().getLore()) {
-				if (lore.length() < 6) {
-					continue;
-				}
-				
-				if (!lore.contains(":")) {
-					continue;
-				}
-				
-				String name = lore.substring(6, lore.indexOf(':'));
-				
-				if (info.equalsIgnoreCase(name)) {
-					sender.sendMessage("§4§lUHC " + lore);
-					return true;
-				}
-			}
-		}
-		
-		throw new CommandException("Could not find any information about '" + info + "'.");
-	}
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (!(sender instanceof Player)) {
+            throw new CommandException("Only players can view the game info inventory.");
+        }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		Inventory inv = gui.getGUI(GameInfoGUI.class).get();
-		List<String> toReturn = new ArrayList<String>();
-		
-		if (args.length == 1) {
-			for (ItemStack item : inv.getContents()) {
-				if (item == null) {
-					continue;
-				}
-				
-				if (!item.hasItemMeta() || !item.getItemMeta().hasLore()) {
-					continue;
-				}
-				
-				for (String lore : item.getItemMeta().getLore()) {
-					if (lore.length() < 6) {
-						continue;
-					}
-					
-					if (!lore.contains(":")) {
-						continue;
-					}
+        Inventory inv = gui.getGUI(GameInfoGUI.class).get();
+        Player player = (Player) sender;
 
-					String name = lore.substring(6, lore.indexOf(':'));
-					toReturn.add(name.toLowerCase());
-				}
-			}
-		}
-		
-		return toReturn;
-	}
+        if (args.length == 0) {
+            player.openInventory(inv);
+            return true;
+        }
+
+        String info = Joiner.on(' ').join(args);
+
+        for (ItemStack item : inv.getContents()) {
+            if (item == null) {
+                continue;
+            }
+
+            if (!item.hasItemMeta() || !item.getItemMeta().hasLore()) {
+                continue;
+            }
+
+            for (String lore : item.getItemMeta().getLore()) {
+                if (lore.length() < 6) {
+                    continue;
+                }
+
+                if (!lore.contains(":")) {
+                    continue;
+                }
+
+                String name = lore.substring(6, lore.indexOf(':'));
+
+                if (info.equalsIgnoreCase(name)) {
+                    sender.sendMessage("§4§lUHC " + lore);
+                    return true;
+                }
+            }
+        }
+
+        throw new CommandException("Could not find any information about '" + info + "'.");
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        Inventory inv = gui.getGUI(GameInfoGUI.class).get();
+        List<String> toReturn = new ArrayList<String>();
+
+        if (args.length == 1) {
+            for (ItemStack item : inv.getContents()) {
+                if (item == null) {
+                    continue;
+                }
+
+                if (!item.hasItemMeta() || !item.getItemMeta().hasLore()) {
+                    continue;
+                }
+
+                for (String lore : item.getItemMeta().getLore()) {
+                    if (lore.length() < 6) {
+                        continue;
+                    }
+
+                    if (!lore.contains(":")) {
+                        continue;
+                    }
+
+                    String name = lore.substring(6, lore.indexOf(':'));
+                    toReturn.add(name.toLowerCase());
+                }
+            }
+        }
+
+        return toReturn;
+    }
 }

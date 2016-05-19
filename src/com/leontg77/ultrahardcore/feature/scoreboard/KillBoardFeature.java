@@ -20,57 +20,57 @@ import com.leontg77.ultrahardcore.managers.TeamManager;
  * @author LeonTG77
  */
 public class KillBoardFeature extends Feature implements Listener {
-	private final Arena arena;
-	private final Game game;
-	
-	private final BoardManager board;
-	private final TeamManager teams;
+    private final Arena arena;
+    private final Game game;
 
-	public KillBoardFeature(Arena arena, Game game, BoardManager board, TeamManager teams) {
-		super("Kill Board", "Adds your kill to the sidebar when you get one.");
-		
-		this.arena = arena;
-		this.game = game;
-		
-		this.board = board;
-		this.teams = teams;
-	}
+    private final BoardManager board;
+    private final TeamManager teams;
 
-	@EventHandler(priority = EventPriority.LOW)
-	public void on(final PlayerDeathEvent event) {
-		Player player = event.getEntity();
-		
-		// the arena has it's own way of doing deaths.
-		if (arena.isEnabled() && arena.hasPlayer(player)) {
-			return;
-		} 
-	    
-	    if (!State.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
-	    	return;
-	    }
+    public KillBoardFeature(Arena arena, Game game, BoardManager board, TeamManager teams) {
+        super("Kill Board", "Adds your kill to the sidebar when you get one.");
 
-		final Player killer = player.getKiller();
+        this.arena = arena;
+        this.game = game;
 
-		if (killer == null) {
-			if (game.isRecordedRound()) {
-				return;
-			}
-			
-			board.setScore("§8» §c§oPvE", board.getScore("§8» §c§oPvE") + 1);
-			return;
-		}
-		
-		if (killer.isDead()) {
-			return;
-		}
-		
-		Team pteam = teams.getTeam(player);
-		Team team = teams.getTeam(killer);
-		
-		if (pteam != null && pteam.equals(team)) {
-			return;
-		}
-		
-		board.setScore(killer.getName(), board.getScore(killer.getName()) + 1);
-	}
+        this.board = board;
+        this.teams = teams;
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
+    public void on(final PlayerDeathEvent event) {
+        Player player = event.getEntity();
+
+        // the arena has it's own way of doing deaths.
+        if (arena.isEnabled() && arena.hasPlayer(player)) {
+            return;
+        }
+
+        if (!State.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
+            return;
+        }
+
+        final Player killer = player.getKiller();
+
+        if (killer == null) {
+            if (game.isRecordedRound()) {
+                return;
+            }
+
+            board.setScore("§8» §c§oPvE", board.getScore("§8» §c§oPvE") + 1);
+            return;
+        }
+
+        if (killer.isDead()) {
+            return;
+        }
+
+        Team pteam = teams.getTeam(player);
+        Team team = teams.getTeam(killer);
+
+        if (pteam != null && pteam.equals(team)) {
+            return;
+        }
+
+        board.setScore(killer.getName(), board.getScore(killer.getName()) + 1);
+    }
 }

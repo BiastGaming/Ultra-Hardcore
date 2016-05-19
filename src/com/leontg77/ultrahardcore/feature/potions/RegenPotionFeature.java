@@ -17,25 +17,25 @@ import com.leontg77.ultrahardcore.feature.Feature;
  * @author LeonTG77
  */
 public class RegenPotionFeature extends Feature implements Listener {
-	private static final Material FEATURE_ITEM = Material.GHAST_TEAR;
+    private static final Material FEATURE_ITEM = Material.GHAST_TEAR;
 
-	public RegenPotionFeature(PotionFuelListener listener) {
-		super("Regen Potions", "A potion that regenerates your health faster.");
+    public RegenPotionFeature(PotionFuelListener listener) {
+        super("Regen Potions", "A potion that regenerates your health faster.");
 
         listener.addMaterial(FEATURE_ITEM, Main.PREFIX + "Regen potions are disabled.");
-	}
-	
+    }
+
     @EventHandler
     public void on(EntityDeathEvent event) {
-    	final Entity entity = event.getEntity();
-    	
+        final Entity entity = event.getEntity();
+
         if (!(entity instanceof Ghast)) {
-        	return;
+            return;
         }
 
         for (ItemStack drop : event.getDrops()) {
             if (!drop.getType().equals(FEATURE_ITEM)) {
-            	continue;
+                continue;
             }
             
             drop.setType(Material.GOLD_INGOT);

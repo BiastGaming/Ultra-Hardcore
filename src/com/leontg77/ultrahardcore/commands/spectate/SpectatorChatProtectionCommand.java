@@ -30,7 +30,7 @@ public class SpectatorChatProtectionCommand extends UHCCommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
         if (args.length == 0) {
-        	return false;
+            return false;
         }
 
         Player target = null;
@@ -42,11 +42,11 @@ public class SpectatorChatProtectionCommand extends UHCCommand {
             
             target = (Player) sender;
         } else {
-        	target = Bukkit.getPlayer(args[1]);
-        	
-        	if (target == null) {
-        		throw new CommandException("'" + args[1] + "' is not online.");
-        	}
+            target = Bukkit.getPlayer(args[1]);
+
+            if (target == null) {
+                throw new CommandException("'" + args[1] + "' is not online.");
+            }
         }
         
         String name = target.getName();
@@ -81,14 +81,14 @@ public class SpectatorChatProtectionCommand extends UHCCommand {
             
             sender.sendMessage(Main.PREFIX + "You have enabled " + (target == sender ? "your" : target.getName() + "'s") + " spectator chat protection.");
             if (sender != target) {
-            	target.sendMessage(Main.PREFIX + "Your spectator chat protection has been enabled.");
+                target.sendMessage(Main.PREFIX + "Your spectator chat protection has been enabled.");
             }
         } else {
             chatProtection.remove(name);
             
             sender.sendMessage(Main.PREFIX + "You have disabled " + (target == sender ? "your" : target.getName() + "'s") + " spectator chat protection.");
             if (sender != target) {
-            	target.sendMessage(Main.PREFIX + "Your spectator chat protection has been disabled.");
+                target.sendMessage(Main.PREFIX + "Your spectator chat protection has been disabled.");
             }
         }
 
@@ -97,22 +97,22 @@ public class SpectatorChatProtectionCommand extends UHCCommand {
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
-		List<String> toReturn = new ArrayList<String>();
-    	
-		if (args.length == 1) {
-			toReturn.add("on");
-        	toReturn.add("off");
-        	toReturn.add("toggle");
+        List<String> toReturn = new ArrayList<String>();
+
+        if (args.length == 1) {
+            toReturn.add("on");
+            toReturn.add("off");
+            toReturn.add("toggle");
         }
-		
-		if (args.length == 2) {
-			if (!sender.hasPermission(getPermission() + ".other")) {
-		        return new ArrayList<String>();
-			}
-			
-			return allPlayers();
+
+        if (args.length == 2) {
+            if (!sender.hasPermission(getPermission() + ".other")) {
+                return new ArrayList<String>();
+            }
+
+            return allPlayers();
         }
-		
-		return toReturn;
+
+        return toReturn;
     }
 }

@@ -38,7 +38,7 @@ public class PushToSpawnListener implements Listener {
         this.plugin = plugin;
     }
 
-	@EventHandler
+    @EventHandler
     public void on(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         
@@ -83,25 +83,25 @@ public class PushToSpawnListener implements Listener {
         try {
             player.setVelocity(velocity);
         } catch (Throwable e) {
-        	return;
+            return;
         }
         
         player.getWorld().playSound(to, Sound.GHAST_FIREBALL, 1, 1);
         playEffect(to);
     }
-	
-	/**
-	 * Player the fire effect at the given location.
-	 * 
-	 * @param loc The location.
-	 */
-	private void playEffect(Location loc) {
-		PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(EnumParticle.FLAME, true, (float) loc.getX(), (float) loc.getY(), (float) loc.getZ(), 0.00003f, 0.0000000003f, 0.00003f, 0.05f, 100, null);
-		
-		for (Player player : loc.getWorld().getPlayers()) {
-			CraftPlayer craft = (CraftPlayer) player; // safe cast.
-			
-			craft.getHandle().playerConnection.sendPacket(packet);
-		}
-	}
+
+    /**
+     * Player the fire effect at the given location.
+     *
+     * @param loc The location.
+     */
+    private void playEffect(Location loc) {
+        PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(EnumParticle.FLAME, true, (float) loc.getX(), (float) loc.getY(), (float) loc.getZ(), 0.00003f, 0.0000000003f, 0.00003f, 0.05f, 100, null);
+
+        for (Player player : loc.getWorld().getPlayers()) {
+            CraftPlayer craft = (CraftPlayer) player; // safe cast.
+
+            craft.getHandle().playerConnection.sendPacket(packet);
+        }
+    }
 }

@@ -44,60 +44,60 @@ import com.leontg77.ultrahardcore.scenario.scenarios.WTFIPTG;
  * @author LeonTG77
  */
 public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
-	private static final String HEAD_NAME = ChatColor.GOLD + "Golden Head";
+    private static final String HEAD_NAME = ChatColor.GOLD + "Golden Head";
     
-	private static final int TICKS_PER_HALF_HEART = 25;
-	private static final short PLAYER_HEAD_DATA = 3;
-	
-	private static final ItemStack PLAYER_SKULL = new ItemStack(Material.SKULL_ITEM, 1, PLAYER_HEAD_DATA);
+    private static final int TICKS_PER_HALF_HEART = 25;
+    private static final short PLAYER_HEAD_DATA = 3;
 
-	private final Settings settings;
-	private final Main plugin;
+    private static final ItemStack PLAYER_SKULL = new ItemStack(Material.SKULL_ITEM, 1, PLAYER_HEAD_DATA);
 
-	private final AchievementHunters ach;
-	private final VengefulSpirits spirit;
-	private final WTFIPTG wtf;
-	
-	private final Arena arena;
-	private final Game game;
-	
+    private final Settings settings;
+    private final Main plugin;
+
+    private final AchievementHunters ach;
+    private final VengefulSpirits spirit;
+    private final WTFIPTG wtf;
+
+    private final Arena arena;
+    private final Game game;
+
     private int healAmount;
 
-	public GoldenHeadsFeature(Main plugin, Settings settings, Arena arena, Game game, ScenarioManager scen) {
-		super("Golden Heads", "Crafted like a golden apple just with a head in the middle and heals more hearts.");
+    public GoldenHeadsFeature(Main plugin, Settings settings, Arena arena, Game game, ScenarioManager scen) {
+        super("Golden Heads", "Crafted like a golden apple just with a head in the middle and heals more hearts.");
 
-		final ShapedRecipe recipe = new ShapedRecipe(new ItemStack(Material.GOLDEN_APPLE, 1))
-        	.shape("AAA", "ABA", "AAA")
-        	.setIngredient('A', Material.GOLD_INGOT)
-        	.setIngredient('B', PLAYER_SKULL.getData());
+        final ShapedRecipe recipe = new ShapedRecipe(new ItemStack(Material.GOLDEN_APPLE, 1))
+            .shape("AAA", "ABA", "AAA")
+            .setIngredient('A', Material.GOLD_INGOT)
+            .setIngredient('B', PLAYER_SKULL.getData());
 
-		Bukkit.addRecipe(recipe);	
-		
-		healAmount = settings.getConfig().getInt("feature." + getName().toLowerCase() + ".heal", 8);
-		
-		icon.setType(Material.SKULL_ITEM);
-		icon.setDurability(PLAYER_HEAD_DATA);
-		
-		slot = 1;
-		
-		this.plugin = plugin;
-		this.settings = settings;
+        Bukkit.addRecipe(recipe);
 
-		this.spirit = scen.getScenario(VengefulSpirits.class);
-		this.ach = scen.getScenario(AchievementHunters.class);
-		this.wtf = scen.getScenario(WTFIPTG.class);
-		
-		this.arena = arena;
-		this.game = game;
-	}
+        healAmount = settings.getConfig().getInt("feature." + getName().toLowerCase() + ".heal", 8);
 
-	/**
-	 * Set the amount of hearts heads should heal.
-	 * 
-	 * @param headheals The amount of hearts.
-	 */
+        icon.setType(Material.SKULL_ITEM);
+        icon.setDurability(PLAYER_HEAD_DATA);
+
+        slot = 1;
+
+        this.plugin = plugin;
+        this.settings = settings;
+
+        this.spirit = scen.getScenario(VengefulSpirits.class);
+        this.ach = scen.getScenario(AchievementHunters.class);
+        this.wtf = scen.getScenario(WTFIPTG.class);
+
+        this.arena = arena;
+        this.game = game;
+    }
+
+    /**
+     * Set the amount of hearts heads should heal.
+     *
+     * @param headheals The amount of hearts.
+     */
     public void setHealAmount(final double headheals) {
-    	this.healAmount = (int) (headheals * 2);
+        this.healAmount = (int) (headheals * 2);
         
         settings.getConfig().set("feature." + getName().toLowerCase() + ".heal", healAmount);
         settings.saveConfig();
@@ -112,71 +112,71 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
         return ((double) healAmount) / 2;
     }
 
-	@EventHandler
-	public void on(PlayerDeathEvent event) {
+    @EventHandler
+    public void on(PlayerDeathEvent event) {
         if (!isEnabled()) {
-        	return;
+            return;
         }
 
-		final Player player = event.getEntity();
-		
-		// the arena has it's own way of doing deaths.
-		if (arena.isEnabled() && arena.hasPlayer(player)) {
-			return;
-		} 
-	    
-	    if (!State.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
-	    	return;
-	    }
-		
-		// incase an explotion, wait a tick.
-		new BukkitRunnable() {
-			@SuppressWarnings("deprecation")
-			public void run() {
-				Block block = player.getLocation().getBlock();
-				
-				block.setType(Material.NETHER_FENCE);
-				block = block.getRelative(BlockFace.UP);
-				block.setType(Material.SKULL);
-			    
-				Skull skull;
-				
-				try {
-			        skull = (Skull) block.getState();
-				} catch (Exception e) {
-					// the skull wasn't placed (outside of the world probs), tell the console so and stop.
-					Bukkit.getLogger().warning("Could not place player skull.");
-					return;
-				}
-				
-			    skull.setSkullType(SkullType.PLAYER);
-			    skull.setRotation(getBlockDirection(player.getLocation()));
-			    
-			    if (wtf.isEnabled()) {
-				    skull.setOwner(UUID.randomUUID().toString());
-			    } else {
-				    skull.setOwner(player.getName());
-			    }
-			    
-			    skull.update();
-			    
-			    block.setData((byte) 0x1, true);
-			}
-		}.runTaskLater(plugin, 1);
-	}
+        final Player player = event.getEntity();
+
+        // the arena has it's own way of doing deaths.
+        if (arena.isEnabled() && arena.hasPlayer(player)) {
+            return;
+        }
+
+        if (!State.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
+            return;
+        }
+
+        // incase an explotion, wait a tick.
+        new BukkitRunnable() {
+            @SuppressWarnings("deprecation")
+            public void run() {
+                Block block = player.getLocation().getBlock();
+
+                block.setType(Material.NETHER_FENCE);
+                block = block.getRelative(BlockFace.UP);
+                block.setType(Material.SKULL);
+
+                Skull skull;
+
+                try {
+                    skull = (Skull) block.getState();
+                } catch (Exception e) {
+                    // the skull wasn't placed (outside of the world probs), tell the console so and stop.
+                    Bukkit.getLogger().warning("Could not place player skull.");
+                    return;
+                }
+
+                skull.setSkullType(SkullType.PLAYER);
+                skull.setRotation(getBlockDirection(player.getLocation()));
+
+                if (wtf.isEnabled()) {
+                    skull.setOwner(UUID.randomUUID().toString());
+                } else {
+                    skull.setOwner(player.getName());
+                }
+
+                skull.update();
+
+                block.setData((byte) 0x1, true);
+            }
+        }.runTaskLater(plugin, 1);
+    }
 
     @EventHandler
     public void on(PlayerItemConsumeEvent event) {
-    	// heads should be useable if vengeful spirits or achievement hunters is enabled.
+        // heads should be useable if vengeful spirits or achievement hunters is enabled.
         if (!isEnabled() && !spirit.isEnabled() && !ach.isEnabled()) {
-        	return;
+            return;
         }
         
-    	Player player = event.getPlayer();
-    	ItemStack item = event.getItem();
+        Player player = event.getPlayer();
+        ItemStack item = event.getItem();
 
         if (!isGoldenHead(item)) {
-        	return;
+            return;
         }
         
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, TICKS_PER_HALF_HEART * healAmount, 1));
@@ -184,22 +184,22 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
 
     @EventHandler
     public void on(PrepareItemCraftEvent event) {
-    	CraftingInventory inv = event.getInventory();
-    	Recipe recipe = event.getRecipe();
-    	
+        CraftingInventory inv = event.getInventory();
+        Recipe recipe = event.getRecipe();
+
         if (recipe.getResult().getType() != Material.GOLDEN_APPLE) {
-        	return;
+            return;
         }
 
         ItemStack centre = inv.getMatrix()[4];
 
         if (centre == null || centre.getType() != Material.SKULL_ITEM) {
-        	return;
+            return;
         }
 
-    	// heads should be craftable if vengeful spirits or achievement hunters is enabled.
+        // heads should be craftable if vengeful spirits or achievement hunters is enabled.
         if (!isEnabled() && !spirit.isEnabled() && !ach.isEnabled()) {
-        	inv.setResult(new ItemStack(Material.AIR));
+            inv.setResult(new ItemStack(Material.AIR));
             return;
         }
 
@@ -214,7 +214,7 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
      * @return The head ItemStack.
      */
     public ItemStack getGoldenHeadItem(String name) {
-    	ItemStack item = new ItemStack(Material.GOLDEN_APPLE, 1);
+        ItemStack item = new ItemStack(Material.GOLDEN_APPLE, 1);
         ItemMeta meta = item.getItemMeta();
         
         meta.setDisplayName(HEAD_NAME);
@@ -239,21 +239,21 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
      */
     public boolean isGoldenHead(ItemStack item) {
         if (item.getType() != Material.GOLDEN_APPLE) {
-        	return false;
+            return false;
         }
 
         ItemMeta meta = item.getItemMeta();
 
         return meta.hasLore() && meta.hasDisplayName() && meta.getDisplayName().equals(HEAD_NAME);
     }
-	
-	/**
-	 * Get the block face direction bases on the given locations yaw.
-	 * 
-	 * @param loc the location.
-	 * @return the block face.
-	 */
-	public static BlockFace getBlockDirection(Location loc) {
+
+    /**
+     * Get the block face direction bases on the given locations yaw.
+     *
+     * @param loc the location.
+     * @return the block face.
+     */
+    public static BlockFace getBlockDirection(Location loc) {
         double rotation = (loc.getYaw() + 180) % 360;
         
         if (rotation < 0) {

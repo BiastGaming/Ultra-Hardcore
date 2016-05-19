@@ -42,400 +42,400 @@ import com.leontg77.ultrahardcore.utils.FileUtils;
  * @author LeonTG77
  */
 public class User {
-	private final UUID uuid;
-	
-	private final Main plugin;
-	private final Game game;
+    private final UUID uuid;
 
-	private final PermissionsManager perm;
+    private final Main plugin;
+    private final Game game;
 
-	private final GUIManager gui;
-	private final UBL ubl;
-	
-	private FileConfiguration config;
-	private File file;
-	
-	/**
-	 * Constuctor for player data.
-	 * <p>
-	 * This will set up the data for the player and create missing data.
-	 */
-	protected User(Main plugin, File folder, UUID uuid, Game game, GUIManager gui, PermissionsManager perm, UBL ubl) {
+    private final PermissionsManager perm;
+
+    private final GUIManager gui;
+    private final UBL ubl;
+
+    private FileConfiguration config;
+    private File file;
+
+    /**
+     * Constuctor for player data.
+     * <p>
+     * This will set up the data for the player and create missing data.
+     */
+    protected User(Main plugin, File folder, UUID uuid, Game game, GUIManager gui, PermissionsManager perm, UBL ubl) {
         this.uuid = uuid;
         
-		this.plugin = plugin;
-		this.game = game;
+        this.plugin = plugin;
+        this.game = game;
 
-		this.perm = perm;
+        this.perm = perm;
 
-		this.gui = gui;
-		this.ubl = ubl;
-		
+        this.gui = gui;
+        this.ubl = ubl;
+
         if (!plugin.getDataFolder().exists()) {
-        	plugin.getDataFolder().mkdir();
+            plugin.getDataFolder().mkdir();
         }
         
         if (!folder.exists()) {
-        	folder.mkdir(); 
+            folder.mkdir();
         }
         
         file = new File(folder, uuid + ".yml");
         
         if (!file.exists()) {
-        	try {
-        		file.createNewFile();
-        		creating = true;
-        	} catch (Exception e) {
-        		plugin.getLogger().severe(ChatColor.RED + "Could not create " + uuid + ".yml!");
-        	}
+            try {
+                file.createNewFile();
+                creating = true;
+            } catch (Exception e) {
+                plugin.getLogger().severe(ChatColor.RED + "Could not create " + uuid + ".yml!");
+            }
         }
         
         config = YamlConfiguration.loadConfiguration(file);
         
         if (creating) {
-        	Player player = Bukkit.getPlayer(uuid);
-        	
-        	if (player != null) {
-            	config.set("username", player.getName());
-            	config.set("uuid", player.getUniqueId().toString());
-            	config.set("ip", player.getAddress().getAddress().getHostAddress());
-        	}
-        	
-        	config.set("firstjoined", new Date().getTime());
-        	config.set("lastlogin", new Date().getTime());
-        	config.set("lastlogout", -1l);
-        	config.set("rank", Rank.DEFAULT.name());
-        	
-			config.set("muted.status", false);
-			config.set("muted.reason", "NOT_MUTED");
-			config.set("muted.time", -1);
-			
-			for (Stat stats : Stat.values()) {
-	        	config.set("stats." + stats.name().toLowerCase(), 0);
-			}
-			
-        	saveFile();
+            Player player = Bukkit.getPlayer(uuid);
+
+            if (player != null) {
+                config.set("username", player.getName());
+                config.set("uuid", player.getUniqueId().toString());
+                config.set("ip", player.getAddress().getAddress().getHostAddress());
+            }
+
+            config.set("firstjoined", new Date().getTime());
+            config.set("lastlogin", new Date().getTime());
+            config.set("lastlogout", -1l);
+            config.set("rank", Rank.DEFAULT.name());
+
+            config.set("muted.status", false);
+            config.set("muted.reason", "NOT_MUTED");
+            config.set("muted.time", -1);
+
+            for (Stat stats : Stat.values()) {
+                config.set("stats." + stats.name().toLowerCase(), 0);
+            }
+
+            saveFile();
         }
-	}
+    }
 
-	private boolean creating = false;
-	
-	/**
-	 * Get the given player's ping.
-	 * 
-	 * @return the players ping
-	 */
-	public int getPing() {
-    	Player player = Bukkit.getPlayer(uuid);
-    	
-    	if (player == null) {
-    		return -1;
-    	}
-    	
-		final CraftPlayer craft = (CraftPlayer) player;
-		
-		return craft.getHandle().ping;
-	} 
-	
-	/**
-	 * Check if the user hasn't been welcomed to the server.
-	 * 
-	 * @return True if he hasn't, false otherwise.
-	 */
-	public boolean isNew() {
-		if (creating) {
-			creating = false;
-			return true;
-		}
-		
-		return creating;
-	}
-	
-	/**
-	 * Get the player class for the user.
-	 * 
-	 * @return The player class.
-	 */
-	public Player getPlayer() {
-    	return Bukkit.getPlayer(uuid);
-	}
-	
-	/**
-	 * Get the uuid for the user.
-	 * 
-	 * @return The uuid.
-	 */
-	public String getUUID() {
-		return uuid.toString();
-	}
-	
-	/**
-	 * Get the configuration file for the player.
-	 * 
-	 * @return The configuration file.
-	 */
-	public FileConfiguration getFile() {
-		return config;
-	}
-	
-	/**
-	 * Save the config file.
-	 */
-	public void saveFile() {
-		try {
-			for (FileConfiguration file : FileUtils.getUserFiles()) {
-				if (file.getString("uuid", "none").equals(config.getString("uuid", "none"))) {
-					FileUtils.getUserFiles().remove(file);
-					break;
-				}
-			}
-			
-			config.save(file);
-			
-    		FileUtils.getUserFiles().add(config);
-		} catch (Exception e) {
-    		plugin.getLogger().severe(ChatColor.RED + "Could not save " + file.getName() + "!");
-		}
-		
+    private boolean creating = false;
+
+    /**
+     * Get the given player's ping.
+     *
+     * @return the players ping
+     */
+    public int getPing() {
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player == null) {
+            return -1;
+        }
+
+        final CraftPlayer craft = (CraftPlayer) player;
+
+        return craft.getHandle().ping;
+    }
+
+    /**
+     * Check if the user hasn't been welcomed to the server.
+     *
+     * @return True if he hasn't, false otherwise.
+     */
+    public boolean isNew() {
+        if (creating) {
+            creating = false;
+            return true;
+        }
+
+        return creating;
+    }
+
+    /**
+     * Get the player class for the user.
+     *
+     * @return The player class.
+     */
+    public Player getPlayer() {
+        return Bukkit.getPlayer(uuid);
+    }
+
+    /**
+     * Get the uuid for the user.
+     *
+     * @return The uuid.
+     */
+    public String getUUID() {
+        return uuid.toString();
+    }
+
+    /**
+     * Get the configuration file for the player.
+     *
+     * @return The configuration file.
+     */
+    public FileConfiguration getFile() {
+        return config;
+    }
+
+    /**
+     * Save the config file.
+     */
+    public void saveFile() {
+        try {
+            for (FileConfiguration file : FileUtils.getUserFiles()) {
+                if (file.getString("uuid", "none").equals(config.getString("uuid", "none"))) {
+                    FileUtils.getUserFiles().remove(file);
+                    break;
+                }
+            }
+
+            config.save(file);
+
+            FileUtils.getUserFiles().add(config);
+        } catch (Exception e) {
+            plugin.getLogger().severe(ChatColor.RED + "Could not save " + file.getName() + "!");
+        }
+
         config = YamlConfiguration.loadConfiguration(file);
-	}
-	
-	/**
-	 * Reload the config file.
-	 */
-	public void reloadFile() {
+    }
+
+    /**
+     * Reload the config file.
+     */
+    public void reloadFile() {
         config = YamlConfiguration.loadConfiguration(file);
-	}
-	
-	/**
-	 * Set the rank for the player.
-	 * 
-	 * @param rank The new rank.
-	 */
-	public void setRank(Rank rank) {
-		config.set("rank", rank.name());
-		saveFile();
-		
-		GameInfoGUI info = gui.getGUI(GameInfoGUI.class);
-		
-		info.updateStaff();
+    }
 
-    	Player player = Bukkit.getPlayer(uuid);
-    	
-		if (player != null) {
-			perm.removePermissions(player);
-			perm.addPermissions(player);
-		}
-	}
-
-	/**
-	 * Get the rank of the player.
-	 * 
-	 * @return the rank.
-	 */
-	public Rank getRank() {
-		Rank rank;
-		
-		try {
-			rank = Rank.valueOf(config.getString("rank"));
-		} catch (Exception e) {
-			rank = Rank.DEFAULT;
-		}
-		
-		return rank;
-	}
-
-	/**
-	 * Get the color of the rank the player has.
-	 * 
-	 * @return The rank color.
-	 */
-	public String getRankColor() {
-		if (game.isRecordedRound()) {
-			return "§7";
-		}
-		
-		switch (getRank()) {
-		case DONATOR:
-			return "§a";
-		case HOST:
-		case TRIAL:
-			return "§4";
-		case OWNER:
-			if (uuid.toString().equals("02dc5178-f7ec-4254-8401-1a57a7442a2f")) {
-				return "§3§o";
-			} else {
-				return "§4§o";
-			}
-		case STAFF:
-			return "§c";
-		default:
-			return "§7";
-		}
-	}
-	
-	/**
-	 * Get all possible alt accounts of the user.
-	 * <p>
-	 * These are colored: Red = Banned, Green = Online and Gray = Offline.
-	 * 
-	 * @return A list of alt accounts.
-	 */
-	public Set<String> getAlts() {
-		Set<String> altList = new HashSet<String>();
-		
-		String thisName = config.getString("username", "none1");
-		List<String> thisIPs = config.getStringList("ips");
-		
-		BanList banlist = Bukkit.getBanList(Type.NAME);
-		
-		for (FileConfiguration file : FileUtils.getUserFiles()) {
-			String name = file.getString("username", "none2");
-			List<String> otherIPs = file.getStringList("ips");
-		
-			if (!thisIPs.stream().anyMatch(otherIPs::contains)) {
-				continue;
-			}
-			
-			if (thisName.equals(name)) {
-				continue;
-			}
-
-			Player check = Bukkit.getPlayerExact(name);
-			UUID uuid = UUID.fromString(file.getString("uuid", UUID.randomUUID().toString()));
-
-			if (ubl.isBanned(uuid)) {
-				altList.add("§6" + name + "§8");
-			} 
-			else if (banlist.getBanEntry(name) != null) {
-				altList.add("§4" + name + "§8");
-			}
-			else if (check != null) {
-				altList.add("§a" + name + "§8");
-			} 
-			else {
-				altList.add("§c" + name + "§8");
-			}
-		}
-		
-		return altList;
-	}
-	
-	/**
-	 * Set the death location of the player.
-	 * 
-	 * @param loc The death loc.
-	 */
-	public void setDeathLoc(Location loc) {
-		if (loc == null) {
-			config.set("locs.death", null);
-	        saveFile();
-	        return;
-		}
-		
-		config.set("locs.death.world", loc.getWorld().getName());
-		config.set("locs.death.x", loc.getX());
-		config.set("locs.death.y", loc.getY());
-		config.set("locs.death.z", loc.getZ());
-		config.set("locs.death.yaw", loc.getYaw());
-		config.set("locs.death.pitch", loc.getPitch());
+    /**
+     * Set the rank for the player.
+     *
+     * @param rank The new rank.
+     */
+    public void setRank(Rank rank) {
+        config.set("rank", rank.name());
         saveFile();
-	}
-	
-	/**
-	 * Get the death location of the player.
-	 * 
-	 * @return The death location.
-	 */
-	public Location getDeathLoc() {
-		if (!config.contains("locs.death")) {
-			return null;
-		}
-		
-		World world = Bukkit.getWorld(config.getString("locs.death.world"));
-		
-		if (world == null) {
-			return null;
-		}
-		
-		double x = config.getDouble("locs.death.x");
-		double y = config.getDouble("locs.death.y");
-		double z = config.getDouble("locs.death.z");
-		float yaw = (float) config.getDouble("locs.death.yaw", 0);
-		float pitch = (float) config.getDouble("locs.death.pitch", 0);
-		
-		Location loc = new Location(world, x, y, z, yaw, pitch);
-		
-		return loc;
-	}
-	
-	/**
-	 * Set the last location of the player.
-	 * 
-	 * @param loc The last loc.
-	 */
-	public void setLastLoc(Location loc) {
-		if (loc == null) {
-			config.set("locs.last", null);
-	        saveFile();
-	        return;
-		}
-		
-		config.set("locs.last.world", loc.getWorld().getName());
-		config.set("locs.last.x", loc.getX());
-		config.set("locs.last.y", loc.getY());
-		config.set("locs.last.z", loc.getZ());
-		config.set("locs.last.yaw", loc.getYaw());
-		config.set("locs.last.pitch", loc.getPitch());
+
+        GameInfoGUI info = gui.getGUI(GameInfoGUI.class);
+
+        info.updateStaff();
+
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player != null) {
+            perm.removePermissions(player);
+            perm.addPermissions(player);
+        }
+    }
+
+    /**
+     * Get the rank of the player.
+     *
+     * @return the rank.
+     */
+    public Rank getRank() {
+        Rank rank;
+
+        try {
+            rank = Rank.valueOf(config.getString("rank"));
+        } catch (Exception e) {
+            rank = Rank.DEFAULT;
+        }
+
+        return rank;
+    }
+
+    /**
+     * Get the color of the rank the player has.
+     *
+     * @return The rank color.
+     */
+    public String getRankColor() {
+        if (game.isRecordedRound()) {
+            return "§7";
+        }
+
+        switch (getRank()) {
+        case DONATOR:
+            return "§a";
+        case HOST:
+        case TRIAL:
+            return "§4";
+        case OWNER:
+            if (uuid.toString().equals("02dc5178-f7ec-4254-8401-1a57a7442a2f")) {
+                return "§3§o";
+            } else {
+                return "§4§o";
+            }
+        case STAFF:
+            return "§c";
+        default:
+            return "§7";
+        }
+    }
+
+    /**
+     * Get all possible alt accounts of the user.
+     * <p>
+     * These are colored: Red = Banned, Green = Online and Gray = Offline.
+     *
+     * @return A list of alt accounts.
+     */
+    public Set<String> getAlts() {
+        Set<String> altList = new HashSet<String>();
+
+        String thisName = config.getString("username", "none1");
+        List<String> thisIPs = config.getStringList("ips");
+
+        BanList banlist = Bukkit.getBanList(Type.NAME);
+
+        for (FileConfiguration file : FileUtils.getUserFiles()) {
+            String name = file.getString("username", "none2");
+            List<String> otherIPs = file.getStringList("ips");
+
+            if (!thisIPs.stream().anyMatch(otherIPs::contains)) {
+                continue;
+            }
+
+            if (thisName.equals(name)) {
+                continue;
+            }
+
+            Player check = Bukkit.getPlayerExact(name);
+            UUID uuid = UUID.fromString(file.getString("uuid", UUID.randomUUID().toString()));
+
+            if (ubl.isBanned(uuid)) {
+                altList.add("§6" + name + "§8");
+            }
+            else if (banlist.getBanEntry(name) != null) {
+                altList.add("§4" + name + "§8");
+            }
+            else if (check != null) {
+                altList.add("§a" + name + "§8");
+            }
+            else {
+                altList.add("§c" + name + "§8");
+            }
+        }
+
+        return altList;
+    }
+
+    /**
+     * Set the death location of the player.
+     *
+     * @param loc The death loc.
+     */
+    public void setDeathLoc(Location loc) {
+        if (loc == null) {
+            config.set("locs.death", null);
+            saveFile();
+            return;
+        }
+
+        config.set("locs.death.world", loc.getWorld().getName());
+        config.set("locs.death.x", loc.getX());
+        config.set("locs.death.y", loc.getY());
+        config.set("locs.death.z", loc.getZ());
+        config.set("locs.death.yaw", loc.getYaw());
+        config.set("locs.death.pitch", loc.getPitch());
         saveFile();
-	}
-	
-	/**
-	 * Get the last location of the player.
-	 * 
-	 * @return The last location.
-	 */
-	public Location getLastLoc() {
-		if (!config.contains("locs.last")) {
-			return null;
-		}
-		
-		World world = Bukkit.getWorld(config.getString("locs.last.world"));
-		
-		if (world == null) {
-			return null;
-		}
-		
-		double x = config.getDouble("locs.last.x");
-		double y = config.getDouble("locs.last.y");
-		double z = config.getDouble("locs.last.z");
-		float yaw = (float) config.getDouble("locs.last.yaw", 0);
-		float pitch = (float) config.getDouble("locs.last.pitch", 0);
-		
-		Location loc = new Location(world, x, y, z, yaw, pitch);
-		
-		return loc;
-	}
+    }
 
-	/**
-	 * Set the fixed scatter location to be used for this player in the
-	 * {@link com.leontg77.ultrahardcore.managers.ScatterManager}.
-	 * @param x The x-coordinate the player should always be scattered at
-	 * @param z The z-coordinate the player should always be scattered at
-	 */
-	public void setFixedScatterLocation(int x, int z) {
-		config.set("locs.scatter.x", x);
-		config.set("locs.scatter.z", z);
-		saveFile();
-	}
+    /**
+     * Get the death location of the player.
+     *
+     * @return The death location.
+     */
+    public Location getDeathLoc() {
+        if (!config.contains("locs.death")) {
+            return null;
+        }
 
-	/**
-	 * Delete the fixed scatter location for this player, causing him to be scattered normally again.
-	 */
-	public void deleteFixedScatterLocation() {
-		config.set("locs.scatter", null);
-		saveFile();
-	}
+        World world = Bukkit.getWorld(config.getString("locs.death.world"));
+
+        if (world == null) {
+            return null;
+        }
+
+        double x = config.getDouble("locs.death.x");
+        double y = config.getDouble("locs.death.y");
+        double z = config.getDouble("locs.death.z");
+        float yaw = (float) config.getDouble("locs.death.yaw", 0);
+        float pitch = (float) config.getDouble("locs.death.pitch", 0);
+
+        Location loc = new Location(world, x, y, z, yaw, pitch);
+
+        return loc;
+    }
+
+    /**
+     * Set the last location of the player.
+     *
+     * @param loc The last loc.
+     */
+    public void setLastLoc(Location loc) {
+        if (loc == null) {
+            config.set("locs.last", null);
+            saveFile();
+            return;
+        }
+
+        config.set("locs.last.world", loc.getWorld().getName());
+        config.set("locs.last.x", loc.getX());
+        config.set("locs.last.y", loc.getY());
+        config.set("locs.last.z", loc.getZ());
+        config.set("locs.last.yaw", loc.getYaw());
+        config.set("locs.last.pitch", loc.getPitch());
+        saveFile();
+    }
+
+    /**
+     * Get the last location of the player.
+     *
+     * @return The last location.
+     */
+    public Location getLastLoc() {
+        if (!config.contains("locs.last")) {
+            return null;
+        }
+
+        World world = Bukkit.getWorld(config.getString("locs.last.world"));
+
+        if (world == null) {
+            return null;
+        }
+
+        double x = config.getDouble("locs.last.x");
+        double y = config.getDouble("locs.last.y");
+        double z = config.getDouble("locs.last.z");
+        float yaw = (float) config.getDouble("locs.last.yaw", 0);
+        float pitch = (float) config.getDouble("locs.last.pitch", 0);
+
+        Location loc = new Location(world, x, y, z, yaw, pitch);
+
+        return loc;
+    }
+
+    /**
+     * Set the fixed scatter location to be used for this player in the
+     * {@link com.leontg77.ultrahardcore.managers.ScatterManager}.
+     * @param x The x-coordinate the player should always be scattered at
+     * @param z The z-coordinate the player should always be scattered at
+     */
+    public void setFixedScatterLocation(int x, int z) {
+        config.set("locs.scatter.x", x);
+        config.set("locs.scatter.z", z);
+        saveFile();
+    }
+
+    /**
+     * Delete the fixed scatter location for this player, causing him to be scattered normally again.
+     */
+    public void deleteFixedScatterLocation() {
+        config.set("locs.scatter", null);
+        saveFile();
+    }
 
     /**
      * Get the fixed scatter location for the player in the given world with default parameters.
@@ -448,18 +448,18 @@ public class User {
         return getFixedScatterLocation(world, 50, 50);
     }
 
-	/**
-	 * Get the fixed scatter location for the player in the given world.
-	 * @param world The world to scatter the player in
+    /**
+     * Get the fixed scatter location for the player in the given world.
+     * @param world The world to scatter the player in
      * @param maximumOffset The maximum distance the player should be randomly offset
      * @param maximumAttempts The maximum attempts of getting the scatter location
-	 * @return The fixed scatter location, or null if it's not set, invalid for the given world
+     * @return The fixed scatter location, or null if it's not set, invalid for the given world
      * or the maximum attempts have been reached.
      */
-	public Location getFixedScatterLocation(World world, int maximumOffset, int maximumAttempts) {
-		if (!config.contains("locs.scatter")) {
-			return null;
-		}
+    public Location getFixedScatterLocation(World world, int maximumOffset, int maximumAttempts) {
+        if (!config.contains("locs.scatter")) {
+            return null;
+        }
 
         int baseX = config.getInt("locs.scatter.x");
         int baseZ = config.getInt("locs.scatter.z");
@@ -497,188 +497,188 @@ public class User {
             
             return location;
         }
-	}
+    }
 
-	private static final String IGNORE_PATH = "ignoreList";
-	
-	/**
-	 * Start ignoring the given player.
-	 * 
-	 * @param player The player to ignore
-	 */
-	public void ignore(Player player) {
-		List<String> ignoreList = config.getStringList(IGNORE_PATH);
-		ignoreList.add(player.getUniqueId().toString());
-		
-		config.set(IGNORE_PATH, ignoreList);
-		saveFile();
-	}
+    private static final String IGNORE_PATH = "ignoreList";
 
-	/**
-	 * Stop ignoring the given player.
-	 * 
-	 * @param player The player to stop ignoring
-	 */
-	public void unIgnore(Player player) {
-		List<String> ignoreList = config.getStringList(IGNORE_PATH);
-		ignoreList.remove(player.getUniqueId().toString());
-		
-		config.set(IGNORE_PATH, ignoreList);
-		saveFile();
-	}
-	
-	/**
-	 * Check if the this User is ignoring the given player.
-	 * 
-	 * @param player The player checking.
-	 * @return True if he is, false otherwise.
-	 */
-	public boolean isIgnoring(Player player) {
-		if (getRank().getLevel() >= Rank.STAFF.getLevel()) {
-			return false;
-		}
-		
-		User other = plugin.getUser(player);
-		
-		if (other.getRank().getLevel() >= Rank.STAFF.getLevel()) {
-			return false;
-		}
-		
-		return config.getStringList(IGNORE_PATH).contains(player.getUniqueId().toString());
-	}
-	
-	/**
-	 * Mute the user.
-	 * 
-	 * @param reason The reason of the mute.
-	 * @param unmute The date of unmute, null if permanent.
-	 */
-	public void mute(String reason, Date unmute) {
-		config.set("muted.status", true);
-		config.set("muted.reason", reason);
-		
-		if (unmute == null) {
-			config.set("muted.time", -1);
-		} else {
-			config.set("muted.time", unmute.getTime());
-		}
-		
-		saveFile();
-	}
-	
-	/**
-	 * Unmute the user.
-	 */
-	public void unmute() {
-		config.set("muted.status", false);
-		config.set("muted.reason", "NOT_MUTED");
-		config.set("muted.time", -1);
-		saveFile();
-	}
-	
-	/**
-	 * Check if the player is muted.
-	 * 
-	 * @return <code>true</code> if the player is muted, <code>false</code> otherwise.
-	 */
-	public boolean isMuted() {
-		if (game.isRecordedRound() || game.isPrivateGame()) {
-			return false;
-		}
-		
-		Date date = new Date();
-		
-		// if the mute isnt permanent (perm == -1) and their mute time experied, return false and unmute.
-		if (getMuteExpiration() != null && getMuteExpiration().getTime() < date.getTime()) {
-			unmute();
-		} 
-		
-		return config.getBoolean("muted.status", false);
-	}
-	
-	/**
-	 * Get the reason the player is muted.
-	 * 
-	 * @return The reason of the mute, null if not muted.
-	 */
-	public String getMutedReason() {
-		return config.getString("muted.reason", "NOT_MUTED");
-	}
-	
-	/**
-	 * Get the time in milliseconds for the unmute.
-	 * 
-	 * @return The unmute time.
-	 */
-	public Date getMuteExpiration() {
-		final long unmute = config.getLong("muted.time", -1);
-		
-		if (unmute == -1) {
-			return null;
-		}
-		
-		return new Date(unmute);
-	}
-	
-	/**
-	 * Set the given stat to a new value
-	 * 
-	 * @param stat The stat setting.
-	 * @param value The new value.
-	 */
-	public void setStat(Stat stat, double value) {
-		if (game.isRecordedRound() || game.isPrivateGame()) {
-			return;
-		}
-		
-		final String statName = stat.name().toLowerCase();
-		
-		if (stat == Stat.ARENADEATHS || stat == Stat.ARENAKILLSTREAK || stat == Stat.ARENAKILLS) {
-			if (!Bukkit.hasWhitelist()) {
-				config.set("stats." + statName, value);
-				saveFile();
-			}
-		} else {
-			if (State.isState(State.INGAME) || stat == Stat.WINS || stat == Stat.GAMESPLAYED) {
-				config.set("stats." + statName, value);
-				saveFile();
-			}
-		}
-	}
-	
-	/**
-	 * Increase the given stat by 1.
-	 * 
-	 * @param stat the stat increasing.
-	 */
-	public void increaseStat(Stat stat) {
-		setStat(stat, getStatDouble(stat) + 1);
-	}
-	
-	/**
-	 * Get the amount from the given stat as a int.
-	 * 
-	 * @param stat the stat getting.
-	 * @return The amount in a int form.
-	 */
-	public int getStat(Stat stat) {
-		return config.getInt("stats." + stat.name().toLowerCase(), 0);
-	}
-	
-	/**
-	 * Get the amount from the given stat as a double.
-	 * 
-	 * @param stat the stat getting.
-	 * @return The amount in a double form.
-	 */
-	public double getStatDouble(Stat stat) {
-		return config.getDouble("stats." + stat.name().toLowerCase(), 0);
-	}
-	
-	/**
-	 * Reset the players health, food, xp, inventory and effects.
-	 */
-	public void reset() {
+    /**
+     * Start ignoring the given player.
+     *
+     * @param player The player to ignore
+     */
+    public void ignore(Player player) {
+        List<String> ignoreList = config.getStringList(IGNORE_PATH);
+        ignoreList.add(player.getUniqueId().toString());
+
+        config.set(IGNORE_PATH, ignoreList);
+        saveFile();
+    }
+
+    /**
+     * Stop ignoring the given player.
+     *
+     * @param player The player to stop ignoring
+     */
+    public void unIgnore(Player player) {
+        List<String> ignoreList = config.getStringList(IGNORE_PATH);
+        ignoreList.remove(player.getUniqueId().toString());
+
+        config.set(IGNORE_PATH, ignoreList);
+        saveFile();
+    }
+
+    /**
+     * Check if the this User is ignoring the given player.
+     *
+     * @param player The player checking.
+     * @return True if he is, false otherwise.
+     */
+    public boolean isIgnoring(Player player) {
+        if (getRank().getLevel() >= Rank.STAFF.getLevel()) {
+            return false;
+        }
+
+        User other = plugin.getUser(player);
+
+        if (other.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+            return false;
+        }
+
+        return config.getStringList(IGNORE_PATH).contains(player.getUniqueId().toString());
+    }
+
+    /**
+     * Mute the user.
+     *
+     * @param reason The reason of the mute.
+     * @param unmute The date of unmute, null if permanent.
+     */
+    public void mute(String reason, Date unmute) {
+        config.set("muted.status", true);
+        config.set("muted.reason", reason);
+
+        if (unmute == null) {
+            config.set("muted.time", -1);
+        } else {
+            config.set("muted.time", unmute.getTime());
+        }
+
+        saveFile();
+    }
+
+    /**
+     * Unmute the user.
+     */
+    public void unmute() {
+        config.set("muted.status", false);
+        config.set("muted.reason", "NOT_MUTED");
+        config.set("muted.time", -1);
+        saveFile();
+    }
+
+    /**
+     * Check if the player is muted.
+     *
+     * @return <code>true</code> if the player is muted, <code>false</code> otherwise.
+     */
+    public boolean isMuted() {
+        if (game.isRecordedRound() || game.isPrivateGame()) {
+            return false;
+        }
+
+        Date date = new Date();
+
+        // if the mute isnt permanent (perm == -1) and their mute time experied, return false and unmute.
+        if (getMuteExpiration() != null && getMuteExpiration().getTime() < date.getTime()) {
+            unmute();
+        }
+
+        return config.getBoolean("muted.status", false);
+    }
+
+    /**
+     * Get the reason the player is muted.
+     *
+     * @return The reason of the mute, null if not muted.
+     */
+    public String getMutedReason() {
+        return config.getString("muted.reason", "NOT_MUTED");
+    }
+
+    /**
+     * Get the time in milliseconds for the unmute.
+     *
+     * @return The unmute time.
+     */
+    public Date getMuteExpiration() {
+        final long unmute = config.getLong("muted.time", -1);
+
+        if (unmute == -1) {
+            return null;
+        }
+
+        return new Date(unmute);
+    }
+
+    /**
+     * Set the given stat to a new value
+     *
+     * @param stat The stat setting.
+     * @param value The new value.
+     */
+    public void setStat(Stat stat, double value) {
+        if (game.isRecordedRound() || game.isPrivateGame()) {
+            return;
+        }
+
+        final String statName = stat.name().toLowerCase();
+
+        if (stat == Stat.ARENADEATHS || stat == Stat.ARENAKILLSTREAK || stat == Stat.ARENAKILLS) {
+            if (!Bukkit.hasWhitelist()) {
+                config.set("stats." + statName, value);
+                saveFile();
+            }
+        } else {
+            if (State.isState(State.INGAME) || stat == Stat.WINS || stat == Stat.GAMESPLAYED) {
+                config.set("stats." + statName, value);
+                saveFile();
+            }
+        }
+    }
+
+    /**
+     * Increase the given stat by 1.
+     *
+     * @param stat the stat increasing.
+     */
+    public void increaseStat(Stat stat) {
+        setStat(stat, getStatDouble(stat) + 1);
+    }
+
+    /**
+     * Get the amount from the given stat as a int.
+     *
+     * @param stat the stat getting.
+     * @return The amount in a int form.
+     */
+    public int getStat(Stat stat) {
+        return config.getInt("stats." + stat.name().toLowerCase(), 0);
+    }
+
+    /**
+     * Get the amount from the given stat as a double.
+     *
+     * @param stat the stat getting.
+     * @return The amount in a double form.
+     */
+    public double getStatDouble(Stat stat) {
+        return config.getDouble("stats." + stat.name().toLowerCase(), 0);
+    }
+
+    /**
+     * Reset the players health, food, xp, inventory and effects.
+     */
+    public void reset() {
         resetHealth();
         resetFood();
         resetExp();
@@ -686,16 +686,16 @@ public class User {
         resetEffects();
     }
 
-	/**
-	 * Reset the players effects.
-	 */
+    /**
+     * Reset the players effects.
+     */
     public void resetEffects() {
-    	Player player = Bukkit.getPlayer(uuid);
-    	
-    	if (player == null) {
-    		return;
-    	}
-    	
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player == null) {
+            return;
+        }
+
         Collection<PotionEffect> effects = player.getActivePotionEffects();
 
         for (PotionEffect effect : effects) {
@@ -703,60 +703,60 @@ public class User {
         }
     }
 
-	/**
-	 * Reset the players health.
-	 */
+    /**
+     * Reset the players health.
+     */
     public void resetHealth() {
-    	Player player = Bukkit.getPlayer(uuid);
-    	
-    	if (player == null) {
-    		return;
-    	}
-    	
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player == null) {
+            return;
+        }
+
         player.setHealth(player.getMaxHealth());
     }
 
-	/**
-	 * Reset the players food.
-	 */
+    /**
+     * Reset the players food.
+     */
     public void resetFood() {
-    	Player player = Bukkit.getPlayer(uuid);
-    	
-    	if (player == null) {
-    		return;
-    	}
-    	
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player == null) {
+            return;
+        }
+
         player.setSaturation(5.0F);
         player.setExhaustion(0F);
         player.setFoodLevel(20);
     }
 
-	/**
-	 * Reset the players xp.
-	 */
+    /**
+     * Reset the players xp.
+     */
     public void resetExp() {
-    	Player player = Bukkit.getPlayer(uuid);
-    	
-    	if (player == null) {
-    		return;
-    	}
-    	
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player == null) {
+            return;
+        }
+
         player.setTotalExperience(0);
         player.setLevel(0);
         player.setExp(0F);
     }
 
-	/**
-	 * Reset the players inventory.
-	 */
+    /**
+     * Reset the players inventory.
+     */
     public void resetInventory() {
-    	Player player = Bukkit.getPlayer(uuid);
-    	
-    	if (player == null) {
-    		return;
-    	}
-    	
-    	PlayerInventory inv = player.getInventory();
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player == null) {
+            return;
+        }
+
+        PlayerInventory inv = player.getInventory();
 
         inv.clear();
         inv.setArmorContents(null);
@@ -768,31 +768,31 @@ public class User {
             openInventory.getTopInventory().clear();
         }
     }
-	
+
     /**
      * The ranking enum class.
      * 
      * @author LeonTG77
      */
     public enum Rank {
-    	DEFAULT(1), DONATOR(2), SPEC(3), STAFF(4), TRIAL(5), HOST(6), OWNER(7);
-    	
-    	int level;
-    	
-    	private Rank(final int level) {
-    		this.level = level;
-    	}
-    	
-    	/**
-    	 * Get the level of the rank.
-    	 * <p>
-    	 * It goes in order from 1 to 7 with 7 being the highest rank and 1 being the lowest.
-    	 * 
-    	 * @return The level.
-    	 */
-    	public int getLevel() {
-    		return level;
-    	}
+        DEFAULT(1), DONATOR(2), SPEC(3), STAFF(4), TRIAL(5), HOST(6), OWNER(7);
+
+        int level;
+
+        private Rank(final int level) {
+            this.level = level;
+        }
+
+        /**
+         * Get the level of the rank.
+         * <p>
+         * It goes in order from 1 to 7 with 7 being the highest rank and 1 being the lowest.
+         *
+         * @return The level.
+         */
+        public int getLevel() {
+            return level;
+        }
     }
     
     /**
@@ -801,56 +801,56 @@ public class User {
      * @author LeonTG77
      */
     public enum Stat {
-    	WINS("Wins"), 
-    	GAMESPLAYED("Games played"), 
-    	KILLS("Kills"), 
-    	DEATHS("Deaths"), 
-    	DAMAGETAKEN("Damage taken"), 
-    	ARENAKILLS("Arena Kills"), 
-    	ARENADEATHS("Arena Deaths"), 
-    	KILLSTREAK("Highest Killstreak"), 
-    	ARENAKILLSTREAK("Highest Arena Killstreak"), 
-    	GOLDENAPPLESEATEN("Golden Apples Eaten"),
-    	GOLDENHEADSEATEN("Golden Heads Eaten"), 
-    	HORSESTAMED("Horses Tamed"), 
-    	WOLVESTAMED("Wolves Tamed"), 
-    	POTIONS("Potions Drunk"), 
-    	NETHER("Went to Nether"), 
-    	END("Went to The End"), 
-    	DIAMONDS("Mined diamonds"),
-    	GOLD("Mined gold"),
-    	HOSTILEMOBKILLS("Killed a monster"),
-    	ANIMALKILLS("Killed an animal"),
-    	LONGESTSHOT("Longest Shot"),
-    	LEVELS("Levels Earned");
-    	
-    	private String name;
-    	
-    	private Stat(final String name) {
-    		this.name = name;
-    	}
-    	
-    	/**
-    	 * Get the name of the stat.
-    	 * 
-    	 * @return The name.
-    	 */
-    	public String getName() {
-    		return name;
-    	}
-    	
-    	public Stat getStat(final String stat) {
-    		try {
-    			return valueOf(stat);
-    		} catch (Exception e) {
-    			for (Stat stats : values()) {
-    				if (stats.getName().startsWith(stat)) {
-    					return stats;
-    				}
-    			}
-    		}
-    		
-    		return null;
-    	}
+        WINS("Wins"),
+        GAMESPLAYED("Games played"),
+        KILLS("Kills"),
+        DEATHS("Deaths"),
+        DAMAGETAKEN("Damage taken"),
+        ARENAKILLS("Arena Kills"),
+        ARENADEATHS("Arena Deaths"),
+        KILLSTREAK("Highest Killstreak"),
+        ARENAKILLSTREAK("Highest Arena Killstreak"),
+        GOLDENAPPLESEATEN("Golden Apples Eaten"),
+        GOLDENHEADSEATEN("Golden Heads Eaten"),
+        HORSESTAMED("Horses Tamed"),
+        WOLVESTAMED("Wolves Tamed"),
+        POTIONS("Potions Drunk"),
+        NETHER("Went to Nether"),
+        END("Went to The End"),
+        DIAMONDS("Mined diamonds"),
+        GOLD("Mined gold"),
+        HOSTILEMOBKILLS("Killed a monster"),
+        ANIMALKILLS("Killed an animal"),
+        LONGESTSHOT("Longest Shot"),
+        LEVELS("Levels Earned");
+
+        private String name;
+
+        private Stat(final String name) {
+            this.name = name;
+        }
+
+        /**
+         * Get the name of the stat.
+         *
+         * @return The name.
+         */
+        public String getName() {
+            return name;
+        }
+
+        public Stat getStat(final String stat) {
+            try {
+                return valueOf(stat);
+            } catch (Exception e) {
+                for (Stat stats : values()) {
+                    if (stats.getName().startsWith(stat)) {
+                        return stats;
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -17,36 +17,36 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  * @author LeonTG77
  */
 public class Goldless extends Scenario implements Listener {
-	private final CutClean cc;
+    private final CutClean cc;
 
-	public Goldless(CutClean cc) {
-		super("Goldless", "Mining gold ore will result in dropping iron.");
-		
-		this.cc = cc;
-	}
+    public Goldless(CutClean cc) {
+        super("Goldless", "Mining gold ore will result in dropping iron.");
 
-	@Override
-	public void onDisable() {}
+        this.cc = cc;
+    }
 
-	@Override
-	public void onEnable() {}
-	
-	@EventHandler
+    @Override
+    public void onDisable() {}
+
+    @Override
+    public void onEnable() {}
+
+    @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-		Player player = event.getPlayer();
-		Block block = event.getBlock();
-	    	
-		if (block.getType() != Material.GOLD_ORE) {
-			return;
-		}
-    	
-		ItemStack replace = new ItemStack(cc.isEnabled() ? Material.IRON_INGOT : Material.IRON_ORE);
-		
-		BlockUtils.blockBreak(player, block);
-		BlockUtils.degradeDurabiliy(player);
-		BlockUtils.dropItem(block.getLocation().add(0.5, 0.7, 0.5), replace);
-		
-		event.setCancelled(true);
-		block.setType(Material.AIR);
+        Player player = event.getPlayer();
+        Block block = event.getBlock();
+
+        if (block.getType() != Material.GOLD_ORE) {
+            return;
+        }
+
+        ItemStack replace = new ItemStack(cc.isEnabled() ? Material.IRON_INGOT : Material.IRON_ORE);
+
+        BlockUtils.blockBreak(player, block);
+        BlockUtils.degradeDurabiliy(player);
+        BlockUtils.dropItem(block.getLocation().add(0.5, 0.7, 0.5), replace);
+
+        event.setCancelled(true);
+        block.setType(Material.AIR);
     }
 }

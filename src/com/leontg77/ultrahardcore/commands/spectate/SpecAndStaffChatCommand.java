@@ -51,13 +51,13 @@ public class SpecAndStaffChatCommand extends UHCCommand {
             online.sendMessage(PREFIX + sender.getName() + "§8: §f" + message);
         }
 
-		message = message.replaceAll("§l", "");
-		message = message.replaceAll("§o", "");
-		message = message.replaceAll("§r", "§f");
-		message = message.replaceAll("§m", "");
-		message = message.replaceAll("§n", "");
-		
-		Bukkit.getLogger().info(PREFIX + sender.getName() + "§8: §f" + message);
+        message = message.replaceAll("§l", "");
+        message = message.replaceAll("§o", "");
+        message = message.replaceAll("§r", "§f");
+        message = message.replaceAll("§m", "");
+        message = message.replaceAll("§n", "");
+
+        Bukkit.getLogger().info(PREFIX + sender.getName() + "§8: §f" + message);
         return true;
     }
 

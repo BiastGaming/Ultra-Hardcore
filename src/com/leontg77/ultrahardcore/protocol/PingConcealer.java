@@ -26,11 +26,11 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class PingConcealer extends PacketAdapter {
 
-	/**
-	 * Ping concealer class constructor.
-	 * 
-	 * @param plugin The plugin class.
-	 */
+    /**
+     * Ping concealer class constructor.
+     *
+     * @param plugin The plugin class.
+     */
     public PingConcealer(Plugin plugin) {
         super(plugin, PacketType.Play.Server.PLAYER_INFO);
     }
@@ -76,19 +76,19 @@ public class PingConcealer extends PacketAdapter {
      */
     protected int getConcealedPing(int actualPing) {
         if (actualPing < 150) {
-        	return randomNumber(1, 149);
+            return randomNumber(1, 149);
         }
         
         if (actualPing < 300) {
-        	return randomNumber(151, 299);
+            return randomNumber(151, 299);
         }
         
         if (actualPing < 600) {
-        	return randomNumber(301, 599);
+            return randomNumber(301, 599);
         }
         
         if (actualPing < 1000) {
-        	return randomNumber(601, 999);
+            return randomNumber(601, 999);
         }
         
         return randomNumber(1001, actualPing);

@@ -32,17 +32,17 @@ public class InvalidSpawnListener implements Listener {
 
     @EventHandler
     public void on(CreatureSpawnEvent event) {
-    	if (!uber.isEnabled()) {
-    		HandlerList.unregisterAll(this);
-    		return;
-    	}
-    	
+        if (!uber.isEnabled()) {
+            HandlerList.unregisterAll(this);
+            return;
+        }
+
         if (!entityChecker.isEntityOfClassExact(event.getEntity(), toCheck)) {
-        	return;
+            return;
         }
 
         if (skips.contains(event.getSpawnReason())) {
-        	return;
+            return;
         }
 
         Location loc = event.getEntity().getLocation();

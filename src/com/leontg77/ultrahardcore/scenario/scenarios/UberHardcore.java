@@ -34,7 +34,7 @@ public class UberHardcore extends Scenario {
     @Override
     public void onDisable() {
         if (registry != null) {
-        	registry.deregisterEntities();
+            registry.deregisterEntities();
         }
     }
     

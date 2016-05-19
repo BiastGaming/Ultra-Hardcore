@@ -42,30 +42,30 @@ public class AgarIO extends Scenario implements Listener {
 
     @Override
     public void onDisable() {
-    	if (task != null) {
-    		task.cancel();
-    	}
-    	
+        if (task != null) {
+            task.cancel();
+        }
+
         updateSpeed(game.getPlayers());
         task = null;
     }
 
     @Override
     public void onEnable() {
-    	if (!State.isState(State.INGAME)) {
-    		return;
-    	}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
     
-    	on(new GameStartEvent());
+        on(new GameStartEvent());
     }
     
     @EventHandler
     public void on(GameStartEvent event) {
-    	if (task != null) {
-    		return;
-    	}
-    	
-    	task = new BukkitRunnable() {
+        if (task != null) {
+            return;
+        }
+
+        task = new BukkitRunnable() {
             public void run() {
                 updateSpeed(game.getPlayers());
             }
@@ -76,14 +76,14 @@ public class AgarIO extends Scenario implements Listener {
 
     @EventHandler
     public void onEric(PlayerDeathEvent event) {
-    	if (!State.isState(State.INGAME)) {
-    		return;
-    	}
-    	
-    	Player player = event.getEntity();
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
 
-    	player.setWalkSpeed(0.1f);
-    	player.setFlySpeed(0.2f);
+        Player player = event.getEntity();
+
+        player.setWalkSpeed(0.1f);
+        player.setFlySpeed(0.2f);
     }
     
     /**

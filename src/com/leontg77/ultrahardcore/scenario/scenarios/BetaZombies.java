@@ -16,31 +16,31 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class BetaZombies extends Scenario implements Listener {
-	
-	public BetaZombies() {
-		super("BetaZombies", "Zombies drop feathers");
-	}
-	
-	@Override
-	public void onDisable() {}
 
-	@Override
-	public void onEnable() {}
-	
-	@EventHandler
-	public void on(EntityDeathEvent event) {
-		final Entity entity = event.getEntity();
-		
-		if (!(entity instanceof Zombie)) {
-			return;
-		}
-		
-		for (ItemStack drops : event.getDrops()) {
-			if (drops.getType() != Material.ROTTEN_FLESH) {
-				continue;
-			}
-			
-			drops.setType(Material.FEATHER);
-		}
-	}
+    public BetaZombies() {
+        super("BetaZombies", "Zombies drop feathers");
+    }
+
+    @Override
+    public void onDisable() {}
+
+    @Override
+    public void onEnable() {}
+
+    @EventHandler
+    public void on(EntityDeathEvent event) {
+        final Entity entity = event.getEntity();
+
+        if (!(entity instanceof Zombie)) {
+            return;
+        }
+
+        for (ItemStack drops : event.getDrops()) {
+            if (drops.getType() != Material.ROTTEN_FLESH) {
+                continue;
+            }
+
+            drops.setType(Material.FEATHER);
+        }
+    }
 }

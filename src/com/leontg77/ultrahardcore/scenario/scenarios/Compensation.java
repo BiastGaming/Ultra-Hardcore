@@ -29,44 +29,44 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class Compensation extends Scenario implements Listener {
-	private final Arena arena;
-	
-	private final FeatureManager feat;
-	private final TeamManager teams;
-	
-	public Compensation(Arena arena, TeamManager teams, FeatureManager feat) {
-		super("Compensation", "When a player on a team dies, the player's max health is divided up and added to the max health of the player's teammates. The extra health received will regenerate in 30 seconds.");
+    private final Arena arena;
 
-		this.arena = arena;
+    private final FeatureManager feat;
+    private final TeamManager teams;
 
-		this.teams = teams;
-		this.feat = feat;
-	}
-	
-	@EventHandler
-    public void on(PrepareItemCraftEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		Recipe recipe = event.getRecipe();
-		ItemStack result = recipe.getResult();
-		
-		if (result.getType() != Material.ARROW) {
-			return;
-		}
-		
-		CraftingInventory inv = event.getInventory();
-		inv.getResult().setAmount(result.getAmount() * 4);
+    public Compensation(Arena arena, TeamManager teams, FeatureManager feat) {
+        super("Compensation", "When a player on a team dies, the player's max health is divided up and added to the max health of the player's teammates. The extra health received will regenerate in 30 seconds.");
+
+        this.arena = arena;
+
+        this.teams = teams;
+        this.feat = feat;
     }
-	
-	@EventHandler(priority = EventPriority.LOWEST)
+
+    @EventHandler
+    public void on(PrepareItemCraftEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        Recipe recipe = event.getRecipe();
+        ItemStack result = recipe.getResult();
+
+        if (result.getType() != Material.ARROW) {
+            return;
+        }
+
+        CraftingInventory inv = event.getInventory();
+        inv.getResult().setAmount(result.getAmount() * 4);
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
     public void on(PlayerDeathEvent event) {
-		if (arena.isEnabled()) {
-			return;
-		}
-		
-		Player player = event.getEntity();
+        if (arena.isEnabled()) {
+            return;
+        }
+
+        Player player = event.getEntity();
         double maxHealth = player.getMaxHealth();
         
         Team team = teams.getTeam(player);
@@ -80,16 +80,16 @@ public class Compensation extends Scenario implements Listener {
         double hp = maxHealth / team.getSize();
         int hpRounded = (int) hp;
 
-		double excessHealth = hp - hpRounded;
+        double excessHealth = hp - hpRounded;
         int ticksRegen = hpRounded * 50;
 
         for (String entry : team.getEntries()) {
-        	Player teammate = Bukkit.getPlayer(entry);
-        	
-        	if (teammate == null) {
-        		continue;
-        	}
-        	
+            Player teammate = Bukkit.getPlayer(entry);
+
+            if (teammate == null) {
+                continue;
+            }
+
             teammate.setMaxHealth(teammate.getMaxHealth() + hp);
             teammate.setHealth(teammate.getHealth() + excessHealth);
             
@@ -100,19 +100,19 @@ public class Compensation extends Scenario implements Listener {
 
     @EventHandler
     public void on(PlayerItemConsumeEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-    	Player player = event.getPlayer();
-    	ItemStack item = event.getItem();
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
 
-    	if (item == null) {
-    		return;
-    	}
-    												   
+        Player player = event.getPlayer();
+        ItemStack item = event.getItem();
+
+        if (item == null) {
+            return;
+        }
+
         if (item.getType() != Material.GOLDEN_APPLE || item.getDurability() == 1) {
-        	return;
+            return;
         }
         
         GoldenHeadsFeature ghead = feat.getFeature(GoldenHeadsFeature.class);
@@ -121,9 +121,9 @@ public class Compensation extends Scenario implements Listener {
         int ticks;
         
         if (ghead.isGoldenHead(item)) {
-        	ticks = (int) ((player.getMaxHealth() * (ghead.getHealAmount() / 10)) * 25);
+            ticks = (int) ((player.getMaxHealth() * (ghead.getHealAmount() / 10)) * 25);
         } else {
-        	ticks = (int) ((player.getMaxHealth() * 0.2) * 25);
+            ticks = (int) ((player.getMaxHealth() * 0.2) * 25);
         }
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, ticks, 1));

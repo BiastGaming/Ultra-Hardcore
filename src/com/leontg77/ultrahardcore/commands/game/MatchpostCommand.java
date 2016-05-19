@@ -15,29 +15,29 @@ import com.leontg77.ultrahardcore.commands.UHCCommand;
  * 
  * @author LeonTG77
  */
-public class MatchpostCommand extends UHCCommand {	
-	private final Game game;
+public class MatchpostCommand extends UHCCommand {
+    private final Game game;
 
-	public MatchpostCommand(Game game) {
-		super("matchpost", "");
-		
-		this.game = game;
-	}
+    public MatchpostCommand(Game game) {
+        super("matchpost", "");
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		final String teamSize = game.getTeamSize().toLowerCase();
-		
-		if (teamSize.startsWith("no") || teamSize.startsWith("open")) {
-			throw new CommandException("There are no matches running.");
-		}
-		
-		sender.sendMessage(Main.PREFIX + "Match post: §a" + game.getMatchPost());
-		return true;
-	}
+        this.game = game;
+    }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return new ArrayList<String>();
-	}
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        final String teamSize = game.getTeamSize().toLowerCase();
+
+        if (teamSize.startsWith("no") || teamSize.startsWith("open")) {
+            throw new CommandException("There are no matches running.");
+        }
+
+        sender.sendMessage(Main.PREFIX + "Match post: §a" + game.getMatchPost());
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return new ArrayList<String>();
+    }
 }

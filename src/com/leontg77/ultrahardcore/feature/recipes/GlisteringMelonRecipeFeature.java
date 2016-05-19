@@ -18,24 +18,24 @@ import com.leontg77.ultrahardcore.feature.Feature;
  */
 public class GlisteringMelonRecipeFeature extends Feature implements Listener {
 
-	public GlisteringMelonRecipeFeature() {
-		super("Glistering Melon Recipe", "Makes glistering melons require gold ingots rather than nuggets to be crafted.");
+    public GlisteringMelonRecipeFeature() {
+        super("Glistering Melon Recipe", "Makes glistering melons require gold ingots rather than nuggets to be crafted.");
 
-		// register the new recipe
-		final ShapedRecipe recipe = new ShapedRecipe(new ItemStack(Material.SPECKLED_MELON, 1))
-    		.shape("AAA", "ABA", "AAA")
-    		.setIngredient('A', Material.GOLD_INGOT)
-    		.setIngredient('B', Material.MELON);
+        // register the new recipe
+        final ShapedRecipe recipe = new ShapedRecipe(new ItemStack(Material.SPECKLED_MELON, 1))
+            .shape("AAA", "ABA", "AAA")
+            .setIngredient('A', Material.GOLD_INGOT)
+            .setIngredient('B', Material.MELON);
 
-		Bukkit.addRecipe(recipe);	
-	}
+        Bukkit.addRecipe(recipe);
+    }
 
     @EventHandler
     public void on(PrepareItemCraftEvent event) {
         final Recipe recipe = event.getRecipe();
 
         if (recipe.getResult().getType() != Material.SPECKLED_MELON) {
-        	return;
+            return;
         }
 
         if (RecipeUtils.hasRecipeGotMaterial(recipe, Material.GOLD_NUGGET)) {

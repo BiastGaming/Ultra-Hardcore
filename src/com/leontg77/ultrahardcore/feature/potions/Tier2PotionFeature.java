@@ -19,18 +19,18 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  * @author LeonTG77
  */
 public class Tier2PotionFeature extends ToggleableFeature implements Listener {
-	private static final Material FEATURE_ITEM = Material.GLOWSTONE_DUST;
-	
-	private final PotionFuelListener listener;
+    private static final Material FEATURE_ITEM = Material.GLOWSTONE_DUST;
 
-	public Tier2PotionFeature(PotionFuelListener listener) {
-		super("Tier 2", "Make potions be stronger by adding another tier to them.");
+    private final PotionFuelListener listener;
 
-		this.listener = listener;
-		
-		icon.setType(FEATURE_ITEM);
-		slot = 51;
-	}
+    public Tier2PotionFeature(PotionFuelListener listener) {
+        super("Tier 2", "Make potions be stronger by adding another tier to them.");
+
+        this.listener = listener;
+
+        icon.setType(FEATURE_ITEM);
+        slot = 51;
+    }
 
     @Override
     public void onDisable() {
@@ -41,29 +41,29 @@ public class Tier2PotionFeature extends ToggleableFeature implements Listener {
     public void onEnable() {
         listener.removeMaterial(FEATURE_ITEM);
     }
-	
-	@EventHandler
+
+    @EventHandler
     public void on(BlockBreakEvent event) {
-		if (isEnabled()) {
-			return;
-		}
-		
-    	final Player player = event.getPlayer();
-		final Block block = event.getBlock();
-    	
-		if (player.getGameMode() == GameMode.CREATIVE) {
-			return;
-		}
-		
-		if (block.getType() != Material.GLOWSTONE) {
-			return;
-		}
-		
+        if (isEnabled()) {
+            return;
+        }
+
+        final Player player = event.getPlayer();
+        final Block block = event.getBlock();
+
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+
+        if (block.getType() != Material.GLOWSTONE) {
+            return;
+        }
+
         BlockUtils.blockBreak(player, block);
         BlockUtils.degradeDurabiliy(player);
         BlockUtils.dropItem(block.getLocation(), new ItemStack(Material.GLOWSTONE));
-		
-		event.setCancelled(true);
+
+        event.setCancelled(true);
         block.setType(Material.AIR);
     }
 }

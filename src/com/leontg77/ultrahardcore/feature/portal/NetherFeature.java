@@ -23,55 +23,55 @@ import com.leontg77.ultrahardcore.utils.LocationUtils;
  */
 public class NetherFeature extends ToggleableFeature implements Listener {
 
-	public NetherFeature() {
-		super("Nether", "A dimension where everything is hot and full of lava.");
-		
-		icon.setType(Material.NETHER_STALK);
-		slot = 18;
-	}
-	
-	private static final String WORLD_SUFFIX = "_nether";
+    public NetherFeature() {
+        super("Nether", "A dimension where everything is hot and full of lava.");
 
-	@EventHandler
+        icon.setType(Material.NETHER_STALK);
+        slot = 18;
+    }
+
+    private static final String WORLD_SUFFIX = "_nether";
+
+    @EventHandler
     public void on(PlayerPortalEvent event) {
-		final Player player = event.getPlayer();
-		
-		final TravelAgent travel = event.getPortalTravelAgent();
-		final Location from = event.getFrom();
-		
-		if (!LocationUtils.hasBlockNearby(Material.PORTAL, from)) {
-        	return;
-		}
-		
+        final Player player = event.getPlayer();
+
+        final TravelAgent travel = event.getPortalTravelAgent();
+        final Location from = event.getFrom();
+
+        if (!LocationUtils.hasBlockNearby(Material.PORTAL, from)) {
+            return;
+        }
+
         if (!isEnabled()) {
-        	player.sendMessage(Main.PREFIX + "The nether is disabled.");
-        	event.setCancelled(true);
-        	return;
+            player.sendMessage(Main.PREFIX + "The nether is disabled.");
+            event.setCancelled(true);
+            return;
         }
         
         final String fromName = from.getWorld().getName();
-		final String targetName;
+        final String targetName;
         
         switch (from.getWorld().getEnvironment()) {
-		case NETHER:
+        case NETHER:
             if (!fromName.endsWith(WORLD_SUFFIX)) {
-            	player.sendMessage(Main.PREFIX + "Could not teleport you to the overworld, contact the staff now.");
+                player.sendMessage(Main.PREFIX + "Could not teleport you to the overworld, contact the staff now.");
                 return;
             }
 
             targetName = fromName.substring(0, fromName.length() - WORLD_SUFFIX.length());
-			break;
-		case NORMAL:
+            break;
+        case NORMAL:
             targetName = fromName + WORLD_SUFFIX;
-			break;
-		default:
-			return;
+            break;
+        default:
+            return;
         }
 
         World world = Bukkit.getWorld(targetName);
         
         if (world == null) {
-        	player.sendMessage(Main.PREFIX + "The nether has not been created.");
+            player.sendMessage(Main.PREFIX + "The nether has not been created.");
             return;
         }
 
@@ -82,7 +82,7 @@ public class NetherFeature extends ToggleableFeature implements Listener {
         to = LocationUtils.findSafeLocationInsideBorder(to, 10, travel);
         
         if (to == null || to.getY() < 0) {
-        	player.sendMessage(Main.PREFIX + "Could not teleport you, contact the staff now.");
+            player.sendMessage(Main.PREFIX + "Could not teleport you, contact the staff now.");
         } else {
             event.setTo(to);
         }
@@ -90,34 +90,34 @@ public class NetherFeature extends ToggleableFeature implements Listener {
 
     @EventHandler
     public void on(EntityPortalEvent event) {
-    	final TravelAgent travel = event.getPortalTravelAgent();
-		final Location from = event.getFrom();
-		
-		if (!LocationUtils.hasBlockNearby(Material.PORTAL, from)) {
-			return;
-		}
+        final TravelAgent travel = event.getPortalTravelAgent();
+        final Location from = event.getFrom();
+
+        if (!LocationUtils.hasBlockNearby(Material.PORTAL, from)) {
+            return;
+        }
 
         if (!isEnabled()) {
-        	event.setCancelled(true);
-        	return;
+            event.setCancelled(true);
+            return;
         }
         
-		final String fromName = from.getWorld().getName();
-		final String targetName;
+        final String fromName = from.getWorld().getName();
+        final String targetName;
         
         switch (from.getWorld().getEnvironment()) {
-		case NETHER:
+        case NETHER:
             if (!fromName.endsWith(WORLD_SUFFIX)) {
                 return;
             }
 
             targetName = fromName.substring(0, fromName.length() - WORLD_SUFFIX.length());
-			break;
-		case NORMAL:
+            break;
+        case NORMAL:
             targetName = fromName + WORLD_SUFFIX;
-			break;
-		default:
-			return;
+            break;
+        default:
+            return;
         }
 
         final World world = Bukkit.getWorld(targetName);
@@ -136,5 +136,5 @@ public class NetherFeature extends ToggleableFeature implements Listener {
         if (to != null && to.getY() >= 0) {
             event.setTo(to);
         }
-	}
+    }
 }

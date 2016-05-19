@@ -15,28 +15,28 @@ import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
  * @author LeonTG77
  */
 public class WorldInitListener implements Listener {
-	private final AntiStripmine antiSM;
-	private final Settings settings;
-	
-	/**
-	 * World init listener class constructor.
-	 * 
-	 * @param plugin The main class.
-	 * @param antiSM The anti stripmine class.
-	 */
-	public WorldInitListener(Settings settings, AntiStripmine antiSM) {
-		this.settings = settings;
-		this.antiSM = antiSM;
-	}
+    private final AntiStripmine antiSM;
+    private final Settings settings;
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void on(WorldInitEvent event) {
-		World world = event.getWorld();
-		
-		if (!settings.getWorlds().getBoolean(world.getName() + ".antiStripmine", true)) {
-			return;
-		}
-		
-		antiSM.registerWorld(world);
-	}
+    /**
+     * World init listener class constructor.
+     *
+     * @param plugin The main class.
+     * @param antiSM The anti stripmine class.
+     */
+    public WorldInitListener(Settings settings, AntiStripmine antiSM) {
+        this.settings = settings;
+        this.antiSM = antiSM;
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void on(WorldInitEvent event) {
+        World world = event.getWorld();
+
+        if (!settings.getWorlds().getBoolean(world.getName() + ".antiStripmine", true)) {
+            return;
+        }
+
+        antiSM.registerWorld(world);
+    }
 }

@@ -20,61 +20,61 @@ import com.leontg77.ultrahardcore.scenario.scenarios.Snowday;
  * @author LeonTG77
  */
 public class WeatherFeature extends Feature implements Listener {
-	private final Game game;
-	
-	private final ScenarioManager scen;
-	private final Timer timer;
+    private final Game game;
 
-	public WeatherFeature(Game game, Timer timer, ScenarioManager scen) {
-		super("Weather", "Disable thunder storms completly and disable rain before pvp and after meetup.");
+    private final ScenarioManager scen;
+    private final Timer timer;
 
-		this.game = game;
-		
-		this.timer = timer;
-		this.scen = scen;
-	}
+    public WeatherFeature(Game game, Timer timer, ScenarioManager scen) {
+        super("Weather", "Disable thunder storms completly and disable rain before pvp and after meetup.");
 
-	@EventHandler
-	public void on(WeatherChangeEvent event) {
-		if (!event.toWeatherState()) {
-			if (scen.getScenario(Flooded.class).isEnabled() || scen.getScenario(Snowday.class).isEnabled()) {
-				event.setCancelled(true);
-			}
-			return;
-		}
-		
-		World world = event.getWorld();
+        this.game = game;
 
-		if (!game.getWorlds().contains(world)) {
-			event.setCancelled(true);
-			return;
-		}
+        this.timer = timer;
+        this.scen = scen;
+    }
 
-		if (!State.isState(State.INGAME)) {
-			event.setCancelled(true);
-			return;
-		}
+    @EventHandler
+    public void on(WeatherChangeEvent event) {
+        if (!event.toWeatherState()) {
+            if (scen.getScenario(Flooded.class).isEnabled() || scen.getScenario(Snowday.class).isEnabled()) {
+                event.setCancelled(true);
+            }
+            return;
+        }
 
-		if (scen.getScenario(Flooded.class).isEnabled() || scen.getScenario(Snowday.class).isEnabled()) {
-			return;
-		}
-		
-		if (timer.getMeetup() <= 0) {
-			event.setCancelled(true);
-			return;
-		}
+        World world = event.getWorld();
 
-		if (timer.getPvP() > 0) {
-			event.setCancelled(true);
-		}
-	}
+        if (!game.getWorlds().contains(world)) {
+            event.setCancelled(true);
+            return;
+        }
 
-	@EventHandler
-	public void on(ThunderChangeEvent event) {
-		if (!event.toThunderState()) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            event.setCancelled(true);
+            return;
+        }
 
-		event.setCancelled(true);
-	}
+        if (scen.getScenario(Flooded.class).isEnabled() || scen.getScenario(Snowday.class).isEnabled()) {
+            return;
+        }
+
+        if (timer.getMeetup() <= 0) {
+            event.setCancelled(true);
+            return;
+        }
+
+        if (timer.getPvP() > 0) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void on(ThunderChangeEvent event) {
+        if (!event.toThunderState()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
 }

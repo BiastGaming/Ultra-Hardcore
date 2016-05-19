@@ -19,40 +19,40 @@ import com.leontg77.ultrahardcore.managers.TeamManager;
  * @author LeonTG77
  */
 public class PMCommand extends UHCCommand {
-	private final TeamManager teams;
-	private final SpecManager spec;
+    private final TeamManager teams;
+    private final SpecManager spec;
 
-	public PMCommand(SpecManager spec, TeamManager teams) {
-		super("pm", "<message>");
-		
-		this.teams = teams;
-		this.spec = spec;
-	}
+    public PMCommand(SpecManager spec, TeamManager teams) {
+        super("pm", "<message>");
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (!(sender instanceof Player)) {
-			throw new CommandException("Only players can talk in team chat.");
-		}
-		
-		Player player = (Player) sender;
-		Team team = teams.getTeam(player);
-		
-		if (team == null || spec.isSpectating(player)) { 
-			throw new CommandException("You are not on a team.");
-		} 
-		
-		if (args.length == 0) {
-			return false;
-		}
-		
-		String msg = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
+        this.teams = teams;
+        this.spec = spec;
+    }
+
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (!(sender instanceof Player)) {
+            throw new CommandException("Only players can talk in team chat.");
+        }
+
+        Player player = (Player) sender;
+        Team team = teams.getTeam(player);
+
+        if (team == null || spec.isSpectating(player)) {
+            throw new CommandException("You are not on a team.");
+        }
+
+        if (args.length == 0) {
+            return false;
+        }
+
+        String msg = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
         teams.sendMessage(team, TeamCommand.PREFIX + "§6§o" + player.getName() + "§8§o: §f" + msg);
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return allVisiblePlayers(sender);
-	}
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return allVisiblePlayers(sender);
+    }
 }

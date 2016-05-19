@@ -17,44 +17,44 @@ import com.leontg77.ultrahardcore.utils.NumberUtils;
  * @author LeonTG77
  */
 public class BaldChicken extends Scenario implements Listener {
-	
-	public BaldChicken() {
-		super("BaldChicken", "Chicken's drop no feathers. Skeletons drop 3-5 arrows.");
-	}
-	
-	@Override
-	public void onDisable() {}
 
-	@Override
-	public void onEnable() {}
-	
-	@EventHandler
-	public void onEntityDeath(EntityDeathEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		Entity entity = event.getEntity();
-		
-		switch (entity.getType()) {
-		case CHICKEN:
-			for (ItemStack drop : event.getDrops()) {
-				if (drop.getType() == Material.FEATHER) {
-					drop.setType(Material.AIR);
-				}
-			}
-			break;
-		case SKELETON:
-			for (ItemStack drop : event.getDrops()) {
-				if (drop.getType() == Material.ARROW) {
-					drop.setType(Material.AIR);
-				}
-			}
-			
-			event.getDrops().add(new ItemStack(Material.ARROW, NumberUtils.randomIntBetween(3, 5)));
-			break;
-		default:
-			break;
-		}
-	}
+    public BaldChicken() {
+        super("BaldChicken", "Chicken's drop no feathers. Skeletons drop 3-5 arrows.");
+    }
+
+    @Override
+    public void onDisable() {}
+
+    @Override
+    public void onEnable() {}
+
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        Entity entity = event.getEntity();
+
+        switch (entity.getType()) {
+        case CHICKEN:
+            for (ItemStack drop : event.getDrops()) {
+                if (drop.getType() == Material.FEATHER) {
+                    drop.setType(Material.AIR);
+                }
+            }
+            break;
+        case SKELETON:
+            for (ItemStack drop : event.getDrops()) {
+                if (drop.getType() == Material.ARROW) {
+                    drop.setType(Material.AIR);
+                }
+            }
+
+            event.getDrops().add(new ItemStack(Material.ARROW, NumberUtils.randomIntBetween(3, 5)));
+            break;
+        default:
+            break;
+        }
+    }
 }

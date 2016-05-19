@@ -19,12 +19,12 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
  */
 public class HorseFeature extends ToggleableFeature implements Listener {
 
-	public HorseFeature() {
-		super("Horses", "A mob that lets you ride around.");
-		
-		icon.setType(Material.SADDLE);
-		slot = 24;
-	}
+    public HorseFeature() {
+        super("Horses", "A mob that lets you ride around.");
+
+        icon.setType(Material.SADDLE);
+        slot = 24;
+    }
 
     @Override
     public void onDisable() {
@@ -37,38 +37,38 @@ public class HorseFeature extends ToggleableFeature implements Listener {
     @EventHandler
     public void on(EntityMountEvent event) {
         if (isEnabled()) {
-        	return;
+            return;
         }
         
         final Entity entity = event.getEntity();
         final Entity mount = event.getMount();
         
         if (!(entity instanceof Player)) {
-        	return;
+            return;
         }
 
         if (mount.getType() != EntityType.HORSE) {
-        	return;
+            return;
         }
 
         entity.sendMessage(Main.PREFIX + "Horses are disabled.");
         event.setCancelled(true);
     }
 
-	/**
-	 * Kick the given player out of his horse.
-	 * 
-	 * @param player The player to kick off.
-	 */
+    /**
+     * Kick the given player out of his horse.
+     *
+     * @param player The player to kick off.
+     */
     private void kickOffHorse(Player player) {
-    	final Entity vehicle = player.getVehicle();
+        final Entity vehicle = player.getVehicle();
         
         if (vehicle == null) {
-        	return;
+            return;
         }
         
         if (vehicle.getType() != EntityType.HORSE) {
-        	return;
+            return;
         }
 
         player.sendMessage(Main.PREFIX + "Horses are disabled.");
