@@ -62,6 +62,7 @@ public class Astrophobia extends Scenario implements Listener {
 		super("Astrophobia", "The sun is gone, and the world is in eternal night. Deadly meteors impact the surface at random, leaving craters and flames, and sometimes ores. Aliens arrive from the sky wearing protective armor and shooting powerful weapons. Their tracking bombs (charged creepers) are fired onto the world to target any players that come near them. After defeating one, players can spawn a charged creeper of their own.");
 	
 		this.plugin = plugin;
+		
 		this.timer = timer;
 		this.game = game;
 	}
@@ -82,7 +83,7 @@ public class Astrophobia extends Scenario implements Listener {
 	public void onDisable() {
 		game.getWorld().setGameRuleValue("doDaylightCycle", "true");
 
-		if (task != null && Bukkit.getScheduler().isCurrentlyRunning(task.getTaskId())) {
+		if (task != null) {
 			task.cancel();
 		}
 		

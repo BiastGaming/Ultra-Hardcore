@@ -2,8 +2,10 @@ package com.leontg77.ultrahardcore.scenario.scenarios;
 
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Arrow;
@@ -16,11 +18,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Silverfish;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Spider;
-import org.bukkit.entity.Witch;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -32,54 +34,63 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
+import com.leontg77.ultrahardcore.utils.NumberUtils;
 
 /**
- * NightmareMode scenario class
+ * NightmareMode scenario class.
  * 
  * @author LeonTG77
  */
 public class NightmareMode extends Scenario implements Listener {
 	
 	public NightmareMode() {
-		super("NightmareMode", "Variety of changes to mobs to make them more difficult.");
+		super(
+		    "NightmareMode", 
+		    "Creepers stalk at twice the normal speed. When a creeper explodes, several of its angry larvae (silverfish) will burst out of its corpse. " +
+		    "Even if a creeper is murdered, there's a chance one of the larvae will survive. Skeletons tip their arrows with cave spider blood, causing weak poison on contact. " +
+		    "All zombies spawn with extra strength. Their flesh has become slightly fire resistant, allowing them to play in sunlight for much longer than normal. " +
+		    "Even when their flesh falls off, they'll continue to attack as a fast-maneuvering skeleton using melee. " +
+		    "Spiders are unimaginably quick and have developed a thirst for human blood. When a spider dies, its silk gland ruptures, causing webs and blood to spray over the surrounding area. " +
+		    "After visiting the Nether, the endermen have mutated. Any player attacked by one will be instantly ignited. When an enderman is damaged, it has a chance to summon a blaze as backup. " +
+		    "Witches approach their victims silently at a horrifying velocity."
+		);
 	}
-
+	
+	private final Random rand = new Random();
+	
 	@Override
-	public void onDisable() {}
-
-	@Override
-	public void onEnable() {}
+	public void onEnable() {
+		for (World world : Bukkit.getWorlds()) {
+			for (LivingEntity entity : world.getLivingEntities()) {
+				on(new CreatureSpawnEvent(entity, SpawnReason.NATURAL)); // idk what to put for spawn reason, the method doesn't use it anyways.
+			}
+		}
+	}
 	
 	@EventHandler
-	public void onCreatureSpawn(CreatureSpawnEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
+	public void on(CreatureSpawnEvent event) {
 		LivingEntity entity = event.getEntity();
 		
-		if (entity instanceof Witch) {
-			entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1726272000, 4));
-			return;
-		} 
-		
-		if (entity instanceof Spider) {
-			entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1726272000, 3));
-			return;
-		} 
-		
-		if (entity instanceof Zombie) {
-			entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1726272000, 1));
-			return;
-		} 
-		
-		if (entity instanceof Creeper) {
-			entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1726272000, 1));
-		} 
+		switch (entity.getType()) {
+		case WITCH:
+			entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, NumberUtils.TICKS_IN_999_DAYS, 4));
+			break;
+		case SPIDER:
+			entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, NumberUtils.TICKS_IN_999_DAYS, 3));
+			break;
+		case ZOMBIE:
+			entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, NumberUtils.TICKS_IN_999_DAYS, 1));
+			break;
+		case CREEPER:
+			entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, NumberUtils.TICKS_IN_999_DAYS, 1));
+			break;
+		default:
+			break;
+		}
 	}
 	
 	@EventHandler
-	public void onEntityDamage(EntityDamageEvent event) {
+	public void on(EntityDamageEvent event) {
 		if (!State.isState(State.INGAME)) {
 			return;
 		}
@@ -87,28 +98,28 @@ public class NightmareMode extends Scenario implements Listener {
 		DamageCause cause = event.getCause();
 		Entity entity = event.getEntity();
 		
-		Random rand = new Random();
-		
-		if (entity instanceof Zombie) {
+		switch (entity.getType()) {
+		case ZOMBIE:
 			if (cause != DamageCause.FIRE && cause != DamageCause.FIRE_TICK) {
 				return;
 			}
 
 			event.setCancelled(rand.nextBoolean());
-			return;
-		}
-		
-		if (entity instanceof Enderman) {
+			break;
+		case ENDERMAN:
 			if (rand.nextDouble() > 0.10) {
 				return;
 			}
 			
 			entity.getWorld().spawn(entity.getLocation(), Blaze.class);
+			break;
+		default:
+			break;
 		}
 	}
 	
 	@EventHandler
-	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+	public void on(EntityDamageByEntityEvent event) {
 		if (!State.isState(State.INGAME)) {
 			return;
 		}
@@ -162,8 +173,6 @@ public class NightmareMode extends Scenario implements Listener {
 		LivingEntity entity = event.getEntity();
 		
 		if (entity instanceof Creeper) {
-			Random rand = new Random();
-			
 			if (rand.nextBoolean()) {
 				entity.getWorld().spawn(entity.getLocation(), Silverfish.class);
 			}

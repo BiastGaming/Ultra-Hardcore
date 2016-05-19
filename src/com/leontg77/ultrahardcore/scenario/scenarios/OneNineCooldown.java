@@ -144,22 +144,31 @@ public class OneNineCooldown extends Scenario implements Listener {
 
             // Taken from minecraft wiki
             double modifier = 0.2 + Math.pow((timeSinceLastClick + 0.5) / 12.5d, 2) * 0.8;
+            
             modifier = Math.min(1d, modifier);
             modifier = Math.max(0.2d, modifier);
+            
             return Optional.of(modifier);
         }
 
         public void updateActionbar() {
-            if (timeSinceLastClick > 12) {
+            if (timeSinceLastClick > 13) {
+                return;
+            }
+            
+            if (timeSinceLastClick == 13) {
+                PacketUtils.sendAction(player, " ");
                 return;
             }
 
-            long grayBars = timeSinceLastClick;
-            long darkGrayBars = 12 - timeSinceLastClick;
-            String grayBarsString = "§f" + StringUtils.repeat("\u275A", (int)grayBars);
-            String darkGrayBarsString = "§a" + StringUtils.repeat("\u275A", (int)darkGrayBars);
-            String leftPadding = StringUtils.repeat(" ", 12);
-            String bars = leftPadding + grayBarsString + darkGrayBarsString;
+            long grayBars = 12 - timeSinceLastClick;
+            long greenBars = timeSinceLastClick;
+            
+            String grayBarsString = "§7" + StringUtils.repeat("\u275A", (int) grayBars) + "§r";
+            String greenBarsString = "§a" + StringUtils.repeat("\u275A", (int) greenBars);
+            
+            String bars = greenBarsString + grayBarsString;
+            
             PacketUtils.sendAction(player, bars);
         }
     }
