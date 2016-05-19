@@ -15,40 +15,40 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77 & D4mnX
  */
 public class SelfDiagnosis extends Scenario {
-	private final HealthUpdatePacketAdapter fakeHP;
-	
-	private final BoardManager board;
-	private final Game game;
+    private final HealthUpdatePacketAdapter fakeHP;
 
-	/**
-	 * Self Diagnosis class constructor.
-	 * 
-	 * @param plugin The main class.
-	 * @param game The game class.
-	 * @param board The board manager class.
-	 */
-	public SelfDiagnosis(Main plugin, Game game, BoardManager board) {
-		super("SelfDiagnosis", "It's unable to see your own and opponent's health.");
-		
-		this.fakeHP = new HealthUpdatePacketAdapter(plugin);
-		
-		this.board = board;
-		this.game = game;
-	}
+    private final BoardManager board;
+    private final Game game;
 
-	@Override
-	public void onDisable() {
-		board.setup(game);
-		fakeHP.disable();
-	}
+    /**
+     * Self Diagnosis class constructor.
+     *
+     * @param plugin The main class.
+     * @param game The game class.
+     * @param board The board manager class.
+     */
+    public SelfDiagnosis(Main plugin, Game game, BoardManager board) {
+        super("SelfDiagnosis", "It's unable to see your own and opponent's health.");
 
-	@Override
-	public void onEnable() {
-		Scoreboard board = this.board.getBoard();
-		
-		board.clearSlot(DisplaySlot.PLAYER_LIST);
-		board.clearSlot(DisplaySlot.BELOW_NAME);
-		
-		fakeHP.enable();
-	}
+        this.fakeHP = new HealthUpdatePacketAdapter(plugin);
+
+        this.board = board;
+        this.game = game;
+    }
+
+    @Override
+    public void onDisable() {
+        board.setup(game);
+        fakeHP.disable();
+    }
+
+    @Override
+    public void onEnable() {
+        Scoreboard board = this.board.getBoard();
+
+        board.clearSlot(DisplaySlot.PLAYER_LIST);
+        board.clearSlot(DisplaySlot.BELOW_NAME);
+
+        fakeHP.enable();
+    }
 }

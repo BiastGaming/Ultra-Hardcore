@@ -23,116 +23,116 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class AloneTogether extends Scenario implements Listener {
-	private final Main plugin;
-	private final Game game;
-	
-	private final TeamManager teams;
+    private final Main plugin;
+    private final Game game;
 
-	/**
-	 * AloneTogether class constructor.
-	 * 
-	 * @param game The game class.
-	 * @param teams The team manager.
-	 */
-	public AloneTogether(Main plugin, Game game, TeamManager teams) {
-		super("AloneTogether", "Your teammates are vanished.");
+    private final TeamManager teams;
 
-		this.plugin = plugin;
-		this.game = game;
-		
-		this.teams = teams;
-	}
-	
-	@Override
-	public void onDisable() {
-		for (Player online : Bukkit.getOnlinePlayers()) {
-			update(online);
-		}
-	}
-	
-	@Override
-	public void onEnable() {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		on(new GameStartEvent());
-	}
-	
-	@EventHandler
-	public void on(GameStartEvent event) {
-		for (Player online : game.getPlayers()) {
-			update(online);
-		}
-	}
+    /**
+     * AloneTogether class constructor.
+     *
+     * @param game The game class.
+     * @param teams The team manager.
+     */
+    public AloneTogether(Main plugin, Game game, TeamManager teams) {
+        super("AloneTogether", "Your teammates are vanished.");
 
-	@EventHandler
-	public void on(PlayerJoinEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		final Player player = event.getPlayer();
-		
-		if (!game.getPlayers().contains(player)) {
-			return;
-		}
-		
-		new BukkitRunnable() {
-			public void run() {
-				update(player);
-			}
-		}.runTaskLater(plugin, 5);
-		
-	}
-	
-	@EventHandler
-	public void on(TeamJoinEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		for (Player online : game.getPlayers()) {
-			update(online);
-		}
-	}
-	
-	@EventHandler
-	public void on(TeamLeaveEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		for (Player online : game.getPlayers()) {
-			update(online);
-		}
-	}
-	
-	/**
-	 * Update the given player and hide his teammates if any.
-	 * 
-	 * @param player The player to update for.
-	 */
-	@SuppressWarnings("deprecation")
-	private void update(Player player) {
-		Team team = teams.getTeam(player);
-		
-		if (team == null) {
-			for (Player online : game.getPlayers()) {
-				player.showPlayer(online);
-				online.showPlayer(player);
-			}
-			return;
-		}
-		
-		for (Player online : game.getPlayers()) {
-			if (team.hasPlayer(online)) {
-				player.hidePlayer(online);
-				online.hidePlayer(player);
-			} else {
-				player.showPlayer(online);
-				online.showPlayer(player);
-			}
-		}
-	}
+        this.plugin = plugin;
+        this.game = game;
+
+        this.teams = teams;
+    }
+
+    @Override
+    public void onDisable() {
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            update(online);
+        }
+    }
+
+    @Override
+    public void onEnable() {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        on(new GameStartEvent());
+    }
+
+    @EventHandler
+    public void on(GameStartEvent event) {
+        for (Player online : game.getPlayers()) {
+            update(online);
+        }
+    }
+
+    @EventHandler
+    public void on(PlayerJoinEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        final Player player = event.getPlayer();
+
+        if (!game.getPlayers().contains(player)) {
+            return;
+        }
+
+        new BukkitRunnable() {
+            public void run() {
+                update(player);
+            }
+        }.runTaskLater(plugin, 5);
+
+    }
+
+    @EventHandler
+    public void on(TeamJoinEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        for (Player online : game.getPlayers()) {
+            update(online);
+        }
+    }
+
+    @EventHandler
+    public void on(TeamLeaveEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        for (Player online : game.getPlayers()) {
+            update(online);
+        }
+    }
+
+    /**
+     * Update the given player and hide his teammates if any.
+     *
+     * @param player The player to update for.
+     */
+    @SuppressWarnings("deprecation")
+    private void update(Player player) {
+        Team team = teams.getTeam(player);
+
+        if (team == null) {
+            for (Player online : game.getPlayers()) {
+                player.showPlayer(online);
+                online.showPlayer(player);
+            }
+            return;
+        }
+
+        for (Player online : game.getPlayers()) {
+            if (team.hasPlayer(online)) {
+                player.hidePlayer(online);
+                online.hidePlayer(player);
+            } else {
+                player.showPlayer(online);
+                online.showPlayer(player);
+            }
+        }
+    }
 }

@@ -17,26 +17,26 @@ import com.leontg77.ultrahardcore.feature.Feature;
  * @author LeonTG77
  */
 public class PortalTravelSoundFeature extends Feature implements Listener {
-	private final Main plugin;
+    private final Main plugin;
 
-	public PortalTravelSoundFeature(Main plugin) {
-		super("Portal Travel Sound", "Play a sound when a player uses a portal.");
-		
-		this.plugin = plugin;
-	}
+    public PortalTravelSoundFeature(Main plugin) {
+        super("Portal Travel Sound", "Play a sound when a player uses a portal.");
 
-	@EventHandler(priority = EventPriority.HIGH)
+        this.plugin = plugin;
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
     public void on(final PlayerPortalEvent event) {
-		if (event.isCancelled()) {
-			return;
-		}
-		
-		final Player player = event.getPlayer();
-		
-		new BukkitRunnable() {
-			public void run() {
-		    	player.playSound(event.getTo(), Sound.PORTAL_TRAVEL, 0.3f, 1);
-			}
-		}.runTask(plugin);
+        if (event.isCancelled()) {
+            return;
+        }
+
+        final Player player = event.getPlayer();
+
+        new BukkitRunnable() {
+            public void run() {
+                player.playSound(event.getTo(), Sound.PORTAL_TRAVEL, 0.3f, 1);
+            }
+        }.runTask(plugin);
     }
 }

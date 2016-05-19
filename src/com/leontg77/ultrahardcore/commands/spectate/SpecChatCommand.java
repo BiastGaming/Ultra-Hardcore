@@ -17,48 +17,48 @@ import com.leontg77.ultrahardcore.managers.SpecManager;
  * @author LeonTG77
  */
 public class SpecChatCommand extends UHCCommand {
-	private final SpecManager spec;
+    private final SpecManager spec;
 
-	public SpecChatCommand(SpecManager spec) {
-		super("specchat", "<message>");
-		
-		this.spec = spec;
-	}
-	
-	private static final String PREFIX = "§5Spec Chat §8» §d";
+    public SpecChatCommand(SpecManager spec) {
+        super("specchat", "<message>");
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (sender instanceof Player && !spec.isSpectating((Player) sender)) {
-			throw new CommandException("You can only do this while spectating.");
-		}
-		
-		if (args.length == 0) {
-        	return false;
+        this.spec = spec;
+    }
+
+    private static final String PREFIX = "§5Spec Chat §8» §d";
+
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (sender instanceof Player && !spec.isSpectating((Player) sender)) {
+            throw new CommandException("You can only do this while spectating.");
+        }
+
+        if (args.length == 0) {
+            return false;
         } 
         
         String message = Joiner.on(' ').join(args);
         
         for (Player online : Bukkit.getOnlinePlayers()) {
-        	if (!spec.isSpectating(online)) {
-        		continue;
-        	}
-        	
-        	online.sendMessage(PREFIX + sender.getName() + "§8: §f" + message);
+            if (!spec.isSpectating(online)) {
+                continue;
+            }
+
+            online.sendMessage(PREFIX + sender.getName() + "§8: §f" + message);
         }
 
-		message = message.replaceAll("§l", "");
-		message = message.replaceAll("§o", "");
-		message = message.replaceAll("§r", "§f");
-		message = message.replaceAll("§m", "");
-		message = message.replaceAll("§n", "");
-		
-		Bukkit.getLogger().info(PREFIX + sender.getName() + "§8: §f" + message);
-		return true;
-	}
+        message = message.replaceAll("§l", "");
+        message = message.replaceAll("§o", "");
+        message = message.replaceAll("§r", "§f");
+        message = message.replaceAll("§m", "");
+        message = message.replaceAll("§n", "");
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return allVisiblePlayers(sender);
-	}
+        Bukkit.getLogger().info(PREFIX + sender.getName() + "§8: §f" + message);
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return allVisiblePlayers(sender);
+    }
 }

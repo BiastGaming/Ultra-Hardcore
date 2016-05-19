@@ -14,25 +14,25 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class StaffChatCommand extends UHCCommand {
-	private static final String PREFIX = "§4Staff Chat §8» §c";
+    private static final String PREFIX = "§4Staff Chat §8» §c";
 
-	public StaffChatCommand() {
-		super("ac", "<message>");
-	}
+    public StaffChatCommand() {
+        super("ac", "<message>");
+    }
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) {
-		if (args.length == 0) {
-        	return false;
+    @Override
+    public boolean execute(CommandSender sender, String[] args) {
+        if (args.length == 0) {
+            return false;
         } 
         
-    	String message = Joiner.on(' ').join(args);
-		PlayerUtils.broadcast(PREFIX + sender.getName() + "§8: §f" + message, "uhc.staff");
-		return true;
-	}
+        String message = Joiner.on(' ').join(args);
+        PlayerUtils.broadcast(PREFIX + sender.getName() + "§8: §f" + message, "uhc.staff");
+        return true;
+    }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return allPlayers();
-	}
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return allPlayers();
+    }
 }

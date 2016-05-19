@@ -25,31 +25,31 @@ import com.leontg77.ultrahardcore.utils.TreeUtils.TreeType;
  * @author LeonTG77
  */
 public class ShearsFeature extends ToggleableFeature implements Listener {
-	private static final String RATE_PATH = "feature.shears.rate";
-	
-	private final Settings settings;
+    private static final String RATE_PATH = "feature.shears.rate";
+
+    private final Settings settings;
     private double shearRate;
 
-	public ShearsFeature(Settings settings) {
-		super("Shears", "Using shears on leaves gives an increased rate of apples.");
-		
-		icon.setType(Material.SHEARS);
-		slot = 37;
-		
-		this.settings = settings;
-		
-		shearRate = settings.getConfig().getDouble(RATE_PATH, 0.05);
-	}
-	
-	private final Random rand = new Random();
+    public ShearsFeature(Settings settings) {
+        super("Shears", "Using shears on leaves gives an increased rate of apples.");
 
-	/**
-	 * Set the rate of shears to drop apples.
-	 * 
-	 * @param rate The new rate.
-	 */
+        icon.setType(Material.SHEARS);
+        slot = 37;
+
+        this.settings = settings;
+
+        shearRate = settings.getConfig().getDouble(RATE_PATH, 0.05);
+    }
+
+    private final Random rand = new Random();
+
+    /**
+     * Set the rate of shears to drop apples.
+     *
+     * @param rate The new rate.
+     */
     public void setShearRates(final double rate) {
-    	this.shearRate = (rate / 100);
+        this.shearRate = (rate / 100);
         
         settings.getConfig().set(RATE_PATH, shearRate);
         settings.saveConfig();
@@ -63,54 +63,54 @@ public class ShearsFeature extends ToggleableFeature implements Listener {
     public double getShearRates() {
         return shearRate;
     }
-	
-	@EventHandler(priority = EventPriority.LOW)
-    public void on(BlockBreakEvent event) {
-    	Player player = event.getPlayer();
-		Block block = event.getBlock();
-    	
-		// breaking leaves in creative shouldn't drop anything...
-		if (player.getGameMode() == GameMode.CREATIVE) {
-			return;
-		}
-		
-		if (block.getType() != Material.LEAVES && block.getType() != Material.LEAVES_2) {
-			return;
-		}
-		
-		int damage = BlockUtils.getDurability(block);
-		
-		TreeType tree = TreeUtils.getTree(block.getType(), damage);
-		
-		if (tree == TreeType.UNKNOWN) {
-			return;
-		}
-		
-		Location toDrop = block.getLocation().add(0.5, 0.7, 0.5);
-		ItemStack item = player.getItemInHand();
-		
-		if (tree != TreeType.OAK && tree != TreeType.DARK_OAK) {
-			return;
-		}
-		
-		if (item == null || item.getType() != Material.SHEARS) {
-			return;
-		}
 
-		BlockUtils.dropItem(toDrop, tree.getLeaf());
-		
-		BlockUtils.blockBreak(player, block);
-		BlockUtils.degradeDurabiliy(player);
-		
-		event.setCancelled(true);
-		block.setType(Material.AIR);
-		
-		double next = rand.nextDouble();
-		
-		if (!isEnabled() || next >= shearRate) {
-			return;
-		}
-		
-		BlockUtils.dropItem(toDrop, new ItemStack(Material.APPLE, 1));
+    @EventHandler(priority = EventPriority.LOW)
+    public void on(BlockBreakEvent event) {
+        Player player = event.getPlayer();
+        Block block = event.getBlock();
+
+        // breaking leaves in creative shouldn't drop anything...
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+
+        if (block.getType() != Material.LEAVES && block.getType() != Material.LEAVES_2) {
+            return;
+        }
+
+        int damage = BlockUtils.getDurability(block);
+
+        TreeType tree = TreeUtils.getTree(block.getType(), damage);
+
+        if (tree == TreeType.UNKNOWN) {
+            return;
+        }
+
+        Location toDrop = block.getLocation().add(0.5, 0.7, 0.5);
+        ItemStack item = player.getItemInHand();
+
+        if (tree != TreeType.OAK && tree != TreeType.DARK_OAK) {
+            return;
+        }
+
+        if (item == null || item.getType() != Material.SHEARS) {
+            return;
+        }
+
+        BlockUtils.dropItem(toDrop, tree.getLeaf());
+
+        BlockUtils.blockBreak(player, block);
+        BlockUtils.degradeDurabiliy(player);
+
+        event.setCancelled(true);
+        block.setType(Material.AIR);
+
+        double next = rand.nextDouble();
+
+        if (!isEnabled() || next >= shearRate) {
+            return;
+        }
+
+        BlockUtils.dropItem(toDrop, new ItemStack(Material.APPLE, 1));
     }
 }

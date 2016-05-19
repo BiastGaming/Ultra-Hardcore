@@ -22,26 +22,26 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  * @author LeonTG77
  */
 public class FlintRatesFeature extends Feature implements Listener {
-	private static final String RATE_PATH = "rates.flint.rate";
-	
-	private final Settings settings;
+    private static final String RATE_PATH = "rates.flint.rate";
+
+    private final Settings settings;
     private double flintRate;
 
-	public FlintRatesFeature(Settings settings) {
-		super("Flint rates", "Modifies the vanilla flint rates to a higher rate.");
-		
-		flintRate = settings.getConfig().getDouble(RATE_PATH, 0.0055);
-		
-		this.settings = settings;
-	}
+    public FlintRatesFeature(Settings settings) {
+        super("Flint rates", "Modifies the vanilla flint rates to a higher rate.");
 
-	/**
-	 * Set the rate of flint to drop.
-	 * 
-	 * @param rate The new rate.
-	 */
+        flintRate = settings.getConfig().getDouble(RATE_PATH, 0.0055);
+
+        this.settings = settings;
+    }
+
+    /**
+     * Set the rate of flint to drop.
+     *
+     * @param rate The new rate.
+     */
     public void setFlintRates(final double rate) {
-    	this.flintRate = (rate / 100);
+        this.flintRate = (rate / 100);
         
         settings.getConfig().set(RATE_PATH, flintRate);
         settings.saveConfig();
@@ -55,29 +55,29 @@ public class FlintRatesFeature extends Feature implements Listener {
     public double getFlintRate() {
         return flintRate;
     }
-	
-	@EventHandler
+
+    @EventHandler
     public void on(BlockBreakEvent event) {
-    	final Player player = event.getPlayer();
-		final Block block = event.getBlock();
-    	
-		// no drops if they're in creative.
-		if (player.getGameMode() == GameMode.CREATIVE) {
-			return;
-		}
-    	
-		final Random rand = new Random();
-		
-		if (block.getType() != Material.GRAVEL) {
-			return;
-		}
-		
-		final Location toDrop = block.getLocation().add(0.5, 0.7, 0.5);
-		
-		BlockUtils.blockBreak(player, block);
+        final Player player = event.getPlayer();
+        final Block block = event.getBlock();
+
+        // no drops if they're in creative.
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+
+        final Random rand = new Random();
+
+        if (block.getType() != Material.GRAVEL) {
+            return;
+        }
+
+        final Location toDrop = block.getLocation().add(0.5, 0.7, 0.5);
+
+        BlockUtils.blockBreak(player, block);
         BlockUtils.degradeDurabiliy(player);
-		
-		event.setCancelled(true);
+
+        event.setCancelled(true);
         block.setType(Material.AIR);
         
         if (rand.nextDouble() < flintRate) {
@@ -85,5 +85,5 @@ public class FlintRatesFeature extends Feature implements Listener {
         } else {
             BlockUtils.dropItem(toDrop, new ItemStack(Material.GRAVEL));
         }
-	}
+    }
 }

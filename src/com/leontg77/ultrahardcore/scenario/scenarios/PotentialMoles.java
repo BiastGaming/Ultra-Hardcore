@@ -11,23 +11,23 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class PotentialMoles extends Scenario implements Listener {
-	private final Moles moles;
-	private final Main plugin;
-	
-	public PotentialMoles(Main plugin, Moles moles) {
-		super("PotentialMoles", "There is a 50% chance of a team having a mole, moles on each team work together to take out the normal teams.");
+    private final Moles moles;
+    private final Main plugin;
 
-		this.plugin = plugin;
-		this.moles = moles;
-	}
+    public PotentialMoles(Main plugin, Moles moles) {
+        super("PotentialMoles", "There is a 50% chance of a team having a mole, moles on each team work together to take out the normal teams.");
 
-	@Override
-	public void onDisable() {
-		moles.disable();
-	}
+        this.plugin = plugin;
+        this.moles = moles;
+    }
 
-	@Override
-	public void onEnable() {
-		moles.enable(plugin);
-	}
+    @Override
+    public void onDisable() {
+        moles.disable();
+    }
+
+    @Override
+    public void onEnable() {
+        moles.enable(plugin);
+    }
 }

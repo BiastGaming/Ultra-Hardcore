@@ -18,19 +18,19 @@ import com.comphenix.protocol.wrappers.WrappedDataWatcher;
  * @see licenses/hiddenhealth
  */
 public class HealthUpdatePacketAdapter extends PacketAdapter {
-	// the packet identifier for 0x06 Update Health, also contains hunger + saturation
+    // the packet identifier for 0x06 Update Health, also contains hunger + saturation
     protected static final PacketType UPDATE_HEALTH_PACKET = PacketType.Play.Server.UPDATE_HEALTH;
 
     // the packet identifier for 0x1C entity metadata, client will update it's visual health
     // when any metadata sent to itself if sent with the health flag on it
     protected static final PacketType ENTITY_METADATA = PacketType.Play.Server.ENTITY_METADATA;
 
-	private final ProtocolManager manager;
+    private final ProtocolManager manager;
 
     public HealthUpdatePacketAdapter(Plugin plugin) {
         super(plugin, ListenerPriority.HIGHEST, UPDATE_HEALTH_PACKET, ENTITY_METADATA);
-		
-		this.manager = ProtocolLibrary.getProtocolManager();
+
+        this.manager = ProtocolLibrary.getProtocolManager();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class HealthUpdatePacketAdapter extends PacketAdapter {
         if (event.getPacketType() == ENTITY_METADATA) {
             // only process if it's metadata for the player it's being sent to
             if (event.getPlayer().getEntityId() != event.getPacket().getIntegers().read(0)) {
-            	return;
+                return;
             }
 
             // get the data watcher for the entity metadata
@@ -67,13 +67,13 @@ public class HealthUpdatePacketAdapter extends PacketAdapter {
      * Enable the fake hearts.
      */
     public void enable() {
-	    manager.addPacketListener(this);
+        manager.addPacketListener(this);
     }    
     
     /**
      * Disable the fake hearts.
      */
     public void disable() {
-	    manager.removePacketListener(this);
+        manager.removePacketListener(this);
     }
 }

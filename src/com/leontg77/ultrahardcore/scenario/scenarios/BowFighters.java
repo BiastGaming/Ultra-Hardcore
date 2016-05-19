@@ -29,26 +29,26 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class BowFighters extends Scenario implements Listener {
 
-	public BowFighters() {
-		super("BowFighters", "Everyone is given 1 arrow, 2 string and an Infinity book. The highest tier of melee weapon you can get is wood sword/stone axe.");
-	}
+    public BowFighters() {
+        super("BowFighters", "Everyone is given 1 arrow, 2 string and an Infinity book. The highest tier of melee weapon you can get is wood sword/stone axe.");
+    }
 
-	@Override
-	public void onDisable() {}
+    @Override
+    public void onDisable() {}
 
-	@Override
-	public void onEnable() {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		on(new GameStartEvent());
-	}
-	
-	@EventHandler
-	public void on(final GameStartEvent event) {
-		final ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
-		final ItemStack string = new ItemStack(Material.STRING, 2);
+    @Override
+    public void onEnable() {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        on(new GameStartEvent());
+    }
+
+    @EventHandler
+    public void on(final GameStartEvent event) {
+        final ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
+        final ItemStack string = new ItemStack(Material.STRING, 2);
         final ItemStack arrow = new ItemStack(Material.ARROW);
         
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) book.getItemMeta();
@@ -56,15 +56,15 @@ public class BowFighters extends Scenario implements Listener {
         book.setItemMeta(meta);
         
         for (Player online : Bukkit.getOnlinePlayers()) {
-        	PlayerUtils.giveItem(online, book, arrow, string);
+            PlayerUtils.giveItem(online, book, arrow, string);
         }
-	}
+    }
 
     @EventHandler(ignoreCancelled = true)
     public void on(final PlayerPickupItemEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
         
         final Item item = event.getItem();
         final ItemStack stack = item.getItemStack();
@@ -75,19 +75,19 @@ public class BowFighters extends Scenario implements Listener {
         case DIAMOND_SWORD:
         case IRON_AXE:
         case DIAMOND_AXE:
-        	event.setCancelled(true);
-        	item.remove();
-        	break;
-		default:
-			break;
+            event.setCancelled(true);
+            item.remove();
+            break;
+        default:
+            break;
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void on(final InventoryClickEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
         
         final ItemStack item = event.getCurrentItem();
         
@@ -108,16 +108,16 @@ public class BowFighters extends Scenario implements Listener {
             
             player.sendMessage(ChatColor.RED + "You can't pick that up in bowfighters!");
             break;
-		default:
-			break;
+        default:
+            break;
         }
     }
     
     @EventHandler(ignoreCancelled = true)
     public void on(final CraftItemEvent event)  {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
         
         final ItemStack item = event.getCurrentItem();
         
@@ -136,20 +136,20 @@ public class BowFighters extends Scenario implements Listener {
 
             player.sendMessage(ChatColor.RED + "You can't craft that in bowfighters!");
             event.setCancelled(true);
-        	break;
-		default:
-			break;
+            break;
+        default:
+            break;
         }
     }
     
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void on(final EntityDamageByEntityEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
 
-		final Entity damager = event.getDamager();
-		final Entity entity = event.getEntity();
+        final Entity damager = event.getDamager();
+        final Entity entity = event.getEntity();
         
         if (!(entity instanceof Player) || !(damager instanceof Player)) {
             return;
@@ -159,7 +159,7 @@ public class BowFighters extends Scenario implements Listener {
         final ItemStack tool = attacker.getItemInHand();
         
         if (tool == null || tool.getType() != Material.DIAMOND_PICKAXE) {
-        	return;
+            return;
         }
 
         attacker.sendMessage(ChatColor.RED + "PvP damage with that item is disabled!");

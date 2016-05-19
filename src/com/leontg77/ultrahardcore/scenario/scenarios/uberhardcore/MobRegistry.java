@@ -79,7 +79,7 @@ public class MobRegistry {
             }
             
             for (Listener listener : override.getListeners()) {
-            	HandlerList.unregisterAll(listener);
+                HandlerList.unregisterAll(listener);
             }
 
             // kill the replacement classes

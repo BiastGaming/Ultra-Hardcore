@@ -32,12 +32,12 @@ public class RecipeUtils {
         }
 
         if (null == ingredients) {
-        	return false;
+            return false;
         }
 
         for (ItemStack stack : ingredients) {
             if (stack.getType() == type) {
-            	return true;
+                return true;
             }
         }
 

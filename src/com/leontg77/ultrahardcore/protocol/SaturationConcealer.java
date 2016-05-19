@@ -16,11 +16,11 @@ import com.comphenix.protocol.events.PacketEvent;
  */
 public class SaturationConcealer extends PacketAdapter {
 
-	/**
-	 * Saturation concealer class constructor.
-	 * 
-	 * @param plugin The plugin class.
-	 */
+    /**
+     * Saturation concealer class constructor.
+     *
+     * @param plugin The plugin class.
+     */
     public SaturationConcealer(Plugin plugin) {
         super(plugin, PacketType.Play.Server.UPDATE_HEALTH);
     }

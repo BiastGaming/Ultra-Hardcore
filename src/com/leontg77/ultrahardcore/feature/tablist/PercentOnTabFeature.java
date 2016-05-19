@@ -18,35 +18,35 @@ import com.leontg77.ultrahardcore.utils.NumberUtils;
  * @author LeonTG77
  */
 public class PercentOnTabFeature extends Feature {
-	private BukkitRunnable task;
+    private BukkitRunnable task;
 
-	public PercentOnTabFeature(final Main plugin, final BoardManager board) {
-		super("Percent on tab", "Makes the tablist have your percent health.");
-		
-		task = new BukkitRunnable() {
-			public void run() {
-				for (Player online : Bukkit.getOnlinePlayers()) {
-					String percentString = NumberUtils.makePercent(online.getHealth());
-					int percent = Integer.parseInt(percentString.substring(2));
-					
-					Scoreboard sb = board.getBoard();
-					
-					Objective bellowName = sb.getObjective("nameHealth");
-					Objective tabList = sb.getObjective("tabHealth");
-					
-					if (tabList != null) {
-						Score score = tabList.getScore(online.getName());
-						score.setScore(percent);
-					}
-					
-					if (bellowName != null) {
-						Score score = bellowName.getScore(online.getName());
-						score.setScore(percent);
-					}
-				}
-			}
-		};
-		
-		task.runTaskTimer(plugin, 1, 1);
-	}
+    public PercentOnTabFeature(final Main plugin, final BoardManager board) {
+        super("Percent on tab", "Makes the tablist have your percent health.");
+
+        task = new BukkitRunnable() {
+            public void run() {
+                for (Player online : Bukkit.getOnlinePlayers()) {
+                    String percentString = NumberUtils.makePercent(online.getHealth());
+                    int percent = Integer.parseInt(percentString.substring(2));
+
+                    Scoreboard sb = board.getBoard();
+
+                    Objective bellowName = sb.getObjective("nameHealth");
+                    Objective tabList = sb.getObjective("tabHealth");
+
+                    if (tabList != null) {
+                        Score score = tabList.getScore(online.getName());
+                        score.setScore(percent);
+                    }
+
+                    if (bellowName != null) {
+                        Score score = bellowName.getScore(online.getName());
+                        score.setScore(percent);
+                    }
+                }
+            }
+        };
+
+        task.runTaskTimer(plugin, 1, 1);
+    }
 }

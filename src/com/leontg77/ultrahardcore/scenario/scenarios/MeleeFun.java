@@ -17,20 +17,20 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author D4mnX
  */
 public class MeleeFun extends Scenario implements Listener {
-	private final Main plugin;
-	
-	public MeleeFun(Main plugin) {
-		super("MeleeFun", "There is no delay between hits. However fast you click is how fast you hit someone.");
-		
-		this.plugin = plugin;
-	}
-	
-	@EventHandler
+    private final Main plugin;
+
+    public MeleeFun(Main plugin) {
+        super("MeleeFun", "There is no delay between hits. However fast you click is how fast you hit someone.");
+
+        this.plugin = plugin;
+    }
+
+    @EventHandler
     public void on(EntityDamageByEntityEvent event) {
-		Entity damager = event.getDamager();
-		Entity entity = event.getEntity();
-		
-		if (!(entity instanceof Player) && !(damager instanceof Player)) {
+        Entity damager = event.getDamager();
+        Entity entity = event.getEntity();
+
+        if (!(entity instanceof Player) && !(damager instanceof Player)) {
             return;
         }
 
@@ -43,9 +43,9 @@ public class MeleeFun extends Scenario implements Listener {
         event.setDamage(event.getDamage() * 0.5);
         
         new BukkitRunnable() {
-			public void run() {
+            public void run() {
                 player.setNoDamageTicks(0);
-			}
-		}.runTaskLater(plugin, 1);
+            }
+        }.runTaskLater(plugin, 1);
     }
 }

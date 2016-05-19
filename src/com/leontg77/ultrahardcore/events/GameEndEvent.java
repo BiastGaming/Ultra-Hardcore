@@ -9,7 +9,7 @@ import org.bukkit.event.HandlerList;
  * @author LeonTG77
  */
 public class GameEndEvent extends Event {
-	private static final HandlerList HANDLERS = new HandlerList();
+    private static final HandlerList HANDLERS = new HandlerList();
     
     public HandlerList getHandlers() {
         return HANDLERS;

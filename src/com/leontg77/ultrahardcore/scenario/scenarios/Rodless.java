@@ -15,19 +15,19 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  */
 public class Rodless extends Scenario implements Listener {
 
-	/**
-	 * Rodless class constructor.
-	 */
-	public Rodless() {
-		super("Rodless", "Rods will not \"hit\" mobs/players when you it shot at them, rods can only be used for fishing.");
-	}
+    /**
+     * Rodless class constructor.
+     */
+    public Rodless() {
+        super("Rodless", "Rods will not \"hit\" mobs/players when you it shot at them, rods can only be used for fishing.");
+    }
 
-	@EventHandler
-	public void on(EntityDamageByEntityEvent event) {
-		Entity damager = event.getDamager();
-		
-		if (damager instanceof FishHook) {
-			event.setCancelled(true);
-		}
-	}
+    @EventHandler
+    public void on(EntityDamageByEntityEvent event) {
+        Entity damager = event.getDamager();
+
+        if (damager instanceof FishHook) {
+            event.setCancelled(true);
+        }
+    }
 }

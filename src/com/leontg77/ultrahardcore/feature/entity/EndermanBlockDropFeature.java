@@ -16,22 +16,22 @@ import com.leontg77.ultrahardcore.feature.Feature;
  */
 public class EndermanBlockDropFeature extends Feature implements Listener {
 
-	/**
-	 * Enderman Block Drop feature class constructor.
-	 */
-	public EndermanBlockDropFeature() {
-		super("Enderman Block Drop", "Makes enderman drop the block their holding when they die.");
-	}
+    /**
+     * Enderman Block Drop feature class constructor.
+     */
+    public EndermanBlockDropFeature() {
+        super("Enderman Block Drop", "Makes enderman drop the block their holding when they die.");
+    }
 
-	@EventHandler
-	public void on(EntityDeathEvent event) {
-		Entity entity = event.getEntity();
-		
-		if (!(entity instanceof Enderman)) {
-			return;
-		}
-		
-		Enderman ender = (Enderman) entity;
-		event.getDrops().add(new ItemStack(ender.getCarriedMaterial().getItemType()));
-	}
+    @EventHandler
+    public void on(EntityDeathEvent event) {
+        Entity entity = event.getEntity();
+
+        if (!(entity instanceof Enderman)) {
+            return;
+        }
+
+        Enderman ender = (Enderman) entity;
+        event.getDrops().add(new ItemStack(ender.getCarriedMaterial().getItemType()));
+    }
 }

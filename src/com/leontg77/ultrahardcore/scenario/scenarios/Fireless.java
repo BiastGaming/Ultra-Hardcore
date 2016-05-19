@@ -15,31 +15,31 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  */
 public class Fireless extends Scenario implements Listener {
 
-	/**
-	 * Fireless class constructor.
-	 */
-	public Fireless() {
-		super("Fireless", "You cannot take fire or lava damage.");
-	}
+    /**
+     * Fireless class constructor.
+     */
+    public Fireless() {
+        super("Fireless", "You cannot take fire or lava damage.");
+    }
 
     @EventHandler(ignoreCancelled = true)
     public void on(EntityDamageEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		if (!(event.getEntity() instanceof Player)) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        if (!(event.getEntity() instanceof Player)) {
+            return;
+        }
         
-		switch (event.getCause()) {
-		case FIRE:
-		case FIRE_TICK:
-		case LAVA:
-			event.setCancelled(true);
-			break;
-		default:
-			break;
-		}
+        switch (event.getCause()) {
+        case FIRE:
+        case FIRE_TICK:
+        case LAVA:
+            event.setCancelled(true);
+            break;
+        default:
+            break;
+        }
     }
 }

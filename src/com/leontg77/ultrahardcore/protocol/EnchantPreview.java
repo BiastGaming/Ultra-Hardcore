@@ -18,30 +18,30 @@ import com.leontg77.ultrahardcore.Main;
  * @author LeonTG77
  */
 public class EnchantPreview extends PacketAdapter {
-	private final ProtocolManager manager;
+    private final ProtocolManager manager;
 
-	/**
-	 * Constructor for Enchant Preview.
-	 * 
-	 * @param plugin The main class of the plugin.
-	 */
-	public EnchantPreview(Main plugin) {
-		super(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.CRAFT_PROGRESS_BAR);
-		
-		manager = ProtocolLibrary.getProtocolManager();
-	}
+    /**
+     * Constructor for Enchant Preview.
+     *
+     * @param plugin The main class of the plugin.
+     */
+    public EnchantPreview(Main plugin) {
+        super(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.CRAFT_PROGRESS_BAR);
+
+        manager = ProtocolLibrary.getProtocolManager();
+    }
 
     @Override
     public void onPacketSending(PacketEvent event) {
         if (!event.getPacketType().equals(Play.Server.CRAFT_PROGRESS_BAR)) {
-        	return;
+            return;
         }
         
         StructureModifier<Integer> integers = event.getPacket().getIntegers();
         int property = integers.read(1);
         
         if (property >= 4) {
-        	integers.write(2, -1);
+            integers.write(2, -1);
         }
     }
     
@@ -49,13 +49,13 @@ public class EnchantPreview extends PacketAdapter {
      * Enable the old enchants.
      */
     public void enable() {
-    	manager.addPacketListener(this);
+        manager.addPacketListener(this);
     }    
     
     /**
      * Disable the old enchants.
      */
     public void disable() {
-    	manager.removePacketListener(this);
+        manager.removePacketListener(this);
     }
 }

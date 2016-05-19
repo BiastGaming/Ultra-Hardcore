@@ -21,33 +21,33 @@ import com.leontg77.ultrahardcore.feature.Feature;
  * @author LeonTG77
  */
 public class BigTreesInForestsFeature extends Feature implements Listener {
-	private final Random rand = new Random();
+    private final Random rand = new Random();
 
-	public BigTreesInForestsFeature() {
-		super("Big Trees In Forests", "Makes big trees appeal in forest biomes.");
-	}
-	
-	@EventHandler
-	public void on(ChunkPopulateEvent event) {
-		World world = event.getWorld();
-		Chunk chunk = event.getChunk();
-		
-		for (int x = 0; x < 16; x++) {
-			for (int z = 0; z < 16; z++) {
-				Block block = chunk.getBlock(x, 0, z);
-				block = world.getHighestBlockAt(block.getLocation()).getRelative(BlockFace.UP);
-				
-				if (block.getBiome() != Biome.FOREST && block.getBiome() != Biome.FOREST_HILLS) {
-					return;
-				}
-				
-				if (rand.nextInt(100) >= 30) {
-					return;
-				}
-				
-				Location loc = block.getLocation();
-				loc.getWorld().generateTree(loc, TreeType.BIG_TREE);
-			}
-		}
-	}
+    public BigTreesInForestsFeature() {
+        super("Big Trees In Forests", "Makes big trees appeal in forest biomes.");
+    }
+
+    @EventHandler
+    public void on(ChunkPopulateEvent event) {
+        World world = event.getWorld();
+        Chunk chunk = event.getChunk();
+
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                Block block = chunk.getBlock(x, 0, z);
+                block = world.getHighestBlockAt(block.getLocation()).getRelative(BlockFace.UP);
+
+                if (block.getBiome() != Biome.FOREST && block.getBiome() != Biome.FOREST_HILLS) {
+                    return;
+                }
+
+                if (rand.nextInt(100) >= 30) {
+                    return;
+                }
+
+                Location loc = block.getLocation();
+                loc.getWorld().generateTree(loc, TreeType.BIG_TREE);
+            }
+        }
+    }
 }

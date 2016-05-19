@@ -21,27 +21,27 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class BroadcastCommand extends UHCCommand {
 
-	public BroadcastCommand() {
-		super("broadcast", "<message>");
-	}
+    public BroadcastCommand() {
+        super("broadcast", "<message>");
+    }
 
-	@Override
-	public boolean execute(final CommandSender sender, final String[] args) {
-		if (args.length == 0) {
-			return false;
-		}
-		
-		String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
-		PlayerUtils.broadcast(Main.ALERT_PREFIX + "§a" + ChatColor.translateAlternateColorCodes('&', message));
-		
-		for (Player online : Bukkit.getOnlinePlayers()) {
-			online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
-		}
-		return true;
-	}
+    @Override
+    public boolean execute(final CommandSender sender, final String[] args) {
+        if (args.length == 0) {
+            return false;
+        }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return allPlayers();
-	}
+        String message = Joiner.on(' ').join(Arrays.copyOfRange(args, 0, args.length));
+        PlayerUtils.broadcast(Main.ALERT_PREFIX + "§a" + ChatColor.translateAlternateColorCodes('&', message));
+
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
+        }
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return allPlayers();
+    }
 }

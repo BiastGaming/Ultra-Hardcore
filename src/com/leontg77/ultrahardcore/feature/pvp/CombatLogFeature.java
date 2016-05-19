@@ -31,159 +31,159 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class CombatLogFeature extends Feature implements Listener {
-	private final Main plugin;
+    private final Main plugin;
 
-	private final TeamManager teams;
-	private final SpecManager spec;
-	
-	public CombatLogFeature(Main plugin, TeamManager teams, SpecManager spec) {
-		super("Combat Log", "Kills people that log out in combat.");
-		
-		this.plugin = plugin;
-		
-		this.teams = teams;
-		this.spec = spec;
-	}
-	
-	public final Map<UUID, BukkitRunnable> combatTask = new HashMap<UUID, BukkitRunnable>();
-	public final Map<UUID, Integer> combat = new HashMap<UUID, Integer>();
-	  
-	@EventHandler(priority = EventPriority.LOWEST)
-	public void on(PlayerDeathEvent event) {
-		Player player = event.getEntity();
-	    
-	    if (!combat.containsKey(player.getUniqueId())) {
-	    	return;
-	    }
+    private final TeamManager teams;
+    private final SpecManager spec;
 
-		combatTask.get(player.getUniqueId()).cancel();
-		combatTask.remove(player.getUniqueId());
-		combat.remove(player.getUniqueId());
-	}
-	  
-	@EventHandler(priority = EventPriority.LOWEST)
-	public void on(PlayerLeaveEvent event) {
-		Player player = event.getPlayer();
-	    
-		if (event.getLogoutReason() != LogoutReason.LEFT) {
-			return;
-		}
-		
-	    if (!combat.containsKey(player.getUniqueId())) {
-	    	return;
-	    }	
-	    
-		if (spec.isSpectating(player)) {
-			return;
-		}
-		
-		if (player.getWorld().getName().equals("lobby")) {
-			return;
-		}
+    public CombatLogFeature(Main plugin, TeamManager teams, SpecManager spec) {
+        super("Combat Log", "Kills people that log out in combat.");
 
-		combatTask.get(player.getUniqueId()).cancel();
-		combatTask.remove(player.getUniqueId());
-		combat.remove(player.getUniqueId());
-		
-		if (State.isState(State.INGAME)) {
-			PlayerUtils.broadcast(Main.PREFIX + "§c" + player.getName() + "§7 left while in combat.");
-		}
-		
-		player.setHealth(0.0D);
-	}
+        this.plugin = plugin;
 
-	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-	public void on(EntityDamageByEntityEvent event) {
-		if (event.isCancelled()) {
-			return;
-		}
-		
-		Entity damager = event.getDamager();
-		Entity entity = event.getEntity();
-		
-		if (!(entity instanceof Player)) {
-			return;
-		}
-		
-		if (!(damager instanceof Projectile) && !(damager instanceof Player)) {
-			return;
-		}
+        this.teams = teams;
+        this.spec = spec;
+    }
 
-		Player player = (Player) entity;
-	    
-		if (spec.isSpectating(player)) {
-			return;
-		}
-		
-		Team pteam = teams.getTeam(player);
-		
-		if (damager instanceof Player) {
-			Player killer = (Player) damager;
-			
-			// shouldn't work if killer is speccing.
-			if (spec.isSpectating(killer)) {
-				return;
-			}
-			
-			Team team = teams.getTeam(killer);
-			
-			if (pteam != null && pteam.equals(team)) {
-				return;
-			}
-			
-			handle(killer.getUniqueId());
-		} 
-		
-		if (damager instanceof Projectile) {
-			Projectile proj = (Projectile) damager;
-			ProjectileSource source = proj.getShooter();
-			
-			if (!(source instanceof Player)) {
-				return;
-			}
-			
-			Player killer = (Player) source;
-			
-			Team team = teams.getTeam(killer);
-			
-			if (pteam != null && pteam.equals(team)) {
-				return;
-			}
+    public final Map<UUID, BukkitRunnable> combatTask = new HashMap<UUID, BukkitRunnable>();
+    public final Map<UUID, Integer> combat = new HashMap<UUID, Integer>();
 
-			// shouldn't work if killer is speccing.
-			if (spec.isSpectating(killer)) {
-				return;
-			}
-			
-			handle(killer.getUniqueId());
-		}
-		
-		handle(player.getUniqueId());
-	}
-	
-	/**
-	 * Handle combat log for the given UUID.
-	 * 
-	 * @param uuid The UUID.
-	 */
-	private void handle(UUID uuid) {
-		combat.put(uuid, 15);
-		
-		if (!combatTask.containsKey(uuid)) {
-			combatTask.put(uuid, new BukkitRunnable() {
-				public void run() {
-					combat.put(uuid, combat.get(uuid) - 1);
-					
-					if (combat.get(uuid) == 0) {
-						combatTask.remove(uuid);
-						combat.remove(uuid);
-						
-						cancel();
-					}
-				}
-			});
-			
-			combatTask.get(uuid).runTaskTimer(plugin, 20L, 20L);
-		}
-	}
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void on(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+
+        if (!combat.containsKey(player.getUniqueId())) {
+            return;
+        }
+
+        combatTask.get(player.getUniqueId()).cancel();
+        combatTask.remove(player.getUniqueId());
+        combat.remove(player.getUniqueId());
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void on(PlayerLeaveEvent event) {
+        Player player = event.getPlayer();
+
+        if (event.getLogoutReason() != LogoutReason.LEFT) {
+            return;
+        }
+
+        if (!combat.containsKey(player.getUniqueId())) {
+            return;
+        }
+
+        if (spec.isSpectating(player)) {
+            return;
+        }
+
+        if (player.getWorld().getName().equals("lobby")) {
+            return;
+        }
+
+        combatTask.get(player.getUniqueId()).cancel();
+        combatTask.remove(player.getUniqueId());
+        combat.remove(player.getUniqueId());
+
+        if (State.isState(State.INGAME)) {
+            PlayerUtils.broadcast(Main.PREFIX + "§c" + player.getName() + "§7 left while in combat.");
+        }
+
+        player.setHealth(0.0D);
+    }
+
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    public void on(EntityDamageByEntityEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+
+        Entity damager = event.getDamager();
+        Entity entity = event.getEntity();
+
+        if (!(entity instanceof Player)) {
+            return;
+        }
+
+        if (!(damager instanceof Projectile) && !(damager instanceof Player)) {
+            return;
+        }
+
+        Player player = (Player) entity;
+
+        if (spec.isSpectating(player)) {
+            return;
+        }
+
+        Team pteam = teams.getTeam(player);
+
+        if (damager instanceof Player) {
+            Player killer = (Player) damager;
+
+            // shouldn't work if killer is speccing.
+            if (spec.isSpectating(killer)) {
+                return;
+            }
+
+            Team team = teams.getTeam(killer);
+
+            if (pteam != null && pteam.equals(team)) {
+                return;
+            }
+
+            handle(killer.getUniqueId());
+        }
+
+        if (damager instanceof Projectile) {
+            Projectile proj = (Projectile) damager;
+            ProjectileSource source = proj.getShooter();
+
+            if (!(source instanceof Player)) {
+                return;
+            }
+
+            Player killer = (Player) source;
+
+            Team team = teams.getTeam(killer);
+
+            if (pteam != null && pteam.equals(team)) {
+                return;
+            }
+
+            // shouldn't work if killer is speccing.
+            if (spec.isSpectating(killer)) {
+                return;
+            }
+
+            handle(killer.getUniqueId());
+        }
+
+        handle(player.getUniqueId());
+    }
+
+    /**
+     * Handle combat log for the given UUID.
+     *
+     * @param uuid The UUID.
+     */
+    private void handle(UUID uuid) {
+        combat.put(uuid, 15);
+
+        if (!combatTask.containsKey(uuid)) {
+            combatTask.put(uuid, new BukkitRunnable() {
+                public void run() {
+                    combat.put(uuid, combat.get(uuid) - 1);
+
+                    if (combat.get(uuid) == 0) {
+                        combatTask.remove(uuid);
+                        combat.remove(uuid);
+
+                        cancel();
+                    }
+                }
+            });
+
+            combatTask.get(uuid).runTaskTimer(plugin, 20L, 20L);
+        }
+    }
 }

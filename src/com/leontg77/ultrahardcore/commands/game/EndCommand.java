@@ -52,211 +52,211 @@ import com.leontg77.ultrahardcore.world.WorldManager;
  * @author LeonTG77
  */
 public class EndCommand extends UHCCommand {
-	private final Main plugin;
-	
-	private final Timer timer;
-	private final Data data;
-	
-	private final Settings settings;
-	private final Game game;
+    private final Main plugin;
 
-	private final ScenarioManager scen;
-	private final FeatureManager feat;
+    private final Timer timer;
+    private final Data data;
 
-	private final BoardManager board;
-	private final TeamManager teams;
-	
-	private final SpecManager spec;
-	private final GUIManager gui;
-	
-	private final FireworkManager firework;
-	private final WorldManager manager;
-	
-	public EndCommand(Main plugin, Data data, Timer timer, Settings settings, Game game, FeatureManager feat, ScenarioManager scen, BoardManager board, TeamManager teams, SpecManager spec, GUIManager gui, FireworkManager firework, WorldManager manager) {
-		super("end", "<winners>");
-		
-		this.plugin = plugin;
-		
-		this.timer = timer;
-		this.data = data;
-		
-		this.settings = settings;
-		this.game = game;
+    private final Settings settings;
+    private final Game game;
 
-		this.scen = scen;
-		this.feat = feat;
-		
-		this.board = board;
-		this.teams = teams;
-		
-		this.spec = spec;
-		this.gui = gui;
-		
-		this.firework = firework;
-		this.manager = manager;
-	}
+    private final ScenarioManager scen;
+    private final FeatureManager feat;
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (args.length == 0) {
-			return false;
-		}
-		
-		List<String> winners = new ArrayList<String>();
-		
-		PlayerUtils.broadcast(Main.PREFIX + "The game has ended!");
-		PlayerUtils.broadcast(" ");
-		PlayerUtils.broadcast(Main.PREFIX + "The winners are:");
-		
-		int totalKills = 0;
-		
-		for (int i = 0; i < args.length; i++) {
-			OfflinePlayer winner = PlayerUtils.getOfflinePlayer(args[i]);
-			
-			User user = plugin.getUser(winner);
-			user.increaseStat(Stat.WINS);
+    private final BoardManager board;
+    private final TeamManager teams;
 
-			String color = teams.getTeam(winner) == null ? "§f" : teams.getTeam(winner).getPrefix();
-			int kills = board.getActualScore(winner.getName());
-			
-			totalKills += kills;
-			
-			PlayerUtils.broadcast(Main.PREFIX + "§8- " + color + winner.getName() + "§8 (§a" + kills + " §7" + (kills == 1 ? "kill" : "kills") + "§8)");
-			winners.add(winner.getName());
-		}
-		
-		if (winners.size() > 1) {
-			PlayerUtils.broadcast(Main.PREFIX + "With a total of §a" + totalKills + "§7 kills.");
-		}
-		
-		PlayerUtils.broadcast(" ");
-		PlayerUtils.broadcast(Main.PREFIX + "Thanks for playing and congrats to the winners!");
-		PlayerUtils.broadcast(Main.PREFIX + "Remember to check out the hall of fame by using §6/hof§7.");
-		
-		String host = game.getHostHOFName();
-		
-		Bukkit.getPluginManager().callEvent(new GameEndEvent());
-		
-		DateFormat dateFormat = new SimpleDateFormat("dd. MMM, yyyy", Locale.US);
-		Date date = new Date();
+    private final SpecManager spec;
+    private final GUIManager gui;
 
-		FileUtils.updateUserFiles(plugin);
+    private final FireworkManager firework;
+    private final WorldManager manager;
 
-		if (!game.isRecordedRound()) {
-			int matchcount = 1;
-			
-			if (settings.getHOF().contains(host) && settings.getHOF().contains(host + ".games")) {
-				matchcount = settings.getHOF().getConfigurationSection(host + ".games").getKeys(false).size() + 1;
-			}
-			
-			settings.getHOF().set(host + ".games." + matchcount + ".date", dateFormat.format(date));
-			settings.getHOF().set(host + ".games." + matchcount + ".winners", winners);
-			settings.getHOF().set(host + ".games." + matchcount + ".kills", totalKills);
-			settings.getHOF().set(host + ".games." + matchcount + ".teamsize", game.getAdvancedTeamSize(false, false).trim());
-			settings.getHOF().set(host + ".games." + matchcount + ".scenarios", game.getScenarios());
-			settings.saveHOF();
-		}
-		
-		gui.getGUI(HallOfFameGUI.class).update(host);
-		
-		for (Scenario scens : scen.getEnabledScenarios()) {
-			scens.disable();
-		}
+    public EndCommand(Main plugin, Data data, Timer timer, Settings settings, Game game, FeatureManager feat, ScenarioManager scen, BoardManager board, TeamManager teams, SpecManager spec, GUIManager gui, FireworkManager firework, WorldManager manager) {
+        super("end", "<winners>");
 
-		for (Player online : Bukkit.getOnlinePlayers()) {
-			if (spec.isSpectating(online)) {
-				spec.disableSpecmode(online);
-			}
-			
-			for (Player onlineTwo : Bukkit.getOnlinePlayers()) {
-				online.showPlayer(onlineTwo);
-				onlineTwo.showPlayer(online);
-			}
+        this.plugin = plugin;
 
-			online.setGameMode(GameMode.SURVIVAL);
-			online.teleport(plugin.getSpawn());
-			online.setMaxHealth(20.0);
-			online.setFireTicks(0);
-			
-			User user = plugin.getUser(online);
-			user.reset();
-		}
-		
-		State.setState(State.NOT_RUNNING);
-		firework.startFireworkShow();
+        this.timer = timer;
+        this.data = data;
 
-		Bukkit.setIdleTimeout(60);
+        this.settings = settings;
+        this.game = game;
 
-		game.setScenarios("games running");
-		game.setMatchPost("none");
-		game.setMaxPlayers(Bukkit.getMaxPlayers());
-		game.setTeamSize("No");
-		
-		feat.getFeature(SidebarResetFeature.class).enable(settings);
-		feat.getFeature(TabHealthColorFeature.class).disable(settings);
-		feat.getFeature(HeartsOnTabFeature.class).disable(settings);
-		feat.getFeature(HardcoreHeartsFeature.class).enable(settings);
-		
-		game.setRecordedRound(false);
-		game.setRRName("N/A");
+        this.scen = scen;
+        this.feat = feat;
 
-		gui.getGUI(GameInfoGUI.class).update();
-		gui.getGUI(ConfigGUI.class).update();
-		
-		teams.getSavedTeams().clear();
+        this.board = board;
+        this.teams = teams;
 
-		for (OfflinePlayer whitelisted : Bukkit.getWhitelistedPlayers()) {
-			whitelisted.setWhitelisted(false);
-		}
+        this.spec = spec;
+        this.gui = gui;
 
-		new BukkitRunnable() {
-			public void run() {
-				data.clearData();
-				
-				for (String entry : board.getBoard().getEntries()) {
-					board.getBoard().resetScores(entry);
-				}
-				
-				for (Team team : board.getBoard().getTeams()) {
-					for (String member : team.getEntries()) {
-						team.removeEntry(member);
-					}
-				}
-				
-				PlayerUtils.broadcast(Main.PREFIX + "Reset scoreboards and teams.");
-				
-				for (World world : game.getWorlds()) {
-					manager.deleteWorld(world);
-				}
-				
-				PlayerUtils.broadcast(Main.PREFIX + "Deleted used worlds.");
-			}
-		}.runTaskLater(plugin, 300);
+        this.firework = firework;
+        this.manager = manager;
+    }
 
-		new BukkitRunnable() {
-			public void run() {
-				game.setHost("None");
-				
-				String kickMessage = 
-				"§8» §cThanks for playing! §8«" +
-			    "\n" + 
-			    "\n§7If you'd like to know about updates and upcoming games," +
-			    "\n§7you can follow us on twitter §a@ArcticUHC§7!";
-				
-				for (Player online : Bukkit.getOnlinePlayers()) {
-					online.kickPlayer(kickMessage);
-				}
-				
-				Bukkit.shutdown();
-			}
-		}.runTaskLater(plugin, 1200);
-		
-		timer.stopTimers();
-		return true;
-	}
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (args.length == 0) {
+            return false;
+        }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return allPlayers();
-	}
+        List<String> winners = new ArrayList<String>();
+
+        PlayerUtils.broadcast(Main.PREFIX + "The game has ended!");
+        PlayerUtils.broadcast(" ");
+        PlayerUtils.broadcast(Main.PREFIX + "The winners are:");
+
+        int totalKills = 0;
+
+        for (int i = 0; i < args.length; i++) {
+            OfflinePlayer winner = PlayerUtils.getOfflinePlayer(args[i]);
+
+            User user = plugin.getUser(winner);
+            user.increaseStat(Stat.WINS);
+
+            String color = teams.getTeam(winner) == null ? "§f" : teams.getTeam(winner).getPrefix();
+            int kills = board.getActualScore(winner.getName());
+
+            totalKills += kills;
+
+            PlayerUtils.broadcast(Main.PREFIX + "§8- " + color + winner.getName() + "§8 (§a" + kills + " §7" + (kills == 1 ? "kill" : "kills") + "§8)");
+            winners.add(winner.getName());
+        }
+
+        if (winners.size() > 1) {
+            PlayerUtils.broadcast(Main.PREFIX + "With a total of §a" + totalKills + "§7 kills.");
+        }
+
+        PlayerUtils.broadcast(" ");
+        PlayerUtils.broadcast(Main.PREFIX + "Thanks for playing and congrats to the winners!");
+        PlayerUtils.broadcast(Main.PREFIX + "Remember to check out the hall of fame by using §6/hof§7.");
+
+        String host = game.getHostHOFName();
+
+        Bukkit.getPluginManager().callEvent(new GameEndEvent());
+
+        DateFormat dateFormat = new SimpleDateFormat("dd. MMM, yyyy", Locale.US);
+        Date date = new Date();
+
+        FileUtils.updateUserFiles(plugin);
+
+        if (!game.isRecordedRound()) {
+            int matchcount = 1;
+
+            if (settings.getHOF().contains(host) && settings.getHOF().contains(host + ".games")) {
+                matchcount = settings.getHOF().getConfigurationSection(host + ".games").getKeys(false).size() + 1;
+            }
+
+            settings.getHOF().set(host + ".games." + matchcount + ".date", dateFormat.format(date));
+            settings.getHOF().set(host + ".games." + matchcount + ".winners", winners);
+            settings.getHOF().set(host + ".games." + matchcount + ".kills", totalKills);
+            settings.getHOF().set(host + ".games." + matchcount + ".teamsize", game.getAdvancedTeamSize(false, false).trim());
+            settings.getHOF().set(host + ".games." + matchcount + ".scenarios", game.getScenarios());
+            settings.saveHOF();
+        }
+
+        gui.getGUI(HallOfFameGUI.class).update(host);
+
+        for (Scenario scens : scen.getEnabledScenarios()) {
+            scens.disable();
+        }
+
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            if (spec.isSpectating(online)) {
+                spec.disableSpecmode(online);
+            }
+
+            for (Player onlineTwo : Bukkit.getOnlinePlayers()) {
+                online.showPlayer(onlineTwo);
+                onlineTwo.showPlayer(online);
+            }
+
+            online.setGameMode(GameMode.SURVIVAL);
+            online.teleport(plugin.getSpawn());
+            online.setMaxHealth(20.0);
+            online.setFireTicks(0);
+
+            User user = plugin.getUser(online);
+            user.reset();
+        }
+
+        State.setState(State.NOT_RUNNING);
+        firework.startFireworkShow();
+
+        Bukkit.setIdleTimeout(60);
+
+        game.setScenarios("games running");
+        game.setMatchPost("none");
+        game.setMaxPlayers(Bukkit.getMaxPlayers());
+        game.setTeamSize("No");
+
+        feat.getFeature(SidebarResetFeature.class).enable(settings);
+        feat.getFeature(TabHealthColorFeature.class).disable(settings);
+        feat.getFeature(HeartsOnTabFeature.class).disable(settings);
+        feat.getFeature(HardcoreHeartsFeature.class).enable(settings);
+
+        game.setRecordedRound(false);
+        game.setRRName("N/A");
+
+        gui.getGUI(GameInfoGUI.class).update();
+        gui.getGUI(ConfigGUI.class).update();
+
+        teams.getSavedTeams().clear();
+
+        for (OfflinePlayer whitelisted : Bukkit.getWhitelistedPlayers()) {
+            whitelisted.setWhitelisted(false);
+        }
+
+        new BukkitRunnable() {
+            public void run() {
+                data.clearData();
+
+                for (String entry : board.getBoard().getEntries()) {
+                    board.getBoard().resetScores(entry);
+                }
+
+                for (Team team : board.getBoard().getTeams()) {
+                    for (String member : team.getEntries()) {
+                        team.removeEntry(member);
+                    }
+                }
+
+                PlayerUtils.broadcast(Main.PREFIX + "Reset scoreboards and teams.");
+
+                for (World world : game.getWorlds()) {
+                    manager.deleteWorld(world);
+                }
+
+                PlayerUtils.broadcast(Main.PREFIX + "Deleted used worlds.");
+            }
+        }.runTaskLater(plugin, 300);
+
+        new BukkitRunnable() {
+            public void run() {
+                game.setHost("None");
+
+                String kickMessage =
+                "§8» §cThanks for playing! §8«" +
+                "\n" +
+                "\n§7If you'd like to know about updates and upcoming games," +
+                "\n§7you can follow us on twitter §a@ArcticUHC§7!";
+
+                for (Player online : Bukkit.getOnlinePlayers()) {
+                    online.kickPlayer(kickMessage);
+                }
+
+                Bukkit.shutdown();
+            }
+        }.runTaskLater(plugin, 1200);
+
+        timer.stopTimers();
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return allPlayers();
+    }
 }

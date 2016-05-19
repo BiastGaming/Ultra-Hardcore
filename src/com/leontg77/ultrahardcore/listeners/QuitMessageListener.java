@@ -25,14 +25,14 @@ import com.leontg77.ultrahardcore.events.PlayerLeaveEvent;
  * @author D4mnX
  */
 public class QuitMessageListener extends AbstractAppender implements Listener {
-	private static final Pattern LOG_PATTERM = Pattern.compile("([a-zA-Z0-9_]{1,16}) lost connection: (.*)");
-	
-	private static final Map<String, LogoutReason> STATIC_QUIT_REASONS = ImmutableMap.of(
+    private static final Pattern LOG_PATTERM = Pattern.compile("([a-zA-Z0-9_]{1,16}) lost connection: (.*)");
+
+    private static final Map<String, LogoutReason> STATIC_QUIT_REASONS = ImmutableMap.of(
             "Disconnected", LogoutReason.LEFT,
             "Timed out", LogoutReason.TIMED_OUT
     );
 
-    private final Map<String, LogoutReason> storedReasons = Maps.newHashMap();	
+    private final Map<String, LogoutReason> storedReasons = Maps.newHashMap();
 
     public QuitMessageListener() {
         super(QuitMessageListener.class.getName(), null, null);
@@ -55,8 +55,8 @@ public class QuitMessageListener extends AbstractAppender implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void on(PlayerKickEvent event) {
-    	Player player = event.getPlayer();
-    	
+        Player player = event.getPlayer();
+
         storedReasons.put(player.getName(), LogoutReason.KICKED);
     }
 

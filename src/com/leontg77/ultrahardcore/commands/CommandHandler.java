@@ -118,88 +118,88 @@ import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
  * @author LeonTG77
  */
 public class CommandHandler implements CommandExecutor, TabCompleter {
-	private final Main plugin;
-	
-	public CommandHandler(Main plugin) {
-		this.plugin = plugin;
-	}
-	
-	private List<UHCCommand> cmds = new ArrayList<UHCCommand>();
+    private final Main plugin;
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		UHCCommand command = getCommand(cmd.getName());
-		
-		if (command == null) { // this shouldn't happen, it only uses registered commands but incase.
-			return true;
-		}
-		
-		if (!sender.hasPermission(command.getPermission())) {
-			sender.sendMessage(Main.NO_PERMISSION_MESSAGE);
-			return true;
-		}
-		
-		try {
-			if (!command.execute(sender, args)) {
-				sender.sendMessage(Main.PREFIX + "Usage: " + command.getUsage());
-			}
-		} catch (CommandException ex) {
-			sender.sendMessage(ChatColor.RED + ex.getMessage()); // send them the exception message
-		} catch (Exception ex) {
-			sender.sendMessage(ChatColor.RED + ex.getClass().getName() + ": " + ex.getMessage());
-			ex.printStackTrace(); // send them the exception and tell the console the error if its not a command exception
-		}
-		return true;
-	}
+    public CommandHandler(Main plugin) {
+        this.plugin = plugin;
+    }
 
-	@Override
-	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-		UHCCommand command = getCommand(cmd.getName());
+    private List<UHCCommand> cmds = new ArrayList<UHCCommand>();
 
-		if (command == null) { // this shouldn't happen, it only uses registered commands but incase.
-			return null;
-		}
-		
-		if (!sender.hasPermission(command.getPermission())) {
-			return null;
-		}
-		
-		try {
-			List<String> list = command.tabComplete(sender, args);
-			
-			// if the list is null, replace it with everyone online.
-			if (list == null) {
-				return null;
-			}
-			
-			// I don't want anything done if the list is empty.
-			if (list.isEmpty()) {
-				return list;
-			}
-			
-			List<String> toReturn = new ArrayList<String>();
-			
-			if (args[args.length - 1].isEmpty()) {
-				for (String type : list) {
-					toReturn.add(type);
-				}
-			} else {
-				for (String type : list) {
-					if (type.toLowerCase().startsWith(args[args.length - 1].toLowerCase())) {
-						toReturn.add(type);
-					}
-				}
-			}
-			
-			return toReturn;
-		} catch (Exception ex) {
-			sender.sendMessage(ChatColor.RED + ex.getClass().getName() + ": " + ex.getMessage());
-			ex.printStackTrace(); 
-		}
-		return null;
-	}
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        UHCCommand command = getCommand(cmd.getName());
 
-	/**
+        if (command == null) { // this shouldn't happen, it only uses registered commands but incase.
+            return true;
+        }
+
+        if (!sender.hasPermission(command.getPermission())) {
+            sender.sendMessage(Main.NO_PERMISSION_MESSAGE);
+            return true;
+        }
+
+        try {
+            if (!command.execute(sender, args)) {
+                sender.sendMessage(Main.PREFIX + "Usage: " + command.getUsage());
+            }
+        } catch (CommandException ex) {
+            sender.sendMessage(ChatColor.RED + ex.getMessage()); // send them the exception message
+        } catch (Exception ex) {
+            sender.sendMessage(ChatColor.RED + ex.getClass().getName() + ": " + ex.getMessage());
+            ex.printStackTrace(); // send them the exception and tell the console the error if its not a command exception
+        }
+        return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        UHCCommand command = getCommand(cmd.getName());
+
+        if (command == null) { // this shouldn't happen, it only uses registered commands but incase.
+            return null;
+        }
+
+        if (!sender.hasPermission(command.getPermission())) {
+            return null;
+        }
+
+        try {
+            List<String> list = command.tabComplete(sender, args);
+
+            // if the list is null, replace it with everyone online.
+            if (list == null) {
+                return null;
+            }
+
+            // I don't want anything done if the list is empty.
+            if (list.isEmpty()) {
+                return list;
+            }
+
+            List<String> toReturn = new ArrayList<String>();
+
+            if (args[args.length - 1].isEmpty()) {
+                for (String type : list) {
+                    toReturn.add(type);
+                }
+            } else {
+                for (String type : list) {
+                    if (type.toLowerCase().startsWith(args[args.length - 1].toLowerCase())) {
+                        toReturn.add(type);
+                    }
+                }
+            }
+
+            return toReturn;
+        } catch (Exception ex) {
+            sender.sendMessage(ChatColor.RED + ex.getClass().getName() + ": " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * Get a uhc command.
      *
      * @param name The name of the uhc command
@@ -214,130 +214,130 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         
         return null;
     }
-	
-	/**
-	 * Register all the commands.
-	 */
-	public void registerCommands(Game game, Data data, Arena arena, Parkour parkour, Settings settings, GUIManager gui, BoardManager board, SpecManager spec, FeatureManager feat, ScenarioManager scen, WorldManager manager, Timer timer, TeamManager teams, FireworkManager firework, ScatterManager scatter, UBL ubl, AntiStripmine antiSM) {
-		// arena
-		cmds.add(new ArenaCommand(arena, game, parkour, spec, board));
-		cmds.add(new HotbarCommand(plugin, arena));
-		
-		// basic
-		cmds.add(new BroadcastCommand());
-		cmds.add(new ButcherCommand(game));
-		cmds.add(new CombatLogCommand(feat.getFeature(CombatLogFeature.class)));
-		cmds.add(new EditCommand());
-		cmds.add(new FireCommand(firework));
-		cmds.add(new IgnoreCommand(plugin));
-		cmds.add(new ListCommand(plugin, game));
-		cmds.add(new ParkourCommand(plugin, settings, parkour));
-		cmds.add(new SetspawnCommand(settings));
-		cmds.add(new SkullCommand());
-		cmds.add(new StaffChatCommand());
-		cmds.add(new TextCommand());
-		
-		// game
-		cmds.add(new BoardCommand(arena, game, board));
-		cmds.add(new ChatCommand(game));
-		cmds.add(new ConfigCommand(plugin, game, gui, feat, scen));
-		cmds.add(new EndCommand(plugin, data, timer, settings, game, feat, scen, board, teams, spec, gui, firework, manager));
-		cmds.add(new HelpopCommand(plugin, spec));
-		cmds.add(new MatchpostCommand(game));
-		cmds.add(new MUCoordsCommand(game, timer));
-		cmds.add(new RespawnCommand(plugin));
-		cmds.add(new ScenarioCommand(plugin, scen));
-		cmds.add(new ScatterCommand(game, settings, spec, scatter, teams, parkour, arena));
-		cmds.add(new StartCommand(game, timer));
-		cmds.add(new TimeLeftCommand(game, timer));
-		cmds.add(new TimerCommand(plugin));
-		cmds.add(new VoteCommand(plugin));
-		cmds.add(new WhitelistCommand(game));
-		
-		// give
-		cmds.add(new GiveallCommand());
-		cmds.add(new GiveCommand());
-		
-		// inventory
-		cmds.add(new HOFCommand(plugin, game, settings, gui));
-		cmds.add(new GameInfoCommand(gui));
-		
-		// lag
-		cmds.add(new MsCommand(plugin));
-		cmds.add(new TpsCommand(plugin));
-		
-		// msg
-		cmds.add(new MsgCommand(plugin, scen));
-		cmds.add(new ReplyCommand(plugin, scen));
-		
-		// player
-		cmds.add(new ClearInvCommand(plugin));
-		cmds.add(new ClearXPCommand(plugin));
-		cmds.add(new FeedCommand(plugin));
-		cmds.add(new FlyCommand());
-		cmds.add(new GamemodeCommand(spec));
-		cmds.add(new HealCommand(plugin));
-		cmds.add(new HealthCommand(scen));
-		cmds.add(new SethealthCommand());
-		cmds.add(new SetmaxhealthCommand());
-		
-		// punish
-		cmds.add(new BanCommand(plugin, board));
-		cmds.add(new BanIPCommand(board));
-		cmds.add(new DQCommand(plugin, board));
-		cmds.add(new KickCommand(plugin));
-		cmds.add(new MuteCommand(plugin));
-		cmds.add(new TempbanCommand(plugin, board));
-		cmds.add(new UnbanCommand(plugin));
-		cmds.add(new UnbanIPCommand());
 
-		// spectate
-		cmds.add(new BackCommand(plugin, spec));
-		GlobalChatCommand globalChatCommand = new GlobalChatCommand(plugin, game, spec);
-		cmds.add(globalChatCommand);
-		cmds.add(new GoodGameCommand(globalChatCommand));
-		cmds.add(new InvseeCommand(gui, spec));
-		cmds.add(new NearCommand(spec, teams));
-		cmds.add(new SpectateCommand(game, spec));
-		cmds.add(new SpectatorChatProtectionCommand(spec));
-		cmds.add(new SpecAndStaffChatCommand(spec));
-		cmds.add(new SpecChatCommand(spec));
-		cmds.add(new SpeedCommand(spec));
-		cmds.add(new TpCommand(spec));
-		
-		// team
-		cmds.add(new PMCommand(spec, teams));
-		cmds.add(new PMMinedOresCommand(game, spec, teams));
-		cmds.add(new PMOresCommand(game, spec, teams));
-		cmds.add(new RandomCommand(teams));
-		cmds.add(new TeamCommand(game, board, teams, scen));
-		cmds.add(new TLCommand(game, spec, teams));
+    /**
+     * Register all the commands.
+     */
+    public void registerCommands(Game game, Data data, Arena arena, Parkour parkour, Settings settings, GUIManager gui, BoardManager board, SpecManager spec, FeatureManager feat, ScenarioManager scen, WorldManager manager, Timer timer, TeamManager teams, FireworkManager firework, ScatterManager scatter, UBL ubl, AntiStripmine antiSM) {
+        // arena
+        cmds.add(new ArenaCommand(arena, game, parkour, spec, board));
+        cmds.add(new HotbarCommand(plugin, arena));
 
-		// user
-		cmds.add(new InfoCommand(plugin, ubl));
-		cmds.add(new InfoIPCommand());
-		cmds.add(new RankCommand(plugin));
-		cmds.add(new SetFixedScatterLocationCommand(plugin));
-		cmds.add(new StatsCommand(plugin, game, gui));
-		cmds.add(new TopCommand(game, gui));
-		
-		// world
-		cmds.add(new BorderCommand());
-		cmds.add(new PregenCommand());
-		cmds.add(new PvPCommand());
-		cmds.add(new WorldCommand(game, settings, antiSM, gui, manager));
-		
-		for (UHCCommand cmd : cmds) {
-			PluginCommand pCmd = plugin.getCommand(cmd.getName());
-			
-			// if its null, broadcast the command name so I know which one it is (so I can fix it).
-			if (pCmd == null) {
-				PlayerUtils.broadcast(cmd.getName());
-				continue;
-			}
-			
-			pCmd.setExecutor(this);
-			pCmd.setTabCompleter(this);
-		}
-	}
+        // basic
+        cmds.add(new BroadcastCommand());
+        cmds.add(new ButcherCommand(game));
+        cmds.add(new CombatLogCommand(feat.getFeature(CombatLogFeature.class)));
+        cmds.add(new EditCommand());
+        cmds.add(new FireCommand(firework));
+        cmds.add(new IgnoreCommand(plugin));
+        cmds.add(new ListCommand(plugin, game));
+        cmds.add(new ParkourCommand(plugin, settings, parkour));
+        cmds.add(new SetspawnCommand(settings));
+        cmds.add(new SkullCommand());
+        cmds.add(new StaffChatCommand());
+        cmds.add(new TextCommand());
+
+        // game
+        cmds.add(new BoardCommand(arena, game, board));
+        cmds.add(new ChatCommand(game));
+        cmds.add(new ConfigCommand(plugin, game, gui, feat, scen));
+        cmds.add(new EndCommand(plugin, data, timer, settings, game, feat, scen, board, teams, spec, gui, firework, manager));
+        cmds.add(new HelpopCommand(plugin, spec));
+        cmds.add(new MatchpostCommand(game));
+        cmds.add(new MUCoordsCommand(game, timer));
+        cmds.add(new RespawnCommand(plugin));
+        cmds.add(new ScenarioCommand(plugin, scen));
+        cmds.add(new ScatterCommand(game, settings, spec, scatter, teams, parkour, arena));
+        cmds.add(new StartCommand(game, timer));
+        cmds.add(new TimeLeftCommand(game, timer));
+        cmds.add(new TimerCommand(plugin));
+        cmds.add(new VoteCommand(plugin));
+        cmds.add(new WhitelistCommand(game));
+
+        // give
+        cmds.add(new GiveallCommand());
+        cmds.add(new GiveCommand());
+
+        // inventory
+        cmds.add(new HOFCommand(plugin, game, settings, gui));
+        cmds.add(new GameInfoCommand(gui));
+
+        // lag
+        cmds.add(new MsCommand(plugin));
+        cmds.add(new TpsCommand(plugin));
+
+        // msg
+        cmds.add(new MsgCommand(plugin, scen));
+        cmds.add(new ReplyCommand(plugin, scen));
+
+        // player
+        cmds.add(new ClearInvCommand(plugin));
+        cmds.add(new ClearXPCommand(plugin));
+        cmds.add(new FeedCommand(plugin));
+        cmds.add(new FlyCommand());
+        cmds.add(new GamemodeCommand(spec));
+        cmds.add(new HealCommand(plugin));
+        cmds.add(new HealthCommand(scen));
+        cmds.add(new SethealthCommand());
+        cmds.add(new SetmaxhealthCommand());
+
+        // punish
+        cmds.add(new BanCommand(plugin, board));
+        cmds.add(new BanIPCommand(board));
+        cmds.add(new DQCommand(plugin, board));
+        cmds.add(new KickCommand(plugin));
+        cmds.add(new MuteCommand(plugin));
+        cmds.add(new TempbanCommand(plugin, board));
+        cmds.add(new UnbanCommand(plugin));
+        cmds.add(new UnbanIPCommand());
+
+        // spectate
+        cmds.add(new BackCommand(plugin, spec));
+        GlobalChatCommand globalChatCommand = new GlobalChatCommand(plugin, game, spec);
+        cmds.add(globalChatCommand);
+        cmds.add(new GoodGameCommand(globalChatCommand));
+        cmds.add(new InvseeCommand(gui, spec));
+        cmds.add(new NearCommand(spec, teams));
+        cmds.add(new SpectateCommand(game, spec));
+        cmds.add(new SpectatorChatProtectionCommand(spec));
+        cmds.add(new SpecAndStaffChatCommand(spec));
+        cmds.add(new SpecChatCommand(spec));
+        cmds.add(new SpeedCommand(spec));
+        cmds.add(new TpCommand(spec));
+
+        // team
+        cmds.add(new PMCommand(spec, teams));
+        cmds.add(new PMMinedOresCommand(game, spec, teams));
+        cmds.add(new PMOresCommand(game, spec, teams));
+        cmds.add(new RandomCommand(teams));
+        cmds.add(new TeamCommand(game, board, teams, scen));
+        cmds.add(new TLCommand(game, spec, teams));
+
+        // user
+        cmds.add(new InfoCommand(plugin, ubl));
+        cmds.add(new InfoIPCommand());
+        cmds.add(new RankCommand(plugin));
+        cmds.add(new SetFixedScatterLocationCommand(plugin));
+        cmds.add(new StatsCommand(plugin, game, gui));
+        cmds.add(new TopCommand(game, gui));
+
+        // world
+        cmds.add(new BorderCommand());
+        cmds.add(new PregenCommand());
+        cmds.add(new PvPCommand());
+        cmds.add(new WorldCommand(game, settings, antiSM, gui, manager));
+
+        for (UHCCommand cmd : cmds) {
+            PluginCommand pCmd = plugin.getCommand(cmd.getName());
+
+            // if its null, broadcast the command name so I know which one it is (so I can fix it).
+            if (pCmd == null) {
+                PlayerUtils.broadcast(cmd.getName());
+                continue;
+            }
+
+            pCmd.setExecutor(this);
+            pCmd.setTabCompleter(this);
+        }
+    }
 }

@@ -18,34 +18,34 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
  * @author LeonTG77
  */
 public class AbsorptionFeature extends ToggleableFeature implements Listener {
-	private final Main plugin;
+    private final Main plugin;
 
-	public AbsorptionFeature(Main plugin) {
-		super("Absorption", "Golden apples gives absorption when consumed.");
-		
-		icon.setType(Material.GOLDEN_APPLE);
-		slot = 0;
-		
-		this.plugin = plugin;
-	}
-	
-	@EventHandler
-	public void on(PlayerItemConsumeEvent event) {
-		if (isEnabled()) {
-			return;
-		}
-		
-		final Player player = event.getPlayer();
-		final ItemStack item = event.getItem();
-		
-		if (item.getType() != Material.GOLDEN_APPLE) {
-			return;
-		}
-		
-		new BukkitRunnable() {
-			public void run() {
-				player.removePotionEffect(PotionEffectType.ABSORPTION);
-			}
+    public AbsorptionFeature(Main plugin) {
+        super("Absorption", "Golden apples gives absorption when consumed.");
+
+        icon.setType(Material.GOLDEN_APPLE);
+        slot = 0;
+
+        this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void on(PlayerItemConsumeEvent event) {
+        if (isEnabled()) {
+            return;
+        }
+
+        final Player player = event.getPlayer();
+        final ItemStack item = event.getItem();
+
+        if (item.getType() != Material.GOLDEN_APPLE) {
+            return;
+        }
+
+        new BukkitRunnable() {
+            public void run() {
+                player.removePotionEffect(PotionEffectType.ABSORPTION);
+            }
         }.runTask(plugin);
-	}
+    }
 }

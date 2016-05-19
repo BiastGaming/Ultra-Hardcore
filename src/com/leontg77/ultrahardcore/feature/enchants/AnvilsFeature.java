@@ -20,38 +20,38 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
  */
 public class AnvilsFeature extends ToggleableFeature implements Listener {
 
-	public AnvilsFeature() {
-		super("Anvils", "A block to repair, combine and rename items.");
-		
-		icon.setType(Material.ANVIL);
-		slot = 46;
-	}
-	
-	@EventHandler
-    public void on(PrepareItemCraftEvent event) {
-		if (isEnabled()) {
-			return;
-		}
-		
-    	final Recipe recipe = event.getRecipe();
-    	
-    	if (recipe.getResult().getType() == Material.ANVIL) {
-    		event.getInventory().setResult(new ItemStack(Material.AIR));
-    	}
+    public AnvilsFeature() {
+        super("Anvils", "A block to repair, combine and rename items.");
+
+        icon.setType(Material.ANVIL);
+        slot = 46;
     }
-	
-	@EventHandler
+
+    @EventHandler
+    public void on(PrepareItemCraftEvent event) {
+        if (isEnabled()) {
+            return;
+        }
+
+        final Recipe recipe = event.getRecipe();
+
+        if (recipe.getResult().getType() == Material.ANVIL) {
+            event.getInventory().setResult(new ItemStack(Material.AIR));
+        }
+    }
+
+    @EventHandler
     public void on(BlockPlaceEvent event) {
-		if (isEnabled()) {
-			return;
-		}
-		
-    	final Player player = event.getPlayer();
-		final Block block = event.getBlock();
-		
-		if (block.getType() == Material.ANVIL) {
-			player.sendMessage(Main.PREFIX + "Anvils are disabled.");
-			block.setType(Material.AIR);
-		}
+        if (isEnabled()) {
+            return;
+        }
+
+        final Player player = event.getPlayer();
+        final Block block = event.getBlock();
+
+        if (block.getType() == Material.ANVIL) {
+            player.sendMessage(Main.PREFIX + "Anvils are disabled.");
+            block.setType(Material.AIR);
+        }
     }
 }

@@ -11,18 +11,18 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
  * @author LeonTG77
  */
 public class StrengthPotionFeature extends ToggleableFeature {
-	private static final Material FEATURE_ITEM = Material.BLAZE_POWDER;
-	
-	private final PotionFuelListener listener;
+    private static final Material FEATURE_ITEM = Material.BLAZE_POWDER;
 
-	public StrengthPotionFeature(PotionFuelListener listener) {
-		super("Strength Potions", "A potion that makes your hits deal more damage.");
+    private final PotionFuelListener listener;
 
-		this.listener = listener;
-		
-		icon.setType(FEATURE_ITEM);
-		slot = 53;
-	}
+    public StrengthPotionFeature(PotionFuelListener listener) {
+        super("Strength Potions", "A potion that makes your hits deal more damage.");
+
+        this.listener = listener;
+
+        icon.setType(FEATURE_ITEM);
+        slot = 53;
+    }
 
     @Override
     public void onDisable() {

@@ -23,52 +23,52 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
  * @author LeonTG77
  */
 public class HorseHealingFeature extends ToggleableFeature implements Listener {
-	private static final Set<Material> DISABLED = ImmutableSet.of(Material.SUGAR, Material.WHEAT, Material.APPLE, Material.GOLDEN_CARROT, Material.GOLDEN_APPLE, Material.HAY_BLOCK);
+    private static final Set<Material> DISABLED = ImmutableSet.of(Material.SUGAR, Material.WHEAT, Material.APPLE, Material.GOLDEN_CARROT, Material.GOLDEN_APPLE, Material.HAY_BLOCK);
 
-	public HorseHealingFeature() {
-		super("Horse Healing", "Some food items can be used to heal horses.");
-		
-		icon.setType(Material.BREAD);
-		slot = 26;
-	}
-	
-	@EventHandler
+    public HorseHealingFeature() {
+        super("Horse Healing", "Some food items can be used to heal horses.");
+
+        icon.setType(Material.BREAD);
+        slot = 26;
+    }
+
+    @EventHandler
     public void on(PlayerInteractEntityEvent event) {
         if (isEnabled()) {
-        	return;
+            return;
         }
         
-		final Entity clicked = event.getRightClicked();
-		final Player player = event.getPlayer();
-		
-		if (!(clicked instanceof Horse)) {
-			return;
-		}
-		
-		final ItemStack hand = player.getItemInHand();
-		
-		if (hand == null) {
-			return;
-		}
-		
-		if (!DISABLED.contains(hand.getType())) {
-			return;
-		}
+        final Entity clicked = event.getRightClicked();
+        final Player player = event.getPlayer();
 
-		player.sendMessage(Main.PREFIX + "Horse healing is disabled.");
-		event.setCancelled(true);
-		
-		player.updateInventory();
+        if (!(clicked instanceof Horse)) {
+            return;
+        }
+
+        final ItemStack hand = player.getItemInHand();
+
+        if (hand == null) {
+            return;
+        }
+
+        if (!DISABLED.contains(hand.getType())) {
+            return;
+        }
+
+        player.sendMessage(Main.PREFIX + "Horse healing is disabled.");
+        event.setCancelled(true);
+
+        player.updateInventory();
     }
-	
-	@EventHandler(ignoreCancelled = true)
+
+    @EventHandler(ignoreCancelled = true)
     public void on(EntityRegainHealthEvent event) {
         if (isEnabled()) {
-        	return;
+            return;
         }
 
         if (event.getEntityType() != EntityType.HORSE) {
-        	return;
+            return;
         }
 
         event.setCancelled(true);

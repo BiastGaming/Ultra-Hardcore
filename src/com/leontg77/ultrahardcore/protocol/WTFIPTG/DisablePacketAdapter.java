@@ -13,7 +13,7 @@ import com.leontg77.ultrahardcore.managers.SpecManager;
  * @author D4mnX
  */
 public class DisablePacketAdapter extends PacketAdapter {
-	private final SpecManager spec;
+    private final SpecManager spec;
 
     public DisablePacketAdapter(Plugin plugin, SpecManager spec, PacketType... types) {
         super(plugin, types);
@@ -33,7 +33,7 @@ public class DisablePacketAdapter extends PacketAdapter {
 
     protected void handlePacket(PacketEvent event) {
         if (spec.isSpectating(event.getPlayer())) {
-        	return;
+            return;
         }
         
         event.setCancelled(true);

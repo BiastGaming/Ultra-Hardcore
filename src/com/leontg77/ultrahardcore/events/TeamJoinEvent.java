@@ -11,18 +11,18 @@ import org.bukkit.scoreboard.Team;
  * @author LeonTG77
  */
 public class TeamJoinEvent extends Event {
-	private final OfflinePlayer player;
-	private final Team team;
-	
-	/**
-	 * Team join event class constructor.
-	 * 
-	 * @param team The team joining.
-	 * @param player the player joining.
-	 */
+    private final OfflinePlayer player;
+    private final Team team;
+
+    /**
+     * Team join event class constructor.
+     *
+     * @param team The team joining.
+     * @param player the player joining.
+     */
     public TeamJoinEvent(Team team, OfflinePlayer player) {
-    	this.player = player;
-    	this.team = team;
+        this.player = player;
+        this.team = team;
     }
 
     /**
@@ -31,7 +31,7 @@ public class TeamJoinEvent extends Event {
      * @return The player.
      */
     public OfflinePlayer getPlayer() {
-    	return player;
+        return player;
     }
     
     /**
@@ -40,7 +40,7 @@ public class TeamJoinEvent extends Event {
      * @return The team.
      */
     public Team getTeam() {
-    	return team;
+        return team;
     }
     
     private static final HandlerList HANDLERS = new HandlerList();

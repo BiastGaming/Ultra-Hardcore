@@ -32,51 +32,51 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class Krenzinator extends Scenario implements Listener {
     private static final ShapelessRecipe diamond = new ShapelessRecipe(new ItemStack(Material.DIAMOND)).addIngredient(9, Material.REDSTONE_BLOCK);
 
-	public Krenzinator() {
-		super("Krenzinator", "Play UHC like Krenzinator does, Reddit post: https://redd.it/2ee99q");
-	}
+    public Krenzinator() {
+        super("Krenzinator", "Play UHC like Krenzinator does, Reddit post: https://redd.it/2ee99q");
+    }
 
-	@Override
-	public void onDisable() {
-		Iterator<Recipe> it = Bukkit.recipeIterator();
-		
-		while (it.hasNext()) {
-			Recipe res = it.next();
-			
-			if (res.equals(diamond)) {
-				it.remove();
-			}
-		}
-	}
+    @Override
+    public void onDisable() {
+        Iterator<Recipe> it = Bukkit.recipeIterator();
 
-	@Override
-	public void onEnable() {
-		Bukkit.addRecipe(diamond);
-	}
+        while (it.hasNext()) {
+            Recipe res = it.next();
 
-	@EventHandler(priority = EventPriority.NORMAL)
-	public void onPlayerDeath(PlayerDeathEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		Player victim = event.getEntity();
+            if (res.equals(diamond)) {
+                it.remove();
+            }
+        }
+    }
 
-		if (!victim.getUniqueId().toString().equals("f6eb67da-99f1-4352-b5c5-c0440be575f1") && !victim.getUniqueId().toString().equals("42d908a4-c270-4059-b796-53d217f9429f")) {
-			return;
-		}
-		
-		event.getDrops().add(new ItemStack(Material.DIAMOND, 10));
-	}
-	
-	@EventHandler
-    public void onVehicleEnter(VehicleEnterEvent event) {
-		if (!(event.getVehicle() instanceof Horse) && !(event.getEntered() instanceof Player)) {
+    @Override
+    public void onEnable() {
+        Bukkit.addRecipe(diamond);
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (!State.isState(State.INGAME)) {
             return;
         }
-		
-		Player player = (Player) event.getEntered();
-		Horse horse = (Horse) event.getVehicle();
+
+        Player victim = event.getEntity();
+
+        if (!victim.getUniqueId().toString().equals("f6eb67da-99f1-4352-b5c5-c0440be575f1") && !victim.getUniqueId().toString().equals("42d908a4-c270-4059-b796-53d217f9429f")) {
+            return;
+        }
+
+        event.getDrops().add(new ItemStack(Material.DIAMOND, 10));
+    }
+
+    @EventHandler
+    public void onVehicleEnter(VehicleEnterEvent event) {
+        if (!(event.getVehicle() instanceof Horse) && !(event.getEntered() instanceof Player)) {
+            return;
+        }
+
+        Player player = (Player) event.getEntered();
+        Horse horse = (Horse) event.getVehicle();
         
         if (horse.getVariant().equals(Horse.Variant.DONKEY)) {
             return;
@@ -85,28 +85,28 @@ public class Krenzinator extends Scenario implements Listener {
         player.sendMessage(ChatColor.RED + "You can't mount horses in this gamemode! (Only Donkeys are allowed!)");
         event.setCancelled(true);
     }
-	
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		Entity damager = event.getDamager();
-		
-		if (!(damager instanceof Egg)) {
-			return;
-		}  
-		
-		event.setDamage(1.0);
-	}
-	
-	@EventHandler
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        Entity damager = event.getDamager();
+
+        if (!(damager instanceof Egg)) {
+            return;
+        }
+
+        event.setDamage(1.0);
+    }
+
+    @EventHandler
     public void onCraftItem(CraftItemEvent event)  {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
         if (event.isCancelled()) {
             return;
         }
@@ -114,7 +114,7 @@ public class Krenzinator extends Scenario implements Listener {
         ItemStack item = event.getCurrentItem();
         
         if (!item.getType().equals(Material.DIAMOND_SWORD)) {
-        	return;
+            return;
         }
         
         PlayerUtils.damage((Player) event.getWhoClicked(), 2.0);

@@ -22,52 +22,52 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class HundredHearts extends Scenario implements Listener {
-	private final FeatureManager feat;
+    private final FeatureManager feat;
 
-	public HundredHearts(FeatureManager feat) {
-		super("100Hearts", "Everyone has 100 hearts, golden apples heal 20% of your max health.");
-		
-		this.feat = feat;
-	}
+    public HundredHearts(FeatureManager feat) {
+        super("100Hearts", "Everyone has 100 hearts, golden apples heal 20% of your max health.");
 
-	@Override
-	public void onDisable() {
-		for (Player online : Bukkit.getOnlinePlayers()) {
-			online.setMaxHealth(20);
-		}
-	}
+        this.feat = feat;
+    }
 
-	@Override
-	public void onEnable() {
-		for (Player online : Bukkit.getOnlinePlayers()) {
-			online.setMaxHealth(200);
-			online.setHealth(200);
-		}
-	}
+    @Override
+    public void onDisable() {
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            online.setMaxHealth(20);
+        }
+    }
 
-	@EventHandler
-	public void on(FinalHealEvent event) {
-		for (Player online : Bukkit.getOnlinePlayers()) {
-			online.setMaxHealth(200);
-			online.setHealth(200);
-		}
-	}
+    @Override
+    public void onEnable() {
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            online.setMaxHealth(200);
+            online.setHealth(200);
+        }
+    }
+
+    @EventHandler
+    public void on(FinalHealEvent event) {
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            online.setMaxHealth(200);
+            online.setHealth(200);
+        }
+    }
 
     @EventHandler
     public void on(PlayerItemConsumeEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-    	Player player = event.getPlayer();
-    	ItemStack item = event.getItem();
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
 
-    	if (item == null) {
-    		return;
-    	}
-    												   
+        Player player = event.getPlayer();
+        ItemStack item = event.getItem();
+
+        if (item == null) {
+            return;
+        }
+
         if (item.getType() != Material.GOLDEN_APPLE || item.getDurability() == 1) {
-        	return;
+            return;
         }
         
         GoldenHeadsFeature ghead = feat.getFeature(GoldenHeadsFeature.class);
@@ -76,9 +76,9 @@ public class HundredHearts extends Scenario implements Listener {
         int ticks;
         
         if (ghead.isGoldenHead(item)) {
-        	ticks = (int) ((player.getMaxHealth() * (ghead.getHealAmount() / 10)) * 25);
+            ticks = (int) ((player.getMaxHealth() * (ghead.getHealAmount() / 10)) * 25);
         } else {
-        	ticks = (int) ((player.getMaxHealth() * 0.2) * 25);
+            ticks = (int) ((player.getMaxHealth() * 0.2) * 25);
         }
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, ticks, 1));

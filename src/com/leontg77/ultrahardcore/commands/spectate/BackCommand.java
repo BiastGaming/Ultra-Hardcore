@@ -20,42 +20,42 @@ import com.leontg77.ultrahardcore.managers.SpecManager;
  * @author LeonTG77
  */
 public class BackCommand extends UHCCommand {
-	private final SpecManager spec;
-	private final Main plugin;
+    private final SpecManager spec;
+    private final Main plugin;
 
-	public BackCommand(Main plugin, SpecManager spec) {
-		super("back", "");
-		
-		this.plugin = plugin;
-		this.spec = spec;
-	}
+    public BackCommand(Main plugin, SpecManager spec) {
+        super("back", "");
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (!(sender instanceof Player)) {
-			throw new CommandException("Only players can teleport to their last location.");
-		}
-		
-		Player player = (Player) sender;
-		User user = plugin.getUser(player);
-		
-		if (player.getGameMode() != GameMode.CREATIVE && !spec.isSpectating(player)) {
-			throw new CommandException("You can only do this while spectating.");
-		}
+        this.plugin = plugin;
+        this.spec = spec;
+    }
 
-		Location last = user.getLastLoc();
-		
-		if (last == null) {
-			throw new CommandException("You haven't teleported anywhere yet.");
-		}
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (!(sender instanceof Player)) {
+            throw new CommandException("Only players can teleport to their last location.");
+        }
 
-		player.sendMessage(Main.PREFIX + "Returning to your last location.");
-		player.teleport(last);
-		return true;
-	}
+        Player player = (Player) sender;
+        User user = plugin.getUser(player);
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return new ArrayList<String>();
-	}
+        if (player.getGameMode() != GameMode.CREATIVE && !spec.isSpectating(player)) {
+            throw new CommandException("You can only do this while spectating.");
+        }
+
+        Location last = user.getLastLoc();
+
+        if (last == null) {
+            throw new CommandException("You haven't teleported anywhere yet.");
+        }
+
+        player.sendMessage(Main.PREFIX + "Returning to your last location.");
+        player.teleport(last);
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return new ArrayList<String>();
+    }
 }

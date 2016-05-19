@@ -27,141 +27,141 @@ import com.leontg77.ultrahardcore.Main;
  */
 @SuppressWarnings("deprecation")
 public class BlockUtils {
-	private static Main plugin;
-	 
-	/**
-	 * Set the plugin instance the BlockUtils class will use for scheduling tasks etc.
-	 * 
-	 * @param plugin The main class.
-	 * @throws IllegalStateException If this method was already invoked
-	 */
-	public static void setPlugin(Main plugin) {
-		Preconditions.checkArgument(plugin != null, "Plugin cannot be null");
-	 	Preconditions.checkState(BlockUtils.plugin == null, "BlockUtils already has a plugin instance set");
-	 	
-	 	BlockUtils.plugin = plugin;
-	}
-	
-	private static final Random RANDOM = new Random();
+    private static Main plugin;
 
-	/**
-	 * Display the block breaking sound and particles.
-	 * 
-	 * @param player The player who mined the block.
-	 * @param block The block that was broken.
-	 */
-	public static void blockBreak(Player player, Block block) {
-		for (Player online : block.getWorld().getPlayers()) {
-			if (player != null && online == player) { 
-				continue; // do not play effect for breaker if any, because they already see/hear it.
-			}
+    /**
+     * Set the plugin instance the BlockUtils class will use for scheduling tasks etc.
+     *
+     * @param plugin The main class.
+     * @throws IllegalStateException If this method was already invoked
+     */
+    public static void setPlugin(Main plugin) {
+        Preconditions.checkArgument(plugin != null, "Plugin cannot be null");
+         Preconditions.checkState(BlockUtils.plugin == null, "BlockUtils already has a plugin instance set");
 
-			online.playEffect(block.getLocation(), Effect.STEP_SOUND, block.getTypeId());
-		}
-	}
+         BlockUtils.plugin = plugin;
+    }
 
-	/**
-	 * Drop the given item to drop on the given location as if a normal block
-	 * break would drop it.
-	 * 
-	 * @param loc The location dropping at.
-	 * @param toDrop The item dropping.
-	 */
-	public static void dropItem(Location loc, ItemStack toDrop) {
-		new BukkitRunnable() {
-			public void run() {
-				Item item = loc.getWorld().dropItem(loc, toDrop);
-				item.setVelocity(randomOffset());
-			}
-		}.runTaskLater(plugin, 2); // wait 2 ticks before dropping the item, so the block won't push the item.
-	}
+    private static final Random RANDOM = new Random();
 
-	/**
-	 * Make the given players item in hand lose 1 durability point and break if
-	 * out of durability.
-	 * 
-	 * @param player The item owner.
-	 */
-	public static void degradeDurabiliy(Player player) {
-		ItemStack item = player.getItemInHand();
+    /**
+     * Display the block breaking sound and particles.
+     *
+     * @param player The player who mined the block.
+     * @param block The block that was broken.
+     */
+    public static void blockBreak(Player player, Block block) {
+        for (Player online : block.getWorld().getPlayers()) {
+            if (player != null && online == player) {
+                continue; // do not play effect for breaker if any, because they already see/hear it.
+            }
 
-		// max durability doesn't count for blocks, only tools (except the bow?)
-		if (item.getType() == Material.AIR || item.getType() == Material.BOW || item.getType().getMaxDurability() == 0) {
-			return;
-		}
+            online.playEffect(block.getLocation(), Effect.STEP_SOUND, block.getTypeId());
+        }
+    }
 
-		short durability = item.getDurability();
+    /**
+     * Drop the given item to drop on the given location as if a normal block
+     * break would drop it.
+     *
+     * @param loc The location dropping at.
+     * @param toDrop The item dropping.
+     */
+    public static void dropItem(Location loc, ItemStack toDrop) {
+        new BukkitRunnable() {
+            public void run() {
+                Item item = loc.getWorld().dropItem(loc, toDrop);
+                item.setVelocity(randomOffset());
+            }
+        }.runTaskLater(plugin, 2); // wait 2 ticks before dropping the item, so the block won't push the item.
+    }
 
-		// incase of unbreaking enchantment.
-		if (item.containsEnchantment(Enchantment.DURABILITY)) {
-			double chance = (100 / (item.getEnchantmentLevel(Enchantment.DURABILITY) + 1));
+    /**
+     * Make the given players item in hand lose 1 durability point and break if
+     * out of durability.
+     *
+     * @param player The item owner.
+     */
+    public static void degradeDurabiliy(Player player) {
+        ItemStack item = player.getItemInHand();
 
-			if (RANDOM.nextDouble() <= (chance / 100)) {
-				durability++;
-			}
-		} else {
-			durability++;
-		}
+        // max durability doesn't count for blocks, only tools (except the bow?)
+        if (item.getType() == Material.AIR || item.getType() == Material.BOW || item.getType().getMaxDurability() == 0) {
+            return;
+        }
 
-		if (durability >= item.getType().getMaxDurability()) {
-			player.getWorld().playSound(player.getLocation(), Sound.ITEM_BREAK, 1, 1);
-			player.setItemInHand(new ItemStack(Material.AIR));
-			return;
-		}
+        short durability = item.getDurability();
 
-		item.setDurability(durability);
-		player.setItemInHand(item);
-	}
+        // incase of unbreaking enchantment.
+        if (item.containsEnchantment(Enchantment.DURABILITY)) {
+            double chance = (100 / (item.getEnchantmentLevel(Enchantment.DURABILITY) + 1));
 
-	/**
-	 * Get a random offset for item dropping.
-	 * 
-	 * @return A vector with a random offset.
-	 */
-	private static Vector randomOffset() {
-		// don't ask me for why these numbers, I was just testing different
-		// onces and these seemed to work the best.
-		double offsetX = RANDOM.nextDouble() / 20;
-		double offsetZ = RANDOM.nextDouble() / 20;
+            if (RANDOM.nextDouble() <= (chance / 100)) {
+                durability++;
+            }
+        } else {
+            durability++;
+        }
 
-		offsetX = offsetX - (RANDOM.nextDouble() / 20);
-		offsetZ = offsetZ - (RANDOM.nextDouble() / 20);
+        if (durability >= item.getType().getMaxDurability()) {
+            player.getWorld().playSound(player.getLocation(), Sound.ITEM_BREAK, 1, 1);
+            player.setItemInHand(new ItemStack(Material.AIR));
+            return;
+        }
 
-		return new Vector(offsetX, 0.2, offsetZ);
-	}
+        item.setDurability(durability);
+        player.setItemInHand(item);
+    }
 
-	/**
-	 * Get the durability of the given block.
-	 * 
-	 * @param block The block checking.
-	 * @return The durability of the block.
-	 */
-	public static int getDurability(Block block) {
-		return block.getState().getData().toItemStack().getDurability();
-	}
+    /**
+     * Get a random offset for item dropping.
+     *
+     * @return A vector with a random offset.
+     */
+    private static Vector randomOffset() {
+        // don't ask me for why these numbers, I was just testing different
+        // onces and these seemed to work the best.
+        double offsetX = RANDOM.nextDouble() / 20;
+        double offsetZ = RANDOM.nextDouble() / 20;
 
-	private static final int VEIN_LIMIT = 30;
+        offsetX = offsetX - (RANDOM.nextDouble() / 20);
+        offsetZ = offsetZ - (RANDOM.nextDouble() / 20);
 
-	/**
-	 * Get the ore vein at the given location and add it to the given list.
-	 * 
-	 * @param start The block to start from.
-	 * @param vein The list of blocks in the vein to modify.
-	 */
-	public static void getVein(Block start, List<Block> vein) {
-		if (vein.size() > VEIN_LIMIT) {
-			return;
-		}
+        return new Vector(offsetX, 0.2, offsetZ);
+    }
 
-		Block next = null;
-		
-		for (BlockFace face : ImmutableSet.of(BlockFace.SELF, BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST)) {
-			next = start.getRelative(face);
+    /**
+     * Get the durability of the given block.
+     *
+     * @param block The block checking.
+     * @return The durability of the block.
+     */
+    public static int getDurability(Block block) {
+        return block.getState().getData().toItemStack().getDurability();
+    }
 
-			if (next.getType().equals(start.getType()) && !vein.contains(next)) {
-				vein.add(next);
-				getVein(next, vein);
-			}
-		}
-	}
+    private static final int VEIN_LIMIT = 30;
+
+    /**
+     * Get the ore vein at the given location and add it to the given list.
+     *
+     * @param start The block to start from.
+     * @param vein The list of blocks in the vein to modify.
+     */
+    public static void getVein(Block start, List<Block> vein) {
+        if (vein.size() > VEIN_LIMIT) {
+            return;
+        }
+
+        Block next = null;
+
+        for (BlockFace face : ImmutableSet.of(BlockFace.SELF, BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST)) {
+            next = start.getRelative(face);
+
+            if (next.getType().equals(start.getType()) && !vein.contains(next)) {
+                vein.add(next);
+                getVein(next, vein);
+            }
+        }
+    }
 }

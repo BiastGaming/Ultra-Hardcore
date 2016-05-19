@@ -14,27 +14,27 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class NoFall extends Scenario implements Listener {
-	
-	public NoFall() {
-		super("NoFall", "You cannot take fall damage.");
-	}
 
-	@Override
-	public void onDisable() {}
+    public NoFall() {
+        super("NoFall", "You cannot take fall damage.");
+    }
 
-	@Override
-	public void onEnable() {}
+    @Override
+    public void onDisable() {}
 
-	@EventHandler
+    @Override
+    public void onEnable() {}
+
+    @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
-		if (!(event.getEntity() instanceof Player)) {
-			return;
-		}
-		
-		if (event.getCause() != DamageCause.FALL) {
-			return;
-		}
-		
-    	event.setCancelled(true);
+        if (!(event.getEntity() instanceof Player)) {
+            return;
+        }
+
+        if (event.getCause() != DamageCause.FALL) {
+            return;
+        }
+
+        event.setCancelled(true);
     }
 }

@@ -21,56 +21,56 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
  * @author LeonTG77
  */
 public class WitchHealthPotionFeature extends ToggleableFeature implements Listener {
-	private static final short POTION_DATA = 8261;
+    private static final short POTION_DATA = 8261;
 
-	public WitchHealthPotionFeature() {
-		super("Witch Health Potion", "Make witches drop health pots 30% of the time but 100% when you are poisoned.");
+    public WitchHealthPotionFeature() {
+        super("Witch Health Potion", "Make witches drop health pots 30% of the time but 100% when you are poisoned.");
 
-		icon.setType(Material.POTION);
-		icon.setDurability(POTION_DATA);
-		
-		slot = 36;
-	}
-	
-	@EventHandler
+        icon.setType(Material.POTION);
+        icon.setDurability(POTION_DATA);
+
+        slot = 36;
+    }
+
+    @EventHandler
     public void on(EntityDeathEvent event) {
-		if (!isEnabled()) {
-			return;
-		}
-		
-    	final LivingEntity entity = event.getEntity();
-    	final Player killer = entity.getKiller();
-    	
-    	if (!(entity instanceof Witch)) {
-    		return;
+        if (!isEnabled()) {
+            return;
         }
-        	
-    	final ItemStack potion = new ItemStack (Material.POTION, 1, POTION_DATA);
-    	final List<ItemStack> drops = event.getDrops();
-    	
-		if (killer == null) {
-			return;
-		}
-    	
-    	for (ItemStack drop : drops) {
-    		if (drop.getType() == Material.POTION && drop.getDurability() == POTION_DATA) {
-    			drop.setType(Material.AIR);
-    		}
-    	}
-		
-		drops.remove(potion);
-		
-		if (killer.hasPotionEffect(PotionEffectType.POISON)) {
-			drops.add(potion);
-			return;
-		} 
-		
-		final Random rand = new Random();
-		
-		if (rand.nextDouble() >= 0.3) {
-			return;
-		}
-		
-		drops.add(potion);
-	}
+
+        final LivingEntity entity = event.getEntity();
+        final Player killer = entity.getKiller();
+
+        if (!(entity instanceof Witch)) {
+            return;
+        }
+
+        final ItemStack potion = new ItemStack (Material.POTION, 1, POTION_DATA);
+        final List<ItemStack> drops = event.getDrops();
+
+        if (killer == null) {
+            return;
+        }
+
+        for (ItemStack drop : drops) {
+            if (drop.getType() == Material.POTION && drop.getDurability() == POTION_DATA) {
+                drop.setType(Material.AIR);
+            }
+        }
+
+        drops.remove(potion);
+
+        if (killer.hasPotionEffect(PotionEffectType.POISON)) {
+            drops.add(potion);
+            return;
+        }
+
+        final Random rand = new Random();
+
+        if (rand.nextDouble() >= 0.3) {
+            return;
+        }
+
+        drops.add(potion);
+    }
 }

@@ -37,7 +37,7 @@ public class DateUtils {
      * @return The converted version.
      */
     public static String ticksToString(long ticks) {
-    	final int hours = (int) Math.floor(ticks / (double) SECONDS_PER_HOUR);
+        final int hours = (int) Math.floor(ticks / (double) SECONDS_PER_HOUR);
         ticks -= hours * SECONDS_PER_HOUR;
         
         final int minutes = (int) Math.floor(ticks / (double) SECONDS_PER_MINUTE);
@@ -73,7 +73,7 @@ public class DateUtils {
      * @return The converted version.
      */
     public static String advancedTicksToString(long ticks) {
-    	final int hours = (int) Math.floor(ticks / (double) SECONDS_PER_HOUR);
+        final int hours = (int) Math.floor(ticks / (double) SECONDS_PER_HOUR);
         ticks -= hours * SECONDS_PER_HOUR;
         
         final int minutes = (int) Math.floor(ticks / (double) SECONDS_PER_MINUTE);
@@ -114,7 +114,7 @@ public class DateUtils {
      * @return {@link java.lang.System#currentTimeMillis()} compatible time.
      */
     public static long parseDateDiff(final String time, final boolean future) {
-    	final Matcher matcher = TIME_PATTERN.matcher(time);
+        final Matcher matcher = TIME_PATTERN.matcher(time);
  
         int years = 0;
         int months = 0;
@@ -189,7 +189,7 @@ public class DateUtils {
      * @return The parsed integer, 0 if parsing fails.
      */
     static int parseGroup(final Matcher matcher, final int groupNumber) {
-    	final String group = matcher.group(groupNumber);
+        final String group = matcher.group(groupNumber);
  
         if (group == null || group.isEmpty()) {
             return 0;
@@ -211,7 +211,7 @@ public class DateUtils {
      * @return The field difference.
      */
     static int dateDiff(final int type, final Calendar fromDate, final Calendar toDate) {
-    	final boolean future = toDate.after(fromDate);
+        final boolean future = toDate.after(fromDate);
  
         int diff = 0;
         long savedDate = fromDate.getTimeInMillis();
@@ -236,7 +236,7 @@ public class DateUtils {
      * @return See {@link #formatDateDiff(Calendar, Calendar, int)}.
      */
     public static String formatDateDiff(final long date) {
-    	final Calendar then = new GregorianCalendar();
+        final Calendar then = new GregorianCalendar();
         then.setTimeInMillis(date);
         
         final Calendar now = new GregorianCalendar();

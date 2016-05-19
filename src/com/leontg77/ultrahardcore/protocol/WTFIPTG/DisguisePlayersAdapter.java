@@ -38,7 +38,7 @@ public class DisguisePlayersAdapter extends PacketAdapter {
         Player reciever = event.getPlayer();
         
         if (spec.isSpectating(reciever)) {
-        	return;
+            return;
         }
 
         PacketContainer packet = event.getPacket();

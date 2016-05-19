@@ -21,33 +21,33 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  */
 public class Bowless extends Scenario implements Listener {
 
-	/**
-	 * Bowless class constructor.
-	 */
-	public Bowless() {
-		super("Bowless", "You cannot get or use bows.");
-	}
+    /**
+     * Bowless class constructor.
+     */
+    public Bowless() {
+        super("Bowless", "You cannot get or use bows.");
+    }
 
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerPickupItemEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
         
         Item item = event.getItem();
         ItemStack stack = item.getItemStack();
         
         if (stack.getType() == Material.BOW) {
-        	event.setCancelled(true);
-        	item.remove();
+            event.setCancelled(true);
+            item.remove();
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void on(InventoryClickEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
         
         ItemStack item = event.getCurrentItem();
         
@@ -67,9 +67,9 @@ public class Bowless extends Scenario implements Listener {
     
     @EventHandler(ignoreCancelled = true)
     public void on(CraftItemEvent event)  {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
         
         ItemStack item = event.getCurrentItem();
         

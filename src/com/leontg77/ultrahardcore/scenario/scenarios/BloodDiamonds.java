@@ -17,30 +17,30 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class BloodDiamonds extends Scenario implements Listener {
-	
-	public BloodDiamonds() {
-		super("BloodDiamonds", "Every time you mine a diamond you take half a heart.");
-	}
 
-	@Override
-	public void onDisable() {}
+    public BloodDiamonds() {
+        super("BloodDiamonds", "Every time you mine a diamond you take half a heart.");
+    }
 
-	@Override
-	public void onEnable() {}
+    @Override
+    public void onDisable() {}
 
-	@EventHandler
+    @Override
+    public void onEnable() {}
+
+    @EventHandler
     public void on(BlockBreakEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		final Player player = event.getPlayer();
-		final Block block = event.getBlock();
-    	
-    	if (block.getType() != Material.DIAMOND_ORE) {
-    		return;
-    	}
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
 
-		PlayerUtils.damage(player, 1);
+        final Player player = event.getPlayer();
+        final Block block = event.getBlock();
+
+        if (block.getType() != Material.DIAMOND_ORE) {
+            return;
+        }
+
+        PlayerUtils.damage(player, 1);
     }
 }

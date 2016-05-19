@@ -71,7 +71,7 @@ public class SoulBrothersTeamTeleportTask extends BukkitRunnable {
         String teamText = TEAM_AS_TEXT.apply(team);
 
         if (team.getSize() > worlds.size()) {
-        	PlayerUtils.broadcast(String.format(TEAM_TOO_BIG, currentTeamCount, teamsSize, teamText));
+            PlayerUtils.broadcast(String.format(TEAM_TOO_BIG, currentTeamCount, teamsSize, teamText));
             return;
         }
 
@@ -86,7 +86,7 @@ public class SoulBrothersTeamTeleportTask extends BukkitRunnable {
                 .findAny();
 
         if (!firstOnlinePlayer.isPresent()) {
-        	PlayerUtils.broadcast(String.format(NOBODY_ONLINE, currentTeamCount, teamsSize, teamText));
+            PlayerUtils.broadcast(String.format(NOBODY_ONLINE, currentTeamCount, teamsSize, teamText));
             return;
         }
 
@@ -102,7 +102,7 @@ public class SoulBrothersTeamTeleportTask extends BukkitRunnable {
             PlayerTeleporter.Result teleportResult = teleporter.teleport(teamPlayer, loc);
             
             if (teleportResult == PlayerTeleporter.Result.ON_NEXT_LOGIN) {
-            	PlayerUtils.broadcast(String.format(SCHEDULED, teamPlayer.getName()));
+                PlayerUtils.broadcast(String.format(SCHEDULED, teamPlayer.getName()));
             }
         }
     }

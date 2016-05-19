@@ -15,54 +15,54 @@ import com.leontg77.ultrahardcore.feature.Feature;
  * @author LeonTG77
  */
 public class PearlDamageFeature extends Feature implements Listener {
-	private static final String PATH = "feature.pearldamage.enabled";
-	
-	private final Settings settings;
-	
-	private double pearlDamage;
+    private static final String PATH = "feature.pearldamage.enabled";
 
-	public PearlDamageFeature(Settings settings) {
-		super("Pearl Damage", "Modify how much damage enderpearls do.");
+    private final Settings settings;
 
-		pearlDamage = settings.getConfig().getDouble(PATH, 0);
-		
-		this.settings = settings;
-	}
-	
-	/**
-	 * Set the amount of damage pearls should do.
-	 * 
-	 * @param damage The damage to deal, 0 to cancel damage.
-	 */
-	public void setPearlDamage(double damage) {
-		this.pearlDamage = damage;
-		
-		settings.getConfig().set(PATH, damage);
-		settings.saveConfig();
-	}
+    private double pearlDamage;
 
-	/**
-	 * Get the amount of damage pearls do.
-	 * 
-	 * @return The damage amount.
-	 */
-	public double getPearlDamage() {
-		return pearlDamage;
-	}
-	
-	@EventHandler
-	public void on(EntityDamageByEntityEvent event) {
-		Entity attacker = event.getDamager();
-		
-		if (!(attacker instanceof EnderPearl)) {
-			return;
-		}
+    public PearlDamageFeature(Settings settings) {
+        super("Pearl Damage", "Modify how much damage enderpearls do.");
 
-		if (pearlDamage > 0.0) {
-			event.setDamage(pearlDamage * 2);
-			return;
-		}
-		
-		event.setCancelled(true);
-	}
+        pearlDamage = settings.getConfig().getDouble(PATH, 0);
+
+        this.settings = settings;
+    }
+
+    /**
+     * Set the amount of damage pearls should do.
+     *
+     * @param damage The damage to deal, 0 to cancel damage.
+     */
+    public void setPearlDamage(double damage) {
+        this.pearlDamage = damage;
+
+        settings.getConfig().set(PATH, damage);
+        settings.saveConfig();
+    }
+
+    /**
+     * Get the amount of damage pearls do.
+     *
+     * @return The damage amount.
+     */
+    public double getPearlDamage() {
+        return pearlDamage;
+    }
+
+    @EventHandler
+    public void on(EntityDamageByEntityEvent event) {
+        Entity attacker = event.getDamager();
+
+        if (!(attacker instanceof EnderPearl)) {
+            return;
+        }
+
+        if (pearlDamage > 0.0) {
+            event.setDamage(pearlDamage * 2);
+            return;
+        }
+
+        event.setCancelled(true);
+    }
 }

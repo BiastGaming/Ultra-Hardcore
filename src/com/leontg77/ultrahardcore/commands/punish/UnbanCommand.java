@@ -22,59 +22,59 @@ import com.leontg77.ultrahardcore.utils.PunishUtils.PunishmentType;
  * 
  * @author LeonTG77
  */
-public class UnbanCommand extends UHCCommand {	
-	private static final Type BANLIST_TYPE = Type.NAME;
-	
-	private final Main plugin;
+public class UnbanCommand extends UHCCommand {
+    private static final Type BANLIST_TYPE = Type.NAME;
 
-	public UnbanCommand(Main plugin) {
-		super("unban", "<player>");
-		
-		this.plugin = plugin;
-	}
+    private final Main plugin;
 
-	@Override
-	public boolean execute(final CommandSender sender, final String[] args) throws CommandException {
-		if (args.length == 0) {
-			return false;
-		}
+    public UnbanCommand(Main plugin) {
+        super("unban", "<player>");
 
-		BanList list = Bukkit.getBanList(BANLIST_TYPE);
-		String target = args[0];
-    	
-		if (!list.isBanned(target)) {
-			throw new CommandException("'" + target + "' is not banned.");
-		}
+        this.plugin = plugin;
+    }
 
-		User user = plugin.getUser(PlayerUtils.getOfflinePlayer(target));
-		BanEntry ban = list.getBanEntry(target);
-
-		if (ban.getExpiration() == null) {
-	    	PunishUtils.setPunishmentExpireToNow(user, PunishmentType.BAN, -1l);
-		} else {
-	    	PunishUtils.setPunishmentExpireToNow(user, PunishmentType.TEMPBAN, ban.getExpiration().getTime());
-		}
-
-		
-		PlayerUtils.broadcast(Main.PREFIX + "§6" + target + " §7has been unbanned.");
-		list.pardon(target);
-		return true;
-	}
-	
-	@Override
-	public List<String> tabComplete(final CommandSender sender, final String[] args) {
-		List<String> toReturn = new ArrayList<String>();
-    	
-		if (args.length == 1) {
-        	BanList list = Bukkit.getBanList(BANLIST_TYPE);
-        	
-    		for (BanEntry entry : list.getBanEntries()) {
-    			String ip = entry.getTarget();
-    			
-    			toReturn.add(ip);
-    		}
+    @Override
+    public boolean execute(final CommandSender sender, final String[] args) throws CommandException {
+        if (args.length == 0) {
+            return false;
         }
-		
-		return toReturn;
-	}
+
+        BanList list = Bukkit.getBanList(BANLIST_TYPE);
+        String target = args[0];
+
+        if (!list.isBanned(target)) {
+            throw new CommandException("'" + target + "' is not banned.");
+        }
+
+        User user = plugin.getUser(PlayerUtils.getOfflinePlayer(target));
+        BanEntry ban = list.getBanEntry(target);
+
+        if (ban.getExpiration() == null) {
+            PunishUtils.setPunishmentExpireToNow(user, PunishmentType.BAN, -1l);
+        } else {
+            PunishUtils.setPunishmentExpireToNow(user, PunishmentType.TEMPBAN, ban.getExpiration().getTime());
+        }
+
+
+        PlayerUtils.broadcast(Main.PREFIX + "§6" + target + " §7has been unbanned.");
+        list.pardon(target);
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(final CommandSender sender, final String[] args) {
+        List<String> toReturn = new ArrayList<String>();
+
+        if (args.length == 1) {
+            BanList list = Bukkit.getBanList(BANLIST_TYPE);
+
+            for (BanEntry entry : list.getBanEntries()) {
+                String ip = entry.getTarget();
+
+                toReturn.add(ip);
+            }
+        }
+
+        return toReturn;
+    }
 }

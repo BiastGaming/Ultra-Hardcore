@@ -37,24 +37,24 @@ public class ReplacePlayerNamesInChatAdapter extends PacketAdapter {
         Player reciever = event.getPlayer();
         
         if (spec.isSpectating(reciever)) {
-        	return;
+            return;
         }
 
         PacketContainer packet = event.getPacket();
         List<WrappedChatComponent> messages = getAllChatComponents(packet);
         
         if (messages.isEmpty()) {
-        	return;
+            return;
         }
 
         for (WrappedChatComponent message : messages) {
             String json = message.getJson();
             
             for (Player notExempted : Bukkit.getOnlinePlayers()) {
-            	if (spec.isSpectating(notExempted)) {
-            		continue;
-            	}
-            	
+                if (spec.isSpectating(notExempted)) {
+                    continue;
+                }
+
                 json = json.replace(notExempted.getName(), fake.getName());
             }
             

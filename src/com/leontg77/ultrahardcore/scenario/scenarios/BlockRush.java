@@ -23,39 +23,39 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class BlockRush extends Scenario implements Listener {
-	private final Set<String> minedBlocks = new HashSet<String>();
-	
-	private static final ItemStack ITEM_TO_DROP = new ItemStack(Material.GOLD_INGOT);
-	private static final String PREFIX = "§6§lBlockRush §8» §e";
-	
-	public BlockRush() {
-		super("BlockRush", "Mining a specific block type for the first time drops 1 gold ingot.");
-	}
+    private final Set<String> minedBlocks = new HashSet<String>();
 
-	@Override
-	public void onDisable() {}
+    private static final ItemStack ITEM_TO_DROP = new ItemStack(Material.GOLD_INGOT);
+    private static final String PREFIX = "§6§lBlockRush §8» §e";
 
-	@Override
-	public void onEnable() {}
-	
-	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-	public void on(final BlockBreakEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		final Player player = event.getPlayer();
-		final Block block = event.getBlock();
-		
-		final String name = block.getState().getData().toString();
-		
-		if (minedBlocks.contains(name)) {
-			return;
-		}
-		
-		PlayerUtils.broadcast(PREFIX + player.getName() + "§7 was the first to break §e" + name.toLowerCase().replaceAll("_", " ") + "§7.");
-		minedBlocks.add(name);
-		
-		BlockUtils.dropItem(block.getLocation().add(0.5, 0.7, 0.5), ITEM_TO_DROP);
-	}
+    public BlockRush() {
+        super("BlockRush", "Mining a specific block type for the first time drops 1 gold ingot.");
+    }
+
+    @Override
+    public void onDisable() {}
+
+    @Override
+    public void onEnable() {}
+
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    public void on(final BlockBreakEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        final Player player = event.getPlayer();
+        final Block block = event.getBlock();
+
+        final String name = block.getState().getData().toString();
+
+        if (minedBlocks.contains(name)) {
+            return;
+        }
+
+        PlayerUtils.broadcast(PREFIX + player.getName() + "§7 was the first to break §e" + name.toLowerCase().replaceAll("_", " ") + "§7.");
+        minedBlocks.add(name);
+
+        BlockUtils.dropItem(block.getLocation().add(0.5, 0.7, 0.5), ITEM_TO_DROP);
+    }
 }

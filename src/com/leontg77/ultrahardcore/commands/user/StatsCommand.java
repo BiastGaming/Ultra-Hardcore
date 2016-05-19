@@ -21,61 +21,61 @@ import com.leontg77.ultrahardcore.gui.guis.StatsGUI;
  * @author LeonTG77
  */
 public class StatsCommand extends UHCCommand {
-	private final Main plugin;
-	
-	private final GUIManager gui;
-	private final Game game;
-	
-	public StatsCommand(Main plugin, Game game, GUIManager gui) {
-		super("stats", "[player]");
-		
-		this.plugin = plugin;
-		
-		this.game = game;
-		this.gui = gui;
-	}
+    private final Main plugin;
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (!(sender instanceof Player)) {
-			throw new CommandException("Only players can view someones stats.");
-		}
-		
-		Player player = (Player) sender;
-		
-		if (game.isRecordedRound()) {
-			throw new CommandException("Stats are disabled in Recorded Rounds.");
-		}
-		
-		if (game.isPrivateGame()) {
-			throw new CommandException("Stats are disabled in Private Games.");
-		}
+    private final GUIManager gui;
+    private final Game game;
 
-		Player target;
-		
-		if (args.length == 0) {
-			target = player;
-		} else {
-			target = Bukkit.getPlayer(args[0]);
-			
-			if (target == null) {
-				throw new CommandException("'" + args[0] + "' is not online.");
-			}
-		}
-		
-		StatsGUI inv = gui.getGUI(StatsGUI.class);
-		User user = plugin.getUser(target);
-		
-		player.openInventory(inv.get(user));
-		return true;
-	}
+    public StatsCommand(Main plugin, Game game, GUIManager gui) {
+        super("stats", "[player]");
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		if (args.length != 1) {
-			return new ArrayList<String>();
-		}
-		
-		return allPlayers();
-	}
+        this.plugin = plugin;
+
+        this.game = game;
+        this.gui = gui;
+    }
+
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (!(sender instanceof Player)) {
+            throw new CommandException("Only players can view someones stats.");
+        }
+
+        Player player = (Player) sender;
+
+        if (game.isRecordedRound()) {
+            throw new CommandException("Stats are disabled in Recorded Rounds.");
+        }
+
+        if (game.isPrivateGame()) {
+            throw new CommandException("Stats are disabled in Private Games.");
+        }
+
+        Player target;
+
+        if (args.length == 0) {
+            target = player;
+        } else {
+            target = Bukkit.getPlayer(args[0]);
+
+            if (target == null) {
+                throw new CommandException("'" + args[0] + "' is not online.");
+            }
+        }
+
+        StatsGUI inv = gui.getGUI(StatsGUI.class);
+        User user = plugin.getUser(target);
+
+        player.openInventory(inv.get(user));
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        if (args.length != 1) {
+            return new ArrayList<String>();
+        }
+
+        return allPlayers();
+    }
 }

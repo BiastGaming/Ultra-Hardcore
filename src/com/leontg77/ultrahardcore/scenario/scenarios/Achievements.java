@@ -15,27 +15,27 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class Achievements extends Scenario implements Listener {
-	private final Game game;
-	
-	public Achievements(Game game) {
-		super("Achievements", "Everytime you get an achievement you get 1 extra half heart.");
-		
-		this.game = game;
-	}
-	
-	@EventHandler
-	public void on(PlayerAchievementAwardedEvent event) {
-		if (!State.isState(State.INGAME)) {
-			return;
-		}
-		
-		Player player = event.getPlayer();
-		
-		if (!game.getPlayers().contains(player)) {
-			return;
-		}
-		
-		player.setMaxHealth(player.getMaxHealth() + 1);
-		player.setHealth(player.getHealth() + 1);
-	}
+    private final Game game;
+
+    public Achievements(Game game) {
+        super("Achievements", "Everytime you get an achievement you get 1 extra half heart.");
+
+        this.game = game;
+    }
+
+    @EventHandler
+    public void on(PlayerAchievementAwardedEvent event) {
+        if (!State.isState(State.INGAME)) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+
+        if (!game.getPlayers().contains(player)) {
+            return;
+        }
+
+        player.setMaxHealth(player.getMaxHealth() + 1);
+        player.setHealth(player.getHealth() + 1);
+    }
 }

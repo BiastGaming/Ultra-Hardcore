@@ -42,41 +42,41 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author D4mnX & LeonTG77
  */
 public class WTFIPTG extends Scenario implements Listener {
-	private final List<PacketAdapter> adapters;
-	private final Set<String> allowedCommands;
-	
+    private final List<PacketAdapter> adapters;
+    private final Set<String> allowedCommands;
+
     private final ProtocolManager manager;
-	
-	private final BoardManager board;
-	private final SpecManager spec;
 
-	private final FakePlayer fake;
-	
-	public WTFIPTG(Main plugin, SpecManager spec, BoardManager board) {
-		super("WTFIPTG", "Chat is disabled, Join messages are disabled, Player name tags are disabled, All players are disguised so you cannot recognise them by their skin, Death messages are disabled and the kill scoreboard is off.");
-		
-		this.board = board;
-		this.spec = spec;
-		
-		this.fake = new FakePlayer("Anonymous", UUID.fromString("640a5372-780b-4c2a-b7e7-8359d2f9a6a8"));
-		this.manager = ProtocolLibrary.getProtocolManager();
-		
-		this.adapters = ImmutableList.of(
-			new DisableScoreboardUpdateAdapter(plugin, spec),
-			new DisableTabCompletionAdapter(plugin, spec),
-			new DisguisePlayersAdapter(plugin, fake, spec),
-			new FixedOnlineCountInPingAdapter(plugin, 0),
-			new HidePlayersInSpecificWorldsAdapter(plugin, spec, Predicates.equalTo(plugin.getSpawn().getWorld())),
-			new ReplacePlayerNamesInChatAdapter(plugin, fake, spec)
-        );
-		
-		this.allowedCommands = ImmutableSet.of(
-			"/parkour", "/ac", "/ssc", "/scen", "/uhc", "/matchpost", "/post", "/spec", "/r",
-			"/mucoords", "/helpop", "/timeleft", "/hof", "/tps", "/top", "/border", "/a"
-        );
-	}
+    private final BoardManager board;
+    private final SpecManager spec;
 
-	private Team team;
+    private final FakePlayer fake;
+
+    public WTFIPTG(Main plugin, SpecManager spec, BoardManager board) {
+        super("WTFIPTG", "Chat is disabled, Join messages are disabled, Player name tags are disabled, All players are disguised so you cannot recognise them by their skin, Death messages are disabled and the kill scoreboard is off.");
+
+        this.board = board;
+        this.spec = spec;
+
+        this.fake = new FakePlayer("Anonymous", UUID.fromString("640a5372-780b-4c2a-b7e7-8359d2f9a6a8"));
+        this.manager = ProtocolLibrary.getProtocolManager();
+
+        this.adapters = ImmutableList.of(
+            new DisableScoreboardUpdateAdapter(plugin, spec),
+            new DisableTabCompletionAdapter(plugin, spec),
+            new DisguisePlayersAdapter(plugin, fake, spec),
+            new FixedOnlineCountInPingAdapter(plugin, 0),
+            new HidePlayersInSpecificWorldsAdapter(plugin, spec, Predicates.equalTo(plugin.getSpawn().getWorld())),
+            new ReplacePlayerNamesInChatAdapter(plugin, fake, spec)
+        );
+
+        this.allowedCommands = ImmutableSet.of(
+            "/parkour", "/ac", "/ssc", "/scen", "/uhc", "/matchpost", "/post", "/spec", "/r",
+            "/mucoords", "/helpop", "/timeleft", "/hof", "/tps", "/top", "/border", "/a"
+        );
+    }
+
+    private Team team;
 
     @Override
     public void onDisable() {
@@ -85,7 +85,7 @@ public class WTFIPTG extends Scenario implements Listener {
         }
         
         if (team == null) {
-        	return;
+            return;
         }
         
         try {
@@ -113,7 +113,7 @@ public class WTFIPTG extends Scenario implements Listener {
         Player player = event.getPlayer();
 
         if (spec.isSpectating(player)) {
-        	return;
+            return;
         }
 
         player.sendMessage(ChatColor.RED + "You can't chat in this scenario.");
@@ -126,11 +126,11 @@ public class WTFIPTG extends Scenario implements Listener {
         Player player = event.getPlayer();
 
         if (spec.isSpectating(player)) {
-        	return;
+            return;
         }
         
         if (allowedCommands.contains(message.split(" ")[0])) {
-        	return;
+            return;
         }
 
         player.sendMessage(ChatColor.RED + "You can only send these commands: " + Joiner.on(" | ").join(allowedCommands));
@@ -139,31 +139,31 @@ public class WTFIPTG extends Scenario implements Listener {
     
     @EventHandler(priority = EventPriority.LOW)
     public void on(PlayerJoinEvent event) {
-    	String message = event.getJoinMessage();
-    	Player player = event.getPlayer();
-    	
+        String message = event.getJoinMessage();
+        Player player = event.getPlayer();
+
         if (handleEvent(player, message)) {
-        	event.setJoinMessage(null);
+            event.setJoinMessage(null);
         }
     }
 
     @EventHandler(priority = EventPriority.LOW)
     public void on(PlayerQuitEvent event) {
-    	String message = event.getQuitMessage();
-    	Player player = event.getPlayer();
-    	
+        String message = event.getQuitMessage();
+        Player player = event.getPlayer();
+
         if (handleEvent(player, message)) {
-        	event.setQuitMessage(null);
+            event.setQuitMessage(null);
         }
     }
 
     @EventHandler(priority = EventPriority.LOW)
     public void on(PlayerDeathEvent event) {
-    	String message = event.getDeathMessage();
-    	Player player = event.getEntity();
-    	
+        String message = event.getDeathMessage();
+        Player player = event.getEntity();
+
         if (handleEvent(player, message)) {
-        	event.setDeathMessage(null);
+            event.setDeathMessage(null);
         }
     }
     
@@ -176,18 +176,18 @@ public class WTFIPTG extends Scenario implements Listener {
      */
     private boolean handleEvent(Player player, String message) {
         if (spec.isSpectating(player)) {
-        	return false;
+            return false;
         }
         
         if (message == null) {
-        	return false;
+            return false;
         }
 
         for (Player exempted : Bukkit.getOnlinePlayers()) {
-        	if (!spec.isSpectating(exempted)) {
-        		continue;
-        	}
-        	
+            if (!spec.isSpectating(exempted)) {
+                continue;
+            }
+
             exempted.sendMessage(message);
         }
 

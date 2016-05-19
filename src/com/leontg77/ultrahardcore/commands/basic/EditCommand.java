@@ -23,59 +23,59 @@ import com.leontg77.ultrahardcore.commands.UHCCommand;
  * @author LeonTG77
  */
 public class EditCommand extends UHCCommand {
-	private static final int BLOCK_REACH = 5;
+    private static final int BLOCK_REACH = 5;
 
-	public EditCommand() {
-		super("edit", "<line> <message>");
-	}
+    public EditCommand() {
+        super("edit", "<line> <message>");
+    }
 
-	@Override
-	public boolean execute(CommandSender sender, String[] args) throws CommandException {
-		if (!(sender instanceof Player)) {
-			throw new CommandException("Only players can change sign lines.");
-		}
-		
-		Player player = (Player) sender;
-		
-		if (args.length < 2) {
-			return false;
-		}
-		
-		Block block = player.getTargetBlock((Set<Material>) null, BLOCK_REACH);
-		
-		if (block == null) {
-			throw new CommandException("You are not looking at a block.");
-		}
-		
-		BlockState state = block.getState();
-		
-		if (!(state instanceof Sign)) {
-			throw new CommandException("You are not looking at a sign.");
-		}
-		
-		Sign sign = (Sign) state;
-		int line = parseInt(args[0], "line number");
-		
-		if (line < 1) {
-			line = 1;
-		}
-		
-		if (line > 4) {
-			line = 4;
-		}
-		
-		String message = ChatColor.translateAlternateColorCodes('&', Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length)));
-		
-		player.sendMessage(Main.PREFIX + "You set the sign's §a" + line + " §7line to: §6" + message);
-		line--;
-		
-		sign.setLine(line, message);
-		sign.update();
-		return true;
-	}
+    @Override
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (!(sender instanceof Player)) {
+            throw new CommandException("Only players can change sign lines.");
+        }
 
-	@Override
-	public List<String> tabComplete(CommandSender sender, String[] args) {
-		return allPlayers();
-	}
+        Player player = (Player) sender;
+
+        if (args.length < 2) {
+            return false;
+        }
+
+        Block block = player.getTargetBlock((Set<Material>) null, BLOCK_REACH);
+
+        if (block == null) {
+            throw new CommandException("You are not looking at a block.");
+        }
+
+        BlockState state = block.getState();
+
+        if (!(state instanceof Sign)) {
+            throw new CommandException("You are not looking at a sign.");
+        }
+
+        Sign sign = (Sign) state;
+        int line = parseInt(args[0], "line number");
+
+        if (line < 1) {
+            line = 1;
+        }
+
+        if (line > 4) {
+            line = 4;
+        }
+
+        String message = ChatColor.translateAlternateColorCodes('&', Joiner.on(' ').join(Arrays.copyOfRange(args, 1, args.length)));
+
+        player.sendMessage(Main.PREFIX + "You set the sign's §a" + line + " §7line to: §6" + message);
+        line--;
+
+        sign.setLine(line, message);
+        sign.update();
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return allPlayers();
+    }
 }
