@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
+import java.util.logging.Level;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Appender;
@@ -65,6 +66,7 @@ import com.leontg77.ultrahardcore.world.biomeswap.BiomeSwap;
 
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
+import org.github.paperspigot.PaperSpigotConfig;
 
 /**
  * Main class of the UHC plugin.
@@ -207,6 +209,12 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        try {
+            PaperSpigotConfig.warnForExcessiveVelocity = false;
+        } catch (Throwable e) {
+            getLogger().log(Level.WARNING, "Could not disable excessive velocity warning", e);
+        }
+
         BlockUtils.setPlugin(this);
         instances();
 
