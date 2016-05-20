@@ -2,15 +2,15 @@ package com.leontg77.test;
 
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.Main;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.world.ChunkPopulateEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -19,14 +19,25 @@ import org.bukkit.scheduler.BukkitRunnable;
  * @author LeonTG77
  */
 @SuppressWarnings("deprecation")
-public class Main extends JavaPlugin implements Listener {
+public class BiomebasedWoodFeature extends Feature implements Listener {
+    private final Random rand;
+    private final Main plugin;
+    
+    public BiomebasedWoodFeature(Main plugin) {
+        super("Biomebased Wood", "Makes all natural wood in the world be the type that fits the biome.");
 
-    @Override
-    public void onEnable() {
-        Bukkit.getPluginManager().registerEvents(this, this);
+        this.rand = new Random();
+        this.plugin = plugin;
     }
     
-    Random rand = new Random();
+    private boolean doorHandled = false;
+    
+    @EventHandler
+    public void on(BlockPhysicsEvent event) {
+        if (doorHandled) {
+            event.setCancelled(true);
+        }
+    }
     
     @EventHandler
     public void on(ChunkPopulateEvent event) {
@@ -34,6 +45,8 @@ public class Main extends JavaPlugin implements Listener {
 
         new BukkitRunnable() {
             public void run() {
+                doorHandled = true; // for doors not to pop off during setting
+                
                 for (int y = 0; y < 256; y++) {
                     for (int x = 0; x < 16; x++) {
                         for (int z = 0; z < 17; z++) {
@@ -41,10 +54,17 @@ public class Main extends JavaPlugin implements Listener {
                         }
                     }
                 }
+                
+                doorHandled = false;
             }
-        }.runTaskLater(this, 20);
+        }.runTaskLater(plugin, 20);
     }
 
+    /**
+     * Handle the given block to the right wood type.
+     * 
+     * @param block The block to handle
+     */
     private void handleBlock(Block block) {
         Biome biome = block.getBiome();
         byte oldData = block.getData();
@@ -56,7 +76,6 @@ public class Main extends JavaPlugin implements Listener {
         case BIRCH_FOREST_MOUNTAINS:
             switch (block.getType()) {
             case LOG:
-            case LOG_2:
             case WOOD:
                 block.setData((byte) 2);
                 block.getState().update(true);
@@ -88,7 +107,6 @@ public class Main extends JavaPlugin implements Listener {
         case JUNGLE_MOUNTAINS:
             switch (block.getType()) {
             case LOG:
-            case LOG_2:
             case WOOD:
                 block.setData((byte) 3);
                 block.getState().update(true);
@@ -199,7 +217,6 @@ public class Main extends JavaPlugin implements Listener {
         case COLD_TAIGA_MOUNTAINS:
             switch (block.getType()) {
             case LOG:
-            case LOG_2:
             case WOOD:
                 block.setData((byte) 1);
                 block.getState().update(true);
@@ -218,6 +235,33 @@ public class Main extends JavaPlugin implements Listener {
                 break;
             case WOOD_STAIRS:
                 block.setType(Material.SPRUCE_WOOD_STAIRS);
+                block.setData(oldData);
+                break;
+            default:
+                break;
+            }
+            break;
+        case DESERT:
+        case DESERT_HILLS:
+        case DESERT_MOUNTAINS:
+            switch (block.getType()) {
+            case WOOD:
+                block.setType(Material.SANDSTONE);
+                break;
+            case FENCE:
+                block.setType(Material.BIRCH_FENCE);
+                block.setData(oldData);
+                break;
+            case FENCE_GATE:
+                block.setType(Material.BIRCH_FENCE_GATE);
+                block.setData(oldData);
+                break;
+            case WOODEN_DOOR:
+                block.setType(Material.BIRCH_DOOR);
+                block.setData(oldData);
+                break;
+            case WOOD_STAIRS:
+                block.setType(Material.SANDSTONE_STAIRS);
                 block.setData(oldData);
                 break;
             default:
