@@ -2,13 +2,13 @@ package com.leontg77.ultrahardcore.feature.world;
 
 import java.util.Random;
 
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.feature.Feature;
 
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.Main;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPhysicsEvent;
