@@ -1,6 +1,8 @@
-package com.leontg77.test;
+package com.leontg77.ultrahardcore.feature.world;
 
 import java.util.Random;
+
+import com.leontg77.ultrahardcore.feature.Feature;
 
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -30,11 +32,11 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
         this.plugin = plugin;
     }
     
-    private boolean doorHandled = false;
+    private boolean physics = true
     
     @EventHandler
     public void on(BlockPhysicsEvent event) {
-        if (doorHandled) {
+        if (!physics) {
             event.setCancelled(true);
         }
     }
@@ -45,7 +47,7 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
 
         new BukkitRunnable() {
             public void run() {
-                doorHandled = true; // for doors not to pop off during setting
+                physics = false; // for doors not to pop off during setting
                 
                 for (int y = 0; y < 256; y++) {
                     for (int x = 0; x < 16; x++) {
@@ -55,7 +57,7 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
                     }
                 }
                 
-                doorHandled = false;
+                physics = true;
             }
         }.runTaskLater(plugin, 20);
     }
