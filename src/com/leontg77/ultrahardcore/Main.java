@@ -15,16 +15,17 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.github.paperspigot.PaperSpigotConfig;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import com.leontg77.ultrahardcore.commands.CommandException;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.commands.CommandHandler;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.feature.portal.NetherFeature;
@@ -42,12 +43,12 @@ import com.leontg77.ultrahardcore.listeners.StatsListener;
 import com.leontg77.ultrahardcore.listeners.WorldListener;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.FireworkManager;
-import com.leontg77.ultrahardcore.managers.HOFManager;
 import com.leontg77.ultrahardcore.managers.PermissionsManager;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
-import com.leontg77.ultrahardcore.managers.StaffLogManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
+import com.leontg77.ultrahardcore.minigames.Parkour;
 import com.leontg77.ultrahardcore.protocol.EnchantPreview;
 import com.leontg77.ultrahardcore.protocol.HardcoreHearts;
 import com.leontg77.ultrahardcore.protocol.OnlineCount;
@@ -66,17 +67,24 @@ import com.leontg77.ultrahardcore.world.biomeswap.BiomeSwap;
 
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
-import org.github.paperspigot.PaperSpigotConfig;
 
 /**
  * Main class of the UHC plugin.
- * <p>
- * This class contains methods for prefixes, adding recipes, enabling and disabling.
  * 
  * @author LeonTG77
  */
-@SuppressWarnings("unused")
 public class Main extends JavaPlugin {
+    public static final String NO_PERMISSION_MESSAGE = "§cYou don't have permission.";
+ 
+    public static final String BORDER_PREFIX = "§cBorder §8» §7";
+    public static final String ALERT_PREFIX = "§6Alert §8» §7";
+    public static final String STAFF_PREFIX = "§cStaff §8» §7";
+    public static final String SPEC_PREFIX = "§5Spec §8» §7";
+    public static final String INFO_PREFIX = "§aInfo §8» §7";
+    public static final String SCEN_PREFIX = "§9Scenario §8» §7";
+    public static final String PREFIX = "§4§lUHC §8» §7";
+    public static final String ARROW = "§8» §7";
+    
     private Settings settings;
     private Data data;
 
@@ -95,14 +103,14 @@ public class Main extends JavaPlugin {
     private PermissionsManager perm;
     private FireworkManager firework;
 
-    private HOFManager HOF;
     private GUIManager gui;
 
+    private Timer timer;
     private Game game;
-    private Arena arena;
 
     private Announcer announcer;
     private Parkour parkour;
+    private Arena arena;
 
     private EnchantPreview enchPreview;
     private HardcoreHearts hardHearts;
@@ -111,60 +119,6 @@ public class Main extends JavaPlugin {
     private CommandHandler cmd;
     private ScenarioManager scen;
     private FeatureManager feat;
-
-    private Timer timer;
-
-    private void instances() {
-        settings = new Settings(this);
-        data = new Data(this, settings);
-
-        antiSM = new AntiStripmine(this);
-        swap = new BiomeSwap(this, settings);
-
-        worlds = new WorldManager(settings);
-        ubl = new UBL(this);
-
-        board = new BoardManager(this);
-        teams = new TeamManager(this, board);
-
-        scen = new ScenarioManager(this);
-        feat = new FeatureManager(this, settings);
-
-        perm = new PermissionsManager(this, scen);
-        firework = new FireworkManager(this);
-
-        HOF = new HOFManager(this);
-        gui = new GUIManager(this);
-
-        spec = new SpecManager(this, teams, scen);
-        parkour = new Parkour(this, settings, spec);
-
-        game = new Game(this, settings, gui, board, spec);
-
-        scatter = new ScatterManager(this, teams, game);
-
-        arena = new Arena(this, game, board, scatter, worlds);
-        announcer = new Announcer(this, game);
-
-        enchPreview = new EnchantPreview(this);
-        hardHearts = new HardcoreHearts(this);
-        counter = new OnlineCount(this, game);
-
-        cmd = new CommandHandler(this);
-
-        timer = new Timer(this, game, gui, scen, feat, board, spec);
-    }
-
-    public static final String NO_PERMISSION_MESSAGE = "§cYou don't have permission.";
- 
-    public static final String BORDER_PREFIX = "§cBorder §8» §7";
-    public static final String ALERT_PREFIX = "§6Alert §8» §7";
-    public static final String STAFF_PREFIX = "§cStaff §8» §7";
-    public static final String SPEC_PREFIX = "§5Spec §8» §7";
-    public static final String INFO_PREFIX = "§aInfo §8» §7";
-    public static final String SCEN_PREFIX = "§9Scenario §8» §7";
-    public static final String PREFIX = "§4§lUHC §8» §7";
-    public static final String ARROW = "§8» §7";
 
     @Override
     public void onDisable() {
@@ -180,24 +134,20 @@ public class Main extends JavaPlugin {
             getLogger().warning("Could not reset biomes!");
         }
 
-        if (State.isState(State.NOT_RUNNING)) {
-            for (File cFile : folder.listFiles()) {
-                FileConfiguration conf = YamlConfiguration.loadConfiguration(cFile);
+        if (game.isState(State.NOT_RUNNING)) {
+            for (User user : users.values()) {
+                FileConfiguration conf = user.getConfig();
                 
                 if (!conf.contains("uuid")) {
-                    cFile.delete();
+                    user.getFile().delete();
                     continue;
                 } 
-
+                
                 if (conf.contains("locs")) {
                     conf.set("locs", null);
                 }
 
-                try {
-                    conf.save(cFile);
-                } catch (Exception e) {
-                    continue;
-                }
+                user.saveConfig();
             }
         }
     }
@@ -209,64 +159,101 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+        ProtocolManager protocol = ProtocolLibrary.getProtocolManager();
+        PluginManager manager = Bukkit.getPluginManager();
+        
+        PluginDescriptionFile file = getDescription();
+        getLogger().info(file.getName() + " v" + file.getVersion() + " is now enabled.");
+        getLogger().info("The plugin was created by LeonTG77.");
+
         try {
             PaperSpigotConfig.warnForExcessiveVelocity = false;
         } catch (Throwable e) {
             getLogger().log(Level.WARNING, "Could not disable excessive velocity warning", e);
         }
-
-        BlockUtils.setPlugin(this);
-        instances();
-
-        PluginDescriptionFile file = getDescription();
-        getLogger().info(file.getName() + " v" + file.getVersion() + " is now enabled.");
-        getLogger().info("The plugin was created by LeonTG77.");
-
-        game.setTimer(timer);
-        State.setSettings(settings);
-
-        counter.enable();
-
+        
+        settings = new Settings(this);
         settings.setup();
-        ubl.reload();
-
-        board.setup(game);
-        teams.setup();
-
-        scen.registerScenarios(arena, game, timer, teams, spec, settings, feat, scatter, board);
-        feat.registerFeatures(arena, game, timer, board, teams, spec, enchPreview, hardHearts, scen);
-        cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter, ubl, antiSM);
-
+        
+        swap = new BiomeSwap(this, settings);
         swap.setup();
+        
+        worlds = new WorldManager(settings);
         worlds.loadWorlds();
 
-        announcer.startAnnouncer();
-        arena.setup();
+        antiSM = new AntiStripmine(this);
+
+        board = new BoardManager(this);
+
+        teams = new TeamManager(this, board);
+
+        scen = new ScenarioManager(this);
+
+        perm = new PermissionsManager(this, scen);
+        firework = new FireworkManager(this);
+
+        gui = new GUIManager(this);
+        spec = new SpecManager(this, teams, scen);
+
+        game = new Game(this, settings, gui, board, spec);
+        
+        board.setup(game);
+        teams.setup();
+        
+        scatter = new ScatterManager(this, teams, game);
+        
+        feat = new FeatureManager(this, game, settings);
+
+        parkour = new Parkour(this, game, settings, spec);
         parkour.setup();
+        
+        arena = new Arena(this, game, board, scatter, worlds);
+        arena.setup();
+        
+        announcer = new Announcer(this, game);
+        announcer.startAnnouncer();
 
-        FileUtils.updateUserFiles(this);
+        enchPreview = new EnchantPreview(this);
+        hardHearts = new HardcoreHearts(this);
+        counter = new OnlineCount(this, game);
 
+        timer = new Timer(this, game, gui, scen, feat, board, spec);
+        cmd = new CommandHandler(this);
+
+        data = new Data(this, settings);
+        
+        ubl = new UBL(this);
+        ubl.reload();
+        
+        scen.registerScenarios(arena, game, timer, teams, spec, settings, feat, scatter, board);
+        feat.registerFeatures(arena, game, timer, board, teams, spec, enchPreview, hardHearts, scen);
+        
+        cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter, ubl, antiSM);
         gui.registerGUIs(game, timer, settings, feat, scen, worlds);
+
         data.restore(teams, scen);
-
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-
-        ProtocolManager protocol = ProtocolLibrary.getProtocolManager();
-        PluginManager manager = Bukkit.getPluginManager();
-
+        
+        FileUtils.updateUserFiles(this);
+        BlockUtils.setPlugin(this);
+        
+        game.setTimer(timer);
+        
         protocol.addPacketListener(new SaturationConcealer(this));
+        counter.enable();
 
         // register all listeners.
         manager.registerEvents(new AnvilListener(this), this);
         manager.registerEvents(new ChatListener(this, game, teams, spec), this);
         manager.registerEvents(new LoginListener(this, game, settings, spec, scatter, perm), this);
         manager.registerEvents(new LogoutListener(this, game, gui, spec, perm), this);
-        manager.registerEvents(new PlayerListener(this, spec), this);
+        manager.registerEvents(new PlayerListener(this, game, spec), this);
         manager.registerEvents(new ProtectionListener(game), this);
         manager.registerEvents(new PushToSpawnListener(this, parkour), this);
         manager.registerEvents(new SpectatorListener(this, game, spec, gui, feat.getFeature(NetherFeature.class)), this);
         manager.registerEvents(new StatsListener(this, arena, game, board, teams, feat.getFeature(GoldenHeadsFeature.class)), this);
-        manager.registerEvents(new WorldListener(arena), this);
+        manager.registerEvents(new WorldListener(game, arena), this);
         manager.registerEvents(new UBLListener(ubl), this);
 
         // register anti stripmine listeners.
@@ -282,7 +269,7 @@ public class Main extends JavaPlugin {
             perm.addPermissions(online);
         }
 
-        switch (State.getState()) {
+        switch (game.getState()) {
         case NOT_RUNNING:
             FileUtils.deletePlayerDataAndStats(this);
             Bukkit.setIdleTimeout(60);
@@ -292,6 +279,7 @@ public class Main extends JavaPlugin {
             Bukkit.setIdleTimeout(10);
             break;
         default:
+            Bukkit.setIdleTimeout(60);
             break;
         }
     }
