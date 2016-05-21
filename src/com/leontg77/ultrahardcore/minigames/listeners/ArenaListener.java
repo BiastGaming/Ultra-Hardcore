@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.listeners;
+package com.leontg77.ultrahardcore.minigames.listeners;
 
 import java.util.Arrays;
 
@@ -24,10 +24,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Stat;
+import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 

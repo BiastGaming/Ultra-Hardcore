@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore;
+package com.leontg77.ultrahardcore.minigames;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,9 +28,12 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.listeners.ArenaListener;
+import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
+import com.leontg77.ultrahardcore.minigames.listeners.ArenaListener;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 import com.leontg77.ultrahardcore.world.WorldManager;
@@ -434,23 +437,23 @@ public class Arena {
     public void giveKit(Player player) {
         User user = plugin.getUser(player);
 
-        if (!user.getFile().contains("hotbar")) {
+        if (!user.getConfig().contains("hotbar")) {
             giveDefaultKit(player);
             return;
         }
 
         for (int i = 0; i < 36; i++) {
-            if (!user.getFile().contains("hotbar." + i)) {
+            if (!user.getConfig().contains("hotbar." + i)) {
                 giveDefaultKit(player);
                 return;
             }
 
-            if (user.getFile().getConfigurationSection("hotbar." + i) == null) {
+            if (user.getConfig().getConfigurationSection("hotbar." + i) == null) {
                 giveDefaultKit(player);
                 return;
             }
 
-            ItemStack item = ItemStack.deserialize(user.getFile().getConfigurationSection("hotbar." + i).getValues(false));
+            ItemStack item = ItemStack.deserialize(user.getConfig().getConfigurationSection("hotbar." + i).getValues(false));
 
             if (item == null) {
                 item = new ItemStack(Material.AIR);

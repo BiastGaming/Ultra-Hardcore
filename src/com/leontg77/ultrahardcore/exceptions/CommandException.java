@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.commands;
+package com.leontg77.ultrahardcore.exceptions;
 
 /**
  * Exception for commands.

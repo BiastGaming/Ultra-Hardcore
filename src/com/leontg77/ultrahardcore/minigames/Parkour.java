@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore;
+package com.leontg77.ultrahardcore.minigames;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -12,8 +12,11 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import com.leontg77.ultrahardcore.listeners.ParkourListener;
+import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.managers.SpecManager;
+import com.leontg77.ultrahardcore.minigames.listeners.ParkourListener;
 
 /**
  * The parkour class.
@@ -24,6 +27,7 @@ public class Parkour {
     public static final String PREFIX = "§9Parkour §8» §7";
 
     private final Main plugin;
+    private final Game game;
 
     private final SpecManager spec;
     private final Settings settings;
@@ -34,8 +38,9 @@ public class Parkour {
      * @param plugin The main class.
      * @param settings The settings class.
      */
-    protected Parkour(Main plugin, Settings settings, SpecManager spec) {
+    public Parkour(Main plugin, Game game, Settings settings, SpecManager spec) {
         this.plugin = plugin;
+        this.game = game;
 
         this.settings = settings;
         this.spec = spec;
@@ -51,7 +56,7 @@ public class Parkour {
      * Set up the checkpoints and listeners for the parkour
      */
     public void setup() {
-        Bukkit.getPluginManager().registerEvents(new ParkourListener(plugin, this, spec), plugin);
+        Bukkit.getPluginManager().registerEvents(new ParkourListener(plugin, game, this, spec), plugin);
 
         loadLocations();
     }

@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.listeners;
+package com.leontg77.ultrahardcore.minigames.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -13,10 +13,11 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 
+import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.Parkour;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.managers.SpecManager;
+import com.leontg77.ultrahardcore.minigames.Parkour;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.LocationUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -30,12 +31,14 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class ParkourListener implements Listener {
     private final Main plugin;
+    private final Game game;
 
     private final SpecManager spec;
     private final Parkour parkour;
 
-    public ParkourListener(Main plugin, Parkour parkour, SpecManager spec) {
+    public ParkourListener(Main plugin, Game game, Parkour parkour, SpecManager spec) {
         this.plugin = plugin;
+        this.game = game;
 
         this.parkour = parkour;
         this.spec = spec;
@@ -120,7 +123,7 @@ public class ParkourListener implements Listener {
             return;
         }
 
-        final State state = State.getState();
+        final State state = game.getState();
 
         // parkour should never be used incase of this.
         if (state == State.SCATTER || state == State.INGAME || state == State.ENDING) {
