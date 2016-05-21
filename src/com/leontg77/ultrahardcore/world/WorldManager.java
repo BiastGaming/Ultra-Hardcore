@@ -13,8 +13,7 @@ import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
 
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.State;
-import com.leontg77.ultrahardcore.commands.CommandException;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.utils.FileUtils;
 import com.leontg77.ultrahardcore.utils.LocationUtils;
 
@@ -143,14 +142,11 @@ public class WorldManager {
     }
 
     /**
-     * Loads a world with the given settings.
-     *
+     * Loads the world with the given world name.
+     * 
      * @param name The name of the world.
-     * @param radius The border size.
-     * @param seed The seed of the world.
-     * @param environment The world's environment.
-     * @param type The world type.
-     * @throws CommandException if world doesn't exist.
+     * @param game The game class.
+     * @throws CommandException If the world name isn't a existing world.
      */
     public void loadWorld(String name) throws CommandException {
         Set<String> worlds = settings.getWorlds().getKeys(false);
@@ -182,13 +178,6 @@ public class WorldManager {
 
         World world = creator.createWorld();
         world.setDifficulty(Difficulty.HARD);
-
-        if (State.isState(State.INGAME) && settings.getConfig().getStringList("world").contains(world.getName())) {
-            world.setSpawnFlags(true, true);
-        } else {
-            world.setSpawnFlags(false, true);
-        }
-
         world.save();
     }
 
