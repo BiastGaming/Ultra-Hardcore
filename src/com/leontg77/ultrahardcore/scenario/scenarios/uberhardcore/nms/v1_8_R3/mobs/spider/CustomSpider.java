@@ -1,9 +1,18 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.spider;
 
+import org.bukkit.event.entity.CreatureSpawnEvent;
+
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.AIUtil;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.skeleton.CustomSkeleton;
-import net.minecraft.server.v1_8_R3.*;
-import org.bukkit.event.entity.CreatureSpawnEvent;
+
+import net.minecraft.server.v1_8_R3.DifficultyDamageScaler;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.EntitySpider;
+import net.minecraft.server.v1_8_R3.GenericAttributes;
+import net.minecraft.server.v1_8_R3.GroupDataEntity;
+import net.minecraft.server.v1_8_R3.PathfinderGoal;
+import net.minecraft.server.v1_8_R3.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_8_R3.World;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class CustomSpider extends EntitySpider {
