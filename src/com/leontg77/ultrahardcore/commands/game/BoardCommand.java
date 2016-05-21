@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.managers.BoardManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
@@ -36,7 +36,7 @@ public class BoardCommand extends UHCCommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        if (State.isState(State.INGAME)) {
+        if (game.isState(State.INGAME)) {
             throw new CommandException("You cannot toggle the board when the game has started.");
         }
 

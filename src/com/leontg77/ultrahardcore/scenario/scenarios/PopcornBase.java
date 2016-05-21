@@ -12,8 +12,8 @@ import org.bukkit.util.Vector;
 
 import com.google.common.collect.ImmutableList;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
@@ -54,7 +54,7 @@ class PopcornBase extends Scenario {
 
     @Override
     public void onEnable() {
-        if (State.isState(State.INGAME)) {
+        if (game.isState(State.INGAME)) {
             on(new GameStartEvent());
         }
     }

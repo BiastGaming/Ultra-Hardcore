@@ -11,8 +11,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
@@ -21,23 +20,14 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class Coco extends Scenario implements Listener {
-    private final Main plugin;
 
-    public Coco(Main plugin) {
+    public Coco() {
         super("Coco", "Everyone starts out with 5 cocoa beans. If you right click the cocoa bean, you 'eat' it and receive speed I for 30 seconds and strength I for 10 seconds. After 30 seconds, you receive 15 seconds of slowness I and 5 seconds of weakness I.");
-
-        this.plugin = plugin;
     }
-
-    @Override
-    public void onDisable() {}
-
-    @Override
-    public void onEnable() {}
 
     @EventHandler
     public void on(PlayerInteractEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

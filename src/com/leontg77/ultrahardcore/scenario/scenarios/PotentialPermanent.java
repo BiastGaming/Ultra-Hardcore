@@ -1,7 +1,5 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -22,6 +20,8 @@ import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.AbsorptionFeature;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.scenario.Scenario;
+
+import net.minecraft.server.v1_8_R3.EntityPlayer;
 
 /**
  * PotentialPermanent scenario class

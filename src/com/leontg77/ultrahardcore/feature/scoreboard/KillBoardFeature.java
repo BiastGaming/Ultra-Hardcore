@@ -7,12 +7,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.feature.Feature;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
 
 /**
  * Kill board feature class.
@@ -45,7 +45,7 @@ public class KillBoardFeature extends Feature implements Listener {
             return;
         }
 
-        if (!State.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
+        if (!game.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
             return;
         }
 

@@ -7,7 +7,7 @@ import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.feature.Feature;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
@@ -50,7 +50,7 @@ public class WeatherFeature extends Feature implements Listener {
             return;
         }
 
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             event.setCancelled(true);
             return;
         }

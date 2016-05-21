@@ -8,8 +8,8 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 
 /**
  * Online count class.
@@ -46,7 +46,7 @@ public class OnlineCount extends PacketAdapter {
 
         int count = plugin.getOnlineCount();
         
-        if (State.isState(State.INGAME)) {
+        if (game.isState(State.INGAME)) {
             count = game.getPlayers().size();
         }
         

@@ -30,7 +30,7 @@ import org.bukkit.util.Vector;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
@@ -91,7 +91,7 @@ public class GlassWorld extends Scenario implements Listener, CommandExecutor {
 
     @EventHandler
     public void on(BlockBreakEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

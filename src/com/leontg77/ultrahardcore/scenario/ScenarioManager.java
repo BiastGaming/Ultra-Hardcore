@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
@@ -14,6 +13,7 @@ import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.scenario.scenarios.*;
 
 /**
@@ -160,7 +160,7 @@ public class ScenarioManager {
         scenarios.add(new Cloud9(plugin, game));
         scenarios.add(new Cobblehaters());
         scenarios.add(new CobbleWorld(plugin));
-        scenarios.add(new Coco(plugin));
+        scenarios.add(new Coco());
         scenarios.add(new Compensation(arena, teams, feat));
         scenarios.add(new Cripple());
         scenarios.add(new Cryophobia(plugin, game));
@@ -252,6 +252,10 @@ public class ScenarioManager {
         scenarios.add(new Webcage(game));
         scenarios.add(new WTFIPTG(plugin, spec, board));
 
+        for (Scenario scen : scenarios) {
+            scen.setupInstances(plugin, game);
+        }
+        
         plugin.getLogger().info("All scenarios has been setup.");
     }
 }

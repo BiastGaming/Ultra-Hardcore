@@ -5,7 +5,8 @@ import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.feature.Feature;
 
 /**
@@ -14,11 +15,17 @@ import com.leontg77.ultrahardcore.feature.Feature;
  * @author LeonTG77
  */
 public class WorldUpdaterFeature extends Feature {
+    private final Timer timer;
+
+    public WorldUpdaterFeature(Timer timer) {
+        super("World Updater", "Makes sure all worlds have the correct settings.");
+        
+        this.timer = timer;
+    }
+    
     private BukkitRunnable task;
 
-    public WorldUpdaterFeature(final Main plugin) {
-        super("World Updater", "Makes sure all worlds have the correct settings.");
-
+    public void startTask() {
         task = new BukkitRunnable() {
             public void run() {
                 for (World world : Bukkit.getWorlds()) {
@@ -55,11 +62,16 @@ public class WorldUpdaterFeature extends Feature {
                     if (world.getDifficulty() != Difficulty.HARD) {
                         world.setDifficulty(Difficulty.HARD);
                     }
+
+                    if (game.isState(State.INGAME) && timer.getTimeSinceStart() >= 2 && game.getWorlds().contains(world)) {
+                        world.setSpawnFlags(true, true);
+                    } else {
+                        world.setSpawnFlags(false, true);
+                    }
                 }
             }
         };
 
         task.runTaskTimer(plugin, 20, 20);
     }
-
 }

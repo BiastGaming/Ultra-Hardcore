@@ -6,6 +6,7 @@ import java.util.Random;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.collect.ImmutableList;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
@@ -60,7 +61,7 @@ public class Announcer {
     public void startAnnouncer() {
         new BukkitRunnable() {
             public void run() {
-                if (game.isRecordedRound() || game.isPrivateGame() || !State.isState(State.INGAME)) {
+                if (game.isRecordedRound() || game.isPrivateGame() || !game.isState(State.INGAME)) {
                     return;
                 }
 

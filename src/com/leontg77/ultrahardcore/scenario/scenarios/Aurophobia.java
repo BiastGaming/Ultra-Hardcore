@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
 
@@ -41,7 +41,7 @@ public class Aurophobia extends Scenario implements Listener {
 
     @EventHandler
     public void on(BlockBreakEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

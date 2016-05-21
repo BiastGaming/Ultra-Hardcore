@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -51,7 +51,7 @@ public class VengefulSpirits extends Scenario implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -78,7 +78,7 @@ public class VengefulSpirits extends Scenario implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

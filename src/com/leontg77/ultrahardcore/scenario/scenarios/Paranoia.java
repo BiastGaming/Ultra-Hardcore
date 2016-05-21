@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.DisplaySlot;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.managers.BoardManager;
@@ -62,7 +62,7 @@ public class Paranoia extends Scenario implements Listener {
 
     @EventHandler
     public void on(PlayerItemConsumeEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -94,7 +94,7 @@ public class Paranoia extends Scenario implements Listener {
 
     @EventHandler
     public void on(CraftItemEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -135,7 +135,7 @@ public class Paranoia extends Scenario implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void on(PlayerDeathEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

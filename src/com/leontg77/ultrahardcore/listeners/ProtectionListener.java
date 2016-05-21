@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 
 /**
  * Protection listener class.
@@ -43,7 +43,7 @@ public class ProtectionListener implements Listener {
         final Player player = event.getPlayer();
         final Block block = event.getBlock();
 
-        if (State.isState(State.SCATTER)) {
+        if (game.isState(State.SCATTER)) {
             event.setCancelled(true);
             return;
         }
@@ -66,7 +66,7 @@ public class ProtectionListener implements Listener {
         final Block block = event.getBlockPlaced();
         final Player player = event.getPlayer();
 
-        if (State.isState(State.SCATTER)) {
+        if (game.isState(State.SCATTER)) {
             event.setCancelled(true);
             return;
         }
@@ -88,12 +88,12 @@ public class ProtectionListener implements Listener {
     public void on(PlayerInteractEvent event) {
         Action action = event.getAction();
         
-           Player player = event.getPlayer();
+        Player player = event.getPlayer();
         World world = player.getWorld();
         
         Block block = event.getClickedBlock();
 
-        if (State.isState(State.SCATTER)) {
+        if (game.isState(State.SCATTER)) {
             event.setCancelled(true);
             return;
         }
@@ -124,11 +124,22 @@ public class ProtectionListener implements Listener {
     }
 
     @EventHandler
-    public void on(final PlayerArmorStandManipulateEvent event) {
-        final ArmorStand stand = event.getRightClicked();
-        final World world = stand.getWorld();
+    public void on(PlayerArmorStandManipulateEvent event) {
+        ArmorStand stand = event.getRightClicked();
+        Player player = event.getPlayer();
+        
+        if (!stand.isVisible()) {
+            event.setCancelled(true);
+            return;
+        }
+
+        World world = player.getWorld();
         
         if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
+            return;
+        }
+        
+        if (player.hasPermission("uhc.build")) {
             return;
         }
 
@@ -137,9 +148,9 @@ public class ProtectionListener implements Listener {
 
     @EventHandler
     public void on(EntityDamageEvent event) {
-        final Entity entity = event.getEntity();
+        Entity entity = event.getEntity();
 
-        if (State.isState(State.SCATTER)) {
+        if (game.isState(State.SCATTER)) {
             event.setCancelled(true);
             return;
         }
@@ -182,12 +193,6 @@ public class ProtectionListener implements Listener {
      */
     private boolean shouldCancelDamageByOther(EntityDamageByEntityEvent event) {
         final Entity damager = event.getDamager();
-        final Entity entity = event.getEntity();
-
-        if (entity.isDead() || damager.isDead()) {
-            event.setCancelled(true);
-            return true;
-        }
 
         if (damager instanceof Player && damager.hasPermission("uhc.build")) {
             return true;

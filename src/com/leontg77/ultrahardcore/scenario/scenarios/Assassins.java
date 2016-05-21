@@ -19,7 +19,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.events.PvPEnableEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -54,7 +54,7 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
 
     @Override
     public void onEnable() {
-        if (!State.isState(State.INGAME) && timer.getPvP() > 0) {
+        if (!game.isState(State.INGAME) && timer.getPvP() > 0) {
             return;
         }
 

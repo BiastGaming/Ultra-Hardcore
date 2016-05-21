@@ -1,18 +1,19 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore;
 
-import com.leontg77.ultrahardcore.scenario.scenarios.UberHardcore;
-import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityChecker;
-import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityClassReplacer;
-import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.MobOverride;
-import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.NewSpawnsModifier;
-import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.PluginDependantListener;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
-import java.util.List;
+import com.leontg77.ultrahardcore.scenario.scenarios.UberHardcore;
+import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityChecker;
+import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityClassReplacer;
+import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.MobOverride;
+import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.NewSpawnsModifier;
+import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.PluginDependantListener;
 
 public class MobRegistry {
     protected final UberHardcore uber;

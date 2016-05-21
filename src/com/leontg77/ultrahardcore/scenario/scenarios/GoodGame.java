@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -42,7 +42,7 @@ public class GoodGame extends Scenario implements Listener {
 
     @EventHandler
     public void on(PlayerDeathEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -51,7 +51,7 @@ public class GoodGame extends Scenario implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onGG(AsyncPlayerChatEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

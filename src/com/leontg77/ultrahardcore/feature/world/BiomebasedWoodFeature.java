@@ -1,10 +1,5 @@
 package com.leontg77.ultrahardcore.feature.world;
 
-import java.util.Random;
-
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.feature.Feature;
-
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -15,6 +10,9 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.world.ChunkPopulateEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.feature.Feature;
+
 /**
  * Biomebased Wood feature class.
  * 
@@ -22,17 +20,15 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 @SuppressWarnings("deprecation")
 public class BiomebasedWoodFeature extends Feature implements Listener {
-    private final Random rand;
     private final Main plugin;
     
     public BiomebasedWoodFeature(Main plugin) {
         super("Biomebased Wood", "Makes all natural wood in the world be the type that fits the biome.");
 
-        this.rand = new Random();
         this.plugin = plugin;
     }
     
-    private boolean physics = true
+    private boolean physics = true;
     
     @EventHandler
     public void on(BlockPhysicsEvent event) {
@@ -239,7 +235,7 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
                 block.setType(Material.SPRUCE_WOOD_STAIRS);
                 block.setData(oldData);
                 break;
-            default:
+            default: 
                 break;
             }
             break;

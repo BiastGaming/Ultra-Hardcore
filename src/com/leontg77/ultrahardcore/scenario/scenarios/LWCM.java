@@ -22,7 +22,7 @@ import org.bukkit.scoreboard.Team;
 import com.google.common.collect.Maps;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
@@ -57,7 +57,7 @@ public class LWCM extends Scenario implements Listener, CommandExecutor {
 
     @EventHandler
     public void on(PlayerMoveEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

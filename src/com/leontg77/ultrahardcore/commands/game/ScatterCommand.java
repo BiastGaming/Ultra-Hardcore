@@ -15,18 +15,18 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.Team;
 
 import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.Parkour;
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.State;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.events.ScatterEvent;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
+import com.leontg77.ultrahardcore.minigames.Parkour;
 import com.leontg77.ultrahardcore.utils.EntityUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -77,17 +77,17 @@ public class ScatterCommand extends UHCCommand {
         boolean teamSpread = parseBoolean(args[0]);
 
         if (args[1].equalsIgnoreCase("*")) {
-            switch (State.getState()) {
+            switch (game.getState()) {
             case NOT_RUNNING:
                 if (game.isRecordedRound() || game.isPrivateGame()) {
-                    State.setState(State.CLOSED);
+                    game.setState(State.CLOSED);
                     break;
                 }
 
                 throw new CommandException("You can't scatter when no games are running.");
             case OPEN:
                 if (game.isRecordedRound() || game.isPrivateGame()) {
-                    State.setState(State.CLOSED);
+                    game.setState(State.CLOSED);
                     break;
                 }
 
@@ -117,7 +117,7 @@ public class ScatterCommand extends UHCCommand {
             }
 
             parkour.reset();
-            State.setState(State.SCATTER);
+            game.setState(State.SCATTER);
 
             int teams = 0;
             int solo = 0;
@@ -225,7 +225,7 @@ public class ScatterCommand extends UHCCommand {
                             continue;
                         }
 
-                        if (State.isState(State.SCATTER)) {
+                        if (game.isState(State.SCATTER)) {
                             for (PotionEffect effect : ScatterManager.FREEZE_EFFECTS) {
                                 if (target.hasPotionEffect(effect.getType())) {
                                     target.removePotionEffect(effect.getType());

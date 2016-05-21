@@ -12,8 +12,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
 
@@ -104,7 +104,7 @@ public class TimerCommand extends UHCCommand {
         }
 
         if (args.length == 2) {
-            toReturn.add("&7Game is closing in &8»&a");
+            toReturn.add("&7Whitelist is off for &8»&a");
         }
 
         return toReturn;

@@ -1,10 +1,21 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.sheep;
 
-import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.AIUtil;
-import net.minecraft.server.v1_8_R3.*;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.AIUtil;
+
+import net.minecraft.server.v1_8_R3.Block;
+import net.minecraft.server.v1_8_R3.BlockPosition;
+import net.minecraft.server.v1_8_R3.EntityAgeable;
+import net.minecraft.server.v1_8_R3.EntityAnimal;
+import net.minecraft.server.v1_8_R3.EntitySheep;
+import net.minecraft.server.v1_8_R3.EnumColor;
+import net.minecraft.server.v1_8_R3.MathHelper;
+import net.minecraft.server.v1_8_R3.PathfinderGoalFloat;
+import net.minecraft.server.v1_8_R3.PathfinderGoalFollowParent;
+import net.minecraft.server.v1_8_R3.PathfinderGoalRandomStroll;
+import net.minecraft.server.v1_8_R3.World;
 
 @SuppressWarnings({ "unchecked" })
 public class CustomSheep extends EntitySheep {

@@ -1,12 +1,13 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3;
 
+import java.util.Iterator;
+import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import net.minecraft.server.v1_8_R3.BiomeBase;
 import net.minecraft.server.v1_8_R3.EntityGhast;
 import net.minecraft.server.v1_8_R3.EnumCreatureType;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class NewSpawnsModifier implements com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.NewSpawnsModifier {
 

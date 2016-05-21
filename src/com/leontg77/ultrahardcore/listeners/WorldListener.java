@@ -7,9 +7,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
 import com.leontg77.pregenner.events.WorldBorderFillFinishedEvent;
-import com.leontg77.ultrahardcore.Arena;
+import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
@@ -21,19 +22,21 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class WorldListener implements Listener {
     private final Arena arena;
+    private final Game game;
 
     /**
      * World listener class constructor.
      *
      * @param arena The arena class.
      */
-    public WorldListener(Arena arena) {
+    public WorldListener(Game game, Arena arena) {
         this.arena = arena;
+        this.game = game;
     }
 
     @EventHandler
     public void on(ChunkUnloadEvent event) {
-        if (!State.isState(State.SCATTER)) {
+        if (!game.isState(State.SCATTER)) {
             return;
         }
 

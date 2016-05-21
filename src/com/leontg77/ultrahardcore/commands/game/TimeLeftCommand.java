@@ -6,11 +6,11 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 
 /**
@@ -41,7 +41,7 @@ public class TimeLeftCommand extends UHCCommand {
             throw new CommandException("There are no matches running.");
         }
 
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             throw new CommandException("The game has not started yet.");
         }
 

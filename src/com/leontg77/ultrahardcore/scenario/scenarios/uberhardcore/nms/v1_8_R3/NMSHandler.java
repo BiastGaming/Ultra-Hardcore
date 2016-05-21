@@ -1,5 +1,10 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3;
 
+import java.util.List;
+
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.plugin.Plugin;
+
 import com.google.common.collect.ImmutableList;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.MobOverride;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.chicken.CustomChicken;
@@ -12,11 +17,12 @@ import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mo
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.spider.SpiderDeathHandler;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.zombie.CustomZombie;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.zombie.ZombieSeigeHandler;
-import net.minecraft.server.v1_8_R3.*;
-import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.plugin.Plugin;
 
-import java.util.List;
+import net.minecraft.server.v1_8_R3.EntityChicken;
+import net.minecraft.server.v1_8_R3.EntitySheep;
+import net.minecraft.server.v1_8_R3.EntitySkeleton;
+import net.minecraft.server.v1_8_R3.EntitySpider;
+import net.minecraft.server.v1_8_R3.EntityZombie;
 
 public class NMSHandler extends com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.NMSHandler {
 

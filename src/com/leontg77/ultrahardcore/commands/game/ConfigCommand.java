@@ -12,11 +12,11 @@ import org.bukkit.entity.Player;
 
 import com.google.common.base.Joiner;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.User.Rank;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.border.BorderShrinkFeature;
 import com.leontg77.ultrahardcore.feature.border.BorderShrinkFeature.BorderShrink;
@@ -194,7 +194,7 @@ public class ConfigCommand extends UHCCommand {
             }
 
             PlayerUtils.broadcast(Main.PREFIX + "The server is now in §a" + state.name().toLowerCase() + "§7 mode.");
-            State.setState(state);
+            game.setState(state);
             break;
         case FLINTRATES:
             if (args.length == 1) {

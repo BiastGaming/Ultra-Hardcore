@@ -1,13 +1,14 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
+
 import net.minecraft.server.v1_8_R3.PathfinderGoal;
 import net.minecraft.server.v1_8_R3.PathfinderGoalSelector;
-
-import java.lang.reflect.Field;
-import java.util.List;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class AIUtil {

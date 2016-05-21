@@ -43,7 +43,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
@@ -144,7 +144,7 @@ public class Cryophobia extends Scenario implements Listener {
 
     @EventHandler
     public void onChunkLoadEvent(ChunkLoadEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -153,7 +153,7 @@ public class Cryophobia extends Scenario implements Listener {
 
     @EventHandler
     public void onChunkUnloadEvent(ChunkUnloadEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -162,7 +162,7 @@ public class Cryophobia extends Scenario implements Listener {
 
     @EventHandler
     public void onEntityShootBowEvent(EntityShootBowEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -189,7 +189,7 @@ public class Cryophobia extends Scenario implements Listener {
 
     @EventHandler
     public void onCreatureSpawnEvent(CreatureSpawnEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -237,6 +237,10 @@ public class Cryophobia extends Scenario implements Listener {
 
     @EventHandler
     public void onExplodeDeath(EntityExplodeEvent event) {
+        if (!game.isState(State.INGAME)) {
+            return;
+        }
+        
         if (event.isCancelled()) {
             return;
         }
@@ -291,7 +295,7 @@ public class Cryophobia extends Scenario implements Listener {
 
     @EventHandler
     public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -318,7 +322,7 @@ public class Cryophobia extends Scenario implements Listener {
 
     @EventHandler
     public void onLeavesDecayEvent(LeavesDecayEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -347,7 +351,7 @@ public class Cryophobia extends Scenario implements Listener {
 
     @EventHandler
     public void onBlockFromTo(BlockFromToEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -363,7 +367,7 @@ public class Cryophobia extends Scenario implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
     public void onBlockBreakEvent(BlockBreakEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

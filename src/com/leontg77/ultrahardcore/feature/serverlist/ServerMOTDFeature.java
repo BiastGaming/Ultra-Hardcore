@@ -5,7 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.feature.Feature;
 
 /**
@@ -42,7 +42,7 @@ public class ServerMOTDFeature extends Feature implements Listener {
      * @return The server list message.
      */
     private String getMOTDMessage() {
-        final State current = State.getState();
+        final State current = game.getState();
 
         if (game.getTeamSize().startsWith("No") || game.isRecordedRound() || game.isPrivateGame()) {
             return "No games running";
@@ -71,7 +71,7 @@ public class ServerMOTDFeature extends Feature implements Listener {
      * @return The server list message.
      */
     private String getInformationMessage() {
-        final State current = State.getState();
+        final State current = game.getState();
 
         final String scen = game.getScenarios().replaceAll(", ", "§8§o, §7§o");
         final String ingameAfter = "§8§o. §4§oHost: §a§o" + game.getHost();

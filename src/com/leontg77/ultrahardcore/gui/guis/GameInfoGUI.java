@@ -18,9 +18,9 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
@@ -575,7 +575,7 @@ public class GameInfoGUI extends GUI implements Listener {
             lore.add("§8» §7Time to next episode: §a" + timer.getTimeSinceStart() + " minute(s).");
         } else if (game.getAdvancedTeamSize(false, false).startsWith("No") || game.getAdvancedTeamSize(false, false).startsWith("Open")) {
             lore.add("§8» §7There are no matches running.");
-        } else if (!State.isState(State.INGAME)) {
+        } else if (!game.isState(State.INGAME)) {
             lore.add("§8» §7The game has not started yet.");
         } else {
             lore.add("§8» §7Time since start: §a" + DateUtils.ticksToString(timePassed));

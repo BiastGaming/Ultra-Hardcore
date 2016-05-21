@@ -17,8 +17,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.events.PvPEnableEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -58,7 +58,7 @@ public class BestBTC extends Scenario implements Listener, CommandExecutor {
 
     @Override
     public void onEnable() {
-        if (!State.isState(State.INGAME) || timer.getPvP() > 0) {
+        if (!game.isState(State.INGAME) || timer.getPvP() > 0) {
             return;
         }
 
@@ -101,7 +101,7 @@ public class BestBTC extends Scenario implements Listener, CommandExecutor {
 
     @EventHandler
     public void on(BlockBreakEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -126,7 +126,7 @@ public class BestBTC extends Scenario implements Listener, CommandExecutor {
 
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerMoveEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

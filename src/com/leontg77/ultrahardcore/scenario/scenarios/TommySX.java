@@ -14,9 +14,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
@@ -25,7 +25,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
@@ -53,7 +53,7 @@ public class TommySX extends Scenario implements Listener {
 
     @Override
     public void onEnable() {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -75,7 +75,7 @@ public class TommySX extends Scenario implements Listener {
 
     @EventHandler(priority = EventPriority.LOW) // so my chat listener can still make prefixes and such but have the new message.
     public void on(AsyncPlayerChatEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -91,10 +91,9 @@ public class TommySX extends Scenario implements Listener {
 
     @EventHandler
     public void on(CreatureSpawnEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
-
         if (rand.nextInt(100) >= 10) {
             return;
         }
@@ -111,7 +110,7 @@ public class TommySX extends Scenario implements Listener {
 
     @EventHandler
     public void on(EntityDamageByEntityEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -155,7 +154,7 @@ public class TommySX extends Scenario implements Listener {
 
     @EventHandler
     public void on(PlayerDeathEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

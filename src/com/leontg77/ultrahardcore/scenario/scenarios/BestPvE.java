@@ -18,8 +18,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.FinalHealEvent;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -56,7 +56,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
 
     @Override
     public void onEnable() {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -108,7 +108,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
 
     @EventHandler(priority = EventPriority.LOW)
     public void on(PlayerDeathEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -135,7 +135,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
 
     @EventHandler(ignoreCancelled = true)
     public void on(EntityDamageEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

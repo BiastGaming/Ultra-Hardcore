@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.Parkour;
+import com.leontg77.ultrahardcore.minigames.Parkour;
 
 import net.minecraft.server.v1_8_R3.EnumParticle;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;

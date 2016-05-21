@@ -1,11 +1,11 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.rabbit;
 
+import java.util.Random;
+
 import org.bukkit.entity.Rabbit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-
-import java.util.Random;
 
 public class RabbitSpawnHandler implements Listener {
 

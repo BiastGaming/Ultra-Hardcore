@@ -24,11 +24,11 @@ import org.bukkit.scoreboard.Team;
 
 import com.google.common.collect.ImmutableSet;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Stat;
-import com.leontg77.ultrahardcore.commands.CommandException;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.utils.LocationUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
@@ -143,7 +143,7 @@ public class ScatterManager {
      * @param toScatter The player to handle.
      */
     public void handleLateScatter(Player toScatter) {
-        if (State.isState(State.SCATTER)) {
+        if (game.isState(State.SCATTER)) {
             for (PotionEffect effect : FREEZE_EFFECTS) {
                 if (toScatter.hasPotionEffect(effect.getType())) {
                     toScatter.removePotionEffect(effect.getType());
@@ -217,7 +217,7 @@ public class ScatterManager {
                         if (i < locs.size()) {
                             Player host = Bukkit.getPlayer(game.getHost());
 
-                            if (State.isState(State.INGAME) || host == null || (!State.isState(State.SCATTER) && manager.getTeam(host) != null && !manager.getTeam(host).getName().equals("spec"))) {
+                            if (game.isState(State.INGAME) || host == null || (!game.isState(State.SCATTER) && manager.getTeam(host) != null && !manager.getTeam(host).getName().equals("spec"))) {
                                 locs.get(i).getChunk().load(true);
                             } else {
                                 host.teleport(locs.get(i));
@@ -271,7 +271,7 @@ public class ScatterManager {
                                                 if (toScatter == null) {
                                                     lateScatters.put(teammate.getName(), scatterLocation);
                                                 } else {
-                                                    if (State.isState(State.SCATTER)) {
+                                                    if (game.isState(State.SCATTER)) {
                                                         for (PotionEffect effect : FREEZE_EFFECTS) {
                                                             if (toScatter.hasPotionEffect(effect.getType())) {
                                                                 toScatter.removePotionEffect(effect.getType());
@@ -299,7 +299,7 @@ public class ScatterManager {
                                                 lateScatters.put(scatter, scatterLocation);
                                                 scatterLocs.remove(scatter);
                                             } else {
-                                                if (State.isState(State.SCATTER)) {
+                                                if (game.isState(State.SCATTER)) {
                                                     for (PotionEffect effect : FREEZE_EFFECTS) {
                                                         if (toScatter.hasPotionEffect(effect.getType())) {
                                                             toScatter.removePotionEffect(effect.getType());

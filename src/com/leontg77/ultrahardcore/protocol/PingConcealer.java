@@ -1,5 +1,10 @@
 package com.leontg77.ultrahardcore.protocol;
 
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.bukkit.plugin.Plugin;
+
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
@@ -12,10 +17,6 @@ import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import org.bukkit.plugin.Plugin;
-
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Ping concealer packet class.

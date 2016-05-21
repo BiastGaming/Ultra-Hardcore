@@ -1,10 +1,9 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
-import com.leontg77.ultrahardcore.events.GameStartEvent;
-import com.leontg77.ultrahardcore.scenario.Scenario;
-import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.function.Predicate;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
@@ -19,9 +18,11 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.function.Predicate;
+import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.events.GameStartEvent;
+import com.leontg77.ultrahardcore.scenario.Scenario;
+import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 public class FlatWorld extends Scenario implements Listener {
 
@@ -48,7 +49,7 @@ public class FlatWorld extends Scenario implements Listener {
                 .filter(IS_VILLAGER)
                 .forEach(Entity::remove);
 
-        if (State.isState(State.INGAME)) {
+        if (game.isState(State.INGAME)) {
             on(new GameStartEvent());
         }
     }
@@ -84,8 +85,6 @@ public class FlatWorld extends Scenario implements Listener {
             return;
         }
 
-        Arrays.stream(chunk.getEntities())
-                .filter(IS_VILLAGER)
-                .forEach(Entity::remove);
+        Arrays.stream(chunk.getEntities()).filter(IS_VILLAGER).forEach(Entity::remove);
     }
 }

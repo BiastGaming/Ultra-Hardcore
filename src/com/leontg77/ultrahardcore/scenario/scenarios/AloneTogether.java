@@ -10,7 +10,7 @@ import org.bukkit.scoreboard.Team;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.events.TeamJoinEvent;
 import com.leontg77.ultrahardcore.events.TeamLeaveEvent;
@@ -52,7 +52,7 @@ public class AloneTogether extends Scenario implements Listener {
 
     @Override
     public void onEnable() {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -68,7 +68,7 @@ public class AloneTogether extends Scenario implements Listener {
 
     @EventHandler
     public void on(PlayerJoinEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -88,7 +88,7 @@ public class AloneTogether extends Scenario implements Listener {
 
     @EventHandler
     public void on(TeamJoinEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -99,7 +99,7 @@ public class AloneTogether extends Scenario implements Listener {
 
     @EventHandler
     public void on(TeamLeaveEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

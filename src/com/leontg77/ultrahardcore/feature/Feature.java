@@ -1,5 +1,8 @@
 package com.leontg77.ultrahardcore.feature;
 
+import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Main;
+
 /**
  * A feature of the plugin.
  * 
@@ -18,6 +21,20 @@ public abstract class Feature {
     public Feature(String name, String description) {
         this.description = description;
         this.name = name;
+    }
+
+    protected Main plugin;
+    protected Game game;
+    
+    /**
+     * Setup the 2 instances needed.
+     * 
+     * @param plugin The plugin instance.
+     * @param game The game instance
+     */
+    protected void setupInstances(Main plugin, Game game) {
+        this.plugin = plugin;
+        this.game = game;
     }
 
     /**

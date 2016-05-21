@@ -18,8 +18,6 @@ import com.leontg77.ultrahardcore.utils.PacketUtils;
 
 /**
  * Game management class.
- * <p>
- * This class contains all setters and getters for all togglable features.
  * 
  * @author LeonTG77
  */
@@ -48,9 +46,18 @@ public class Game {
 
         this.board = board;
         this.spec = spec;
-    }
+        
+        State state;
 
-    private Timer timer;
+        try {
+            state = State.valueOf(settings.getConfig().getString("state"));
+        } catch (Exception e) {
+            Bukkit.getLogger().warning("Setting the state to NOT_RUNNING as it can't find the saved one!");
+            state = State.NOT_RUNNING;
+        }
+
+        this.current = state;
+    }
 
     /**
      * Set the instance of the timer to the givne instance.
@@ -59,6 +66,47 @@ public class Game {
      */
     public void setTimer(Timer timer) {
         this.timer = timer;
+    }
+
+    private State current;
+    private Timer timer;
+    
+    /**
+     * Game states
+     */
+    public enum State {
+        NOT_RUNNING, OPEN, CLOSED, SCATTER, INGAME, ENDING;
+    }
+
+    /**
+     * Set the current state.
+     * 
+     * @param state The new state.
+     */
+    public void setState(State state) {
+        current = state;
+
+        settings.getConfig().set("state", state.name());
+        settings.saveConfig();
+    }
+
+    /**
+     * Check if the current state is the same as the given state.
+     *
+     * @param state The state checking.
+     * @return True if it's the same, false otherwise.
+     */
+    public boolean isState(State state) {
+        return getState() == state;
+    }
+
+    /**
+     * Gets the current game state.
+     *
+     * @return The current state.ø
+     */
+    public State getState() {
+        return current;
     }
 
     /**

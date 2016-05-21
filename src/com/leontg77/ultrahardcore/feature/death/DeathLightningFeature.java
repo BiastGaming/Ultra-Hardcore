@@ -11,12 +11,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.feature.ToggleableFeature;
+import com.leontg77.ultrahardcore.minigames.Arena;
 
 /**
  * Death Lightninig feature class.
@@ -67,7 +67,7 @@ public class DeathLightningFeature extends ToggleableFeature implements Listener
         player.setWhitelisted(false);
         user.setDeathLoc(player.getLocation());
 
-        if (!State.isState(State.INGAME) || !worlds.contains(player.getWorld())) {
+        if (!game.isState(State.INGAME) || !worlds.contains(player.getWorld())) {
             return;
         }
 

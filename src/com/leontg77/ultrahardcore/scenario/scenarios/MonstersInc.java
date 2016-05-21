@@ -16,7 +16,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
@@ -46,7 +46,7 @@ public class MonstersInc extends Scenario implements Listener {
 
     @EventHandler
     public void on(BlockPlaceEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -61,7 +61,7 @@ public class MonstersInc extends Scenario implements Listener {
 
     @EventHandler
     public void on(BlockBreakEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -81,7 +81,7 @@ public class MonstersInc extends Scenario implements Listener {
 
     @EventHandler
     public void on(PlayerInteractEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

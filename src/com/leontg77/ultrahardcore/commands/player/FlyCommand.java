@@ -7,10 +7,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 
 /**
  * Fly command class.
@@ -32,7 +32,7 @@ public class FlyCommand extends UHCCommand {
 
             Player player = (Player) sender;
 
-            if (State.isState(State.INGAME) && !player.getWorld().getName().equals("lobby")) {
+            if (game.isState(State.INGAME) && !player.getWorld().getName().equals("lobby")) {
                 throw new CommandException("You can only fly in the spawn.");
             }
 
@@ -59,7 +59,7 @@ public class FlyCommand extends UHCCommand {
             throw new CommandException("'" + args[0] + "' is not online.");
         }
 
-        if (State.isState(State.INGAME) && !target.getWorld().getName().equals("lobby")) {
+        if (game.isState(State.INGAME) && !target.getWorld().getName().equals("lobby")) {
             throw new CommandException("'" + target.getName() + "' can only fly in the spawn.");
         }
 

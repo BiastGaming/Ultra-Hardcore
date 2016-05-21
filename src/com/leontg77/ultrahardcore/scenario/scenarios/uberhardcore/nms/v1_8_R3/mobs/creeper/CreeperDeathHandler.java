@@ -1,9 +1,10 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.creeper;
 
-import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.PluginDependantListener;
 import org.bukkit.entity.Creeper;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
+
+import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.PluginDependantListener;
 
 public class CreeperDeathHandler extends PluginDependantListener {
 

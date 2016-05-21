@@ -59,8 +59,8 @@ public class LogoutListener implements Listener {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Date date = new Date();
 
-        user.getFile().set("lastlogout", date.getTime());
-        user.saveFile();
+        user.getConfig().set("lastlogout", date.getTime());
+        user.saveConfig();
 
         perm.removePermissions(player);
         user.setLastLoc(null);

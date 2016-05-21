@@ -1,15 +1,16 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3;
 
-import com.google.common.collect.Lists;
-import net.minecraft.server.v1_8_R3.BiomeBase;
-import net.minecraft.server.v1_8_R3.Entity;
-import net.minecraft.server.v1_8_R3.EntityTypes;
-import net.minecraft.server.v1_8_R3.EnumCreatureType;
-
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import com.google.common.collect.Lists;
+
+import net.minecraft.server.v1_8_R3.BiomeBase;
+import net.minecraft.server.v1_8_R3.Entity;
+import net.minecraft.server.v1_8_R3.EntityTypes;
+import net.minecraft.server.v1_8_R3.EnumCreatureType;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class EntityClassReplacer implements com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.EntityClassReplacer {

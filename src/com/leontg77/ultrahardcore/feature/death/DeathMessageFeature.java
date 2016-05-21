@@ -2,13 +2,6 @@ package com.leontg77.ultrahardcore.feature.death;
 
 import java.util.List;
 
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.ComponentBuilder.FormatRetention;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
-
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -18,12 +11,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.feature.Feature;
+import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
+
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.ComponentBuilder.FormatRetention;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 
 /**
  * Death Messages feature class.
@@ -65,7 +65,7 @@ public class DeathMessageFeature extends Feature implements Listener {
         String deathMessage = event.getDeathMessage();
         event.setDeathMessage(null);
 
-        if (!State.isState(State.INGAME) || !worlds.contains(player.getWorld())) {
+        if (!game.isState(State.INGAME) || !worlds.contains(player.getWorld())) {
             return;
         }
 

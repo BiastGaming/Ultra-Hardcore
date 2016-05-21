@@ -15,7 +15,7 @@ import org.bukkit.inventory.Inventory;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
@@ -44,7 +44,7 @@ public class Backpacks extends Scenario implements Listener, CommandExecutor {
 
     @EventHandler
     public void on(PlayerDeathEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -78,7 +78,7 @@ public class Backpacks extends Scenario implements Listener, CommandExecutor {
             return true;
         }
 
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             player.sendMessage(ChatColor.RED + "The game hasn't started yet.");
             return true;
         }

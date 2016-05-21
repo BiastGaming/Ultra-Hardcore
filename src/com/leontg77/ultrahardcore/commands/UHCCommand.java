@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
+import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
+
 /**
  * Super class for commands.
  * 
@@ -23,6 +27,20 @@ public abstract class UHCCommand extends Parser {
         this.name = name;
     }
 
+    protected Main plugin;
+    protected Game game;
+    
+    /**
+     * Setup the 2 instances needed.
+     * 
+     * @param plugin The plugin instance.
+     * @param game The game instance
+     */
+    protected void setupInstances(Main plugin, Game game) {
+        this.plugin = plugin;
+        this.game = game;
+    }
+    
     /**
      * Get the name of the command used after the /
      *

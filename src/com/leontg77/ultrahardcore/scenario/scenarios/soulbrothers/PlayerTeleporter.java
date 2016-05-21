@@ -1,6 +1,8 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.soulbrothers;
 
-import com.google.common.collect.Maps;
+import java.util.Map;
+import java.util.UUID;
+
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -8,8 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.Map;
-import java.util.UUID;
+import com.google.common.collect.Maps;
 
 /**
  * Player Teleporter class.

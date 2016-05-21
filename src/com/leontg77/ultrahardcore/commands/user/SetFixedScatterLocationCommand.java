@@ -1,20 +1,21 @@
 package com.leontg77.ultrahardcore.commands.user;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.User;
-import com.leontg77.ultrahardcore.commands.CommandException;
-import com.leontg77.ultrahardcore.commands.UHCCommand;
-import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import java.util.Collection;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
-import java.util.Collection;
-import java.util.List;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.User;
+import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
+import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 public class SetFixedScatterLocationCommand extends UHCCommand {
 

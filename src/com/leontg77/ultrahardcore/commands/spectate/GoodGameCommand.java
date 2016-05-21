@@ -1,11 +1,12 @@
 package com.leontg77.ultrahardcore.commands.spectate;
 
-import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.commands.CommandException;
-import com.leontg77.ultrahardcore.commands.UHCCommand;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 
-import java.util.List;
+import com.google.common.collect.ImmutableList;
+import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 
 public class GoodGameCommand extends UHCCommand {
 

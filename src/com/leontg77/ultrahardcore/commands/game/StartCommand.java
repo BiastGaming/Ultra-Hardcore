@@ -7,10 +7,9 @@ import org.bukkit.command.CommandSender;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 
 /**
  * Start command class.
@@ -30,7 +29,7 @@ public class StartCommand extends UHCCommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        switch (State.getState()) {
+        switch (game.getState()) {
         case NOT_RUNNING:
         case OPEN:
         case CLOSED:

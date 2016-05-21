@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
@@ -23,15 +23,9 @@ public class Cripple extends Scenario implements Listener {
         super("Cripple", "If you take fall damage you will get slowness for 30 seconds");
     }
 
-    @Override
-    public void onDisable() {}
-
-    @Override
-    public void onEnable() {}
-
     @EventHandler
     public void on(EntityDamageEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

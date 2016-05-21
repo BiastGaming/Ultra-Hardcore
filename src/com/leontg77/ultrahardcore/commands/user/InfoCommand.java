@@ -17,8 +17,8 @@ import org.bukkit.entity.Player;
 
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.NameUtils;
@@ -58,7 +58,7 @@ public class InfoCommand extends UHCCommand {
         BanList list = Bukkit.getBanList(Type.NAME);
         BanEntry entry = list.getBanEntry(target.getName());
 
-        long lastlogout = user.getFile().getLong("lastlogout", -1l);
+        long lastlogout = user.getConfig().getLong("lastlogout", -1l);
 
         String muteMessage;
         String banMessage;
@@ -93,7 +93,7 @@ public class InfoCommand extends UHCCommand {
 
         StringBuilder ips = new StringBuilder();
 
-        for (String IP : user.getFile().getStringList("ips")) {
+        for (String IP : user.getConfig().getStringList("ips")) {
             if (ips.length() > 0) {
                 ips.append("§8, §7");
             }
@@ -116,9 +116,9 @@ public class InfoCommand extends UHCCommand {
 
         sender.sendMessage(Main.PREFIX + "Info about §6" + target.getName() + "§8: (§7Currently: " + (target.getPlayer() == null ? "§cOffline" : "§aOnline") + "§8)");
         sender.sendMessage("§8» §m--------------------------------------§8 «");
-        sender.sendMessage("§8» §7UUID: §a" + user.getFile().getString("uuid"));
-        sender.sendMessage("§8» §7First Joined: §6" + date.format(new Date(user.getFile().getLong("firstjoined"))));
-        sender.sendMessage("§8» §7Last login: §6" + DateUtils.formatDateDiff(user.getFile().getLong("lastlogin")));
+        sender.sendMessage("§8» §7UUID: §a" + user.getConfig().getString("uuid"));
+        sender.sendMessage("§8» §7First Joined: §6" + date.format(new Date(user.getConfig().getLong("firstjoined"))));
+        sender.sendMessage("§8» §7Last login: §6" + DateUtils.formatDateDiff(user.getConfig().getLong("lastlogin")));
         sender.sendMessage("§8» §7Last logout: §6" + (lastlogout == -1l ? "§cHasn't logged out" : DateUtils.formatDateDiff(lastlogout)));
         sender.sendMessage("§8» §m--------------------------------------§8 «");
         sender.sendMessage("§8» §7IPs: §8(§aGreen §7= Current IP§8)");
@@ -136,18 +136,18 @@ public class InfoCommand extends UHCCommand {
         sender.sendMessage("§8» §7Banned: §6" + banMessage);
         sender.sendMessage("§8» §7Muted: §6" + muteMessage);
         sender.sendMessage("§8» §m--------------------------------------§8 «");
-        if (!user.getFile().contains("punishments")) {
+        if (!user.getConfig().contains("punishments")) {
             sender.sendMessage("§8» §7Punishments: §cNone");
         } else {
             Format dateFormat = new SimpleDateFormat("dd/MM/yyyy '@' HH:mm", Locale.US);
             sender.sendMessage("§8» §7Punishments:");
 
-            for (String punish : user.getFile().getConfigurationSection("punishments").getKeys(false)) {
-                PunishmentType type = PunishmentType.valueOf(user.getFile().getString("punishments." + punish + ".type", "MUTE"));
-                String reason = user.getFile().getString("punishments." + punish + ".reason", "none");
+            for (String punish : user.getConfig().getConfigurationSection("punishments").getKeys(false)) {
+                PunishmentType type = PunishmentType.valueOf(user.getConfig().getString("punishments." + punish + ".type", "MUTE"));
+                String reason = user.getConfig().getString("punishments." + punish + ".reason", "none");
 
-                long created = user.getFile().getLong("punishments." + punish + ".created", -1l);
-                long expire = user.getFile().getLong("punishments." + punish + ".expires", -1l);
+                long created = user.getConfig().getLong("punishments." + punish + ".created", -1l);
+                long expire = user.getConfig().getLong("punishments." + punish + ".expires", -1l);
 
                 String from = created == -1l ? "now" : dateFormat.format(new Date(created));
                 String to = expire == -1l ? "forever" : dateFormat.format(new Date(expire));

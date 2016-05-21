@@ -3,6 +3,7 @@ package com.leontg77.ultrahardcore.feature.entity;
 import org.bukkit.Location;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -43,6 +44,15 @@ public class PetFeature extends Feature implements Listener {
             case FOREST_HILLS:
                 Wolf wolf = loc.getWorld().spawn(loc, Wolf.class);
                 wolf.setCustomName("Wolf");
+
+                event.setCancelled(true);
+            case JUNGLE:
+            case JUNGLE_EDGE:
+            case JUNGLE_EDGE_MOUNTAINS:
+            case JUNGLE_HILLS:
+            case JUNGLE_MOUNTAINS:
+                Ocelot cat = loc.getWorld().spawn(loc, Ocelot.class);
+                cat.setCustomName("Cat");
 
                 event.setCancelled(true);
                 break;

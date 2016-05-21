@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
@@ -21,15 +21,9 @@ public class CarrotCombo extends Scenario implements Listener {
         super("CarrotCombo", "When you craft a sword, it gives you a carrot with an enchantment equal to the sword");
     }
 
-    @Override
-    public void onDisable() {}
-
-    @Override
-    public void onEnable() {}
-
     @EventHandler(ignoreCancelled = true)
-    public void on(final PrepareItemCraftEvent event)  {
-        if (!State.isState(State.INGAME)) {
+    public void on(PrepareItemCraftEvent event)  {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         

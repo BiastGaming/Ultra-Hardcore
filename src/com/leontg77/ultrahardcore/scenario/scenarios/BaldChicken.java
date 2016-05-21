@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 
@@ -22,15 +22,9 @@ public class BaldChicken extends Scenario implements Listener {
         super("BaldChicken", "Chicken's drop no feathers. Skeletons drop 3-5 arrows.");
     }
 
-    @Override
-    public void onDisable() {}
-
-    @Override
-    public void onEnable() {}
-
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

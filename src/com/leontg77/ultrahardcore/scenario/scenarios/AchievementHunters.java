@@ -44,8 +44,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
@@ -111,7 +111,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
         // I disable them instead since I have a custom dropping
         feat.getFeature(GoldenHeadsFeature.class).disable(settings);
 
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -135,7 +135,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
 
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerInteractEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -167,7 +167,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
     
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerItemConsumeEvent event)  {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -187,7 +187,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
 
     @EventHandler(ignoreCancelled = true)
     public void on(CraftItemEvent event)  {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -246,7 +246,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
     
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void on(EntityDamageEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -280,7 +280,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
     
     @EventHandler(ignoreCancelled = true)
     public void on(EntityDamageByEntityEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -324,7 +324,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
     
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerPickupItemEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -354,7 +354,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
 
     @EventHandler(ignoreCancelled = true)
     public void on(InventoryClickEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -386,7 +386,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
 
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerDeathEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -408,7 +408,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
     
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerPortalEvent event)  {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -423,7 +423,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
     
     @EventHandler(ignoreCancelled = true)
     public void on(EntityDeathEvent event)  {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         

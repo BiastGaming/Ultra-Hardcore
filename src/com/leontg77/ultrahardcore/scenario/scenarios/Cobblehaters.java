@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
@@ -23,15 +23,9 @@ public class Cobblehaters extends Scenario implements Listener {
         super("Cobblehaters", "You cannot mine stone, furnaces, or make stone tools.");
     }
 
-    @Override
-    public void onDisable() {}
-
-    @Override
-    public void onEnable() {}
-
     @EventHandler(ignoreCancelled = true)
-    public void on(final BlockBreakEvent event)  {
-        if (!State.isState(State.INGAME)) {
+    public void on(BlockBreakEvent event)  {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -41,9 +35,12 @@ public class Cobblehaters extends Scenario implements Listener {
         switch (block.getType()) {
         case STONE:
         case COBBLESTONE:
+            player.sendMessage(ChatColor.RED + "You can't mine " + block.getType().name().toLowerCase().replace("_", " ") + " in this scenario.");
+            event.setCancelled(true);
+            break;
         case FURNACE:
         case BURNING_FURNACE:
-            player.sendMessage(ChatColor.RED + "You can't mine " + block.getType().name().toLowerCase().replace("_", " ") + " in this scenario.");
+            player.sendMessage(ChatColor.RED + "You can't mine " + block.getType().name().toLowerCase().replace("_", " ") + "s in this scenario.");
             event.setCancelled(true);
             break;
         default:
@@ -53,7 +50,7 @@ public class Cobblehaters extends Scenario implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void on(final CraftItemEvent event)  {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         

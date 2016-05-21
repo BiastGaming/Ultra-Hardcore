@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -38,7 +38,7 @@ public class BowFighters extends Scenario implements Listener {
 
     @Override
     public void onEnable() {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -62,7 +62,7 @@ public class BowFighters extends Scenario implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void on(final PlayerPickupItemEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -85,7 +85,7 @@ public class BowFighters extends Scenario implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void on(final InventoryClickEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -115,7 +115,7 @@ public class BowFighters extends Scenario implements Listener {
     
     @EventHandler(ignoreCancelled = true)
     public void on(final CraftItemEvent event)  {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -144,7 +144,7 @@ public class BowFighters extends Scenario implements Listener {
     
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void on(final EntityDamageByEntityEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

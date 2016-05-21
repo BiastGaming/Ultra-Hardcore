@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -22,15 +22,9 @@ public class BloodDiamonds extends Scenario implements Listener {
         super("BloodDiamonds", "Every time you mine a diamond you take half a heart.");
     }
 
-    @Override
-    public void onDisable() {}
-
-    @Override
-    public void onEnable() {}
-
     @EventHandler
     public void on(BlockBreakEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

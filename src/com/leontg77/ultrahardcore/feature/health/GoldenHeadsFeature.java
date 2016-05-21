@@ -1,6 +1,6 @@
 package com.leontg77.ultrahardcore.feature.health;
 
-import java.util.UUID;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,12 +27,12 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.feature.ToggleableFeature;
+import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.AchievementHunters;
 import com.leontg77.ultrahardcore.scenario.scenarios.VengefulSpirits;
@@ -111,6 +111,8 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
     public double getHealAmount() {
         return ((double) healAmount) / 2;
     }
+    
+    private final Random rand = new Random();
 
     @EventHandler
     public void on(PlayerDeathEvent event) {
@@ -125,7 +127,7 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
             return;
         }
 
-        if (!State.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
+        if (!game.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
             return;
         }
 
@@ -153,7 +155,7 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
                 skull.setRotation(getBlockDirection(player.getLocation()));
 
                 if (wtf.isEnabled()) {
-                    skull.setOwner(UUID.randomUUID().toString());
+                    skull.setOwner(rand.nextLong() + "");
                 } else {
                     skull.setOwner(player.getName());
                 }

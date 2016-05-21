@@ -1,9 +1,9 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.sheep;
 
+import java.util.Random;
+
 import net.minecraft.server.v1_8_R3.ControllerMove;
 import net.minecraft.server.v1_8_R3.PathfinderGoal;
-
-import java.util.Random;
 
 // taken from entity ghast and modified
 public class PathfinderGoalRandomFly extends PathfinderGoal {

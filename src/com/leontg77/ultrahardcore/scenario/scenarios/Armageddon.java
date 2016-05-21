@@ -18,7 +18,7 @@ import org.bukkit.util.Vector;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
@@ -58,8 +58,8 @@ public class Armageddon extends Scenario implements Listener {
     @Override
     public void onEnable() {
         world = game.getWorld();
-
-        if (!State.isState(State.INGAME)) {
+        
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

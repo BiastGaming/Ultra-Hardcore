@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -27,22 +27,16 @@ public class Inventors extends Scenario implements Listener {
         super("Inventors", "The first person to craft any item will be broadcasted in chat.");
     }
 
-    @Override
-    public void onDisable() {}
-
-    @Override
-    public void onEnable() {}
-
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void on(final CraftItemEvent event) {
-        if (!State.isState(State.INGAME)) {
+    public void on(CraftItemEvent event) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
-        final ItemStack item = event.getRecipe().getResult();
-        final Player player = (Player) event.getWhoClicked();
+        ItemStack item = event.getRecipe().getResult();
+        Player player = (Player) event.getWhoClicked();
 
-        final String name = item.getData().toString();
+        String name = item.getData().toString();
 
         if (craftedItems.contains(name)) {
             return;

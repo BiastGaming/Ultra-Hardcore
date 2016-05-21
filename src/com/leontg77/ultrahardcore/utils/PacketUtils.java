@@ -132,7 +132,7 @@ public class PacketUtils {
         IChatBaseComponent titleJSON = ChatSerializer.a("{'text': '" + title + "'}");
         IChatBaseComponent subtitleJSON = ChatSerializer.a("{'text': '" + subtitle + "'}");
 
-        PacketPlayOutTitle timesPacket = new PacketPlayOutTitle(EnumTitleAction.TIMES, null, in, stay, out);
+        PacketPlayOutTitle timesPacket = new PacketPlayOutTitle(EnumTitleAction.TIMES, (IChatBaseComponent) null, in, stay, out);
         PacketPlayOutTitle titlePacket = new PacketPlayOutTitle(EnumTitleAction.TITLE, titleJSON);
         PacketPlayOutTitle subtitlePacket = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, subtitleJSON);
 

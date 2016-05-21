@@ -20,9 +20,9 @@ import org.bukkit.scoreboard.Team;
 
 import com.google.common.collect.Lists;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
-import com.leontg77.ultrahardcore.commands.CommandException;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -192,7 +192,7 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
                     .map(Team::getName)
                     .collect(Collectors.toList());
 
-            State.setState(State.SCATTER);
+            game.setState(State.SCATTER);
 
             try {
                 scatter.scatter(toScatter);
@@ -203,7 +203,7 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("start")) {
-            State.setState(State.INGAME);
+            game.setState(State.INGAME);
 
             Set<PotionEffectType> removedTypes = ScatterManager.FREEZE_EFFECTS.stream().map(PotionEffect::getType).collect(Collectors.toSet());
             game.getPlayers().stream().forEach(player -> removedTypes.forEach(player::removePotionEffect));

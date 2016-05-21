@@ -9,8 +9,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
-import com.leontg77.ultrahardcore.managers.ScatterManager;
-import com.leontg77.ultrahardcore.utils.LocationUtils;
 import org.bukkit.BanList;
 import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
@@ -28,11 +26,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.gui.guis.GameInfoGUI;
 import com.leontg77.ultrahardcore.managers.PermissionsManager;
+import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.utils.FileUtils;
+import com.leontg77.ultrahardcore.utils.LocationUtils;
 
 /**
  * User class.
@@ -114,7 +115,7 @@ public class User {
                 config.set("stats." + stats.name().toLowerCase(), 0);
             }
 
-            saveFile();
+            saveConfig();
         }
     }
 
@@ -170,18 +171,27 @@ public class User {
     }
 
     /**
+     * Get the file for the player.
+     *
+     * @return The file.
+     */
+    public File getFile() {
+        return file;
+    }
+
+    /**
      * Get the configuration file for the player.
      *
      * @return The configuration file.
      */
-    public FileConfiguration getFile() {
+    public FileConfiguration getConfig() {
         return config;
     }
 
     /**
      * Save the config file.
      */
-    public void saveFile() {
+    public void saveConfig() {
         try {
             for (FileConfiguration file : FileUtils.getUserFiles()) {
                 if (file.getString("uuid", "none").equals(config.getString("uuid", "none"))) {
@@ -203,7 +213,7 @@ public class User {
     /**
      * Reload the config file.
      */
-    public void reloadFile() {
+    public void reloadConfig() {
         config = YamlConfiguration.loadConfiguration(file);
     }
 
@@ -214,7 +224,7 @@ public class User {
      */
     public void setRank(Rank rank) {
         config.set("rank", rank.name());
-        saveFile();
+        saveConfig();
 
         GameInfoGUI info = gui.getGUI(GameInfoGUI.class);
 
@@ -329,7 +339,7 @@ public class User {
     public void setDeathLoc(Location loc) {
         if (loc == null) {
             config.set("locs.death", null);
-            saveFile();
+            saveConfig();
             return;
         }
 
@@ -339,7 +349,7 @@ public class User {
         config.set("locs.death.z", loc.getZ());
         config.set("locs.death.yaw", loc.getYaw());
         config.set("locs.death.pitch", loc.getPitch());
-        saveFile();
+        saveConfig();
     }
 
     /**
@@ -377,7 +387,7 @@ public class User {
     public void setLastLoc(Location loc) {
         if (loc == null) {
             config.set("locs.last", null);
-            saveFile();
+            saveConfig();
             return;
         }
 
@@ -387,7 +397,7 @@ public class User {
         config.set("locs.last.z", loc.getZ());
         config.set("locs.last.yaw", loc.getYaw());
         config.set("locs.last.pitch", loc.getPitch());
-        saveFile();
+        saveConfig();
     }
 
     /**
@@ -426,7 +436,7 @@ public class User {
     public void setFixedScatterLocation(int x, int z) {
         config.set("locs.scatter.x", x);
         config.set("locs.scatter.z", z);
-        saveFile();
+        saveConfig();
     }
 
     /**
@@ -434,7 +444,7 @@ public class User {
      */
     public void deleteFixedScatterLocation() {
         config.set("locs.scatter", null);
-        saveFile();
+        saveConfig();
     }
 
     /**
@@ -511,7 +521,7 @@ public class User {
         ignoreList.add(player.getUniqueId().toString());
 
         config.set(IGNORE_PATH, ignoreList);
-        saveFile();
+        saveConfig();
     }
 
     /**
@@ -524,7 +534,7 @@ public class User {
         ignoreList.remove(player.getUniqueId().toString());
 
         config.set(IGNORE_PATH, ignoreList);
-        saveFile();
+        saveConfig();
     }
 
     /**
@@ -563,7 +573,7 @@ public class User {
             config.set("muted.time", unmute.getTime());
         }
 
-        saveFile();
+        saveConfig();
     }
 
     /**
@@ -573,7 +583,7 @@ public class User {
         config.set("muted.status", false);
         config.set("muted.reason", "NOT_MUTED");
         config.set("muted.time", -1);
-        saveFile();
+        saveConfig();
     }
 
     /**
@@ -636,12 +646,12 @@ public class User {
         if (stat == Stat.ARENADEATHS || stat == Stat.ARENAKILLSTREAK || stat == Stat.ARENAKILLS) {
             if (!Bukkit.hasWhitelist()) {
                 config.set("stats." + statName, value);
-                saveFile();
+                saveConfig();
             }
         } else {
-            if (State.isState(State.INGAME) || stat == Stat.WINS || stat == Stat.GAMESPLAYED) {
+            if (game.isState(State.INGAME) || stat == Stat.WINS || stat == Stat.GAMESPLAYED) {
                 config.set("stats." + statName, value);
-                saveFile();
+                saveConfig();
             }
         }
     }

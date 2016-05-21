@@ -10,11 +10,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Data;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.Parkour;
 import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.commands.arena.ArenaCommand;
@@ -98,6 +96,7 @@ import com.leontg77.ultrahardcore.commands.world.BorderCommand;
 import com.leontg77.ultrahardcore.commands.world.PregenCommand;
 import com.leontg77.ultrahardcore.commands.world.PvPCommand;
 import com.leontg77.ultrahardcore.commands.world.WorldCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.pvp.CombatLogFeature;
 import com.leontg77.ultrahardcore.gui.GUIManager;
@@ -106,6 +105,8 @@ import com.leontg77.ultrahardcore.managers.FireworkManager;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
+import com.leontg77.ultrahardcore.minigames.Parkour;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -329,6 +330,8 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
 
         for (UHCCommand cmd : cmds) {
             PluginCommand pCmd = plugin.getCommand(cmd.getName());
+            
+            cmd.setupInstances(plugin, game);
 
             // if its null, broadcast the command name so I know which one it is (so I can fix it).
             if (pCmd == null) {

@@ -1,10 +1,21 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.zombie;
 
-import net.minecraft.server.v1_8_R3.*;
-import org.bukkit.event.entity.CreatureSpawnEvent;
-
 import java.util.Iterator;
 import java.util.List;
+
+import org.bukkit.event.entity.CreatureSpawnEvent;
+
+import net.minecraft.server.v1_8_R3.BlockPosition;
+import net.minecraft.server.v1_8_R3.EntityHuman;
+import net.minecraft.server.v1_8_R3.EntityInsentient;
+import net.minecraft.server.v1_8_R3.EntityZombie;
+import net.minecraft.server.v1_8_R3.GroupDataEntity;
+import net.minecraft.server.v1_8_R3.MathHelper;
+import net.minecraft.server.v1_8_R3.SpawnerCreature;
+import net.minecraft.server.v1_8_R3.Vec3D;
+import net.minecraft.server.v1_8_R3.Village;
+import net.minecraft.server.v1_8_R3.VillageSiege;
+import net.minecraft.server.v1_8_R3.World;
 
 /**
  * Exact copy/paste of VillageSeige but with CustomZombie replacement.

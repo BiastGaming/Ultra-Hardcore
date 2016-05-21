@@ -7,11 +7,11 @@ import org.bukkit.WorldBorder;
 import org.bukkit.command.CommandSender;
 
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 
 /**
  * MUCoords command class.
@@ -46,11 +46,11 @@ public class MUCoordsCommand extends UHCCommand {
         }
 
         if (game.isRecordedRound()) {
-            if (!State.isState(State.INGAME) || timer.getPvP() < 100) {
+            if (!game.isState(State.INGAME) || timer.getPvP() < 100) {
                 throw new CommandException(Main.PREFIX + "Meetup coords has not been announced yet.");
             }
         } else {
-            if (!State.isState(State.INGAME) || timer.getMeetup() > 10) {
+            if (!game.isState(State.INGAME) || timer.getMeetup() > 10) {
                 throw new CommandException(Main.PREFIX + "Meetup coords has not been announced yet.");
             }
         }

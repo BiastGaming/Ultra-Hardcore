@@ -1,7 +1,20 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.chicken;
 
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.AIUtil;
-import net.minecraft.server.v1_8_R3.*;
+
+import net.minecraft.server.v1_8_R3.EntityAgeable;
+import net.minecraft.server.v1_8_R3.EntityChicken;
+import net.minecraft.server.v1_8_R3.EntityLiving;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.IRangedEntity;
+import net.minecraft.server.v1_8_R3.MathHelper;
+import net.minecraft.server.v1_8_R3.PathfinderGoalArrowAttack;
+import net.minecraft.server.v1_8_R3.PathfinderGoalFollowParent;
+import net.minecraft.server.v1_8_R3.PathfinderGoalMakeLove;
+import net.minecraft.server.v1_8_R3.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_8_R3.PathfinderGoalPanic;
+import net.minecraft.server.v1_8_R3.PathfinderGoalTempt;
+import net.minecraft.server.v1_8_R3.World;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class CustomChicken extends EntityChicken implements IRangedEntity {

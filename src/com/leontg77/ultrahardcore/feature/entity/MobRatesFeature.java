@@ -14,7 +14,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.events.MeetupEvent;
 import com.leontg77.ultrahardcore.feature.Feature;
@@ -82,7 +82,7 @@ public class MobRatesFeature extends Feature implements Listener {
 
         final Random rand = new Random();
 
-        if (State.isState(State.INGAME) || State.isState(State.ENDING)) {
+        if (game.isState(State.INGAME) || game.isState(State.ENDING)) {
             if (timer.getMeetup() <= 0) {
                 switch (reason) {
                 case CHUNK_GEN:

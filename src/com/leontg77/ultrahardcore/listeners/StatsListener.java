@@ -31,15 +31,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Stat;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
 
 /**
  * Stats listener class.
@@ -152,15 +152,15 @@ public class StatsListener implements Listener {
                     return;
                 }
 
-                if (!State.isState(State.INGAME)) {
+                if (!game.isState(State.INGAME)) {
                     return;
                 }
 
                 final String statName = "damagetaken";
-                final double current = user.getFile().getDouble("stats." + statName, 0);
+                final double current = user.getConfig().getDouble("stats." + statName, 0);
 
-                user.getFile().set("stats." + statName, current + damage);
-                user.saveFile();
+                user.getConfig().set("stats." + statName, current + damage);
+                user.saveConfig();
             }
         }.runTaskLater(plugin, 1);
     }

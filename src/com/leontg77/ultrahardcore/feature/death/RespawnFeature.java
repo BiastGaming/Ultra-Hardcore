@@ -7,12 +7,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.feature.Feature;
 import com.leontg77.ultrahardcore.managers.SpecManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
 
 /**
  * Rspawn feature class.
@@ -43,7 +43,7 @@ public class RespawnFeature extends Feature implements Listener {
         event.setRespawnLocation(plugin.getSpawn());
         player.setMaxHealth(20);
 
-        if (arena.isEnabled() || !State.isState(State.INGAME) || game.isRecordedRound()) {
+        if (arena.isEnabled() || !game.isState(State.INGAME) || game.isRecordedRound()) {
             return;
         }
 
@@ -65,7 +65,7 @@ public class RespawnFeature extends Feature implements Listener {
 
         new BukkitRunnable() {
             public void run() {
-                if (!State.isState(State.INGAME) && !State.isState(State.ENDING)) {
+                if (!game.isState(State.INGAME) && !game.isState(State.ENDING)) {
                     return;
                 }
 

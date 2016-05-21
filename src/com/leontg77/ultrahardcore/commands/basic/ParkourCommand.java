@@ -9,12 +9,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.Parkour;
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.State;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
+import com.leontg77.ultrahardcore.minigames.Parkour;
 import com.leontg77.ultrahardcore.utils.DateUtils;
 
 /**
@@ -44,7 +44,7 @@ public class ParkourCommand extends UHCCommand {
         }
 
         Player player = (Player) sender;
-        State state = State.getState();
+        State state = game.getState();
 
         if (state == State.SCATTER || state == State.INGAME || state == State.ENDING) {
             throw new CommandException("You can't do parkour commands while a game is running.");

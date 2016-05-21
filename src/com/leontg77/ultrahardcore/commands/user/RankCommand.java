@@ -8,8 +8,8 @@ import org.bukkit.command.CommandSender;
 
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User.Rank;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.utils.NameUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 

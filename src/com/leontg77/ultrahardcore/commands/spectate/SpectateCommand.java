@@ -9,10 +9,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 
 /**
@@ -115,7 +115,7 @@ public class SpectateCommand extends UHCCommand {
                 throw new CommandException((target == sender ? "You are" : "'" + target.getName() + "' is") + " already spectating.");
             }
 
-            if (State.isState(State.INGAME) && game.getWorlds().contains(target.getWorld())) {
+            if (game.isState(State.INGAME) && game.getWorlds().contains(target.getWorld())) {
                 throw new CommandException("You need to be in spawn to do this.");
             }
 

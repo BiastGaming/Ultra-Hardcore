@@ -8,12 +8,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.feature.ToggleableFeature;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
 
 /**
  * Sidebar reset feature class.
@@ -53,7 +53,7 @@ public class SidebarResetFeature extends ToggleableFeature implements Listener {
             return;
         }
 
-        if (!State.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
+        if (!game.isState(State.INGAME) || !game.getWorlds().contains(player.getWorld())) {
             return;
         }
 

@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.events.FinalHealEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -43,7 +43,7 @@ public class Birds extends Scenario implements Listener {
 
     @Override
     public void onEnable() {
-        if (!State.isState(State.INGAME) || timer.getTimeSinceStartInSeconds() < 20) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -59,7 +59,7 @@ public class Birds extends Scenario implements Listener {
 
     @EventHandler
     public void on(PlayerJoinEvent event) {
-        if (!State.isState(State.INGAME) || timer.getTimeSinceStartInSeconds() < 20) {
+        if (!game.isState(State.INGAME) || timer.getTimeSinceStartInSeconds() < 20) {
             return;
         }
 
@@ -71,7 +71,7 @@ public class Birds extends Scenario implements Listener {
 
     @EventHandler
     public void on(PlayerMoveEvent event) {
-        if (!State.isState(State.INGAME) || timer.getTimeSinceStartInSeconds() < 20) {
+        if (!game.isState(State.INGAME) || timer.getTimeSinceStartInSeconds() < 20) {
             return;
         }
 

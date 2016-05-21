@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.scoreboard.Team;
 
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.game.VoteCommand;
@@ -232,7 +232,7 @@ public class ChatListener implements Listener {
           }
 
           if (command.equalsIgnoreCase("rl") || command.equalsIgnoreCase("reload") || command.equalsIgnoreCase("stop") || command.equalsIgnoreCase("restart")) {
-              if (!State.isState(State.INGAME)) {
+              if (!game.isState(State.INGAME)) {
                   if (!command.equalsIgnoreCase("stop") && !command.equalsIgnoreCase("restart")) {
                       return;
                   }

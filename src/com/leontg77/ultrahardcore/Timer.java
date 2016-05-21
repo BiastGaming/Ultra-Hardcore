@@ -21,6 +21,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.commands.game.TimerCommand;
 import com.leontg77.ultrahardcore.events.FinalHealEvent;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
@@ -288,7 +289,7 @@ public class Timer {
 
                 Bukkit.getPluginManager().registerEvents(spec.getSpecInfo(), plugin);
 
-                State.setState(State.INGAME);
+                game.setState(State.INGAME);
 
                 game.setPregameBoard(false);
                 game.setArenaBoard(false);
@@ -666,7 +667,7 @@ public class Timer {
                 PluginManager manager = Bukkit.getPluginManager();
                 manager.registerEvents(spec.getSpecInfo(), plugin);
 
-                State.setState(State.INGAME);
+                game.setState(State.INGAME);
                 game.setArenaBoard(false);
 
                 time = 20;

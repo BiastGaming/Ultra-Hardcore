@@ -1,10 +1,9 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Maps;
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.scenario.Scenario;
-import com.leontg77.ultrahardcore.utils.PacketUtils;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -20,9 +19,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
+import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.scenario.Scenario;
+import com.leontg77.ultrahardcore.utils.PacketUtils;
 
 /**
  * OneNineCooldown scenario class.

@@ -10,8 +10,9 @@ import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 
@@ -24,23 +25,29 @@ import com.leontg77.ultrahardcore.managers.SpecManager;
  */
 public class PlayerListener implements Listener {
     private final SpecManager spec;
+    
     private final Main plugin;
+    private final Game game;
 
     /**
      * Player listener class constructor.
      *
+     * @param plugin The main class.
+     * @param game The game class.
      * @param spec The spectator manager class.
      */
-    public PlayerListener(Main plugin, SpecManager spec) {
-        this.plugin = plugin;
+    public PlayerListener(Main plugin, Game game, SpecManager spec) {
         this.spec = spec;
+        
+        this.plugin = plugin;
+        this.game = game;
     }
 
     @EventHandler
     public void on(PlayerAchievementAwardedEvent event) {
         Player player = event.getPlayer();
 
-        if (!spec.isSpectating(player) && State.isState(State.INGAME)) {
+        if (!spec.isSpectating(player) && game.isState(State.INGAME)) {
             return;
         }
 

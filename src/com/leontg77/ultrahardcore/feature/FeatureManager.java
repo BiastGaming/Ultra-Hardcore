@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
 import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.Arena;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
@@ -66,6 +65,7 @@ import com.leontg77.ultrahardcore.feature.tablist.HeartsOnTabFeature;
 import com.leontg77.ultrahardcore.feature.tablist.PercentOnTabFeature;
 import com.leontg77.ultrahardcore.feature.tablist.TabHealthColorFeature;
 import com.leontg77.ultrahardcore.feature.world.BigTreesInForestsFeature;
+import com.leontg77.ultrahardcore.feature.world.BiomebasedWoodFeature;
 import com.leontg77.ultrahardcore.feature.world.JungleTempleFeature;
 import com.leontg77.ultrahardcore.feature.world.WeatherFeature;
 import com.leontg77.ultrahardcore.feature.world.WorldUpdaterFeature;
@@ -74,6 +74,7 @@ import com.leontg77.ultrahardcore.feature.xp.NerfedXPFeature;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
+import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.protocol.EnchantPreview;
 import com.leontg77.ultrahardcore.protocol.HardcoreHearts;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
@@ -85,11 +86,15 @@ import com.leontg77.ultrahardcore.scenario.ScenarioManager;
  */
 public class FeatureManager {
     private final Settings settings;
+    
     private final Main plugin;
+    private final Game game;
 
-    public FeatureManager(Main plugin, Settings settings) {
+    public FeatureManager(Main plugin, Game game, Settings settings) {
         this.settings = settings;
+        
         this.plugin = plugin;
+        this.game = game;
     }
 
     private final List<Feature> features = new ArrayList<Feature>();
@@ -252,9 +257,13 @@ public class FeatureManager {
 
         // world
         addFeature(new BigTreesInForestsFeature());
+        addFeature(new BiomebasedWoodFeature(plugin));
         addFeature(new JungleTempleFeature(plugin));
         addFeature(new WeatherFeature(game, timer, scen));
-        addFeature(new WorldUpdaterFeature(plugin));
+        
+        WorldUpdaterFeature updater = new WorldUpdaterFeature(timer);
+        addFeature(updater);
+        updater.startTask();
 
         // xp
         addFeature(new NerfedQuartzXPFeature());
@@ -269,6 +278,7 @@ public class FeatureManager {
      * @param feature The feature to register.
      */
     private void addFeature(Feature feature) {
+        feature.setupInstances(plugin, game);
         features.add(feature);
 
         if (feature instanceof Listener) {

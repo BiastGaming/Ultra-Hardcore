@@ -19,9 +19,9 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.potion.PotionEffectType;
 
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.managers.PermissionsManager;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
@@ -91,33 +91,33 @@ public class LoginListener implements Listener {
         Date date = new Date();
 
 
-        user.getFile().set("uuid", player.getUniqueId().toString());
-        user.getFile().set("lastlogin", date.getTime());
+        user.getConfig().set("uuid", player.getUniqueId().toString());
+        user.getConfig().set("lastlogin", date.getTime());
 
         String IPAdress = player.getAddress().getAddress().getHostAddress();
-        List<String> IPS = user.getFile().getStringList("ips");
+        List<String> IPS = user.getConfig().getStringList("ips");
 
         if (!IPS.contains(IPAdress)) {
             IPS.add(IPAdress);
-            user.getFile().set("ips", IPS);
+            user.getConfig().set("ips", IPS);
         }
 
-        String oldName = user.getFile().getString("username", "none");
+        String oldName = user.getConfig().getString("username", "none");
 
         // update names (name changes) and broadcast old name
         if (!oldName.equals(player.getName())) {
             PlayerUtils.broadcast(Main.PREFIX + "§a" + player.getName() + " §7was previously known as §a" + oldName + "§7.");
-            user.getFile().set("username", player.getName());
+            user.getConfig().set("username", player.getName());
 
-            List<String> oldNames = user.getFile().getStringList("oldnames");
+            List<String> oldNames = user.getConfig().getStringList("oldnames");
 
             if (!oldNames.contains(oldName)) {
                 oldNames.add(oldName);
-                user.getFile().set("oldnames", oldNames);
+                user.getConfig().set("oldnames", oldNames);
             }
         }
 
-        user.saveFile();
+        user.saveConfig();
 
         PacketUtils.setTabList(player, plugin, game);
         player.setNoDamageTicks(0);
@@ -137,7 +137,7 @@ public class LoginListener implements Listener {
 
             spec.enableSpecmode(player);
         } else {
-            if ((State.isState(State.ENDING) || State.isState(State.INGAME) || State.isState(State.CLOSED) || State.isState(State.SCATTER)) && !player.isWhitelisted() && !spec.isSpectating(player)) {
+            if ((game.isState(State.ENDING) || game.isState(State.INGAME) || game.isState(State.CLOSED) || game.isState(State.SCATTER)) && !player.isWhitelisted() && !spec.isSpectating(player)) {
                 player.sendMessage(Main.PREFIX + "You are not whitelisted, enabling spec mode...");
 
                 user.resetInventory();
@@ -169,7 +169,7 @@ public class LoginListener implements Listener {
         }
 
         // incase they join with freeze effects.
-        if (!State.isState(State.SCATTER) && player.hasPotionEffect(PotionEffectType.JUMP) &&
+        if (!game.isState(State.SCATTER) && player.hasPotionEffect(PotionEffectType.JUMP) &&
             player.hasPotionEffect(PotionEffectType.BLINDNESS) &&
             player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE) &&
             player.hasPotionEffect(PotionEffectType.SLOW_DIGGING) &&
@@ -201,7 +201,7 @@ public class LoginListener implements Listener {
             player.sendMessage("§8» §m---------------------------------§8 «");
         }
 
-        if (State.isState(State.INGAME) || State.isState(State.SCATTER) || State.isState(State.ENDING)) {
+        if (game.isState(State.INGAME) || game.isState(State.SCATTER) || game.isState(State.ENDING)) {
             if (player.hasPlayedBefore()) {
                 return;
             }
@@ -276,14 +276,14 @@ public class LoginListener implements Listener {
         }
 
         if (plugin.getOnlineCount() >= game.getMaxPlayers()) {
-            if (!game.isRecordedRound() && (!State.isState(State.INGAME) || !State.isState(State.SCATTER))) {
+            if (!game.isRecordedRound() && (!game.isState(State.INGAME) || !game.isState(State.SCATTER))) {
                 if (player.isWhitelisted() || player.isOp()) {
                     event.allow();
                     return;
                 }
 
                 if (player.hasPermission("uhc.staff")) {
-                    if (State.isState(State.INGAME)) {
+                    if (game.isState(State.INGAME)) {
                         event.allow();
                         return;
                     }
@@ -309,7 +309,7 @@ public class LoginListener implements Listener {
                 event.allow();
                 return;
             } else {
-                switch (State.getState()) {
+                switch (game.getState()) {
                 case CLOSED:
                     event.setKickMessage("§8» §7You are not whitelisted §8«\n\n§cThe game has closed, you were too late.");
                     break;
@@ -331,7 +331,7 @@ public class LoginListener implements Listener {
             }
 
             if (player.hasPermission("uhc.prelist") && !game.isRecordedRound()) {
-                if (!game.preWhitelists() && !State.isState(State.INGAME)) {
+                if (!game.preWhitelists() && !game.isState(State.INGAME)) {
                     event.disallow(Result.KICK_WHITELIST, "§4Pre-whitelist is currently disabled!\n\n" + event.getKickMessage());
                     return;
                 }

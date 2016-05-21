@@ -40,8 +40,8 @@ import org.bukkit.util.Vector;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
@@ -91,7 +91,7 @@ public class Astrophobia extends Scenario implements Listener {
 
     @Override
     public void onEnable() {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -116,7 +116,7 @@ public class Astrophobia extends Scenario implements Listener {
 
     @EventHandler
     public void on(BlockIgniteEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -137,7 +137,7 @@ public class Astrophobia extends Scenario implements Listener {
 
     @EventHandler
     public void on(EntityShootBowEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -172,7 +172,7 @@ public class Astrophobia extends Scenario implements Listener {
 
     @EventHandler
     public void on(EntityDamageByEntityEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -211,7 +211,7 @@ public class Astrophobia extends Scenario implements Listener {
 
     @EventHandler
     public void on(EntityExplodeEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 
@@ -259,7 +259,7 @@ public class Astrophobia extends Scenario implements Listener {
 
     @EventHandler
     public void on(CreatureSpawnEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
 

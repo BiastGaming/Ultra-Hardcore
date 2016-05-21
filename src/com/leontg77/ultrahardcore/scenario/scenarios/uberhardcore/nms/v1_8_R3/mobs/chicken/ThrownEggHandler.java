@@ -1,6 +1,5 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.chicken;
 
-import net.minecraft.server.v1_8_R3.EntityEgg;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEgg;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
@@ -8,6 +7,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+
+import net.minecraft.server.v1_8_R3.EntityEgg;
 
 public class ThrownEggHandler implements Listener {
 

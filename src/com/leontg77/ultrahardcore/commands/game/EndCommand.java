@@ -18,15 +18,15 @@ import org.bukkit.scoreboard.Team;
 
 import com.leontg77.ultrahardcore.Data;
 import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Stat;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.events.GameEndEvent;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.HardcoreHeartsFeature;
 import com.leontg77.ultrahardcore.feature.scoreboard.SidebarResetFeature;
@@ -182,7 +182,7 @@ public class EndCommand extends UHCCommand {
             user.reset();
         }
 
-        State.setState(State.NOT_RUNNING);
+        game.setState(State.NOT_RUNNING);
         firework.startFireworkShow();
 
         Bukkit.setIdleTimeout(60);

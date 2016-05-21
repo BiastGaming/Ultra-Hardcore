@@ -18,13 +18,13 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.leontg77.ultrahardcore.Arena;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.State;
 import com.leontg77.ultrahardcore.User;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.events.ScatterEvent;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
+import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
@@ -53,7 +53,7 @@ public class HotbarCommand extends UHCCommand implements Listener {
             throw new CommandException("Only players can change their hotbar.");
         }
 
-        if (!State.isState(State.OPEN) && !State.isState(State.CLOSED) && !State.isState(State.NOT_RUNNING)) {
+        if (!game.isState(State.OPEN) && !game.isState(State.CLOSED) && !game.isState(State.NOT_RUNNING)) {
             throw new CommandException(Arena.PREFIX + "You cannot edit your hotbar setup while a game is running.");
         }
 
@@ -102,10 +102,10 @@ public class HotbarCommand extends UHCCommand implements Listener {
                 item = new ItemStack(Material.AIR);
             }
 
-            user.getFile().set("hotbar." + i, item.clone().serialize());
+            user.getConfig().set("hotbar." + i, item.clone().serialize());
         }
 
-        user.saveFile();
+        user.saveConfig();
 
         player.sendMessage(Arena.PREFIX + "Arena hotbar saved.");
 

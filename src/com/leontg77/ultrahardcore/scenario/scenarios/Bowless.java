@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.leontg77.ultrahardcore.State;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
@@ -30,7 +30,7 @@ public class Bowless extends Scenario implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerPickupItemEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -45,7 +45,7 @@ public class Bowless extends Scenario implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void on(InventoryClickEvent event) {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         
@@ -67,7 +67,7 @@ public class Bowless extends Scenario implements Listener {
     
     @EventHandler(ignoreCancelled = true)
     public void on(CraftItemEvent event)  {
-        if (!State.isState(State.INGAME)) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
         

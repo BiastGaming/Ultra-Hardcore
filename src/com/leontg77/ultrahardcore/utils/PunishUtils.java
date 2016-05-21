@@ -97,15 +97,15 @@ public class PunishUtils {
     public static void savePunishment(User user, PunishmentType type, String reason, Date to) {
         int count = 1;
 
-        if (user.getFile().contains("punishments")) {
-            count = user.getFile().getConfigurationSection("punishments").getKeys(false).size() + 1;
+        if (user.getConfig().contains("punishments")) {
+            count = user.getConfig().getConfigurationSection("punishments").getKeys(false).size() + 1;
         }
 
-        user.getFile().set("punishments." + count + ".type", type.name());
-        user.getFile().set("punishments." + count + ".reason", reason);
-        user.getFile().set("punishments." + count + ".created", new Date().getTime());
-        user.getFile().set("punishments." + count + ".expires", to == null ? -1l : to.getTime());
-        user.saveFile();
+        user.getConfig().set("punishments." + count + ".type", type.name());
+        user.getConfig().set("punishments." + count + ".reason", reason);
+        user.getConfig().set("punishments." + count + ".created", new Date().getTime());
+        user.getConfig().set("punishments." + count + ".expires", to == null ? -1l : to.getTime());
+        user.saveConfig();
     }
 
     /**
@@ -116,29 +116,29 @@ public class PunishUtils {
      * @param oldExpire The old expire time.
      */
     public static void setPunishmentExpireToNow(User user, PunishmentType type, long oldExpire) {
-        if (!user.getFile().contains("punishments")) {
+        if (!user.getConfig().contains("punishments")) {
             return;
         }
 
-        for (String punish : user.getFile().getConfigurationSection("punishments").getKeys(false)) {
-            if (!user.getFile().getString("punishments." + punish + ".type", "none").equals(type.name())) {
+        for (String punish : user.getConfig().getConfigurationSection("punishments").getKeys(false)) {
+            if (!user.getConfig().getString("punishments." + punish + ".type", "none").equals(type.name())) {
                 continue;
             }
 
-            if (user.getFile().getLong("punishments." + punish + ".expires", -2l) == oldExpire) {
-                user.getFile().set("punishments." + punish + ".expires", new Date().getTime());
-                user.saveFile();
+            if (user.getConfig().getLong("punishments." + punish + ".expires", -2l) == oldExpire) {
+                user.getConfig().set("punishments." + punish + ".expires", new Date().getTime());
+                user.saveConfig();
                 break;
             }
         }
 
-        for (String punish : user.getFile().getConfigurationSection("punishments").getKeys(false)) {
-            long created = user.getFile().getLong("punishments." + punish + ".created", -2l);
-            long expires = user.getFile().getLong("punishments." + punish + ".expires", -2l);
+        for (String punish : user.getConfig().getConfigurationSection("punishments").getKeys(false)) {
+            long created = user.getConfig().getLong("punishments." + punish + ".created", -2l);
+            long expires = user.getConfig().getLong("punishments." + punish + ".expires", -2l);
 
             if ((expires - created) < 300000) {
-                user.getFile().set("punishments." + punish, null);
-                user.saveFile();
+                user.getConfig().set("punishments." + punish, null);
+                user.saveConfig();
                 break;
             }
         }

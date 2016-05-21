@@ -1,12 +1,13 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.nms.v1_8_R3.mobs.zombie;
 
-import net.minecraft.server.v1_8_R3.WorldServer;
+import java.lang.reflect.Field;
+
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldInitEvent;
 
-import java.lang.reflect.Field;
+import net.minecraft.server.v1_8_R3.WorldServer;
 
 /**
  * Handles loading of worlds to replace the Village seige mechanics to stop EntityZombie being spawned instead of

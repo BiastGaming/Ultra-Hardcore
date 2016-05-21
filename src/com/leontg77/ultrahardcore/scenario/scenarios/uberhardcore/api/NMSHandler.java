@@ -1,8 +1,8 @@
 package com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api;
 
-import org.bukkit.plugin.Plugin;
-
 import java.util.List;
+
+import org.bukkit.plugin.Plugin;
 
 /**
  * Extend this class for each version of Bukkit to support.

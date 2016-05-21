@@ -12,8 +12,8 @@ import org.bukkit.entity.Player;
 
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
-import com.leontg77.ultrahardcore.commands.CommandException;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
+import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.utils.FileUtils;
 
 /**
@@ -48,7 +48,7 @@ public class IgnoreCommand extends UHCCommand {
             StringBuilder list = new StringBuilder();
             int i = 1;
 
-            final List<String> ignoreList = user.getFile().getStringList("ignoreList");
+            final List<String> ignoreList = user.getConfig().getStringList("ignoreList");
 
             if (ignoreList.isEmpty()) {
                 player.sendMessage(Main.PREFIX + "You are not ignoring anyone.");
