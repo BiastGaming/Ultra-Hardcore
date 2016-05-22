@@ -144,7 +144,7 @@ public class ChatListener implements Listener {
 
         if (user.getRank() == Rank.HOST) {
             if (game.getHost().equals(player.getName())) {
-                event.setFormat("§8[§4§lThe Host§8] " + name + " §8» " + messageAndColor);
+                event.setFormat("§8[§4§lHost§8] " + name + " §8» " + messageAndColor);
             } else {
                 event.setFormat("§8[§4Host§8] " + name + " §8» " + messageAndColor);
             }
