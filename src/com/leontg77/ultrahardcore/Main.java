@@ -7,6 +7,7 @@ import java.util.TimeZone;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Logger;
@@ -88,6 +89,7 @@ public class Main extends JavaPlugin {
     private Settings settings;
     private Data data;
 
+    private OreLimiter oreLimiter;
     private AntiStripmine antiSM;
     private BiomeSwap swap;
 
@@ -176,14 +178,19 @@ public class Main extends JavaPlugin {
         
         settings = new Settings(this);
         settings.setup();
-        
+
         swap = new BiomeSwap(this, settings);
         swap.setup();
-        
-        worlds = new WorldManager(settings);
-        worlds.loadWorlds();
+
+        oreLimiter = new OreLimiter(settings);
+        manager.registerEvents(oreLimiter, this);
 
         antiSM = new AntiStripmine(this);
+        manager.registerEvents(new ChunkPopulateListener(this, antiSM), this);
+        manager.registerEvents(new WorldInitListener(settings, antiSM), this);
+
+        worlds = new WorldManager(settings);
+        worlds.loadWorlds();
 
         board = new BoardManager(this);
 
@@ -255,10 +262,6 @@ public class Main extends JavaPlugin {
         manager.registerEvents(new StatsListener(this, arena, game, board, teams, feat.getFeature(GoldenHeadsFeature.class)), this);
         manager.registerEvents(new WorldListener(game, arena), this);
         manager.registerEvents(new UBLListener(ubl, game), this);
-
-        // register anti stripmine listeners.
-        manager.registerEvents(new ChunkPopulateListener(this, antiSM), this);
-        manager.registerEvents(new WorldInitListener(settings, antiSM), this);
 
         manager.registerEvents(quitMsg, this);
         pcAppender = quitMsg;
