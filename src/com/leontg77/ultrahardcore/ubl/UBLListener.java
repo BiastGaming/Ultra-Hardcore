@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 
+import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -17,14 +18,20 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class UBLListener implements Listener {
+    private final Game game;
     private final UBL ubl;
 
-    public UBLListener(UBL ubl) {
+    public UBLListener(UBL ubl, Game game) {
+        this.game = game;
         this.ubl = ubl;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void on(AsyncPlayerPreLoginEvent event) {
+        if (game.isRecordedRound() || game.isPrivateGame()) {
+            return;
+        }
+        
         UUID uuid = event.getUniqueId();
 
         if (!ubl.isBanned(uuid)) {
