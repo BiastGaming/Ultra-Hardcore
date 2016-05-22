@@ -150,6 +150,7 @@ public class Parkour {
      * @param player The player to reset for.
      */
     public void resetTime(final Player player) {
+        setCheckpoint(player, 0);
         startTime.put(player.getUniqueId(), new Date());
     }
 
