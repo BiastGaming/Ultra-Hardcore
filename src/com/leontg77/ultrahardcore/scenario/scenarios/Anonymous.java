@@ -6,7 +6,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.managers.SpecManager;
-import com.leontg77.ultrahardcore.protocol.Anonymous.DisguisePlayersAdapter;
+import com.leontg77.ultrahardcore.protocol.anonymous.DisguisePlayersAdapter;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.scenario.scenarios.WTFIPTG.FakePlayer;
 
