@@ -101,9 +101,9 @@ public class TopStatsGUI extends GUI implements Listener {
             Collections.sort(data, new Comparator<String>() {
                 public int compare(String a, String b) {
                     double aVal = Double.parseDouble(a.split(" ")[0]);
-                       double bVal = Double.parseDouble(b.split(" ")[0]);
+                    double bVal = Double.parseDouble(b.split(" ")[0]);
 
-                       return Double.compare(aVal, bVal);
+                    return Double.compare(aVal, bVal);
                 }
             });
 
