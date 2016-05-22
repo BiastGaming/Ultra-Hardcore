@@ -88,15 +88,11 @@ public class JungleTempleFeature extends Feature implements Listener {
 
         final Location loc = block.getLocation();
 
-        try {
-            generateTemple(loc.clone().subtract(x, 3, z));
-        } catch (Exception e) {
-            new BukkitRunnable() {
-                public void run() {
-                    generateTemple(loc.clone().subtract(x, 3, z));
-                }
-            }.runTaskLater(plugin, 100);
-        }
+        new BukkitRunnable() {
+            public void run() {
+                generateTemple(loc.clone().subtract(x, 3, z));
+            }
+        }.runTaskLater(plugin, 100);
     }
 
     @SuppressWarnings("deprecation")

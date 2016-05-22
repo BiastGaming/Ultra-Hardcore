@@ -55,7 +55,7 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
                 
                 physics = true;
             }
-        }.runTaskLater(plugin, 20);
+        }.runTaskLater(plugin, 100);
     }
 
     /**

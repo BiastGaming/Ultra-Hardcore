@@ -12,6 +12,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkPopulateEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.leontg77.ultrahardcore.feature.Feature;
 
@@ -32,22 +33,26 @@ public class BigTreesInForestsFeature extends Feature implements Listener {
         World world = event.getWorld();
         Chunk chunk = event.getChunk();
 
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
-                Block block = chunk.getBlock(x, 0, z);
-                block = world.getHighestBlockAt(block.getLocation()).getRelative(BlockFace.UP);
+        new BukkitRunnable() {
+            public void run() {
+                for (int x = 0; x < 16; x++) {
+                    for (int z = 0; z < 16; z++) {
+                        Block block = chunk.getBlock(x, 0, z);
+                        block = world.getHighestBlockAt(block.getLocation()).getRelative(BlockFace.UP);
 
-                if (block.getBiome() != Biome.FOREST && block.getBiome() != Biome.FOREST_HILLS) {
-                    return;
+                        if (block.getBiome() != Biome.FOREST && block.getBiome() != Biome.FOREST_HILLS) {
+                            return;
+                        }
+
+                        if (rand.nextInt(100) >= 30) {
+                            return;
+                        }
+
+                        Location loc = block.getLocation();
+                        loc.getWorld().generateTree(loc, TreeType.BIG_TREE);
+                    }
                 }
-
-                if (rand.nextInt(100) >= 30) {
-                    return;
-                }
-
-                Location loc = block.getLocation();
-                loc.getWorld().generateTree(loc, TreeType.BIG_TREE);
             }
-        }
+        }.runTaskLater(plugin, 100);
     }
 }
