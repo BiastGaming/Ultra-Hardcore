@@ -1,6 +1,5 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -48,9 +47,10 @@ public class VeinMiner extends Scenario implements Listener {
             return;
         }
 
-        List<Block> vein = new ArrayList<Block>();
-        BlockUtils.getVein(block, vein);
+        List<Block> vein = BlockUtils.getVein(block);
         vein.remove(block);
+        
+        int xp = event.getExpToDrop();
 
         new BukkitRunnable() {
             public void run() {
@@ -69,8 +69,10 @@ public class VeinMiner extends Scenario implements Listener {
                     thisBlock.breakNaturally(player.getItemInHand());
                 }
                 
-                ExperienceOrb orb = player.getWorld().spawn(thisBlock.getLocation(), ExperienceOrb.class);
-                orb.setExperience(breaking.getExpToDrop());
+                if (xp > 0) {
+                    ExperienceOrb orb = player.getWorld().spawn(thisBlock.getLocation(), ExperienceOrb.class);
+                    orb.setExperience(xp);
+                }
             }
         }.runTaskTimer(plugin, 1, 1);
     }
