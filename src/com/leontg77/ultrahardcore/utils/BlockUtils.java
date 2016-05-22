@@ -153,12 +153,24 @@ public class BlockUtils {
             return;
         }
 
+        Material mainType = start.getType();
+        
+        if (mainType == Material.GLOWING_REDSTONE_ORE) {
+            mainType = Material.REDSTONE_ORE;
+        }
+        
         Block next = null;
 
         for (BlockFace face : ImmutableSet.of(BlockFace.SELF, BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST)) {
             next = start.getRelative(face);
-
-            if (next.getType().equals(start.getType()) && !vein.contains(next)) {
+            
+            Material type = next.getType();
+            
+            if (type == Material.GLOWING_REDSTONE_ORE) {
+                type = Material.REDSTONE_ORE;
+            }
+            
+            if (type.equals(mainType) && !vein.contains(next)) {
                 vein.add(next);
                 getVein(next, vein);
             }
