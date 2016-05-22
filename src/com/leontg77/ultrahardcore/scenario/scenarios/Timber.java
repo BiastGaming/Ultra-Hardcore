@@ -1,6 +1,5 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -36,9 +35,8 @@ public class Timber extends Scenario implements Listener {
         if (block.getType() != Material.LOG && block.getType() != Material.LOG_2) {
             return;
         }
-
-        List<Block> vein = new ArrayList<Block>();
-        BlockUtils.getVein(block, vein);
+        
+        List<Block> vein = BlockUtils.getVein(block);
 
         for (Block ore : vein) {
             BlockUtils.blockBreak(null, ore);

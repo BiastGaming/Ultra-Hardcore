@@ -1,6 +1,5 @@
 package com.leontg77.ultrahardcore.managers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -162,8 +161,7 @@ public class SpecInfo implements Listener {
             return;
         }
 
-        List<Block> vein = new ArrayList<Block>();
-        BlockUtils.getVein(loc.getBlock(), vein);
+        List<Block> vein = BlockUtils.getVein(block);
 
         int amount = vein.size();
 
