@@ -177,6 +177,7 @@ public class ScenarioManager {
         scenarios.add(new EnchantedDeath());
 //        scenarios.add(new EnchantParanoia()); // TODO: Enchanted Books
         scenarios.add(new EndMeetup(game, scatter));
+        scenarios.add(new ExplosiveArrows(plugin, game));
         scenarios.add(new Entropy(plugin, game));
         scenarios.add(new Fallout(plugin, game));
         scenarios.add(new Fireless());
