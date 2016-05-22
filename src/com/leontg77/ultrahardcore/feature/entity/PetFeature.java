@@ -25,10 +25,10 @@ public class PetFeature extends Feature implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
     public void on(CreatureSpawnEvent event) {
-        final Entity entity = event.getEntity();
+        Entity entity = event.getEntity();
 
-        final Location loc = event.getLocation();
-        final Biome biome = loc.getBlock().getBiome();
+        Location loc = event.getLocation();
+        Biome biome = loc.getBlock().getBiome();
 
         switch (entity.getType()) {
         case WOLF:
@@ -46,6 +46,7 @@ public class PetFeature extends Feature implements Listener {
                 wolf.setCustomName("Wolf");
 
                 event.setCancelled(true);
+                break;
             case JUNGLE:
             case JUNGLE_EDGE:
             case JUNGLE_EDGE_MOUNTAINS:
