@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.protocol.Anonymous;
+package com.leontg77.ultrahardcore.protocol.anonymous;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;

@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.protocol.WTFIPTG;
+package com.leontg77.ultrahardcore.protocol.wtfiptg;
 
 import java.util.Collections;
 import java.util.List;
