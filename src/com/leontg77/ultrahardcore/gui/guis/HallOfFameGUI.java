@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.IntUnaryOperator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -77,34 +78,28 @@ public class HallOfFameGUI extends GUI implements Listener {
             return;
         }
 
-        String host = currentHost.get(player.getName());
-        int page = currentPage.get(player.getName());
+        event.setCancelled(true);
 
-        Map<Integer, Inventory> pages = hostInvs.get(host);
+        String host = currentHost.get(player.getName());
+        int oldPlayerPage = currentPage.get(player.getName());
+
+        Map<Integer, Inventory> hostPages = hostInvs.get(host);
+        IntUnaryOperator op = null;
 
         if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNext page")) {
-            page++;
-
-            if (!pages.containsKey(page)) {
-                return;
-            }
-
-            currentPage.put(player.getName(), page);
-            player.openInventory(pages.get(page));
+            op = oldPage -> oldPage + 1;
+        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aPrevious page")) {
+            op = oldPage -> oldPage - 1;
+        } else {
+            return;
         }
 
-        if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aPrevious page")) {
-            page--;
-
-            if (!pages.containsKey(page)) {
-                return;
-            }
-
+        int newPlayerPage = op.applyAsInt(oldPlayerPage);
+        hostPages.computeIfPresent(newPlayerPage, (page, inventory) -> {
             currentPage.put(player.getName(), page);
-            player.openInventory(pages.get(page));
-        }
-
-        event.setCancelled(true);
+            player.openInventory(inventory);
+            return inventory;
+        });
     }
 
     /**
