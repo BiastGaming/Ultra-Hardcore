@@ -1,5 +1,7 @@
 package com.leontg77.ultrahardcore.utils;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -17,7 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.leontg77.ultrahardcore.Main;
 
 /**
@@ -140,40 +142,56 @@ public class BlockUtils {
         return block.getState().getData().toItemStack().getDurability();
     }
 
-    private static final int VEIN_LIMIT = 30;
+    private static final int VEIN_LIMIT = 100;
 
     /**
-     * Get the ore vein at the given location and add it to the given list.
+     * Get the ore vein at the given starting block's location.
      *
      * @param start The block to start from.
-     * @param vein The list of blocks in the vein to modify.
+     * @return A list of the vein blocks.
      */
-    public static void getVein(Block start, List<Block> vein) {
-        if (vein.size() > VEIN_LIMIT) {
-            return;
+    public static List<Block> getVein(Block start) {
+        LinkedList<Block> toCheck = Lists.newLinkedList();
+        ArrayList<Block> vein = Lists.newArrayList();
+        
+        toCheck.add(start);
+        
+        Material startType = start.getType();
+        
+        if (startType == Material.GLOWING_REDSTONE_ORE) {
+            startType = Material.REDSTONE_ORE;
+        }
+        
+        while (!toCheck.isEmpty()) {
+            Block check = toCheck.poll();
+            
+            for (BlockFace blockFace : BlockFace.values()) {
+                Block relative = check.getRelative(blockFace);
+                
+                if (vein.contains(relative)) {
+                    continue;
+                }
+
+                Material relativeType = relative.getType();
+                
+                if (relativeType == Material.GLOWING_REDSTONE_ORE) {
+                    relativeType = Material.REDSTONE_ORE;
+                }
+
+                if (!relativeType.equals(startType)) {
+                    continue;
+                }
+
+                vein.add(relative);
+                toCheck.add(relative);
+
+                if (vein.size() > VEIN_LIMIT) {
+                    plugin.getLogger().warning("Tried to get a vein at " + start.getLocation().toString() + "(block type: " + relativeType + ") but hit the vein max size!");
+                    return vein;
+                }
+            }
         }
 
-        Material mainType = start.getType();
-        
-        if (mainType == Material.GLOWING_REDSTONE_ORE) {
-            mainType = Material.REDSTONE_ORE;
-        }
-        
-        Block next = null;
-
-        for (BlockFace face : ImmutableSet.of(BlockFace.SELF, BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST)) {
-            next = start.getRelative(face);
-            
-            Material type = next.getType();
-            
-            if (type == Material.GLOWING_REDSTONE_ORE) {
-                type = Material.REDSTONE_ORE;
-            }
-            
-            if (type.equals(mainType) && !vein.contains(next)) {
-                vein.add(next);
-                getVein(next, vein);
-            }
-        }
+        return vein;
     }
 }
