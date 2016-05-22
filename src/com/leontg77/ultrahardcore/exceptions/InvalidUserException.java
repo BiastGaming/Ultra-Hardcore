@@ -1,5 +1,7 @@
 package com.leontg77.ultrahardcore.exceptions;
 
+import org.bukkit.OfflinePlayer;
+
 /**
  * Invalid user exception class.
  * 
@@ -10,5 +12,9 @@ public class InvalidUserException extends CommandException {
 
     public InvalidUserException(String name) {
         super("'" + name + "' has never joined this server.");
+    }
+    
+    public InvalidUserException(OfflinePlayer player) {
+        this(player.getName());
     }
 }
