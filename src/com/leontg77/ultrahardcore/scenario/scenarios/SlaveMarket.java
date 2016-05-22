@@ -452,7 +452,9 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
         bidWinner = player.getName();
         biggestBid = amount;
 
-        bidTime = bidTime + 3;
+        if (bidTime <= 5) {
+            bidTime = bidTime + 3;
+        }
         return true;
     }
 
