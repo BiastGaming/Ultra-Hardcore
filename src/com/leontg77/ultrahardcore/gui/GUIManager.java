@@ -106,6 +106,8 @@ public class GUIManager {
      * @param gui The GUI to use.
      */
     private void addGUI(GUI gui) {
+        plugin.getLogger().info("Loading " + gui.getName().toLowerCase() + " gui...");
+        
         guis.add(gui);
         gui.onSetup();
 
