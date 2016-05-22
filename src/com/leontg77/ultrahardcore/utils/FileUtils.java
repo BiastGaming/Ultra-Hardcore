@@ -39,7 +39,7 @@ public class FileUtils {
             return;
         }
 
-        Bukkit.getLogger().info("Loading user files...");
+        plugin.getLogger().info("Loading user files...");
 
         files.clear();
 
@@ -47,7 +47,7 @@ public class FileUtils {
             files.add(YamlConfiguration.loadConfiguration(file));
         }
 
-        Bukkit.getLogger().info("User files loaded.");
+        plugin.getLogger().info("User files loaded.");
     }
 
     /**
