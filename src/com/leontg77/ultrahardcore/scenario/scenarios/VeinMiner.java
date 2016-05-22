@@ -27,7 +27,7 @@ public class VeinMiner extends Scenario implements Listener {
     private final List<Block> doneBlocks = Lists.newArrayList();
 
     public VeinMiner() {
-        super("VeinMiner", "When you mine a part of a ore vein while shifting the entire thing mines, gravel works as well.");
+        super("VeinMiner", "When you mine a part of a ore vein while shifting the entire thing mines.");
     }
 
     private static final Predicate<Material> IS_ORE = (m) -> m.name().endsWith("_ORE");
@@ -49,7 +49,7 @@ public class VeinMiner extends Scenario implements Listener {
             return;
         }
         
-        if (!IS_ORE.test(block.getType()) && block.getType() != Material.GRAVEL) {
+        if (!IS_ORE.test(block.getType())) {
             return;
         }
 
