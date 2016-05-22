@@ -25,7 +25,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.commands.CommandHandler;
-import com.leontg77.ultrahardcore.exceptions.CommandException;
+import com.leontg77.ultrahardcore.exceptions.InvalidUserException;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.feature.portal.NetherFeature;
@@ -224,6 +224,9 @@ public class Main extends JavaPlugin {
 
         data = new Data(this, settings);
         
+        FileUtils.updateUserFiles(this);
+        BlockUtils.setPlugin(this);
+        
         ubl = new UBL(this);
         ubl.reload();
         
@@ -234,9 +237,6 @@ public class Main extends JavaPlugin {
         gui.registerGUIs(game, timer, settings, feat, scen, worlds);
 
         data.restore(teams, scen);
-        
-        FileUtils.updateUserFiles(this);
-        BlockUtils.setPlugin(this);
         
         game.setTimer(timer);
         
@@ -254,7 +254,7 @@ public class Main extends JavaPlugin {
         manager.registerEvents(new SpectatorListener(this, game, spec, gui, feat.getFeature(NetherFeature.class)), this);
         manager.registerEvents(new StatsListener(this, arena, game, board, teams, feat.getFeature(GoldenHeadsFeature.class)), this);
         manager.registerEvents(new WorldListener(game, arena), this);
-        manager.registerEvents(new UBLListener(ubl), this);
+        manager.registerEvents(new UBLListener(ubl, game), this);
 
         // register anti stripmine listeners.
         manager.registerEvents(new ChunkPopulateListener(this, antiSM), this);
@@ -370,11 +370,11 @@ public class Main extends JavaPlugin {
      * @param offline the offline player.
      * @return The data instance for the player.
      *
-     * @throws CommandException If the offline player has never joined this server.
+     * @throws InvalidUserException If the offline player has never joined this server.
      */
-    public User getUser(OfflinePlayer offline) throws CommandException {
+    public User getUser(OfflinePlayer offline) throws InvalidUserException {
         if (!fileExist(offline.getUniqueId())) {
-            throw new CommandException("'" + offline.getName() + "' has never joined this server.");
+            throw new InvalidUserException(offline);
         }
 
         if (users.containsKey(offline.getUniqueId())) {
