@@ -211,6 +211,7 @@ public class ScenarioManager {
         scenarios.add(new MysteryTeams(plugin, game, spec));
         scenarios.add(new NightmareMode());
         scenarios.add(new NoFall());
+        scenarios.add(new NoNameTags(board, teams));
         scenarios.add(new NoSprint());
         scenarios.add(new OneNineCooldown(plugin));
         scenarios.add(new Overcook(plugin, game));
@@ -226,6 +227,7 @@ public class ScenarioManager {
         scenarios.add(new RewardingLongshots());
         scenarios.add(new RewardingLongshotsPlus());
         scenarios.add(new Rodless());
+        scenarios.add(new SelectFire());
         scenarios.add(new SelfDiagnosis(plugin, game, board));
         scenarios.add(new SharedHealth(plugin, game, teams));
         scenarios.add(new SkyClean());
