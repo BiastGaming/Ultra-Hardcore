@@ -155,6 +155,7 @@ public class BlockUtils {
         ArrayList<Block> vein = Lists.newArrayList();
         
         toCheck.add(start);
+        vein.add(start);
         
         Material startType = start.getType();
         
@@ -182,8 +183,8 @@ public class BlockUtils {
                     continue;
                 }
 
-                vein.add(relative);
                 toCheck.add(relative);
+                vein.add(relative);
 
                 if (vein.size() > VEIN_LIMIT) {
                     plugin.getLogger().warning("Tried to get a vein at " + start.getLocation().toString() + "(block type: " + relativeType + ") but hit the vein max size!");
