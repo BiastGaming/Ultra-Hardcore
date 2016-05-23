@@ -67,7 +67,7 @@ public class WorldCommand extends UHCCommand {
                     throw new CommandException("Someone else is currently making a world.");
                 }
 
-                String worldname = args[1];
+                String worldname = args[1].toLowerCase();
                 int diameter = parseInt(args[2], "diameter");
 
                 long seed = new Random().nextLong();
