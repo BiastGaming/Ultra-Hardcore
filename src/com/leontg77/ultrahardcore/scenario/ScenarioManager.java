@@ -223,6 +223,7 @@ public class ScenarioManager {
         scenarios.add(new PotentialHearts());
         scenarios.add(new PotentialMoles(plugin, getScenario(Moles.class)));
         scenarios.add(new PotentialPermanent(settings, feat));
+        scenarios.add(new PotionHealing(feat));
         scenarios.add(new Pyrophobia(plugin));
         scenarios.add(new RewardingLongshots());
         scenarios.add(new RewardingLongshotsPlus());
