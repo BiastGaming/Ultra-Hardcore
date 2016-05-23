@@ -68,7 +68,9 @@ public class SidebarResetFeature extends ToggleableFeature implements Listener {
         Team team = teams.getTeam(killer);
 
         if (pteam != null && pteam.equals(team)) {
-            return;
+            if (!team.getName().equals("soloNoNametag") && !pteam.getName().equals("soloNoNametag")) {
+                return;
+            }
         }
 
         board.resetScore(player.getName());

@@ -68,7 +68,9 @@ public class KillBoardFeature extends Feature implements Listener {
         Team team = teams.getTeam(killer);
 
         if (pteam != null && pteam.equals(team)) {
-            return;
+            if (!team.getName().equals("soloNoNametag") && !pteam.getName().equals("soloNoNametag")) {
+                return;
+            }
         }
 
         board.setScore(killer.getName(), board.getScore(killer.getName()) + 1);
