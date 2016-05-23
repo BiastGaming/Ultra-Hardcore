@@ -1,11 +1,11 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,9 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -71,24 +70,48 @@ public class Timebomb extends Scenario implements Listener {
 
         event.getDrops().clear();
 
-        User user = plugin.getUser(player);
-        user.resetInventory();
+        final ArmorStand stand = player.getWorld().spawn(chest.getLocation().clone().add(0.5, 0, 0), ArmorStand.class);
 
+        stand.setCustomNameVisible(true);
+        stand.setSmall(true);
+
+        stand.setGravity(false);
+        stand.setVisible(false);
+        
         new BukkitRunnable() {
+            private int time = 31; // add one for countdown.l
+            
             public void run() {
-                PlayerUtils.broadcast(PREFIX + ChatColor.GREEN + player.getName() + "'s §7corpse has exploded!");
+                time--;
+                
+                if (time == 0) {
+                    PlayerUtils.broadcast(Main.PREFIX + "§a" + player.getName() + "'s §fcorpse has exploded!");
 
-                loc.getBlock().setType(Material.AIR);
+                    loc.getBlock().setType(Material.AIR);
 
-                loc.getWorld().createExplosion(loc.getBlockX() + 0.5, loc.getBlockY() + 0.5, loc.getBlockZ() + 0.5, 10, false, true);
-                loc.getWorld().strikeLightning(loc); // Using actual lightning to kill the items.
+                    loc.getWorld().createExplosion(loc.getBlockX() + 0.5, loc.getBlockY() + 0.5, loc.getBlockZ() + 0.5, 10, false, true);
+                    loc.getWorld().strikeLightning(loc); // Using actual lightning to kill the items.
+
+                    stand.remove();
+                    cancel();
+                    return;
+                }
+                else if (time == 1) {
+                    stand.setCustomName("§4" + time + "s");
+                }
+                else if (time == 2) {
+                    stand.setCustomName("§c" + time + "s");
+                }
+                else if (time == 3) {
+                    stand.setCustomName("§6" + time + "s");
+                }
+                else if (time <= 15) {
+                    stand.setCustomName("§e" + time + "s");
+                }
+                else {
+                    stand.setCustomName("§a" + time + "s");
+                }
             }
-        }.runTaskLater(plugin, 600);
-
-        new BukkitRunnable() {
-            public void run() {
-                loc.getWorld().strikeLightning(loc);
-            }
-        }.runTaskLater(plugin, 620);
+        }.runTaskTimer(plugin, 0, 20);
     }
 }
