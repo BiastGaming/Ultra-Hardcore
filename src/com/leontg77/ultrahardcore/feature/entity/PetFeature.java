@@ -23,7 +23,7 @@ public class PetFeature extends Feature implements Listener {
         super("Pets", "Name wolves \"Wolf\" and cats \"Cat\" so they don't despawn and up their spawn rates.");
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void on(CreatureSpawnEvent event) {
         LivingEntity entity = event.getEntity();
 
