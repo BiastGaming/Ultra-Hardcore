@@ -91,6 +91,10 @@ public class Eggs extends Scenario implements Listener {
         // get the location and world the projectile hit in.
         Location loc = proj.getLocation();
         World world = proj.getWorld();
+        
+        if (!game.getWorlds().contains(world)) {
+            return;
+        }
 
         // spawn the entity in the world and location we got.
         world.spawnEntity(loc, type);
