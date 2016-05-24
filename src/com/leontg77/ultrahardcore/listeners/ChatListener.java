@@ -101,6 +101,10 @@ public class ChatListener implements Listener {
             messageAndColor = "§f%s";
         }
 
+        if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
+            event.setMessage(ChatColor.translateAlternateColorCodes('&', message));
+        }
+
         if (game.isRecordedRound()) {
             if (game.isMuted() && user.getRank().getLevel() < Rank.STAFF.getLevel()) {
                 player.sendMessage(Main.PREFIX + "The chat is currently muted.");
@@ -122,10 +126,6 @@ public class ChatListener implements Listener {
             if (nextUser.isIgnoring(player)) {
                 it.remove();
             }
-        }
-
-        if (user.getRank().getLevel() >= Rank.STAFF.getLevel()) {
-            event.setMessage(ChatColor.translateAlternateColorCodes('&', message));
         }
 
         if (user.getRank() == Rank.OWNER) {
@@ -215,14 +215,8 @@ public class ChatListener implements Listener {
 
           String command = message.split(" ")[0].substring(1).toLowerCase();
 
-          if (command.equalsIgnoreCase("me") || command.equalsIgnoreCase("kill")) {
-              player.sendMessage(Main.NO_PERMISSION_MESSAGE);
-              event.setCancelled(true);
-              return;
-          }
-
-          if (command.startsWith("bukkit:") || command.startsWith("minecraft:")) {
-              if (player.hasPermission("uhc.admin")) {
+          if (command.equalsIgnoreCase("me") || command.startsWith("bukkit:") || command.startsWith("minecraft:")) {
+              if (player.isOp()) {
                   return;
               }
 
