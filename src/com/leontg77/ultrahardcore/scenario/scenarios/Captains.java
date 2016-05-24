@@ -30,7 +30,7 @@ public class Captains extends Scenario implements Listener, CommandExecutor {
     private final TeamManager teams;
     private final SpecManager spec;
 
-    public Captains(Main plugin, TeamManager teams, SpecManager spec) {
+    public Captains(TeamManager teams, SpecManager spec) {
         super("Captains", "Theres X amount of captains, there will be rounds where one captain will choose a player until it reaches the teamsize.");
 
         this.teams = teams;

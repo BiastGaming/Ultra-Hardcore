@@ -19,8 +19,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -33,14 +31,8 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class GoodGamePlus extends Scenario implements Listener {
     private static final String PREFIX = "§aGood Game+ §8» §7";
 
-    private final Main plugin;
-    private final Game game;
-
-    public GoodGamePlus(Main plugin, Game game) {
+    public GoodGamePlus() {
         super("GoodGame+", "The first person to say GG after someone dies will get a random reward, whether it be a diamond, gold, cake, iron, or a firework. The first person to say: ez, rekt, your bad, or kys will get blindness, poison or wither.");
-
-        this.plugin = plugin;
-        this.game = game;
     }
 
     private final Random rand = new Random();

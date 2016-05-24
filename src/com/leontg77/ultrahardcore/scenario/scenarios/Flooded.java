@@ -27,9 +27,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
@@ -44,20 +43,8 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class Flooded extends Scenario implements CommandExecutor, Listener {
     public static final String PREFIX = "§9Flooded §8» §7";
 
-    private final Main plugin;
-    private final Game game;
-
-    /**
-     * Flooded class constructor.
-     *
-     * @param plugin The main class.
-     * @param game The game class.
-     */
-    public Flooded(Main plugin, Game game) {
+    public Flooded() {
         super("Flooded", "All air blocks between y32 -> y70 are filled with water. Everyone gets permanent water breathing & night vision, and start with a depth strider 3 book, some sugar cane, and spawn eggs for a bunch of useful animals. It will also have permanent rain.");
-
-        this.plugin = plugin;
-        this.game = game;
 
         plugin.getCommand("flood").setExecutor(this);
     }

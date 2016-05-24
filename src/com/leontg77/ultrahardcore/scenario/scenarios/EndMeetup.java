@@ -22,7 +22,6 @@ import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.events.MeetupEvent;
 import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -36,34 +35,32 @@ import com.leontg77.ultrahardcore.utils.LocationUtils;
 @SuppressWarnings("deprecation")
 public class EndMeetup extends Scenario implements Listener {
     private final ScatterManager scatter;
-    private final Game game;
 
-    public EndMeetup(Game game, ScatterManager scatter) {
+    public EndMeetup(ScatterManager scatter) {
         super("EndMeetup", "Meetup will be in the end, a portal will be lit at 0,0 and pvp will be disabled in other worlds as soon as meetup occurs, going into the end will put you in a random location and give you 20 seconds of resistance(to prevent spawn killing), The dragon is already dead and endermens are disabled.");
 
         this.scatter = scatter;
-        this.game = game;
     }
 
     @EventHandler
     public void on(MeetupEvent event) {
-        World world = game.getWorld();
-
-        if (world == null) {
-            return;
-        }
-
-        for (World gameW : game.getWorlds()) {
-            if (gameW.getEnvironment() != Environment.THE_END) {
-                gameW.setPVP(false);
+        for (World gWorld : game.getWorlds()) {
+            if (!gWorld.getEnvironment().equals(Environment.THE_END)) {
+                gWorld.setPVP(false);
                 continue;
             }
 
-            for (Entity entity : gameW.getEntities()) {
+            for (Entity entity : gWorld.getEntities()) {
                 if (entity instanceof Enderman || entity instanceof EnderCrystal || entity instanceof EnderDragon) {
                     entity.remove();
                 }
             }
+        }
+        
+        World world = game.getWorld();
+
+        if (world == null) {
+            return;
         }
 
         Location highest = LocationUtils.getHighestBlock(new Location(world, 0.5, 0, 0.5));

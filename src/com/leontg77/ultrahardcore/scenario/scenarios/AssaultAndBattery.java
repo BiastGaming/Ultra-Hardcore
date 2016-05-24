@@ -20,7 +20,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.managers.TeamManager;
@@ -34,16 +33,14 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class AssaultAndBattery extends Scenario implements Listener, CommandExecutor {
     private final TeamManager teams;
-    private final Game game;
 
-    public AssaultAndBattery(Game game, TeamManager teams) {
+    public AssaultAndBattery(TeamManager teams) {
         super("AssaultAndBattery", "To2 Where one person can only do meelee damage to players, while the other one can only do ranged attacks. If a teammate dies, you can do both meelee and ranged attacks.");
 
-        Bukkit.getPluginCommand("class").setExecutor(this);
-        Bukkit.getPluginCommand("listclass").setExecutor(this);
+        plugin.getCommand("class").setExecutor(this);
+        plugin.getCommand("listclass").setExecutor(this);
 
         this.teams = teams;
-        this.game = game;
     }
 
     private final Map<String, Type> types = new HashMap<String, Type>();

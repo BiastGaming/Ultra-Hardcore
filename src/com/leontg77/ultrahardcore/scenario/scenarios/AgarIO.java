@@ -8,8 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -22,22 +20,10 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author D4mnX
  */
 public class AgarIO extends Scenario implements Listener {
-    private final Main plugin;
-    private final Game game;
-
     private BukkitRunnable task;
 
-    /**
-     * Agar.io class constructor.
-     * 
-     * @param plugin The main class.
-     * @param game The game class.
-     */
-    public AgarIO(Main plugin, Game game) {
+    public AgarIO() {
         super("Agar.io", "The lower you are on health, the faster you run.");
-        
-        this.plugin = plugin;
-        this.game = game;
     }
 
     @Override

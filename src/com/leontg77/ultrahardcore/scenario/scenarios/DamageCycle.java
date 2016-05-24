@@ -19,7 +19,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -36,14 +35,10 @@ public class DamageCycle extends Scenario implements Listener, CommandExecutor {
     private static final String PREFIX = "§7[§8DamageCycle§7] ";
     private static final int DAMAGE_AMOUNT = 10000;
 
-    private final Main plugin;
-
-    public DamageCycle(Main plugin) {
+    public DamageCycle() {
         super("DamageCycle", "Every 10 minutes the damage type changes, during the next 10 minutes if you take damage from that type you die.");
 
         plugin.getCommand("current").setExecutor(this);
-
-        this.plugin = plugin;
     }
 
     private BukkitRunnable task;

@@ -3,12 +3,10 @@ package com.leontg77.ultrahardcore.scenario.scenarios;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,7 +17,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Team;
 
 import com.google.common.collect.Lists;
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.exceptions.CommandException;
@@ -39,27 +36,19 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
 
     private final PlayerTeleporter teleporter;
 
-    private final Main plugin;
-    private final Game game;
-
     private final ScatterManager scatter;
     private final TeamManager teams;
 
     /**
      * Soul Brothers scenario class constructor.
      *
-     * @param plugin The main class.
-     * @param game The game class.
      * @param teams The team manager class.
      * @param scatter The scatter manager class.
      */
-    public SoulBrothers(Main plugin, Game game, TeamManager teams, ScatterManager scatter) {
+    public SoulBrothers(TeamManager teams, ScatterManager scatter) {
         super("SoulBrothers", "All teammates are seperated into their own worlds, at some point they will be teleported to a final world together.");
 
         this.teleporter = new PlayerTeleporter();
-
-        this.plugin = plugin;
-        this.game = game;
 
         this.scatter = scatter;
         this.teams = teams;
@@ -107,14 +96,6 @@ public class SoulBrothers extends Scenario implements CommandExecutor {
         }
 
         return null;
-    }
-
-    @SuppressWarnings("deprecation")
-    protected List<OfflinePlayer> getTeamPlayers(Team team) {
-        return team.getEntries().stream()
-                .map(Bukkit::getOfflinePlayer)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
     }
 
     @Override

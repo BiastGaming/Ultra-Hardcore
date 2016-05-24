@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
@@ -23,12 +22,10 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  */
 public class DoubleOrNothing extends Scenario implements Listener {
     private final CutClean cc;
-    private final Game game;
 
-    public DoubleOrNothing(Game game, CutClean cc) {
+    public DoubleOrNothing(CutClean cc) {
         super("DoubleOrNothing", "On mine of iron, diamond, emerald or gold ore you have a 50% chance of 2 of the ore dropping or no ores dropping.");
 
-        this.game = game;
         this.cc = cc;
     }
 

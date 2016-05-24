@@ -1,6 +1,5 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,36 +7,29 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.events.FinalHealEvent;
+import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.events.PvPEnableEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
- * Skyhigh scenario class
+ * Skyhigh scenario class.
  * 
  * @author LeonTG77
  */
 public class Skyhigh extends Scenario implements Listener {
-    public static final String PREFIX = "§bSkyhigh §8§ §7";
+    public static final String PREFIX = "§bSkyhigh §8» §7";
 
-    private final Main plugin;
-    private final Game game;
-
-    public Skyhigh(Main plugin, Game game) {
+    public Skyhigh() {
         super("Skyhigh", "After 45 minutes, any player below y: 101 will begin to take half a heart of damage every 30 seconds.");
-
-        this.plugin = plugin;
-        this.game = game;
     }
 
     private BukkitRunnable task = null;
 
     @Override
     public void onDisable() {
-        if (task != null && Bukkit.getScheduler().isCurrentlyRunning(task.getTaskId())) {
+        if (task != null) {
             task.cancel();
         }
 
@@ -45,10 +37,16 @@ public class Skyhigh extends Scenario implements Listener {
     }
 
     @Override
-    public void onEnable() {}
+    public void onEnable() {
+        if (!game.isState(State.INGAME)) {
+            return;
+        }
+        
+        on(new GameStartEvent());
+    }
 
     @EventHandler
-    public void on(FinalHealEvent event) {
+    public void on(GameStartEvent event) {
         for (Player online : game.getPlayers()) {
             PlayerUtils.giveItem(online, new ItemStack(Material.DIAMOND_SPADE, 1));
             PlayerUtils.giveItem(online, new ItemStack(Material.FEATHER, 32));

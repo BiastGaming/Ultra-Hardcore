@@ -17,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
-import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.leontg77.ultrahardcore.Main;
@@ -34,17 +33,8 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class Voidscape extends Scenario implements CommandExecutor, Listener {
     public static final String PREFIX = "§9Voidscape §8» §7";
 
-    private final Main plugin;
-
-    /**
-     * Voidscape scenario class constructor.
-     *
-     * @param plugin The main class.
-     */
-    public Voidscape(Main plugin) {
+    public Voidscape() {
         super("Voidscape", "All stone and bedrock is replaced with air, to get cobble you need to make water flow to lava and make a cobblestone generator.");
-
-        this.plugin = plugin;
 
         plugin.getCommand("voidscape").setExecutor(this);
     }
@@ -63,15 +53,6 @@ public class Voidscape extends Scenario implements CommandExecutor, Listener {
 
         totalChunks = 0;
         task = null;
-    }
-
-    @EventHandler
-    public void on(BlockPhysicsEvent event) {
-        if (task == null) {
-            return;
-        }
-
-        event.setCancelled(true);
     }
 
     @EventHandler
@@ -100,7 +81,7 @@ public class Voidscape extends Scenario implements CommandExecutor, Listener {
             return true;
         }
 
-        final World world = Bukkit.getWorld(args[0]);
+        World world = Bukkit.getWorld(args[0]);
 
         if (world == null) {
             sender.sendMessage(ChatColor.RED + "The world '" + args[0] + "' does not exist.");
@@ -134,11 +115,12 @@ public class Voidscape extends Scenario implements CommandExecutor, Listener {
                     PlayerUtils.broadcast(PREFIX + "The voidscape generation has finished.");
 
                     cancel();
+                    
                     new BukkitRunnable() {
                         public void run() {
                             task = null;
                         }
-                    }.runTaskLater(plugin, 40);
+                    }.runTaskLater(plugin, 100);
                     return;
                 }
 

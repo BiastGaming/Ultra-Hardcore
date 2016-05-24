@@ -8,7 +8,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
@@ -17,12 +16,9 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author D4mnX
  */
 public class MeleeFun extends Scenario implements Listener {
-    private final Main plugin;
-
-    public MeleeFun(Main plugin) {
+    
+    public MeleeFun() {
         super("MeleeFun", "There is no delay between hits. However fast you click is how fast you hit someone.");
-
-        this.plugin = plugin;
     }
 
     @EventHandler

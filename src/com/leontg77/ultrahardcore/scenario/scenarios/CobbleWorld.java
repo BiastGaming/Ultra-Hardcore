@@ -33,18 +33,12 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class CobbleWorld extends Scenario implements CommandExecutor, Listener {
     public static final String PREFIX = "§7Cobble World §8» §f";
 
-    private final Main plugin;
-
     /**
      * Voidscape scenario class constructor.
-     *
-     * @param plugin The main class.
      */
-    public CobbleWorld(Main plugin) {
+    public CobbleWorld() {
         super("CobbleWorld", "All stone is replaced with cobble stone.");
-
-        this.plugin = plugin;
-
+        
         plugin.getCommand("cobble").setExecutor(this);
     }
 

@@ -25,9 +25,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.LocationUtils;
@@ -38,14 +36,9 @@ import com.leontg77.ultrahardcore.utils.LocationUtils;
  * @author LeonTG77
  */
 public class Halloween extends Scenario implements Listener {
-    private final Main plugin;
-    private final Game game;
 
-    public Halloween(Main plugin, Game game) {
+    public Halloween() {
         super("Halloween", "Random lightnining strikes around the player at random intervals causing bats to spawn around you and giving you nausea for 10 seconds if you get hit. Getting hit by a hostile mob causes 15 seconds of blindness. All spiders are replaced with cave spiders, witch rates are upped at last Zombies and Skellies spawn with jack o' lanterns.");
-
-        this.plugin = plugin;
-        this.game = game;
     }
 
     private BukkitRunnable task = null;

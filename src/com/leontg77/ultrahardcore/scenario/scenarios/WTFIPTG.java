@@ -25,7 +25,6 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.protocol.wtfiptg.DisableScoreboardUpdateAdapter;
@@ -52,7 +51,7 @@ public class WTFIPTG extends Scenario implements Listener {
 
     private final FakePlayer fake;
 
-    public WTFIPTG(Main plugin, SpecManager spec, BoardManager board) {
+    public WTFIPTG(SpecManager spec, BoardManager board) {
         super("WTFIPTG", "Chat is disabled, Join messages are disabled, Player name tags are disabled, All players are disguised so you cannot recognise them by their skin, Death messages are disabled and the kill scoreboard is off.");
 
         this.board = board;

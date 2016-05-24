@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -16,17 +15,9 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class Permakill extends Scenario implements Listener {
-    private final Game game;
 
-    /**
-     * Permakill class constructor.
-     *
-     * @param game The game class.
-     */
-    public Permakill(Game game) {
+    public Permakill() {
         super("Permakill", "Everytime a player dies it toggles between perma day and perma night");
-
-        this.game = game;
     }
 
     @Override

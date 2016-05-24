@@ -41,8 +41,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -54,14 +52,9 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  * @author Bergasms
  */
 public class Cryophobia extends Scenario implements Listener {
-    private final Main plugin;
-    private final Game game;
 
-    public Cryophobia(Main plugin, Game game) {
+    public Cryophobia() {
         super("Cryophobia", "A layer of ice will rise slowly from the bottom of the map, faster as the game goes on, filling caves and eventually reaching high up above the surface. Breaking ice causes damage and ill effects. Creepers explode into a ball of ice, while skeletons have geared up for the winter. The biome of the entire map has also been switched to a cold taiga, meaning snow falls and water freezes everywhere on the map.");
-
-        this.plugin = plugin;
-        this.game = game;
     }
 
     private int heightCountdown = 150;

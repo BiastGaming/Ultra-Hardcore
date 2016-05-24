@@ -17,8 +17,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -32,16 +30,10 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class DeathSentence extends Scenario implements CommandExecutor, Listener {
     private static final String PREFIX = "§7Death Sentence §8» §c";
 
-    private final Main plugin;
-    private final Game game;
-
     private final Map<UUID, Double> time = new HashMap<UUID, Double>();
 
-    public DeathSentence(Main plugin, Game game) {
+    public DeathSentence() {
         super("DeathSentence", "Players are given 10 minutes of their lives. After their 10 Minutes run out, the player dies. However, if a player mines a specific ore or if they kill a player, they will gain a certain amount of time to their lives.");
-
-        this.plugin = plugin;
-        this.game = game;
 
         plugin.getCommand("dtime").setExecutor(this);
     }

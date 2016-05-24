@@ -13,8 +13,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.Inventory;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
@@ -24,18 +22,9 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class Backpacks extends Scenario implements Listener, CommandExecutor {
-    private final Game game;
-
-    /**
-     * Backpacks scenario class constructor.
-     *
-     * @param plugin The main class.
-     * @param game The game class.
-     */
-    public Backpacks(Main plugin, Game game) {
+    
+    public Backpacks() {
         super("Backpacks", "Players can type /bp to open up a backpack inventory.");
-
-        this.game = game;
 
         plugin.getCommand("bp").setExecutor(this);
     }

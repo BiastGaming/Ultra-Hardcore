@@ -26,26 +26,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
- * EightLeggedFreaks scenario class
+ * EightLeggedFreaks scenario class.
  * 
  * @author LeonTG77
  */
 public class EightLeggedFreaks extends Scenario implements Listener {
-    private final Game game;
-
-    public EightLeggedFreaks(Game game) {
+    
+    public EightLeggedFreaks() {
         super("EightLeggedFreaks", "All hostile mobs spawn as different types of spiders with different abilities.");
-
-        this.game = game;
     }
-
-    @Override
-    public void onDisable() {}
 
     @Override
     public void onEnable() {

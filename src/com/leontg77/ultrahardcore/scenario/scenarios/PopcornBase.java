@@ -5,28 +5,27 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
  * Popcorn scenario base class.
  * 
+ * 
  * @author D4mnX
  */
 class PopcornBase extends Scenario {
     protected static final List<PushingDirection> DIRECTIONS = ImmutableList.copyOf(PushingDirection.values());
-
-    protected final Main plugin;
-    protected final Game game;
     
     protected final double pushingSpeed;
     protected final long intervalInTicks;
@@ -34,10 +33,9 @@ class PopcornBase extends Scenario {
     protected final Random random = new Random();
     protected Optional<BukkitTask> currentTask = Optional.empty();
 
-    PopcornBase(String name, Main plugin, Game game, double pushingSpeed, long intervalInTicks) {
+    public PopcornBase(String name, double pushingSpeed, long intervalInTicks) {
         super(name, "You get constantly nudged in random directions. Fall damage is off.");
-        this.plugin = plugin;
-        this.game = game;
+        
         this.pushingSpeed = pushingSpeed;
         this.intervalInTicks = intervalInTicks;
     }
@@ -70,6 +68,23 @@ class PopcornBase extends Scenario {
                 intervalInTicks, intervalInTicks
         );
         currentTask = Optional.of(task);
+    }
+
+    @EventHandler
+    public void on(EntityDamageEvent event) {
+        if (!game.isState(State.INGAME)) {
+            return;
+        }
+        
+        Entity entity = event.getEntity();
+
+        if (!(entity instanceof Player)) {
+            return;
+        }
+
+        if (event.getCause() == DamageCause.FALL) {
+            event.setCancelled(true);
+        }
     }
 
     protected void pushPlayer(Player player) {

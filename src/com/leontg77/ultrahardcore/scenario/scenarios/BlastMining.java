@@ -14,8 +14,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
@@ -25,19 +23,9 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class BlastMining extends Scenario implements Listener {
-    private final Main plugin;
-    private final Game game;
 
-    /**
-     * BlastMining class constructor.
-     *
-     * @param game The game class.
-     */
-    public BlastMining(Main plugin, Game game) {
+    public BlastMining() {
         super("BlastMining", "When a player mines any ore (including nether quartz), there is a 5% chance that a creeper will spawn (creepers are given slowness 2 for 2 seconds, to give the player some time to react) and there's a 3% chance an ignited TNT will spawn. This will never happen simultaneously, meaning you'll only ever have to deal with one thing at a time.");
-
-        this.plugin = plugin;
-        this.game = game;
     }
 
     private final Random rand = new Random();

@@ -1,36 +1,24 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.events.MeetupEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
 /**
- * Blitz scenario class
+ * Blitz scenario class.
  * 
  * @author LeonTG77
  */
 public class Blitz extends Scenario implements Listener {
-    private final Main plugin;
 
-    private final Timer timer;
-    private final Game game;
-
-    public Blitz(Main plugin, Timer timer, Game game) {
+    public Blitz() {
         super("Blitz", "Players start at 0.5 hearts. The game lasts a maximum of 1 hour. Players will normally be healed before meetup/sudden death.");
-
-        this.plugin = plugin;
-
-        this.timer = timer;
-        this.game = game;
     }
 
     @Override
@@ -52,15 +40,16 @@ public class Blitz extends Scenario implements Listener {
 
     @EventHandler
     public void on(GameStartEvent event) {
-        for (Player online : Bukkit.getOnlinePlayers()) {
+        for (Player online : game.getPlayers()) {
             online.setHealth(1);
         }
     }
 
     @EventHandler
     public void on(MeetupEvent event) {
-        for (Player online : Bukkit.getOnlinePlayers()) {
-            plugin.getUser(online).resetHealth();
+        for (Player online : game.getPlayers()) {
+            User user = plugin.getUser(online);
+            user.resetHealth();
         }
     }
 }

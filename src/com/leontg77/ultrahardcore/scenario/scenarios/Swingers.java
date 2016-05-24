@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -26,19 +25,16 @@ public class Swingers extends Scenario implements Listener {
     public static final String PREFIX = "§dSwingers §8» §7";
 
     private final TeamManager teams;
-    private final Game game;
 
     /**
      * Swingers class constructor.
      *
-     * @param game The game class.
      * @param teams The team manager class.
      */
-    public Swingers(Game game, TeamManager teams) {
+    public Swingers(TeamManager teams) {
         super("Swingers", "You team with the first team you see that has the same teamsize as you, in order to get on a team with them right click the player.");
 
         this.teams = teams;
-        this.game = game;
     }
 
     @EventHandler

@@ -5,8 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -18,14 +16,9 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Entropy extends Scenario implements Listener {
-    private final Main plugin;
-    private final Game game;
 
-    public Entropy(Main plugin, Game game) {
+    public Entropy() {
         super("Entropy", "Every 10 min 1XP level is \"drained\" from you. If you don't have any levels when the drain occurs, you die.");
-
-        this.plugin = plugin;
-        this.game = game;
     }
 
     private BukkitRunnable task;

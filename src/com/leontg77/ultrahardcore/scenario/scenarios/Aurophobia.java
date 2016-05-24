@@ -13,7 +13,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
@@ -24,17 +23,9 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  * @author LeonTG77
  */
 public class Aurophobia extends Scenario implements Listener {
-    private final Game game;
-
-    /**
-     * Aurophobia scenario class constructor.
-     *
-     * @param game The game class.
-     */
-    public Aurophobia(Game game) {
+    
+    public Aurophobia() {
         super("Aurophobia", "Whenever you mine Gold you have a chance of getting damaged by a heart, getting spawned 2 silverfish on you, losing the gold, getting blindness for 10 seconds, or gettting a cave spider spawned on you.");
-
-        this.game = game;
     }
 
     private final Random rand = new Random();

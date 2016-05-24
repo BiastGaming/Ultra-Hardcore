@@ -32,24 +32,14 @@ public class SlimyCrack extends Scenario implements Listener, CommandExecutor {
     private static final int CHUNK_HEIGHT_LIMIT = 128;
     private static final int BLOCKS_PER_CHUNK = 16;
     private static final int STAIRCASE_START = 16;
-    
-    private final Main plugin;
 
-    public SlimyCrack(Main plugin) {
+    public SlimyCrack() {
         super("SlimyCrack", "There is a giant fissure generated through natural terrain which exposes ores, caves mineshafts and the like but at the bottom there are slime blocks except at the sides where there are gaps that players are still able to fall down. The crack goes through 0,0 and is parallel to the x axis.");
 
         plugin.getCommand("slimecrack").setExecutor(this);
-
-        this.plugin = plugin;
     }
 
     private boolean generation = false;
-
-    @Override
-    public void onDisable() {}
-
-    @Override
-    public void onEnable() {}
 
     @EventHandler
     public void onFlow(BlockFromToEvent event) {

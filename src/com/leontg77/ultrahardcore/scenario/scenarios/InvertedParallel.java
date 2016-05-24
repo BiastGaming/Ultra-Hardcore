@@ -29,8 +29,8 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
@@ -47,17 +47,13 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;
 public class InvertedParallel extends Scenario implements CommandExecutor, Listener {
     public static final String PREFIX = "§cInverted Parallel §8» §7";
 
-    private final Main plugin;
-
     /**
      * InvertedParallel class constructor.
      *
      * @param plugin The main class.
      */
-    public InvertedParallel(Main plugin) {
+    public InvertedParallel() {
         super("InvertedParallel", "The surface is replicated underground beneath y42, but looks like the nether similiar to Inverted Dimensions. You cannot place water inn the 'fake nether'.");
-
-        this.plugin = plugin;
 
         plugin.getCommand("invertpara").setExecutor(this);
     }

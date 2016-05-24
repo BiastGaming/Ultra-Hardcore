@@ -43,9 +43,7 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
     private int generateTaskID;
     private int totalChunks;
 
-    private final Main plugin;
-
-    public Pyrophobia(Main plugin) {
+    public Pyrophobia() {
         super("Pyrophobia", "All water and ice is replaced with lava, redstone and lapis is replaced by obsidian and leaves drop sugar canes.");
 
         this.locations = new ArrayList<Location>();
@@ -53,8 +51,6 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
         this.totalChunks = 0;
 
         plugin.getCommand("genpyro").setExecutor(this);
-
-        this.plugin = plugin;
     }
 
     private final Random rand = new Random();

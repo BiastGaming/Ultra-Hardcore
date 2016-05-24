@@ -19,7 +19,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -27,21 +26,17 @@ import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
- * PeriodOfResistance scenario class
+ * Period Of Resistance scenario class.
  * 
  * @author LeonTG77
  */
 public class PeriodOfResistance extends Scenario implements Listener, CommandExecutor {
     private static final String PREFIX = "§7[§6Resistance§7] §7";
 
-    private final Main plugin;
-
-    public PeriodOfResistance(Main plugin) {
+    public PeriodOfResistance() {
         super("PeriodOfResistance", "Every 10 minutes the resistance type changes, during the next 10 minutes you cannot take damage from what the type was.");
 
         plugin.getCommand("status").setExecutor(this);
-
-        this.plugin = plugin;
     }
 
     private BukkitRunnable task;

@@ -8,8 +8,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.events.TeamJoinEvent;
@@ -23,22 +21,15 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class AloneTogether extends Scenario implements Listener {
-    private final Main plugin;
-    private final Game game;
-
     private final TeamManager teams;
 
     /**
      * AloneTogether class constructor.
      *
-     * @param game The game class.
      * @param teams The team manager.
      */
-    public AloneTogether(Main plugin, Game game, TeamManager teams) {
+    public AloneTogether(TeamManager teams) {
         super("AloneTogether", "Your teammates are vanished.");
-
-        this.plugin = plugin;
-        this.game = game;
 
         this.teams = teams;
     }

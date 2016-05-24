@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
@@ -15,12 +14,9 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class Achievements extends Scenario implements Listener {
-    private final Game game;
 
-    public Achievements(Game game) {
+    public Achievements() {
         super("Achievements", "Everytime you get an achievement you get 1 extra half heart.");
-
-        this.game = game;
     }
 
     @EventHandler

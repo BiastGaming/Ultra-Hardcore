@@ -5,8 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -17,24 +15,12 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class TimeFlies extends Scenario implements Listener {
-    private final Main plugin;
-    private final Game game;
-
-    /**
-     * TimeFlies class constructor.
-     *
-     * @param plugin The main class.
-     * @param game The game class.
-     */
-    public TimeFlies(Main plugin, Game game) {
-        super("TimeFlies", "The minecraft day/night cycle is twice as fast.");
-
-        this.plugin = plugin;
-        this.game = game;
-    }
-
     private BukkitRunnable task = null;
-
+    
+    public TimeFlies() {
+        super("TimeFlies", "The minecraft day/night cycle is twice as fast.");
+    }
+    
     @Override
     public void onDisable() {
         if (task != null) {
@@ -57,17 +43,13 @@ public class TimeFlies extends Scenario implements Listener {
     public void on(GameStartEvent event) {
         task = new BukkitRunnable() {
             public void run() {
-                World world = game.getWorld();
+                for (World world : game.getWorlds()) {
+                    if (world.getGameRuleValue("doDaylightCycle").equals("false")) {
+                        return;
+                    }
 
-                if (world == null) {
-                    return;
+                    world.setTime(world.getTime() + 1);
                 }
-
-                if (world.getGameRuleValue("doDaylightCycle").equals("false")) {
-                    return;
-                }
-
-                world.setTime(world.getTime() + 1);
             }
         };
 

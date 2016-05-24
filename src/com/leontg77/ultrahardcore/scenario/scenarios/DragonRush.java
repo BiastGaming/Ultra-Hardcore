@@ -49,7 +49,7 @@ public class DragonRush extends Scenario implements Listener, CommandExecutor {
 
     private final SpecManager spec;
 
-    public DragonRush(Main plugin, SpecManager spec) {
+    public DragonRush(SpecManager spec) {
         super("DragonRush", "The first team to kill the dragon wins the game.");
 
         World world = Bukkit.getWorld("lobby");

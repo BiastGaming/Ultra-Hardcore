@@ -24,7 +24,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -36,20 +35,11 @@ import com.leontg77.ultrahardcore.utils.NumberUtils;
  * @author LeonTG77
  */
 public class TommySX extends Scenario implements Listener {
-    private final Game game;
-
-    /**
-     * TommySX class constructor.
-     *
-     * @param game The game class.
-     */
-    public TommySX(Game game) {
-        super("TommySX", "Creepers will do 2x more damage, every diamond shovel automatically has Efficiency V, every bow and sword is automatically named \"XDDDDDDDDDDDE\", if MrTeamRaven is in the game, he will drop 64 cobblestone, 64 ladders and 2 feathers (+ his inventory) on his death, 'gg' in the chat is changed to 'mfw' and mobs (both passive and hostile) have 10% chance of spawning with speed 2, they will also be named 'Gotta Go Fast!'");
-
-        this.game = game;
-    }
-
     private final Random rand = new Random();
+
+    public TommySX() {
+        super("TommySX", "Creepers will do 2x more damage, every diamond shovel automatically has Efficiency V, every bow and sword is automatically named \"XDDDDDDDDDDDE\", if MrTeamRaven is in the game, he will drop 64 cobblestone, 64 ladders and 2 feathers (+ his inventory) on his death, 'gg' in the chat is changed to 'mfw' and mobs (both passive and hostile) have 10% chance of spawning with speed 2, they will also be named 'Gotta Go Fast!'");
+    }
 
     @Override
     public void onEnable() {

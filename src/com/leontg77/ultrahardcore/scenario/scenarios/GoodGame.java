@@ -16,25 +16,20 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
- * GoodGame+ scenario class.
+ * GoodGame scenario class.
  * 
  * @author LeonTG77
  */
 public class GoodGame extends Scenario implements Listener {
     private static final String PREFIX = "§aGood Game §8» §7";
 
-    private final Game game;
-
-    public GoodGame(Game game) {
+    public GoodGame() {
         super("GoodGame", "The first person to say GG after someone dies will get a random reward, whether it be a diamond, gold, cake, iron, or a firework.");
-
-        this.game = game;
     }
 
     private final Random rand = new Random();

@@ -41,13 +41,12 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 @SuppressWarnings("deprecation")
 public class Moles extends Scenario implements Listener, CommandExecutor {
-    private final Main plugin;
-
     private final ScenarioManager scen;
+    
     private final TeamManager teams;
     private final SpecManager spec;
 
-    public Moles(Main plugin, ScenarioManager scen, TeamManager teams, SpecManager spec) {
+    public Moles(ScenarioManager scen, TeamManager teams, SpecManager spec) {
         super("Moles", "There are a mole on each team, moles on each team work together to take out the normal teams.");
 
         plugin.getCommand("molehelp").setExecutor(this);
@@ -55,7 +54,6 @@ public class Moles extends Scenario implements Listener, CommandExecutor {
         plugin.getCommand("mcl").setExecutor(this);
         plugin.getCommand("mcp").setExecutor(this);
 
-        this.plugin = plugin;
         this.scen = scen;
 
         this.teams = teams;

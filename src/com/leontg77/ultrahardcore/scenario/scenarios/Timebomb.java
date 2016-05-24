@@ -13,9 +13,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -27,14 +25,8 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class Timebomb extends Scenario implements Listener {
     public static final String PREFIX = "§4Timebomb §8» §7";
 
-    private final Main plugin;
-    private final Game game;
-
-    public Timebomb(Main plugin, Game game) {
+    public Timebomb() {
         super("Timebomb", "After killing a player all of their items will appear in a double chest rather than dropping on the ground. You then have 30 seconds to loot what you want and get the hell away from it. This is because the chest explodes after the time is up.");
-
-        this.plugin = plugin;
-        this.game = game;
     }
 
     @EventHandler
@@ -43,8 +35,8 @@ public class Timebomb extends Scenario implements Listener {
             return;
         }
 
-        final Player player = event.getEntity();
-        final Location loc = player.getLocation().clone();
+        Player player = event.getEntity();
+        Location loc = player.getLocation().clone();
 
         if (!game.getWorlds().contains(loc.getWorld())) {
             return;
@@ -70,7 +62,7 @@ public class Timebomb extends Scenario implements Listener {
 
         event.getDrops().clear();
 
-        final ArmorStand stand = player.getWorld().spawn(chest.getLocation().clone().add(0.5, 0, 0), ArmorStand.class);
+        ArmorStand stand = player.getWorld().spawn(chest.getLocation().clone().add(0.5, 0, 0), ArmorStand.class);
 
         stand.setCustomNameVisible(true);
         stand.setSmall(true);
@@ -79,13 +71,13 @@ public class Timebomb extends Scenario implements Listener {
         stand.setVisible(false);
         
         new BukkitRunnable() {
-            private int time = 31; // add one for countdown.l
+            private int time = 31; // add one for countdown.
             
             public void run() {
                 time--;
                 
                 if (time == 0) {
-                    PlayerUtils.broadcast(Main.PREFIX + "§a" + player.getName() + "'s §fcorpse has exploded!");
+                    PlayerUtils.broadcast(PREFIX + "§a" + player.getName() + "'s §fcorpse has exploded!");
 
                     loc.getBlock().setType(Material.AIR);
 

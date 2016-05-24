@@ -37,9 +37,11 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class Superheroes extends Scenario implements Listener, CommandExecutor {
+    public static final String PREFIX = "§aSuperheroes §8» §7";
+    
     private final TeamManager teams;
 
-    public Superheroes(Main plugin, TeamManager teams) {
+    public Superheroes(TeamManager teams) {
         super("Superheroes", "Each player on the team receives a special \"super\" power such as jump boost, health boost, strength, speed, invis, or resistance.");
 
         plugin.getCommand("super").setExecutor(this);
@@ -69,19 +71,18 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
 
     @EventHandler
     public void on(FinalHealEvent event) {
-        PlayerUtils.broadcast(Main.PREFIX + "Setting superhero types...");
+        PlayerUtils.broadcast(PREFIX + "Randomizing hero types...");
 
-        for (Player online : Bukkit.getOnlinePlayers()) {
+        for (Player online : game.getPlayers()) {
             HeroType type = getRandomType(online);
 
             if (type == null) {
+                online.sendMessage(PREFIX + "§cCould not give you a type.");
                 continue;
             }
 
             addEffects(online, type);
-
-            online.sendMessage(Main.PREFIX + "You are the §a" + type.name().toLowerCase() + " §7hero type.");
-
+            online.sendMessage(PREFIX + "You are the §6" + type.name().toLowerCase() + " §7type.");
         }
     }
 
@@ -94,8 +95,9 @@ public class Superheroes extends Scenario implements Listener, CommandExecutor {
             return;
         }
 
-        player.sendMessage(Main.PREFIX + "You can't drink milk in this gamemode.");
-        event.setItem(new ItemStack(Material.AIR));
+        player.sendMessage(ChatColor.RED + "You can't drink milk in " + getName() + ".");
+        
+        event.setItem(new ItemStack(Material.BUCKET));
         event.setCancelled(true);
     }
 

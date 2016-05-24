@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -18,12 +17,9 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class AchievementParanoia extends Scenario implements Listener {
-    private final Game game;
-
-    public AchievementParanoia(Game game) {
+    
+    public AchievementParanoia() {
         super("AchievementParanoia", "Achievements show up in chat like in vanilla minecraft but at the end off each achievement it shows the coordinates of the player who earned that achievement.");
-
-        this.game = game;
     }
 
     private static final String PREFIX = "§cAchParanoia §8» §7";

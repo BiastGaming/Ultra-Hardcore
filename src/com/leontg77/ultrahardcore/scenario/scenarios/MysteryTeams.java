@@ -38,7 +38,6 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.material.Wool;
 
 import com.google.common.collect.ImmutableSet;
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.events.PvPEnableEvent;
 import com.leontg77.ultrahardcore.managers.SpecManager;
@@ -55,15 +54,13 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
     private static final String PREFIX = "§6[§cMysteryTeams§6] §f";
 
     private final SpecManager spec;
-    private final Game game;
 
     private final Map<MysteryTeam, List<UUID>> originalTeams;
     private final List<MysteryTeam> currentTeams;
 
-    public MysteryTeams(Main plugin, Game game, SpecManager spec) {
+    public MysteryTeams(SpecManager spec) {
         super("MysteryTeams", "Teams are unknown until meeting and comparing banners.");
 
-        this.game = game;
         this.spec = spec;
 
         originalTeams = new HashMap<MysteryTeam, List<UUID>>();

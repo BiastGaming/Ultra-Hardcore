@@ -33,18 +33,9 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class SkyOres extends Scenario implements CommandExecutor, Listener {
     public static final String PREFIX = "§fSkyOres §8» §7";
-
-    private final Main plugin;
-
-    /**
-     * SkyOres scenario class constructor.
-     *
-     * @param plugin The main class.
-     */
-    public SkyOres(Main plugin) {
+    
+    public SkyOres() {
         super("SkyOres", "Instead of in caves, ores are in the sky in the inverted way they would be normally. This means diamonds will be high up and coal will be low.");
-
-        this.plugin = plugin;
 
         plugin.getCommand("skyores").setExecutor(this);
     }

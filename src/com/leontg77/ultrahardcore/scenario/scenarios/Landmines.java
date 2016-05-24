@@ -9,8 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
@@ -20,17 +18,11 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class Landmines extends Scenario implements Listener {
-    private final Main plugin;
-
     private final SpecManager spec;
-    private final Game game;
 
-    public Landmines(Main plugin, Game game, SpecManager spec) {
+    public Landmines(SpecManager spec) {
         super("Landmines", "When walked on, a block deteriorates. Grass, when stepped on, turns into stone. Stone, when stepped on turns into cobble. Cobble, when stepped on twice turns into netherrack. Netherrack, when stepped on ONCE, explodes, dealing 3-6 hearts of damage");
-
-        this.plugin = plugin;
-
-        this.game = game;
+        
         this.spec = spec;
     }
 

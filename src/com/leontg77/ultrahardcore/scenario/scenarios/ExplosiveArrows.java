@@ -1,9 +1,5 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.Game.State;
-import com.leontg77.ultrahardcore.scenario.Scenario;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -18,20 +14,18 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
+import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.scenario.Scenario;
+
 /**
  * ExplosiveArrows scenario class.
  * 
  * @author D4mnX
  */
 public class ExplosiveArrows extends Scenario implements Listener {
-    private final Main plugin;
-    private final Game game;
 
-    public ExplosiveArrows(Main plugin, Game game) {
+    public ExplosiveArrows() {
         super("ExplosiveArrows", "Arrows shot by players explode upon any contact (both entity and block). These explosions do not cause damage, but instead result in the would-be-damaged players (and other entities) being blown away very fast.");
-       
-        this.plugin = plugin;
-        this.game = game;
     }
 
     private ExplosionData lastExplosionData;

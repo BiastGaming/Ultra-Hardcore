@@ -31,8 +31,8 @@ import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
@@ -50,17 +50,13 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;
 public class InvertedDimensions extends Scenario implements CommandExecutor, Listener {
     public static final String PREFIX = "§cInverted Dimensions §8» §7";
 
-    private final Main plugin;
-
     /**
      * InvertedDimentions class constructor.
      *
      * @param plugin The main class.
      */
-    public InvertedDimensions(Main plugin) {
+    public InvertedDimensions() {
         super("InvertedDimensions", "The overworld surface is how nether would look like and vice versa. Also leaves drop sugar canes and water can be placed in the nether but not the overworld, 30% of the lapis you mine will drop obsidian.");
-
-        this.plugin = plugin;
 
         plugin.getCommand("invert").setExecutor(this);
     }

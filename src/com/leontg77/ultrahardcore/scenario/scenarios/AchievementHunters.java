@@ -41,11 +41,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
+import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.Timer;
-import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
@@ -61,21 +59,11 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class AchievementHunters extends Scenario implements CommandExecutor, Listener {
     private static final String PREFIX = "§cAch. Hunters §8» §7";
 
-    private final Main plugin;
-
-    private final Timer timer;
-    private final Game game;
-
     private final FeatureManager feat;
     private final Settings settings;
 
-    public AchievementHunters(Main plugin, Game game, Timer timer, Settings settings, FeatureManager feat) {
+    public AchievementHunters(Settings settings, FeatureManager feat) {
         super("AchievementHunters", "If you gain achievements you get certain awards, read: http://pastebin.com/1KJ2y5c9");
-
-        this.plugin = plugin;
-
-        this.timer = timer;
-        this.game = game;
 
         this.settings = settings;
         this.feat = feat;

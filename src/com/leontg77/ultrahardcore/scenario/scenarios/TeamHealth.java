@@ -12,8 +12,6 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
@@ -31,22 +29,16 @@ public class TeamHealth extends Scenario implements Listener {
     private final BoardManager manager;
     private final TeamManager teams;
 
-    private final Main plugin;
-    private final Game game;
-
     private final Scoreboard board;
 
     private Objective teamHealthName;
     private Objective teamHealth;
 
-    public TeamHealth(Main plugin, Game game, BoardManager manager, TeamManager teams) {
+    public TeamHealth(BoardManager manager, TeamManager teams) {
         super("TeamHealth", "The percent health shown in tab/bellow the name is all the teammates health combined.");
 
         this.manager = manager;
         this.teams = teams;
-
-        this.plugin = plugin;
-        this.game = game;
 
         this.board = manager.getBoard();
 

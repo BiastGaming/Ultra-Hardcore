@@ -40,15 +40,13 @@ public class SlaveMarket extends Scenario implements Listener, CommandExecutor {
     private static final String PREFIX = "§2Market §8» §7";
 
     private final TeamManager teams;
-    private final Main plugin;
 
-    public SlaveMarket(Main plugin, TeamManager teams) {
+    public SlaveMarket(TeamManager teams) {
         super("SlaveMarket", "8 slave owners are chosen and they get 30 diamonds to bid on players as they choose. Any spare diamonds will be kept by the slaveowner for use ingame.");
 
         plugin.getCommand("market").setExecutor(this);
         plugin.getCommand("bid").setExecutor(this);
 
-        this.plugin = plugin;
         this.teams = teams;
     }
 

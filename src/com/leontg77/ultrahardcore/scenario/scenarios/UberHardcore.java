@@ -3,8 +3,6 @@ package com.leontg77.ultrahardcore.scenario.scenarios;
 import java.util.List;
 import java.util.logging.Level;
 
-import org.bukkit.plugin.Plugin;
-
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.EntityKiller;
 import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.MobRegistry;
@@ -22,11 +20,9 @@ import com.leontg77.ultrahardcore.scenario.scenarios.uberhardcore.api.NewSpawnsM
  * @see https://github.com/Eluinhost/UberHardcore
  */
 public class UberHardcore extends Scenario {
-    protected final Plugin plugin;
 
-    public UberHardcore(Plugin plugin) {
+    public UberHardcore() {
         super("UberHardcore", "Variety of changes to mobs to make them more difficult. https://github.com/Eluinhost/UberHardcore/blob/master/README.md");
-        this.plugin = plugin;
     }
 
     protected MobRegistry registry;

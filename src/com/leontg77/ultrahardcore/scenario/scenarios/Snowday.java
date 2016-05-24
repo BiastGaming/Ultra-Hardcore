@@ -24,9 +24,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
@@ -41,21 +40,9 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class Snowday extends Scenario implements Listener, CommandExecutor {
     public static final String PREFIX = "§fSnowday §8» §7";
 
-    private final Main plugin;
-    private final Game game;
-
-    /**
-     * Snowday class constructor.
-     *
-     * @param plugin The main class.
-     * @param game The game class.
-     */
-    public Snowday(Main plugin, Game game) {
+    public Snowday() {
         super("Snowday", "Grass and dirt is replaced by snow blocks, The entire world is a cold taiga biome which snows in all the time.");
-
-        this.plugin = plugin;
-        this.game = game;
-
+        
         plugin.getCommand("snowday").setExecutor(this);
     }
 

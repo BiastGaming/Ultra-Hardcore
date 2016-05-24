@@ -4,13 +4,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.FinalHealEvent;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
@@ -55,10 +56,6 @@ public class HundredHearts extends Scenario implements Listener {
 
     @EventHandler
     public void on(PlayerItemConsumeEvent event) {
-        if (!game.isState(State.INGAME)) {
-            return;
-        }
-
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
 
@@ -82,5 +79,13 @@ public class HundredHearts extends Scenario implements Listener {
         }
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, ticks, 1));
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
+    public void on(PlayerRespawnEvent event) {
+        Player player = event.getPlayer();
+        
+        player.setMaxHealth(200);
+        player.setHealth(200);
     }
 }

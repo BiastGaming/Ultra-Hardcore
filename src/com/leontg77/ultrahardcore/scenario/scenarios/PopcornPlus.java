@@ -1,8 +1,5 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
-
 /**
  * Popcorn+ scenario class.
  * 
@@ -10,7 +7,7 @@ import com.leontg77.ultrahardcore.Main;
  */
 public class PopcornPlus extends PopcornBase {
 
-    public PopcornPlus(Main plugin, Game game) {
-        super("Popcorn+", plugin, game, 0.1d, 4L);
+    public PopcornPlus() {
+        super("Popcorn+", 0.1d, 4L);
     }
 }

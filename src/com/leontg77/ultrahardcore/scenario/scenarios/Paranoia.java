@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.DisplaySlot;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
@@ -28,22 +27,17 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class Paranoia extends Scenario implements Listener {
     public static final String PREFIX = "§cParanoia §8» §a";
-
-    private final Game game;
-
+    
     private final FeatureManager feat;
     private final BoardManager board;
 
     /**
      * Paranoia class constructor.
      *
-     * @param game The game class.
      * @param board The board manager class.
      */
-    public Paranoia(Game game, BoardManager board, FeatureManager feat) {
+    public Paranoia(BoardManager board, FeatureManager feat) {
         super("Paranoia", "Your coordinates are broadcasted when you mine diamonds/gold, craft or eat an golden apple, you craft an anvil or enchantment table or you die");
-
-        this.game = game;
 
         this.board = board;
         this.feat = feat;

@@ -36,7 +36,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class Kings extends Scenario implements Listener, CommandExecutor {
     private final TeamManager teams;
 
-    public Kings(Main plugin, TeamManager teams) {
+    public Kings(TeamManager teams) {
         super("Kings", "Theres a king on each team, the king has 20 max hearts and resistance, if the king dies the teammates will be poisoned.");
 
         plugin.getCommand("kings").setExecutor(this);

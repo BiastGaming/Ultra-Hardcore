@@ -20,8 +20,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -32,25 +30,17 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77 (Used to be dans1988 but I completly rewrote it)
  */
 public class SharedHealth extends Scenario implements Listener {
-    private final Main plugin;
-
     private final TeamManager teams;
-    private final Game game;
 
     /**
      * Shared Health class constructor.
      *
-     * @param plugin The main class.
-     * @param game The game class.
      * @param teams The team manager class.
      */
-    public SharedHealth(Main plugin, Game game, TeamManager teams) {
-        super("SharedHealth", "All teammates share their health, does not apply for lava, fire or poison damage");
-
-        this.plugin = plugin;
+    public SharedHealth(TeamManager teams) {
+        super("SharedHealth", "All teammates share their health, does not apply for lava, fire or poison damage.");
         
         this.teams = teams;
-        this.game = game;
     }
 
     private final Map<UUID, Double> loggedOut = new HashMap<UUID, Double>();

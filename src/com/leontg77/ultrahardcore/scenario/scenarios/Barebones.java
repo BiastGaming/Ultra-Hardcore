@@ -14,7 +14,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
@@ -26,12 +25,10 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
  */
 public class Barebones extends Scenario implements Listener {
     private final CutClean cc;
-    private final Game game;
 
-    public Barebones(Game game, CutClean cc) {
+    public Barebones(CutClean cc) {
         super("Barebones", "The Nether is disabled, and iron is the highest tier you can obtain through gearing up. When a player dies, they will drop 1 diamond, 1 golden apple, 32 arrows, and 2 string. You cannot craft an enchantment table, anvil, or golden apple. Mining any ore except coal or iron will drop an iron ingot.");
 
-        this.game = game;
         this.cc = cc;
     }
 

@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
@@ -20,12 +19,9 @@ import com.leontg77.ultrahardcore.utils.NumberUtils;
  * @author LeonTG77
  */
 public class BedBombs extends Scenario implements Listener {
-    private final Game game;
 
-    public BedBombs(Game game) {
+    public BedBombs() {
         super("BedBombs", "Beds explode in the overworld.");
-
-        this.game = game;
     }
 
     @EventHandler

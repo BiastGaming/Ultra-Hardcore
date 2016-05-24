@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.NameUtils;
@@ -26,7 +25,7 @@ public class BiomeParanoia extends Scenario implements Listener, CommandExecutor
 
     private final SpecManager spec;
 
-    public BiomeParanoia(Main plugin, SpecManager spec) {
+    public BiomeParanoia(SpecManager spec) {
         super("BiomeParanoia", "Your tab name color is the color of the biome you are in, /bl for biome colors.");
 
         plugin.getCommand("bl").setExecutor(this);

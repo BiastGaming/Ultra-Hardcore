@@ -20,9 +20,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scoreboard.Team;
 
 import com.google.common.collect.Maps;
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
@@ -36,24 +35,18 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class LWCM extends Scenario implements Listener, CommandExecutor {
     public static final String PREFIX = "§dLWCM §8» §7";
 
-    private final Map<UUID, Location> lateTeleports = Maps.newHashMap();
-    private final Random random = new Random();
-
-    private final Main plugin;
-    private final Game game;
-
     private final TeamManager teams;
 
-    public LWCM(Main plugin, Game game, TeamManager teams) {
+    public LWCM(TeamManager teams) {
         super("LWCM", "This is a mix of \"Soul Brothers\" and \"LAFS\". Half of the players would be scattered in one world, and the other half would be scattered in the other world just like soul brothers. But instead of having teams, people would come as solos. The twist from LAFS is that when say for example: Player 1 is at X: 245 Y: 41 Z: -245 in World 1. When Player 2 randomly walks within 20 blocks radius of those coords in the other world, Player 1 and Player 2 would be put on a team. And just like in soul brothers, after a certain time the teams would be scattered together in World 3.");
-
-        this.plugin = plugin;
-        this.game = game;
 
         this.teams = teams;
 
         plugin.getCommand("lwcm").setExecutor(this);
     }
+
+    private final Map<UUID, Location> lateTeleports = Maps.newHashMap();
+    private final Random random = new Random();
 
     @EventHandler
     public void on(PlayerMoveEvent event) {

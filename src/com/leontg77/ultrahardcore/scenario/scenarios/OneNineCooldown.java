@@ -21,7 +21,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
 
@@ -31,19 +30,13 @@ import com.leontg77.ultrahardcore.utils.PacketUtils;
  * @author D4nnX
  */
 public class OneNineCooldown extends Scenario implements Listener {
-
-    protected final Main plugin;
     protected final Map<Player, Cooldown> cooldowns = Maps.newHashMap();
 
     /**
      * OneNineCooldown class constructor.
-     * 
-     * @param plugin The main class.
      */
-    public OneNineCooldown(Main plugin) {
+    public OneNineCooldown() {
         super("OneNineCooldown", "Simulation of 1.9 cooldown. If you hit before your bar times out, you do less damage");
-        
-        this.plugin = plugin;
     }
 
     protected Optional<BukkitTask> task = Optional.empty();

@@ -18,9 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
-import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.events.PvPEnableEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -31,14 +29,9 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author audicymc
  */
 public class Assassins extends Scenario implements Listener, CommandExecutor {
-    private final Timer timer;
-    private final Game game;
 
-    public Assassins(Timer timer, Game game) {
+    public Assassins() {
         super("Assassins", "Each player has a target that they must kill. Killing anyone that is not your target or assassin will result in no items dropping. When your target dies, you get their target.");
-
-        this.timer = timer;
-        this.game = game;
 
         Bukkit.getPluginCommand("target").setExecutor(this);
     }

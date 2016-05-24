@@ -28,9 +28,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
@@ -45,20 +44,8 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class GlassWorld extends Scenario implements Listener, CommandExecutor {
     public static final String PREFIX = "§6Glass World §8» §7";
 
-    private final Main plugin;
-    private final Game game;
-
-    /**
-     * GlassWorld class constructor.
-     *
-     * @param plugin The main class.
-     * @param game The game class.
-     */
-    public GlassWorld(Main plugin, Game game) {
+    public GlassWorld() {
         super("GlassWorld", "All grass blocks are replaced with green glass, all dirt blocks are replaced with brown glass blocks, all stone is replaced with gray glass, sand is replaced with yellow glass, nether rack is replaced with red glass and all bedrock is replaced by black glass, mining the glass still gives the dirt/cobblestone it should however the bedrock glass is not breakable. Leaves will also drop sugar canes.");
-
-        this.plugin = plugin;
-        this.game = game;
 
         plugin.getCommand("glassify").setExecutor(this);
     }

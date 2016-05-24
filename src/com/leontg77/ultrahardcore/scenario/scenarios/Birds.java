@@ -8,7 +8,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.leontg77.ultrahardcore.Game.State;
-import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.events.FinalHealEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 
@@ -18,17 +17,9 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class Birds extends Scenario implements Listener {
-    private final Timer timer;
-
-    /**
-     * Birds class constructor.
-     *
-     * @param timer The timer class.
-     */
-    public Birds(Timer timer) {
+    
+    public Birds() {
         super("Birds", "All players can fly!");
-
-        this.timer = timer;
     }
 
     public static final String PREFIX = "§aBirds §8» §7";

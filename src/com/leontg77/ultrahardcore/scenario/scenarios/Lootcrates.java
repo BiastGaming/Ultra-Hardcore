@@ -13,8 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -28,14 +26,8 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class Lootcrates extends Scenario implements Listener {
     private static final String PREFIX = "§9Lootcrates §8» §7";
 
-    private final Main plugin;
-    private final Game game;
-
-    public Lootcrates(Main plugin, Game game) {
+    public Lootcrates() {
         super("Lootcrates", "Every 10 minutes, players will be given a loot crate filled with goodies. There are two tiers, an Ender Chest being tier 2 and a normal chest tier 1.");
-
-        this.plugin = plugin;
-        this.game = game;
     }
 
     private BukkitRunnable task;

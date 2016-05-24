@@ -29,24 +29,15 @@ import com.leontg77.ultrahardcore.utils.PacketUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
- * Voidscape scenario class.
+ * Underground Parallel scenario class.
  * 
  * @author LeonTG77
  */
 public class UndergroundParallel extends Scenario implements CommandExecutor, Listener {
     public static final String PREFIX = "§9Underground Parallel §8» §7";
 
-    private final Main plugin;
-
-    /**
-     * Voidscape scenario class constructor.
-     *
-     * @param plugin The main class.
-     */
-    public UndergroundParallel(Main plugin) {
+    public UndergroundParallel() {
         super("UndergroundParallel", "The surface is replicated underground beneath y42.");
-
-        this.plugin = plugin;
 
         plugin.getCommand("underpara").setExecutor(this);
     }

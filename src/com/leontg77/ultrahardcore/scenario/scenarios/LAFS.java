@@ -7,7 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -22,19 +21,16 @@ public class LAFS extends Scenario implements Listener {
     public static final String PREFIX = "§dLAFS §8» §7";
 
     private final TeamManager teams;
-    private final Game game;
 
     /**
      * LAFS class constructor.
      *
-     * @param game The game class.
      * @param teams The team manager class.
      */
-    public LAFS(Game game, TeamManager teams) {
+    public LAFS(TeamManager teams) {
         super("LAFS", "Stands for love at first sight, you team with the first player you see in the game, in order to get on a team with them right click the player.");
 
         this.teams = teams;
-        this.game = game;
     }
 
     @EventHandler

@@ -29,14 +29,10 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class BigCrack extends Scenario implements Listener, CommandExecutor {
     public static final String PREFIX = "§bBigCrack §8» §7";
 
-    private final Main plugin;
-
-    public BigCrack(Main plugin) {
+    public BigCrack() {
         super("BigCrack", "A Chunk Error running on the Z axis splits the world in half.");
 
         plugin.getCommand("bigcrack").setExecutor(this);
-
-        this.plugin = plugin;
     }
 
     private static final int CHUNK_HEIGHT_LIMIT = 128;

@@ -42,18 +42,9 @@ public class BarrierWorld extends Scenario implements CommandExecutor, Listener 
             Material.RED_ROSE,
             Material.LONG_GRASS
     );
-
-    private final Main plugin;
-
-    /**
-     * BarrierWorld scenario class constructor.
-     *
-     * @param plugin The main class.
-     */
-    public BarrierWorld(Main plugin) {
+    
+    public BarrierWorld() {
         super("BarrierWorld", "Stone, dirt and grass is replaced with barriers. Stone with 2 non-slid blocks above is unaffected, allowing you to see caves.");
-
-        this.plugin = plugin;
 
         plugin.getCommand("barrierworld").setExecutor(this);
     }
