@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.Timer;
 import com.leontg77.ultrahardcore.commands.Parser;
 
 /**
@@ -31,6 +32,8 @@ public abstract class Scenario extends Parser {
     }
 
     protected Main plugin;
+    
+    protected Timer timer;
     protected Game game;
     
     /**
@@ -38,9 +41,12 @@ public abstract class Scenario extends Parser {
      * 
      * @param plugin The plugin instance.
      * @param game The game instance
+     * @param timer The timer instance.
      */
-    protected void setupInstances(Main plugin, Game game) {
+    protected void setupInstances(Main plugin, Game game, Timer timer) {
         this.plugin = plugin;
+        
+        this.timer = timer;
         this.game = game;
     }
 
