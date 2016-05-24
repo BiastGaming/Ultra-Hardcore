@@ -65,7 +65,7 @@ public class CombatLogFeature extends Feature implements Listener {
     public void on(PlayerLeaveEvent event) {
         Player player = event.getPlayer();
 
-        if (event.getLogoutReason() != LogoutReason.LEFT) {
+        if (game.isState(State.INGAME) && event.getLogoutReason() != LogoutReason.LEFT) {
             return;
         }
 
