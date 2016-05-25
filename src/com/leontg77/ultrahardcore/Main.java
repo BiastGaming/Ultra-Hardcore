@@ -7,7 +7,6 @@ import java.util.TimeZone;
 import java.util.UUID;
 import java.util.logging.Level;
 
-import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Logger;
@@ -65,6 +64,7 @@ import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
 import com.leontg77.ultrahardcore.world.antistripmine.listener.ChunkPopulateListener;
 import com.leontg77.ultrahardcore.world.antistripmine.listener.WorldInitListener;
 import com.leontg77.ultrahardcore.world.biomeswap.BiomeSwap;
+import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
