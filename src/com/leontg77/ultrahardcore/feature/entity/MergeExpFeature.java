@@ -4,6 +4,11 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
+/**
+ * Merge XP feature class.
+ * 
+ * @author D4mnX
+ */
 public class MergeExpFeature extends MergeFeatureBase {
 
     public MergeExpFeature() {

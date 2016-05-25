@@ -7,6 +7,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
 
+/**
+ * Merged feature base class.
+ * 
+ * @author D4mnX
+ */
 abstract class MergeFeatureBase extends ToggleableFeature implements Listener {
 
     public MergeFeatureBase(String name, String description) {
@@ -14,12 +19,12 @@ abstract class MergeFeatureBase extends ToggleableFeature implements Listener {
     }
 
     @Override
-    public void onEnable() {
+    public void onDisable() {
         Bukkit.getWorlds().forEach(this::updateWorld);
     }
 
     @Override
-    public void onDisable() {
+    public void onEnable() {
         Bukkit.getWorlds().forEach(this::updateWorld);
     }
 

@@ -4,6 +4,11 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
+/**
+ * Merge Items feature class.
+ * 
+ * @author D4mnX
+ */
 public class MergeItemsFeature extends MergeFeatureBase {
 
     public MergeItemsFeature() {
