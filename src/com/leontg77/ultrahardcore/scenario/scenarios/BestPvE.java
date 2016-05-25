@@ -1,6 +1,7 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,9 +19,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
@@ -38,7 +41,10 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class BestPvE extends Scenario implements Listener, CommandExecutor, TabCompleter {
     private static final String PREFIX = "§aBest PvE §8» §7";
     
+    private final Set<UUID> invulnerable = Sets.newHashSet();
     private final Set<UUID> pveList = Sets.newHashSet();
+    
+    private final Map<UUID, Integer> scheduledHealth = Maps.newHashMap();
 
     public BestPvE() {
         super("BestPvE", "Everyone starts on a list called BestPvE list, if you take damage you are removed from the list. The only way to get back on the list is getting a kill, All players on the BestPvE list gets 1 extra heart each 10 minutes.");
@@ -69,7 +75,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
         if (timer.getTimeSinceStartInSeconds() < 20) {
             return;
         }
-
+ 
         on(new FinalHealEvent());
     }
     
@@ -79,14 +85,24 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
     public void on(GameStartEvent event) {
         heartTask = new BukkitRunnable() {
             public void run() {
-                for (Player online : game.getPlayers()) {
-                    if (!pveList.contains(online.getName())) {
-                        online.sendMessage(ChatColor.GREEN + "BestPvE players gained a heart!");
+                PlayerUtils.broadcast(ChatColor.GREEN + "BestPvE players gained a heart!");
+                
+                for (OfflinePlayer offline : game.getOfflinePlayers()) {
+                    if (!pveList.contains(offline.getUniqueId())) {
                         continue;
                     }
 
-                    online.sendMessage(ChatColor.GREEN + "You were rewarded for your PvE skills!");
-
+                    Player online = offline.getPlayer();
+                    
+                    if (online == null) {
+                        if (scheduledHealth.containsKey(offline.getUniqueId())) {
+                            scheduledHealth.put(offline.getUniqueId(), scheduledHealth.get(offline.getUniqueId()) + 2);
+                        } else {
+                            scheduledHealth.put(offline.getUniqueId(), 2);
+                        }
+                        continue;
+                    }
+                    
                     online.setMaxHealth(online.getMaxHealth() + 2);
                     online.setHealth(online.getHealth() + 2);
                 }
@@ -113,6 +129,30 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
     }
 
     @EventHandler(priority = EventPriority.LOW)
+    public void on(PlayerJoinEvent event) {
+        if (!game.isState(State.INGAME)) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+        
+        if (!game.getPlayers().contains(player)) {
+            return;
+        }
+        
+        if (!scheduledHealth.containsKey(player.getUniqueId())) {
+            return;
+        }
+
+        int healthToAdd = scheduledHealth.get(player.getUniqueId());
+        
+        player.setMaxHealth(player.getMaxHealth() + healthToAdd);
+        player.setHealth(player.getHealth() + healthToAdd);
+        
+        scheduledHealth.remove(player.getUniqueId());
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
     public void on(PlayerDeathEvent event) {
         if (!game.isState(State.INGAME)) {
             return;
@@ -120,7 +160,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
 
         Player player = event.getEntity();
         
-        if (!game.getPlayers().contains(player)) {
+        if (!game.getWorlds().contains(player.getWorld())) {
             return;
         }
         
@@ -134,15 +174,18 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
             return;
         }
 
-        if (pveList.contains(killer.getName())) {
+        if (pveList.contains(killer.getUniqueId())) {
             return;
         }
 
-        PlayerUtils.broadcast(ChatColor.GREEN + player.getName() + " got a kill! He is back on the Best PvE List!");
+        invulnerable.add(player.getUniqueId());
+        pveList.add(player.getUniqueId());
+        
+        PlayerUtils.broadcast(ChatColor.GREEN + player.getName() + " got a kill and is back on the Best PvE List!");
 
         new BukkitRunnable() {
             public void run() {
-                pveList.add(player.getUniqueId());
+                invulnerable.remove(player.getUniqueId());
             }
         }.runTaskLater(plugin, 40);
     }
@@ -161,7 +204,11 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
         
         Player player = (Player) entity;
 
-        if (!pveList.contains(player.getName())) {
+        if (!pveList.contains(player.getUniqueId())) {
+            return;
+        }
+
+        if (invulnerable.contains(player.getUniqueId())) {
             return;
         }
 
@@ -195,7 +242,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
                         return true;
                     }
                     
-                    if (pveList.contains(UUID.randomUUID())) {
+                    if (pveList.contains(target.getUniqueId())) {
                         sender.sendMessage(PREFIX + "§6" + target.getName() + " §7is already on the list.");
                         return true;
                     }
@@ -218,7 +265,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
                         return true;
                     }
                     
-                    if (!pveList.contains(UUID.randomUUID())) {
+                    if (!pveList.contains(target.getUniqueId())) {
                         sender.sendMessage(PREFIX + "§6" + target.getName() + " §7is not on the list.");
                         return true;
                     }
@@ -229,6 +276,11 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
             }
 
             if (args[0].equalsIgnoreCase("list")) {
+                if (pveList.isEmpty()) {
+                    sender.sendMessage(PREFIX + "No one is on the Best PvE List.");
+                    return true;
+                }
+                
                 StringBuilder list = new StringBuilder();
                 int i = 1;                
                 
@@ -246,6 +298,9 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
                     
                     i++;
                 }
+                
+                sender.sendMessage(PREFIX + "Best PvE List: §8(§6" + pveList.size() + "§8)");
+                sender.sendMessage(Main.ARROW + list.toString());
                 return true;
             }
         }
@@ -261,6 +316,10 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         List<String> toReturn = Lists.newArrayList();
         List<String> list = Lists.newArrayList();
+        
+        if (!isEnabled()) {
+            return toReturn;
+        }
         
         if (args.length == 1) {
             list.add("list");
@@ -278,7 +337,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
         }
         
         for (String str : list) {
-            if (args[args.length - 1].isEmpty() || str.startsWith(args[args.length - 1].toLowerCase())) {
+            if (args[args.length - 1].isEmpty() || str.toLowerCase().startsWith(args[args.length - 1].toLowerCase())) {
                 toReturn.add(str);
             }
         }
