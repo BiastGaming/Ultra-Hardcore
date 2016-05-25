@@ -3,6 +3,7 @@ package com.leontg77.ultrahardcore.scenario;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
@@ -29,6 +30,14 @@ public abstract class Scenario extends Parser {
     protected Scenario(String name, String description) {
         this.description = description;
         this.name = name;
+        
+        Plugin plugin = Bukkit.getPluginManager().getPlugin("UHC");
+        
+        if (plugin instanceof Main) {
+            this.plugin = (Main) plugin;
+        } else {
+            Bukkit.getLogger().warning("RIP");
+        }
     }
 
     protected Main plugin;

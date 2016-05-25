@@ -1,5 +1,7 @@
 package com.leontg77.ultrahardcore.feature;
 
+import org.bukkit.Bukkit;
+
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 
@@ -23,7 +25,7 @@ public abstract class Feature {
         this.name = name;
     }
 
-    protected Main plugin;
+    protected Main plugin = (Main) Bukkit.getPluginManager().getPlugin("UHC");
     protected Game game;
     
     /**
