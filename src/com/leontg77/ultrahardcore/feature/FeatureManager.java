@@ -3,8 +3,6 @@ package com.leontg77.ultrahardcore.feature;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.leontg77.ultrahardcore.feature.entity.MergeExpFeature;
-import com.leontg77.ultrahardcore.feature.entity.MergeItemsFeature;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
@@ -21,6 +19,8 @@ import com.leontg77.ultrahardcore.feature.enchants.AnvilsFeature;
 import com.leontg77.ultrahardcore.feature.enchants.BookshelfFeature;
 import com.leontg77.ultrahardcore.feature.enchants.EnchantmentPreviewFeature;
 import com.leontg77.ultrahardcore.feature.entity.EndermanBlockDropFeature;
+import com.leontg77.ultrahardcore.feature.entity.MergeExpFeature;
+import com.leontg77.ultrahardcore.feature.entity.MergeItemsFeature;
 import com.leontg77.ultrahardcore.feature.entity.MobRatesFeature;
 import com.leontg77.ultrahardcore.feature.entity.PetFeature;
 import com.leontg77.ultrahardcore.feature.entity.WitchHealthPotionFeature;
