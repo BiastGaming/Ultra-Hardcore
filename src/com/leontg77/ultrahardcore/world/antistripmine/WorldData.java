@@ -100,12 +100,12 @@ public class WorldData {
             return;
         }
 
-        sender.sendMessage(Main.PREFIX + world + ": Average §a" + (total / chunks) + " §7ns per chunk §8(§7" + (total / chunks / 1.0E9D) + "s)");
+        sender.sendMessage(Main.PREFIX + world + ": Average §a" + (total / chunks) + " §7ns per chunk §8(§6" + (total / chunks / 1.0E9D) + "s§8)");
 
         for (Material type : remaining.keySet()) {
             int amount = remaining.get(type);
 
-            sender.sendMessage(Main.ARROW + type.name() + "§8: §a" + amount + " §7remaining in §6" + chunks + " §7chunks §8(§7average §6" + (amount / chunks) + " §7per chunk§8)");
+            sender.sendMessage(Main.ARROW + type.name() + "§8: §a" + amount + " §7remaining in §6" + chunks + " §7chunks §8(§7Average §6" + (amount / chunks) + " §7per chunk§8)");
         }
     }
 
