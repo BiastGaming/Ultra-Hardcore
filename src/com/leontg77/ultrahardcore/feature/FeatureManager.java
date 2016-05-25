@@ -3,6 +3,8 @@ package com.leontg77.ultrahardcore.feature;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.leontg77.ultrahardcore.feature.entity.MergeExpFeature;
+import com.leontg77.ultrahardcore.feature.entity.MergeItemsFeature;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
@@ -182,6 +184,8 @@ public class FeatureManager {
 
         // entity
         addFeature(new EndermanBlockDropFeature());
+        addFeature(new MergeExpFeature());
+        addFeature(new MergeItemsFeature());
         addFeature(new MobRatesFeature(timer, game));
         addFeature(new PetFeature());
         addFeature(new WitchHealthPotionFeature());
