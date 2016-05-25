@@ -40,7 +40,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public class BestBTC extends Scenario implements Listener, CommandExecutor, TabCompleter {
-    private static final String PREFIX = "§6Best BTC §8» §7";
+    public static final String PREFIX = "§6Best BTC §8» §7";
     
     private final Map<UUID, Integer> scheduledHealth = Maps.newHashMap();
     private final Set<UUID> btcList = Sets.newHashSet();
