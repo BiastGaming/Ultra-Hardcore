@@ -207,10 +207,6 @@ public class Game {
                 if (!getWorlds().contains(online.getWorld())) {
                     continue;
                 }
-                
-                if (online.isDead()) {
-                    continue;
-                }
             }
 
             list.add(offline);
