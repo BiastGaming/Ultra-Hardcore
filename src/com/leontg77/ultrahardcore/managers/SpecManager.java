@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -271,7 +272,7 @@ public class SpecManager {
      * @param player the player cheking.
      * @return <code>true</code> if the player is speccing, <code>false</code> otherwise.
      */
-    public boolean isSpectating(Player player) {
+    public boolean isSpectating(OfflinePlayer player) {
         return isSpectating(player.getName());
     }
 
