@@ -674,7 +674,7 @@ public class Timer {
                 pvp = 0;
                 meetup = 1;
 
-                timeInSeconds = 30;
+                timeInSeconds = 0;
 
                 timerRR();
 
@@ -783,6 +783,8 @@ public class Timer {
             public void run() {
                 PlayerUtils.broadcast(Main.PREFIX + "Final heal has been given.");
                 Bukkit.getPluginManager().callEvent(new FinalHealEvent());
+
+                timeInSeconds = 30;
 
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     PacketUtils.sendTitle(online, "§6Final heal!", "", 5, 10, 5);
