@@ -10,7 +10,6 @@ import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.BestBTC;
-import com.leontg77.ultrahardcore.scenario.scenarios.BestPvE;
 
 /**
  * The data storage system class.
@@ -42,7 +41,7 @@ public class Data {
         clearData();
 
         saveSet("bestbtc", scens.getScenario(BestBTC.class).getList());
-        saveSet("bestpve", scens.getScenario(BestPvE.class).getList());
+//        saveSet("bestpve", scens.getScenario(BestPvE.class).getList());
 
         List<String> scenarios = new ArrayList<String>();
 
@@ -67,7 +66,7 @@ public class Data {
      */
     public void restore(TeamManager teams, ScenarioManager scens) {
         restoreSet("bestbtc", scens.getScenario(BestBTC.class).getList());
-        restoreSet("bestpve", scens.getScenario(BestPvE.class).getList());
+//        restoreSet("bestpve", scens.getScenario(BestPvE.class).getList());
 
         try {
             for (String name : settings.getData().getConfigurationSection("teams.data").getKeys(false)) {
