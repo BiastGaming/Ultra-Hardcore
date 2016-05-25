@@ -14,8 +14,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.feature.FeatureManager;
 import com.leontg77.ultrahardcore.feature.health.GoldenHeadsFeature;
 import com.leontg77.ultrahardcore.scenario.Scenario;

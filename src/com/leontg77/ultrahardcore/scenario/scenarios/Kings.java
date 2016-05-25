@@ -22,8 +22,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Team;
 
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;

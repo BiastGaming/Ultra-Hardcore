@@ -23,8 +23,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Team;
 
 import com.google.common.collect.Lists;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.Game.State;
+import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.events.FinalHealEvent;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
