@@ -19,6 +19,7 @@ import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.gui.guis.WorldCreatorGUI;
 import com.leontg77.ultrahardcore.world.WorldManager;
 import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
+import com.leontg77.ultrahardcore.world.antistripmine.WorldData;
 
 /**
  * World command class.
@@ -209,14 +210,21 @@ public class WorldCommand extends UHCCommand {
             }
 
             if (args[0].equalsIgnoreCase("data")) {
-                if (args.length > 0) {
+                if (args.length > 1) {
                     World world = Bukkit.getWorld(args[1]);
 
                     if (world == null) {
                         throw new CommandException("The world '" + args[1] + "' does not exist.");
                     }
 
-                    antiSM.getWorldData(world).displayStats(sender);
+                    WorldData data = antiSM.getWorldData(world);
+                    
+                    if (data == null) {
+                        throw new CommandException("No data found for world '" + world.getName() + "'.");
+                    }
+                    
+                    data.displayStats(sender);
+                    return true;
                 }
 
                 antiSM.displayStats(sender);
