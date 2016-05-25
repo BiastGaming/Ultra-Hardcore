@@ -1,10 +1,9 @@
 package com.leontg77.ultrahardcore.world.orelimiter;
 
-import com.google.common.collect.Sets;
-import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.utils.BlockUtils;
-import gnu.trove.map.TObjectDoubleMap;
-import gnu.trove.map.hash.TObjectDoubleHashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -13,9 +12,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkPopulateEvent;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import com.google.common.collect.Sets;
+import com.leontg77.ultrahardcore.Settings;
+import com.leontg77.ultrahardcore.utils.BlockUtils;
+
+import gnu.trove.map.TObjectDoubleMap;
+import gnu.trove.map.hash.TObjectDoubleHashMap;
 
 /**
  * Ore Limiter class.
@@ -67,7 +69,7 @@ public class OreLimiter implements Listener {
                     List<Block> vein = BlockUtils.getVein(block);
                     checked.addAll(vein);
 
-                    if (random.nextDouble() > ORE_RATES.get(type)) {
+                    if (ORE_RATES.get(type) > random.nextDouble()) {
                         continue;
                     }
 
