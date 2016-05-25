@@ -50,6 +50,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
         super("BestPvE", "Everyone starts on a list called BestPvE list, if you take damage you are removed from the list. The only way to get back on the list is getting a kill, All players on the BestPvE list gets 1 extra heart each 10 minutes.");
 
         plugin.getCommand("pve").setExecutor(this);
+        plugin.getCommand("blist").setExecutor(this);
     }
 
     private BukkitRunnable heartTask;
@@ -222,6 +223,12 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (cmd.getName().equalsIgnoreCase("blist")) {
+            sender.sendMessage(PREFIX + "For Best PvE, use: §e'/pve list'");
+            sender.sendMessage(BestBTC.PREFIX + "For Best BTC, use: §e'/btc list'");
+            return true;
+        }
+        
         if (!isEnabled()) {
             sender.sendMessage(PREFIX + "BestPvE is currently disabled.");
             return true;
