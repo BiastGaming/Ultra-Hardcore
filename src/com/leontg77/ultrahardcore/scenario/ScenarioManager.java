@@ -157,6 +157,7 @@ public class ScenarioManager {
         scenarios.add(new CatsEyes());
         scenarios.add(new Chicken());
         scenarios.add(new ChunkApocalypse(plugin));
+        scenarios.add(new CityWorld());
         scenarios.add(new Cloud9());
         scenarios.add(new Cobblehaters());
         scenarios.add(new CobbleWorld());

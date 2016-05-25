@@ -1,6 +1,6 @@
 name: UHC
 main: com.leontg77.ultrahardcore.Main
-version: 1.11.15
+version: 1.11.16
 author: LeonTG77
 description: A private UHC plugin made for ArcticUHC ONLY.
 softdepend: [ProtocolLib, Pregenner]
@@ -216,13 +216,11 @@ commands:
   barrierworld:
     description: Generate the barrier world scenario.
   btc:
-    description: Add or remove someone from the BestBTC list.
-  btclist:
-    description: View the BestBTC list.
+    description: View the list, Add or remove people from the BestBTC list.
   pve:
-    description: Add or remove someone from the BestPvE list.
-  pvelist:
-    description: View the BestPvE list.
+    description: View the list, Add or remove people from the BestPvE list.
+  blist:
+    description: View the BestPvE and BestBTC lists.
   bigcrack:
     description: Generate the big crack.
   bl:
@@ -243,6 +241,8 @@ commands:
     description: Choose a player.
   chunkapo:
     description: Generate chunk apoclaypse.
+  cityworld:
+    description: Fix all buggy blocks in city world.
   current:
     description: View the current damage type.
   dtime:
