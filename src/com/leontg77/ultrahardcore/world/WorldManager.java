@@ -11,6 +11,7 @@ import org.bukkit.WorldBorder;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.world.WorldInitEvent;
 
 import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.exceptions.CommandException;
@@ -175,10 +176,12 @@ public class WorldManager {
                 creator.generatorSettings("{\"useMonuments\":false,\"graniteSize\":1,\"graniteCount\":0,\"graniteMinHeight\":0,\"graniteMaxHeight\":0,\"dioriteSize\":1,\"dioriteCount\":0,\"dioriteMinHeight\":0,\"dioriteMaxHeight\":0,\"andesiteSize\":1,\"andesiteCount\":0,\"andesiteMinHeight\":0,\"andesiteMaxHeight\":0}");
             }
         }
-
+        
         World world = creator.createWorld();
         world.setDifficulty(Difficulty.HARD);
         world.save();
+        
+        Bukkit.getPluginManager().callEvent(new WorldInitEvent(world));
     }
 
     /**
