@@ -1,7 +1,8 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,6 +10,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,35 +20,42 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.events.FinalHealEvent;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
+import com.leontg77.ultrahardcore.exceptions.PlayerNotFoundException;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
- * BestPvE scenario class
+ * BestPvE scenario class.
  * 
  * @author LeonTG77
  */
-public class BestPvE extends Scenario implements Listener, CommandExecutor {
+public class BestPvE extends Scenario implements Listener, CommandExecutor, TabCompleter {
+    private static final String PREFIX = "§aBest PvE §8» §7";
+    
+    private final Set<UUID> pveList = Sets.newHashSet();
 
     public BestPvE() {
-        super("BestPvE", "Everyone starts on a list called bestpve list, if you take damage you are removed from the list. The only way to get back on the list is getting a kill, All players on the bestpve list gets 1 extra heart each 10 minutes.");
+        super("BestPvE", "Everyone starts on a list called BestPvE list, if you take damage you are removed from the list. The only way to get back on the list is getting a kill, All players on the BestPvE list gets 1 extra heart each 10 minutes.");
 
         plugin.getCommand("pve").setExecutor(this);
-        plugin.getCommand("pvelist").setExecutor(this);
     }
 
-    private final Set<String> list = new HashSet<String>();
-    private BukkitRunnable task;
+    private BukkitRunnable heartTask;
 
     @Override
     public void onDisable() {
-        list.clear();
-        task.cancel();
-        task = null;
+        if (heartTask != null) {
+            heartTask.cancel();
+        }
+        
+        pveList.clear();
+        heartTask = null;
     }
 
     @Override
@@ -62,13 +72,15 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
 
         on(new FinalHealEvent());
     }
+    
+    private static final long TASK_INTERVAL = 12000L;
 
     @EventHandler
     public void on(GameStartEvent event) {
-        task = new BukkitRunnable() {
+        heartTask = new BukkitRunnable() {
             public void run() {
-                for (Player online : Bukkit.getOnlinePlayers()) {
-                    if (!list.contains(online.getName())) {
+                for (Player online : game.getPlayers()) {
+                    if (!pveList.contains(online.getName())) {
                         online.sendMessage(ChatColor.GREEN + "BestPvE players gained a heart!");
                         continue;
                     }
@@ -81,13 +93,13 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
             }
         };
 
-        task.runTaskTimer(plugin, 12000, 12000);
+        heartTask.runTaskTimer(plugin, TASK_INTERVAL, TASK_INTERVAL);
     }
 
     @EventHandler
     public void on(FinalHealEvent event) {
-        for (OfflinePlayer whitelisted : Bukkit.getWhitelistedPlayers()) {
-            list.add(whitelisted.getName());
+        for (OfflinePlayer offline : game.getOfflinePlayers()) {
+            pveList.add(offline.getUniqueId());
         }
     }
 
@@ -96,8 +108,8 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
      *
      * @return The list.
      */
-    public Set<String> getList() {
-        return list;
+    public Set<UUID> getPvEList() {
+        return pveList;
     }
 
     @EventHandler(priority = EventPriority.LOW)
@@ -106,15 +118,23 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
             return;
         }
 
-        final Player killer = event.getEntity().getKiller();
+        Player player = event.getEntity();
+        
+        if (!game.getPlayers().contains(player)) {
+            return;
+        }
+        
+        Player killer = player.getKiller();
 
         if (killer == null) {
             return;
         }
+        
+        if (!game.getPlayers().contains(killer)) {
+            return;
+        }
 
-        final Player player = killer;
-
-        if (list.contains(player.getName())) {
+        if (pveList.contains(killer.getName())) {
             return;
         }
 
@@ -122,7 +142,7 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
 
         new BukkitRunnable() {
             public void run() {
-                list.add(player.getName());
+                pveList.add(player.getUniqueId());
             }
         }.runTaskLater(plugin, 40);
     }
@@ -132,18 +152,16 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
         if (!game.isState(State.INGAME)) {
             return;
         }
+        
+        Entity entity = event.getEntity();
 
-        if (!(event.getEntity() instanceof Player)) {
+        if (!(entity instanceof Player)) {
             return;
         }
+        
+        Player player = (Player) entity;
 
-        if (event.isCancelled()) {
-            return;
-        }
-
-        final Player player = (Player) event.getEntity();
-
-        if (!list.contains(player.getName())) {
+        if (!pveList.contains(player.getName())) {
             return;
         }
 
@@ -152,65 +170,119 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor {
         }
 
         PlayerUtils.broadcast(ChatColor.RED + player.getName() + " took damage!");
-        list.remove(player.getName());
+        pveList.remove(player.getUniqueId());
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!isEnabled()) {
-            sender.sendMessage(ChatColor.RED + "Best PvE game is not in progress!");
+            sender.sendMessage(PREFIX + "BestPvE is currently disabled.");
             return true;
         }
 
-        if (cmd.getName().equalsIgnoreCase("pvelist")) {
-            sender.sendMessage(ChatColor.GREEN + "Best PvE players:");
-
-            for (String player : list) {
-                sender.sendMessage(ChatColor.YELLOW + player);
-            }
-        }
-
-        if (cmd.getName().equalsIgnoreCase("pve")) {
-            if (!sender.hasPermission("uhc.bestpve")) {
-                sender.sendMessage(Main.NO_PERMISSION_MESSAGE);
-                return true;
-            }
-
-            if (args.length < 2) {
-                sender.sendMessage(ChatColor.GREEN + "Help for BestPvE:");
-                sender.sendMessage("§7- §f/pve add <player> - §oAdd a player to the list.");
-                sender.sendMessage("§7- §f/pve remove <player> - §oRemove a player from the list.");
-                return true;
-            }
-
-            String player = args[1];
-
-            if (args[0].equalsIgnoreCase("add")) {
-                if (list.contains(player)) {
-                    sender.sendMessage(ChatColor.RED + player + " is already on the list!");
+        if (args.length > 0) {
+            if (args.length > 1) {
+                if (args[0].equalsIgnoreCase("add")) {
+                    if (!sender.hasPermission("uhc." + getName().toLowerCase())) {
+                        sender.sendMessage(Main.NO_PERMISSION_MESSAGE);
+                        return true;
+                    }
+                    
+                    Player target = Bukkit.getPlayer(args[1]);
+                    
+                    if (target == null) {
+                        sender.sendMessage(new PlayerNotFoundException(args[1]).getMessage());
+                        return true;
+                    }
+                    
+                    if (pveList.contains(UUID.randomUUID())) {
+                        sender.sendMessage(PREFIX + "§6" + target.getName() + " §7is already on the list.");
+                        return true;
+                    }
+                    
+                    pveList.add(target.getUniqueId());
+                    sender.sendMessage(PREFIX + "§6" + target.getName() + " §7has been added to the list.");
                     return true;
                 }
 
-                sender.sendMessage(ChatColor.GOLD + player + " was added to the list!");
-                list.add(player);
-                return true;
-            }
+                if (args[0].equalsIgnoreCase("remove")) {
+                    if (!sender.hasPermission("uhc." + getName().toLowerCase())) {
+                        sender.sendMessage(Main.NO_PERMISSION_MESSAGE);
+                        return true;
+                    }
+                    
+                    Player target = Bukkit.getPlayer(args[1]);
+                    
+                    if (target == null) {
+                        sender.sendMessage(new PlayerNotFoundException(args[1]).getMessage());
+                        return true;
+                    }
+                    
+                    if (!pveList.contains(UUID.randomUUID())) {
+                        sender.sendMessage(PREFIX + "§6" + target.getName() + " §7is not on the list.");
+                        return true;
+                    }
 
-            if (args[0].equalsIgnoreCase("remove")) {
-                if (!list.contains(player)) {
-                    sender.sendMessage(ChatColor.RED + player + " is not present on the list!");
-                    return true;
+                    pveList.remove(target.getUniqueId());
+                    sender.sendMessage(PREFIX + "§6" + target.getName() + " §7has been removed from the list.");
                 }
-
-                sender.sendMessage(ChatColor.GOLD + player + " was removed from the list!");
-                list.remove(player);
-                return true;
             }
 
-            sender.sendMessage(ChatColor.GREEN + "Help for BestPvE:");
-            sender.sendMessage("§7- §f/pve add <player> - §oAdd a player to the list.");
-            sender.sendMessage("§7- §f/pve remove <player> - §oRemove a player from the list.");
+            if (args[0].equalsIgnoreCase("list")) {
+                StringBuilder list = new StringBuilder();
+                int i = 1;                
+                
+                for (UUID uuid : pveList) {
+                    if (list.length() > 0) {
+                        if (pveList.size() == i) {
+                            list.append(" §7and §e");
+                        } else {
+                            list.append("§7, §e");
+                        }
+                    }
+                    
+                    OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+                    list.append(ChatColor.YELLOW + player.getName());
+                    
+                    i++;
+                }
+                return true;
+            }
         }
+
+        sender.sendMessage(PREFIX + "BestPvE Commands:");
+        sender.sendMessage("§8• §e/pve list §8- §f§oView the current players on the list.");
+        sender.sendMessage("§8• §e/pve add <player> §8- §f§oAdd the player to the PvE List.");
+        sender.sendMessage("§8• §e/pve remove <player> §8- §f§oRemove the player from the PvE List.");
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        List<String> toReturn = Lists.newArrayList();
+        List<String> list = Lists.newArrayList();
+        
+        if (args.length == 1) {
+            list.add("list");
+            
+            if (sender.hasPermission("uhc." + getName().toLowerCase())) {
+                list.add("add");
+                list.add("remove");
+            }
+        }
+        
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("remove")) {
+                list.addAll(allPlayers());
+            }
+        }
+        
+        for (String str : list) {
+            if (args[args.length - 1].isEmpty() || str.startsWith(args[args.length - 1].toLowerCase())) {
+                toReturn.add(str);
+            }
+        }
+        
+        return toReturn;
     }
 }
