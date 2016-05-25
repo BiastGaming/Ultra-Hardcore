@@ -5,17 +5,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.BestBTC;
+import com.leontg77.ultrahardcore.scenario.scenarios.BestPvE;
 
 /**
  * The data storage system class.
  * 
  * @author LeonTG77
  */
+@SuppressWarnings("unused")
 public class Data {
     private final Settings settings;
     private final Main plugin;
@@ -40,8 +45,8 @@ public class Data {
     public void store(TeamManager teams, ScenarioManager scens) {
         clearData();
 
-        saveSet("bestbtc", scens.getScenario(BestBTC.class).getList());
-//        saveSet("bestpve", scens.getScenario(BestPvE.class).getList());
+        saveUUIDSet("bestbtc", scens.getScenario(BestBTC.class).getBTCList());
+        saveUUIDSet("bestpve", scens.getScenario(BestPvE.class).getPvEList());
 
         List<String> scenarios = new ArrayList<String>();
 
@@ -65,8 +70,8 @@ public class Data {
      * @param scens The scenario manager for team saving.
      */
     public void restore(TeamManager teams, ScenarioManager scens) {
-        restoreSet("bestbtc", scens.getScenario(BestBTC.class).getList());
-//        restoreSet("bestpve", scens.getScenario(BestPvE.class).getList());
+        restoreUUIDSet("bestbtc", scens.getScenario(BestBTC.class).getBTCList());
+        restoreUUIDSet("bestpve", scens.getScenario(BestPvE.class).getPvEList());
 
         try {
             for (String name : settings.getData().getConfigurationSection("teams.data").getKeys(false)) {
@@ -137,5 +142,36 @@ public class Data {
      */
     private void restoreSet(String name, Set<String> list) {
         restoreList(name, new ArrayList<String>(list));
+    }
+
+    /**
+     * Save the given set into the data file.
+     *
+     * @param name The name for the path.
+     * @param list The set to save.
+     */
+    private void saveUUIDSet(String name, Set<UUID> list) {
+        Set<String> uuidToString = Sets.newHashSet();
+        
+        for (UUID uuid : list) {
+            uuidToString.add(uuid.toString());
+        }
+        
+        saveSet(name, uuidToString);
+    }
+
+    /**
+     * Restore the given path name into the given set.
+     *
+     * @param name The name for the path.
+     * @param list The set to restore to.
+     */
+    private void restoreUUIDSet(String name, Set<UUID> list) {
+        Set<String> stringToUUID = Sets.newHashSet();
+        restoreSet(name, stringToUUID);
+        
+        for (String stringUUID : stringToUUID) {
+            list.add(UUID.fromString(stringUUID));
+        }
     }
 }
