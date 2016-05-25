@@ -7,9 +7,11 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import com.google.common.collect.Lists;
 import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.gui.guis.GameInfoGUI;
 import com.leontg77.ultrahardcore.managers.BoardManager;
@@ -181,6 +183,37 @@ public class Game {
             }
 
             list.add(online);
+        }
+
+        return list;
+    }
+
+    /**
+     * Get a list of all the players playing the gamee including the offline ones.
+     *
+     * @return List of game players.
+     */
+    public List<OfflinePlayer> getOfflinePlayers() {
+        List<OfflinePlayer> list = Lists.newArrayList();
+
+        for (OfflinePlayer offline : Bukkit.getWhitelistedPlayers()) {
+            if (spec.isSpectating(offline)) {
+                continue;
+            }
+            
+            Player online = offline.getPlayer();
+            
+            if (online != null) {
+                if (!getWorlds().contains(online.getWorld())) {
+                    continue;
+                }
+                
+                if (online.isDead()) {
+                    continue;
+                }
+            }
+
+            list.add(offline);
         }
 
         return list;
