@@ -56,7 +56,7 @@ public class KillBoardFeature extends Feature implements Listener {
                 return;
             }
 
-            board.setScore("§8» §c§oPvE", board.getScore("§8» §c§oPvE") + 1);
+            board.setScore("§8» §a§oPvE", board.getScore("§8» §a§oPvE") + 1);
             return;
         }
 

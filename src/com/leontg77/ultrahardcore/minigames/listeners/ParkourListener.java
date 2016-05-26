@@ -1,8 +1,11 @@
 package com.leontg77.ultrahardcore.minigames.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.block.Sign;
+import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +19,7 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.minigames.Parkour;
 import com.leontg77.ultrahardcore.utils.DateUtils;
@@ -31,22 +35,32 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  */
 public class ParkourListener implements Listener {
     private final Main plugin;
+    
+    private final Settings settings;
     private final Game game;
 
     private final SpecManager spec;
     private final Parkour parkour;
 
-    public ParkourListener(Main plugin, Game game, Parkour parkour, SpecManager spec) {
+    private Location skull;
+    private Location sign;
+
+    public ParkourListener(Main plugin, Game game, Settings settings, Parkour parkour, SpecManager spec) {
         this.plugin = plugin;
+        
+        this.settings = settings;
         this.game = game;
 
         this.parkour = parkour;
         this.spec = spec;
+
+        skull = new Location(Bukkit.getWorld("lobby"), 30, 15, -13);
+        sign = new Location(Bukkit.getWorld("lobby"), 30, 14, -12);
     }
 
     @EventHandler
-    public void on(final PlayerGameModeChangeEvent event) {
-        final Player player = event.getPlayer();
+    public void on(PlayerGameModeChangeEvent event) {
+        Player player = event.getPlayer();
 
         if (!parkour.isParkouring(player)) {
             return;
@@ -59,8 +73,8 @@ public class ParkourListener implements Listener {
     }
 
     @EventHandler
-    public void on(final PlayerToggleFlightEvent event) {
-        final Player player = event.getPlayer();
+    public void on(PlayerToggleFlightEvent event) {
+        Player player = event.getPlayer();
 
         if (!parkour.isParkouring(player)) {
             return;
@@ -73,8 +87,8 @@ public class ParkourListener implements Listener {
     }
 
     @EventHandler
-    public void on(final PlayerTeleportEvent event) {
-        final Player player = event.getPlayer();
+    public void on(PlayerTeleportEvent event) {
+        Player player = event.getPlayer();
 
         if (event.getCause() == TeleportCause.UNKNOWN) {
             return;
@@ -89,8 +103,8 @@ public class ParkourListener implements Listener {
     }
 
     @EventHandler
-    public void on(final PlayerQuitEvent event) {
-        final Player player = event.getPlayer();
+    public void on(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
 
         if (!parkour.isParkouring(player)) {
             return;
@@ -101,20 +115,20 @@ public class ParkourListener implements Listener {
 
     @EventHandler
     public void on(PlayerMoveEvent event) {
-        final Location from = event.getFrom();
-        final Location to = event.getTo();
+        Location from = event.getFrom();
+        Location to = event.getTo();
 
         if (!to.getWorld().getName().equals("lobby")) {
             return;
         }
 
-        final Player player = event.getPlayer();
+        Player player = event.getPlayer();
 
         if (spec.isSpectating(player)) {
             return;
         }
 
-        if (to.getBlockY() < 20 && parkour.isParkouring(player)) {
+        if (to.getBlockY() < 0 && parkour.isParkouring(player)) {
             player.teleport(parkour.getLocation(parkour.getCheckpoint(player)), TeleportCause.UNKNOWN);
             return;
         }
@@ -123,7 +137,7 @@ public class ParkourListener implements Listener {
             return;
         }
 
-        final State state = game.getState();
+        State state = game.getState();
 
         // parkour should never be used incase of this.
         if (state == State.SCATTER || state == State.INGAME || state == State.ENDING) {
@@ -150,7 +164,7 @@ public class ParkourListener implements Listener {
             return;
         }
 
-        final String date = DateUtils.formatDateDiff(parkour.getStartTime(player).getTime());
+        String date = DateUtils.formatDateDiff(parkour.getStartTime(player).getTime());
 
         // checkpoint 1
         if (LocationUtils.areEqual(to, parkour.getLocation(1))) {
@@ -199,6 +213,25 @@ public class ParkourListener implements Listener {
             parkour.removePlayer(player);
 
             player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
+            
+            long best = settings.getConfig().getLong("parkour.best.time", System.currentTimeMillis());
+
+            if (parkour.getStartTime(player) != null) {
+                long newTime = System.currentTimeMillis() - parkour.getStartTime(player).getTime();
+                
+                if (newTime < best) {
+                    if (skull.getBlock().getState() instanceof Skull) {
+                        Skull head = (Skull) skull.getBlock().getState();
+                        head.setOwner(player.getName());
+                    }
+                    
+                    if (sign.getBlock().getState() instanceof Sign) {
+                        Sign text = (Sign) sign.getBlock().getState();
+                        text.setLine(2, player.getName());
+                        text.setLine(3, DateUtils.ticksToString(newTime / 1000));
+                    }
+                }
+            }
         }
     }
 }

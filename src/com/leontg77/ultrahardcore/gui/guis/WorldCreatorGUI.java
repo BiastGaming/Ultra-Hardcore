@@ -250,7 +250,7 @@ public class WorldCreatorGUI extends GUI implements Listener {
         ItemStack oreLimiter = new ItemStack(Material.DIAMOND_ORE);
         ItemMeta oreLimiterMeta = oreLimiter.getItemMeta();
 
-        oreLimiterMeta.setDisplayName("§8§ §6Ore Limiter §8«");
+        oreLimiterMeta.setDisplayName("§8» §6Ore Limiter §8«");
         lore.add(" ");
         lore.add("§8» §7Currently: " + (orelimiter ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
         lore.add(" ");

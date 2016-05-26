@@ -162,7 +162,7 @@ public class HallOfFameGUI extends GUI implements Listener {
 
                 ItemStack item = new ItemStack (Material.GOLDEN_APPLE, 1, isSpecial ? (short) 1 : (short) 0);
                 ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName("§8» §6" + host + "'s #" + target + " §8«");
+                meta.setDisplayName(" §6" + host + "'s #" + target + " §8«");
 
                 ArrayList<String> lore = new ArrayList<String>();
                 lore.add("§7" + settings.getHOF().getString(host + ".games." + target + ".date", "N/A"));
@@ -214,7 +214,7 @@ public class HallOfFameGUI extends GUI implements Listener {
 
             ItemStack head = new ItemStack (Material.SKULL_ITEM, 1, (short) 3);
             SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-            headMeta.setDisplayName("§8§ §6Host Info §8«");
+            headMeta.setDisplayName("§8» §6Host Info §8«");
             headMeta.setOwner(name);
 
             ArrayList<String> headLore = new ArrayList<String>();

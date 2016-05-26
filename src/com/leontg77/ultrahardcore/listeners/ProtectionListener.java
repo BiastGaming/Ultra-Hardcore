@@ -13,8 +13,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.hanging.HangingBreakByEntityEvent;
+import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.vehicle.VehicleDamageEvent;
 
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
@@ -39,16 +43,16 @@ public class ProtectionListener implements Listener {
     }
 
     @EventHandler
-    public void on(final BlockBreakEvent event) {
-        final Player player = event.getPlayer();
-        final Block block = event.getBlock();
+    public void on(BlockBreakEvent event) {
+        Player player = event.getPlayer();
+        Block block = event.getBlock();
 
         if (game.isState(State.SCATTER)) {
             event.setCancelled(true);
             return;
         }
 
-        final World world = block.getWorld();
+        World world = block.getWorld();
         
         if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
             return;
@@ -62,16 +66,16 @@ public class ProtectionListener implements Listener {
     }
 
     @EventHandler
-    public void on(final BlockPlaceEvent event) {
-        final Block block = event.getBlockPlaced();
-        final Player player = event.getPlayer();
+    public void on(BlockPlaceEvent event) {
+        Player player = event.getPlayer();
+        Block block = event.getBlock();
 
         if (game.isState(State.SCATTER)) {
             event.setCancelled(true);
             return;
         }
 
-        final World world = block.getWorld();
+        World world = block.getWorld();
 
         if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
             return;
@@ -147,7 +151,34 @@ public class ProtectionListener implements Listener {
     }
 
     @EventHandler
-    public void on(EntityDamageEvent event) {
+    public void on(VehicleDamageEvent event) {
+        Entity damager = event.getAttacker();
+
+        if (!(damager instanceof Player)) {
+            return;
+        }
+        
+        Player player = (Player) damager;
+        World world = player.getWorld();
+        
+        if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
+            return;
+        }
+        
+        if (player.hasPermission("uhc.build")) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void on(HangingBreakEvent event) {
+        if (event instanceof HangingBreakByEntityEvent) {
+            on((HangingBreakByEntityEvent) event);
+            return;
+        }
+        
         Entity entity = event.getEntity();
 
         if (game.isState(State.SCATTER)) {
@@ -155,49 +186,105 @@ public class ProtectionListener implements Listener {
             return;
         }
 
-        if (!entity.getWorld().getName().equals("lobby")) {
+        World world = entity.getWorld();
+        
+        if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
             return;
         }
 
-        if (event instanceof EntityDamageByEntityEvent && shouldCancelDamageByOther((EntityDamageByEntityEvent) event)) {
-            return;
-        }
-
-        switch (entity.getType()) {
-        case ARMOR_STAND:
-        case BOAT:
-        case ENDER_CRYSTAL:
-        case ITEM_FRAME:
-        case LEASH_HITCH:
-        case MINECART:
-        case MINECART_CHEST:
-        case MINECART_COMMAND:
-        case MINECART_FURNACE:
-        case MINECART_HOPPER:
-        case MINECART_MOB_SPAWNER:
-        case MINECART_TNT:
-        case PAINTING:
-        case PLAYER:
-            event.setCancelled(true);
-            break;
-        default:
-            break;
-        }
+        event.setCancelled(true);
     }
- 
-    /**
-     * Check if the entity damage by entity event should return the entity damge event int he method above.
-     *
-     * @param event The entity damage by entity event.
-     * @return True if it should, false otherwise.
-     */
-    private boolean shouldCancelDamageByOther(EntityDamageByEntityEvent event) {
-        final Entity damager = event.getDamager();
 
-        if (damager instanceof Player && damager.hasPermission("uhc.build")) {
-            return true;
+    @EventHandler
+    public void on(HangingBreakByEntityEvent event) {
+        Entity damager = event.getRemover();
+
+        if (!(damager instanceof Player)) {
+            return;
+        }
+        
+        Player player = (Player) damager;
+        World world = player.getWorld();
+        
+        if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
+            return;
+        }
+        
+        if (player.hasPermission("uhc.build")) {
+            return;
         }
 
-        return false;
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void on(EntityDamageEvent event) {
+        if (event instanceof EntityDamageByEntityEvent) {
+            on((EntityDamageByEntityEvent) event);
+            return;
+        }
+        
+        Entity entity = event.getEntity();
+
+        if (game.isState(State.SCATTER)) {
+            event.setCancelled(true);
+            return;
+        }
+
+        World world = entity.getWorld();
+        
+        if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+    
+    private void on(EntityDamageByEntityEvent event) {
+        Entity damager = event.getDamager();
+        Entity entity = event.getEntity();
+        
+        if (game.isState(State.SCATTER)) {
+            event.setCancelled(true);
+            return;
+        }
+
+        if (!(damager instanceof Player)) {
+            return;
+        }
+        
+        Player player = (Player) damager;
+        World world = player.getWorld();
+        
+        if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
+            return;
+        }
+        
+        if (!(entity instanceof Player) && player.hasPermission("uhc.build")) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void on(PlayerInteractEntityEvent event) {
+        Player player = (Player) event.getPlayer();
+        World world = player.getWorld();
+
+        if (game.isState(State.SCATTER)) {
+            event.setCancelled(true);
+            return;
+        }
+        
+        if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
+            return;
+        }
+        
+        if (player.hasPermission("uhc.build")) {
+            return;
+        }
+
+        event.setCancelled(true);
     }
 }

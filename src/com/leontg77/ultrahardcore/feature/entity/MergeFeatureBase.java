@@ -1,11 +1,12 @@
 package com.leontg77.ultrahardcore.feature.entity;
 
-import com.leontg77.ultrahardcore.feature.ToggleableFeature;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
+
+import com.leontg77.ultrahardcore.feature.ToggleableFeature;
 
 /**
  * Merged feature base class.

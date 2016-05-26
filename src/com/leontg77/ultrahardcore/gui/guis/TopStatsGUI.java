@@ -37,7 +37,7 @@ public class TopStatsGUI extends GUI implements Listener {
         super("Top Stats", "A inventory containing all the top 10 players with a stat.");
     }
 
-    private final Inventory inv = Bukkit.createInventory(null, 45, "§4Top 10 Stats");
+    private final Inventory inv = Bukkit.createInventory(null, 54, "§4Top 10 Stats");
 
     @Override
     public void onSetup() {
@@ -81,6 +81,10 @@ public class TopStatsGUI extends GUI implements Listener {
         Set<FileConfiguration> files = FileUtils.getUserFiles();
 
         for (Stat stat : Stat.values()) {
+            if (stat.isMinigameStat()) {
+                continue;
+            }
+            
             data.clear();
 
             for (FileConfiguration config : files) {
@@ -110,6 +114,10 @@ public class TopStatsGUI extends GUI implements Listener {
             addItem(data, stat.getName(), slot);
             slot++;
 
+            if (slot >= inv.getSize()) {
+                continue;
+            }
+            
             inv.setItem(slot, new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 7));
             slot++;
         }
@@ -196,6 +204,11 @@ public class TopStatsGUI extends GUI implements Listener {
         meta.setLore(lore);
 
         item.setItemMeta(meta);
+        
+        if (slot >= inv.getSize()) {
+            return;
+        }
+        
         inv.setItem(slot, item);
     }
 }

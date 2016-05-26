@@ -37,10 +37,6 @@ public class WorldUpdaterFeature extends Feature {
                         if (world.getTime() != 18000) {
                             world.setTime(18000);
                         }
-
-                        if (world.getPVP()) {
-                            world.setPVP(false);
-                        }
                         continue;
                     }
 
@@ -51,10 +47,6 @@ public class WorldUpdaterFeature extends Feature {
 
                         if (world.getTime() != 6000) {
                             world.setTime(6000);
-                        }
-
-                        if (!world.getPVP()) {
-                            world.setPVP(true);
                         }
                         continue;
                     }

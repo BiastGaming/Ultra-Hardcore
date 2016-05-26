@@ -12,6 +12,7 @@ import org.bukkit.util.Vector;
 
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.minigames.Parkour;
+import com.leontg77.ultrahardcore.utils.LocationUtils;
 
 import net.minecraft.server.v1_8_R3.EnumParticle;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;
@@ -22,7 +23,7 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;
  * @author D4mnX
  */
 public class PushToSpawnListener implements Listener {
-    public static final double SPAWN_RADIUS = 55.0d;
+    public static final double SPAWN_RADIUS = 35.0;
 
     private final Parkour parkour;
     private final Main plugin;
@@ -41,8 +42,14 @@ public class PushToSpawnListener implements Listener {
     @EventHandler
     public void on(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        
+
+        Location from = event.getFrom();
         Location to = event.getTo();
+        
+        if (LocationUtils.areEqual(from, to)) {
+            return;
+        }
+        
         World world = to.getWorld();
         
         Vector velocity = player.getVelocity();
@@ -52,7 +59,7 @@ public class PushToSpawnListener implements Listener {
             return;
         }
 
-        if (to.getY() > 20) {
+        if (to.getY() >= 0) {
             return;
         }
 
@@ -60,12 +67,12 @@ public class PushToSpawnListener implements Listener {
             return;
         }
 
-        if (velocityY >= 2.5) {
+        if (velocityY >= 1.15) {
             return;
         }
 
-        // No matter what, increase velocity by 3
-        velocity.setY(velocityY + 2.5);
+        // No matter what, increase velocity by 15
+        velocity.setY(velocityY + 1.15);
 
         Location spawn = plugin.getSpawn();
         spawn.setY(to.getY());

@@ -1,6 +1,7 @@
 package com.leontg77.ultrahardcore.gui.guis;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -609,14 +610,14 @@ public class GameInfoGUI extends GUI implements Listener {
         }
 
         lore.add(" ");
-        lore.add("§8» §4Hosts:");
+        lore.add("§8» §cHosts:");
 
         for (String split : getRankList(Rank.TRIAL, Rank.HOST).split("-")) {
             lore.add("§8» §7" + split);
         }
 
         lore.add(" ");
-        lore.add("§8» §cStaff:");
+        lore.add("§8» §aStaff:");
 
         for (String split : getRankList(Rank.STAFF).split("-")) {
             lore.add("§8» §7" + split);
@@ -656,6 +657,8 @@ public class GameInfoGUI extends GUI implements Listener {
                 }
             }
         }
+        
+        Collections.sort(peopleWithRank);
 
         for (String loopRanks : peopleWithRank) {
             if (list.length() > 0) {
@@ -676,7 +679,7 @@ public class GameInfoGUI extends GUI implements Listener {
             list.append(loopRanks);
             i++;
         }
-
+        
         return list.toString();
     }
 }

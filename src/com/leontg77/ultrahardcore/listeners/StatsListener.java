@@ -9,21 +9,30 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Snowball;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
@@ -32,7 +41,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 
 import com.leontg77.ultrahardcore.Game;
-import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Stat;
@@ -70,32 +78,32 @@ public class StatsListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-    public void on(final PlayerDeathEvent event) {
-        final Player player = event.getEntity();
+    public void on(PlayerDeathEvent event) {
+        Player player = event.getEntity();
 
         // the arena has it's own way of doing deaths.
         if (arena.isEnabled() && arena.hasPlayer(player)) {
             return;
         }
 
-        final List<World> worlds = game.getWorlds();
+        List<World> worlds = game.getWorlds();
 
         // I don't care about the rest they're not in a game world.
         if (!worlds.contains(player.getWorld())) {
             return;
         }
 
-        final User user = plugin.getUser(player);
+        User user = plugin.getUser(player);
 
-        final Player killer = player.getKiller();
+        Player killer = player.getKiller();
 
         if (killer == null) {
             user.increaseStat(Stat.DEATHS);
             return;
         }
 
-        final Team pteam = teams.getTeam(player);
-        final Team team = teams.getTeam(killer);
+        Team pteam = teams.getTeam(player);
+        Team team = teams.getTeam(killer);
 
         if (pteam != null && pteam.equals(team)) {
             return;
@@ -103,7 +111,7 @@ public class StatsListener implements Listener {
 
         user.increaseStat(Stat.DEATHS);
 
-        final User killUser = plugin.getUser(killer);
+        User killUser = plugin.getUser(killer);
         killUser.increaseStat(Stat.KILLS);
 
         if (killUser.getStat(Stat.KILLSTREAK) < board.getScore(killer.getName())) {
@@ -113,14 +121,14 @@ public class StatsListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void on(EntityDeathEvent event) {
-        final LivingEntity entity = event.getEntity();
-        final Player killer = entity.getKiller();
+        LivingEntity entity = event.getEntity();
+        Player killer = entity.getKiller();
 
         if (killer == null) {
             return;
         }
 
-        final User user = plugin.getUser(killer);
+        User user = plugin.getUser(killer);
 
         if (entity instanceof Monster) {
             user.increaseStat(Stat.HOSTILEMOBKILLS);
@@ -133,49 +141,63 @@ public class StatsListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void on(EntityDamageEvent event) {
-        final Entity entity = event.getEntity();
+        Entity entity = event.getEntity();
 
         if (!(entity instanceof Player)) {
             return;
         }
 
-        final Player player = (Player) entity;
-        final double olddamage = player.getHealth();
+        Player player = (Player) entity;
+        double oldHealth = player.getHealth();
 
         new BukkitRunnable() {
             public void run() {
-                final double damage = olddamage - player.getHealth();
+                double damage = oldHealth - player.getHealth();
+                User user = plugin.getUser(player);
 
-                final User user = plugin.getUser(player);
-
-                if (game.isRecordedRound() || game.isPrivateGame()) {
-                    return;
+                double current = user.getStatDouble(Stat.DAMAGETAKEN);
+                user.setStat(Stat.DAMAGETAKEN, current + damage);
+                
+                if (event.getCause() == DamageCause.FALL) {
+                    double currentF = user.getStatDouble(Stat.FALLDAMAGE);
+                    user.setStat(Stat.FALLDAMAGE, currentF + damage);
                 }
-
-                if (!game.isState(State.INGAME)) {
-                    return;
-                }
-
-                final String statName = "damagetaken";
-                final double current = user.getConfig().getDouble("stats." + statName, 0);
-
-                user.getConfig().set("stats." + statName, current + damage);
-                user.saveConfig();
             }
         }.runTaskLater(plugin, 1);
     }
 
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    public void on(EntityShootBowEvent event) {
+        Entity entity = event.getEntity();
+
+        if (!(entity instanceof Player)) {
+            return;
+        }
+
+        Player player = (Player) entity;
+        User user = plugin.getUser(player);
+        
+        user.increaseStat(Stat.ARROWSHOTS);
+    }
+
     @EventHandler(ignoreCancelled = true)
     public void on(BlockBreakEvent event) {
-        final Player player = event.getPlayer();
-        final User user = plugin.getUser(player);
+        Player player = event.getPlayer();
+        User user = plugin.getUser(player);
 
-        final Block block = event.getBlock();
+        Block block = event.getBlock();
 
         if (player.getGameMode() == GameMode.CREATIVE) {
             return;
         }
-
+        
+        user.increaseStat(Stat.BLOCKS);
+        
+        if (block.getType() == Material.GLOWSTONE) {
+            user.increaseStat(Stat.GLOWSTONE);
+            return;
+        }
+        
         if (block.getType() == Material.DIAMOND_ORE) {
             user.increaseStat(Stat.DIAMONDS);
             return;
@@ -187,58 +209,151 @@ public class StatsListener implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
+    public void on(BlockPlaceEvent event) {
+        Player player = event.getPlayer();
+        User user = plugin.getUser(player);
+
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+        
+        user.increaseStat(Stat.PLACED);
+    }
+
+    @EventHandler(ignoreCancelled = true)
     public void on(EntityDamageByEntityEvent event) {
-        final Entity attacked = event.getEntity();
-        final Entity attacker = event.getDamager();
+        Entity attacked = event.getEntity();
+        Entity attacker = event.getDamager();
 
         if (!(attacked instanceof Player) || !(attacker instanceof Arrow)) {
             return;
         }
 
-        final Player player = (Player) attacked;
-        final Arrow arrow = (Arrow) attacker;
+        Player player = (Player) attacked;
+        Arrow arrow = (Arrow) attacker;
 
         if (!(arrow.getShooter() instanceof Player)) {
             return;
         }
 
-        final Player killer = (Player) arrow.getShooter();
-        final double distance = killer.getLocation().distance(player.getLocation());
+        Player killer = (Player) arrow.getShooter();
+        double distance = killer.getLocation().distance(player.getLocation());
 
-        final Team kTeam = teams.getTeam(killer);
-        final Team pTeam = teams.getTeam(player);
+        User user = plugin.getUser(killer);
 
-        // no stats boosting for teammates.
-        if (kTeam != null && kTeam.equals(pTeam)) {
+        if (user.getStatDouble(Stat.LONGESTSHOT) < distance) {
+            user.setStat(Stat.LONGESTSHOT, distance);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onDmg(EntityDamageByEntityEvent event) {
+        Entity attacked = event.getEntity();
+        Entity attacker = event.getDamager();
+
+        if (!(attacked instanceof LivingEntity)) {
             return;
         }
 
-        final User user = plugin.getUser(killer);
+        LivingEntity living = (LivingEntity) attacked;
+        
+        if (attacker instanceof Player) {
+            Player killer = (Player) attacker;
+            
+            User user = plugin.getUser(killer);
+            user.increaseStat(Stat.MELEEHITS);
+            
+            double oldHealth = living.getHealth();
 
-        if (user.getStatDouble(Stat.LONGESTSHOT) <= distance) {
-            user.setStat(Stat.LONGESTSHOT, distance);
+            new BukkitRunnable() {
+                public void run() {
+                    double damage = oldHealth - living.getHealth();
+
+                    Stat stat = living instanceof Player ? Stat.PVPDAMAGEDEALT : Stat.PVEDAMAGEDEALT;
+                    
+                    double current = user.getStatDouble(stat);
+                    user.setStat(stat, current + damage);
+                }
+            }.runTaskLater(plugin, 1);
+        }
+        
+        if (attacker instanceof Arrow) {
+            Arrow arrow = (Arrow) attacker;
+            
+            if (!(arrow.getShooter() instanceof Player)) {
+                return;
+            }
+            
+            Player killer = (Player) arrow.getShooter();
+            
+            User user = plugin.getUser(killer);
+            user.increaseStat(Stat.BOWHITS);
+            
+            double oldHealth = living.getHealth();
+
+            new BukkitRunnable() {
+                public void run() {
+                    double damage = oldHealth - living.getHealth();
+
+                    Stat stat = living instanceof Player ? Stat.PVPDAMAGEDEALT : Stat.PVEDAMAGEDEALT;
+                    
+                    double current = user.getStatDouble(stat);
+                    user.setStat(stat, current + damage);
+                }
+            }.runTaskLater(plugin, 1);
         }
     }
     
     @EventHandler(ignoreCancelled = true)
     public void on(EntityTameEvent event) {
-        final Player player = (Player) event.getOwner();
-        final User user = plugin.getUser(player);
+        Player player = (Player) event.getOwner();
+        User user = plugin.getUser(player);
 
-        if (event.getEntity() instanceof Wolf) {
+        LivingEntity entity = event.getEntity();
+        
+        if (entity instanceof Wolf) {
             user.increaseStat(Stat.WOLVESTAMED);
             return;
         }
 
-        if (event.getEntity() instanceof Horse) {
+        if (entity instanceof Horse) {
             user.increaseStat(Stat.HORSESTAMED);
+        }
+
+        if (entity instanceof Ocelot) {
+            user.increaseStat(Stat.CATSTAMED);
+        }
+    }
+    
+    @EventHandler
+    public void on(ProjectileLaunchEvent event) {
+        Projectile proj = event.getEntity();
+        
+        if (!(proj.getShooter() instanceof Player)) {
+            return;
+        }
+        
+        Player player = (Player) proj.getShooter();
+        User user = plugin.getUser(player);
+        
+        if (proj instanceof Snowball) {
+            user.increaseStat(Stat.SNOWBALLSHOTS);
+            return;
+        }
+
+        if (proj instanceof FishHook) {
+            user.increaseStat(Stat.RODUSES);
+        }
+
+        if (proj instanceof Egg) {
+            user.increaseStat(Stat.EGGSTHROWN);
         }
     }
 
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerLevelChangeEvent event) {
-        final Player player = event.getPlayer();
-        final User user = plugin.getUser(player);
+        Player player = event.getPlayer();
+        User user = plugin.getUser(player);
 
         int oldL = event.getOldLevel();
         int newL = event.getNewLevel();
@@ -252,10 +367,10 @@ public class StatsListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void on(PlayerItemConsumeEvent event) {
-        final Player player = event.getPlayer();
-        final User user = plugin.getUser(player);
+        Player player = event.getPlayer();
+        User user = plugin.getUser(player);
 
-        final ItemStack item = event.getItem();
+        ItemStack item = event.getItem();
 
         if (item.getType() == Material.GOLDEN_APPLE) {
             if (ghead.isGoldenHead(item)) {
@@ -272,15 +387,15 @@ public class StatsListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void on(final PlayerPortalEvent event) {
+    public void on(PlayerPortalEvent event) {
         if (event.isCancelled()) {
             return;
         }
 
-        final Player player = event.getPlayer();
+        Player player = event.getPlayer();
 
-        final User user = plugin.getUser(player);
-        final Location to = event.getTo();
+        User user = plugin.getUser(player);
+        Location to = event.getTo();
 
         if (to == null) {
             return;
@@ -289,9 +404,6 @@ public class StatsListener implements Listener {
         switch (to.getWorld().getEnvironment()) {
         case NETHER:
             user.increaseStat(Stat.NETHER);
-            break;
-        case THE_END:
-            user.increaseStat(Stat.END);
             break;
         default:
             break;

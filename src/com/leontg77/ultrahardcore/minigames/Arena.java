@@ -141,7 +141,7 @@ public class Arena {
             game.setArenaBoard(true);
         }
 
-        setScore("§8» §9§oNext Reset", 30);
+        setScore("§8» §a§oNext Reset", 30);
 
         if (regenTask == null) {
             regenTask = new BukkitRunnable() {
@@ -150,7 +150,7 @@ public class Arena {
                 public void run() {
                     time--;
 
-                    setScore("§8» §9§oNext Reset", (int) ((time / 60) + 1));
+                    setScore("§8» §a§oNext Reset", (int) ((time / 60) + 1));
 
                     switch (time) {
                     case 900:
@@ -275,7 +275,7 @@ public class Arena {
             }
         }
 
-        resetScore("§8» §9§oNext Reset ");
+        resetScore("§8» §a§oNext Reset");
         players.clear();
 
         if (regenTask != null) {

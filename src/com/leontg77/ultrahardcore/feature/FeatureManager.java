@@ -34,6 +34,7 @@ import com.leontg77.ultrahardcore.feature.horses.HorseFeature;
 import com.leontg77.ultrahardcore.feature.horses.HorseHealingFeature;
 import com.leontg77.ultrahardcore.feature.other.SpecLocationFixFeature;
 import com.leontg77.ultrahardcore.feature.other.TabUpdaterFeature;
+import com.leontg77.ultrahardcore.feature.other.TextCommandsFeature;
 import com.leontg77.ultrahardcore.feature.pearl.PearlDamageFeature;
 import com.leontg77.ultrahardcore.feature.portal.EndFeature;
 import com.leontg77.ultrahardcore.feature.portal.NetherFeature;
@@ -73,6 +74,7 @@ import com.leontg77.ultrahardcore.feature.world.WeatherFeature;
 import com.leontg77.ultrahardcore.feature.world.WorldUpdaterFeature;
 import com.leontg77.ultrahardcore.feature.xp.NerfedQuartzXPFeature;
 import com.leontg77.ultrahardcore.feature.xp.NerfedXPFeature;
+import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
@@ -165,7 +167,7 @@ public class FeatureManager {
     /**
      * Setup all the feature classes.
      */
-    public void registerFeatures(Arena arena, Game game, Timer timer, BoardManager board, TeamManager team, SpecManager spec, EnchantPreview ench, HardcoreHearts heart, ScenarioManager scen) {
+    public void registerFeatures(Arena arena, Game game, Timer timer, BoardManager board, TeamManager team, SpecManager spec, EnchantPreview ench, HardcoreHearts heart, ScenarioManager scen, GUIManager gui) {
         PotionFuelListener listener = new PotionFuelListener();
         Bukkit.getPluginManager().registerEvents(listener, plugin);
 
@@ -207,6 +209,7 @@ public class FeatureManager {
         // other
         addFeature(new SpecLocationFixFeature(plugin));
         addFeature(new TabUpdaterFeature(plugin, game));
+        addFeature(new TextCommandsFeature(gui));
 
         // pearl
         addFeature(new PearlDamageFeature(settings));

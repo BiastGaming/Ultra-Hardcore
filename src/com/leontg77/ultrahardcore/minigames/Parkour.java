@@ -51,12 +51,12 @@ public class Parkour {
     private Location checkpoint2;
     private Location checkpoint3;
     private Location endpoint;
-
+    
     /**
      * Set up the checkpoints and listeners for the parkour
      */
     public void setup() {
-        Bukkit.getPluginManager().registerEvents(new ParkourListener(plugin, game, this, spec), plugin);
+        Bukkit.getPluginManager().registerEvents(new ParkourListener(plugin, game, settings, this, spec), plugin);
 
         loadLocations();
     }
