@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
@@ -20,7 +19,6 @@ import com.leontg77.ultrahardcore.scenario.scenarios.BestPvE;
  * 
  * @author LeonTG77
  */
-@SuppressWarnings("unused")
 public class Data {
     private final Settings settings;
     private final Main plugin;

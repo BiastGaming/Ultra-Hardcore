@@ -41,7 +41,7 @@ public class HOFCommand extends UHCCommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        String host = game.getHostHOFName(game.getHost());
+        String host = game.getHostHOFName();
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("global")) {

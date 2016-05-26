@@ -49,6 +49,7 @@ import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.minigames.Parkour;
+import com.leontg77.ultrahardcore.minigames.listeners.KingOfTheLadderListener;
 import com.leontg77.ultrahardcore.protocol.EnchantPreview;
 import com.leontg77.ultrahardcore.protocol.HardcoreHearts;
 import com.leontg77.ultrahardcore.protocol.OnlineCount;
@@ -238,7 +239,7 @@ public class Main extends JavaPlugin {
         ubl.reload();
         
         scen.registerScenarios(arena, game, timer, teams, spec, settings, feat, scatter, board);
-        feat.registerFeatures(arena, game, timer, board, teams, spec, enchPreview, hardHearts, scen);
+        feat.registerFeatures(arena, game, timer, board, teams, spec, enchPreview, hardHearts, scen, gui);
         
         cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter, ubl, antiSM);
         gui.registerGUIs(game, timer, settings, feat, scen, worlds);
@@ -251,6 +252,8 @@ public class Main extends JavaPlugin {
         counter.enable();
 
         // register all listeners.
+        manager.registerEvents(new KingOfTheLadderListener(this), this);
+        
         manager.registerEvents(new AnvilListener(this), this);
         manager.registerEvents(new ChatListener(this, game, teams, spec), this);
         manager.registerEvents(new LoginListener(this, game, settings, spec, scatter, perm), this);

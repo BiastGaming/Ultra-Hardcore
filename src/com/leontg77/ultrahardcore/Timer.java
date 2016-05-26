@@ -298,8 +298,8 @@ public class Timer {
                     board.resetScore(entry);
                 }
 
-                board.setScore("§8» §c§oPvE", 1);
-                board.setScore("§8» §c§oPvE", 0);
+                board.setScore("§8» §a§oPvE", 1);
+                board.setScore("§8» §a§oPvE", 0);
 
                 pvp = game.getPvP();
                 meetup = game.getMeetup();

@@ -270,15 +270,15 @@ public class User {
             return "§a";
         case HOST:
         case TRIAL:
-            return "§4";
+            return "§c";
         case OWNER:
             if (uuid.toString().equals("02dc5178-f7ec-4254-8401-1a57a7442a2f")) {
-                return "§3§o";
+                return "§3";
             } else {
-                return "§4§o";
+                return "§4";
             }
         case STAFF:
-            return "§c";
+            return "§a";
         default:
             return "§7";
         }
@@ -643,7 +643,7 @@ public class User {
 
         final String statName = stat.name().toLowerCase();
 
-        if (stat == Stat.ARENADEATHS || stat == Stat.ARENAKILLSTREAK || stat == Stat.ARENAKILLS) {
+        if (stat.isMinigameStat()) {
             if (!Bukkit.hasWhitelist()) {
                 config.set("stats." + statName, value);
                 saveConfig();
@@ -789,7 +789,7 @@ public class User {
 
         int level;
 
-        private Rank(final int level) {
+        private Rank(int level) {
             this.level = level;
         }
 
@@ -811,32 +811,54 @@ public class User {
      * @author LeonTG77
      */
     public enum Stat {
-        WINS("Wins"),
-        GAMESPLAYED("Games played"),
-        KILLS("Kills"),
-        DEATHS("Deaths"),
-        DAMAGETAKEN("Damage taken"),
-        ARENAKILLS("Arena Kills"),
-        ARENADEATHS("Arena Deaths"),
-        KILLSTREAK("Highest Killstreak"),
-        ARENAKILLSTREAK("Highest Arena Killstreak"),
-        GOLDENAPPLESEATEN("Golden Apples Eaten"),
-        GOLDENHEADSEATEN("Golden Heads Eaten"),
-        HORSESTAMED("Horses Tamed"),
-        WOLVESTAMED("Wolves Tamed"),
-        POTIONS("Potions Drunk"),
-        NETHER("Went to Nether"),
-        END("Went to The End"),
-        DIAMONDS("Mined diamonds"),
-        GOLD("Mined gold"),
-        HOSTILEMOBKILLS("Killed a monster"),
-        ANIMALKILLS("Killed an animal"),
-        LONGESTSHOT("Longest Shot"),
-        LEVELS("Levels Earned");
+        WINS("Wins", false),
+        GAMESPLAYED("Games played", false),
+        KILLS("Kills", false),
+        DEATHS("Deaths", false),
+        DAMAGETAKEN("Damage taken", false),
+        KILLSTREAK("Highest Killstreak", false),
+        GOLDENAPPLESEATEN("Golden Apples Eaten", false),
+        GOLDENHEADSEATEN("Golden Heads Eaten", false),
+        HEARTSHEALED("Hearts Healed", false),
+        HORSESTAMED("Horses Tamed", false),
+        WOLVESTAMED("Wolves Tamed", false),
+        CATSTAMED("Cats Tamed", false),
+        POTIONS("Potions Drunk", false),
+        NETHER("Went to Nether", false),
+        BLOCKS("Blocks Mined", false),
+        DIAMONDS("Mined diamonds", false),
+        GOLD("Mined gold", false),
+        HOSTILEMOBKILLS("Killed a monster", false),
+        ANIMALKILLS("Killed an animal", false),
+        LONGESTSHOT("Longest Shot", false),
+        ARROWSHOTS("Arrows Shot", false),
+        LEVELS("Levels Earned", false),
+        IRONMAN("Iron Man", false),
+        FIRSTBLOOD("First Blood", false),
+        FIRSTDAMAGE("First Damage", false),
+        FIRSTDEATH("First Death", false),
+        PVEDAMAGEDEALT("PvE Damage Dealth", false),
+        PVPDAMAGEDEALT("PvP Damage Dealth", false),
+        FALLDAMAGE("Fall Damage", false),
+        MELEEHITS("Melee Hits", false),
+        BOWHITS("Bow hits", false),
+        RODUSES("Rod Uses", false),
+        SNOWBALLSHOTS("Snowball shots", false),
+        EGGSTHROWN("Egg Throws", false),
+        GLOWSTONE("Mined glowstone", false),
+        PLACED("Blocks Placed", false),
+        // Minigame Stats....
+        BESTPARKOURTIME("Best Parkour Time", true),
+        TIMES_KOTL("The King (Of the ladder)", true),
+        ARENAKILLS("Arena Kills", true),
+        ARENADEATHS("Arena Deaths", true),
+        ARENAKILLSTREAK("Highest Arena Killstreak", true);
 
-        private String name;
+        private final boolean minigameStat;
+        private final String name;
 
-        private Stat(final String name) {
+        private Stat(String name, boolean minigameStat) {
+            this.minigameStat = minigameStat;
             this.name = name;
         }
 
@@ -849,18 +871,13 @@ public class User {
             return name;
         }
 
-        public Stat getStat(final String stat) {
-            try {
-                return valueOf(stat);
-            } catch (Exception e) {
-                for (Stat stats : values()) {
-                    if (stats.getName().startsWith(stat)) {
-                        return stats;
-                    }
-                }
-            }
-
-            return null;
+        /**
+         * Check if the stat is a minigame stat.
+         * 
+         * @return True if it is, false otherwise.
+         */
+        public boolean isMinigameStat() {
+            return minigameStat;
         }
     }
 }
