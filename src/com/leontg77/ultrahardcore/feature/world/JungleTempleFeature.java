@@ -246,7 +246,7 @@ public class JungleTempleFeature extends Feature implements Listener {
         Enchantment ench = Enchantment.values()[rand.nextInt(Enchantment.values().length)];
         int level = rand.nextInt(ench.getMaxLevel()) + 1;
 
-        meta.addEnchant(ench, level, true);
+        meta.addStoredEnchant(ench, level, true);
         item.setItemMeta(meta);
         return item; 
     }

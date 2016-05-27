@@ -52,8 +52,8 @@ public class PushToSpawnListener implements Listener {
         
         World world = to.getWorld();
         
-        Vector velocity = player.getVelocity();
-        double velocityY = velocity.getY();
+        Vector vec = player.getVelocity();
+        double velocityY = vec.getY();
 
         if (!world.getName().equals("lobby")) {
             return;
@@ -72,7 +72,7 @@ public class PushToSpawnListener implements Listener {
         }
 
         // No matter what, increase velocity by 15
-        velocity.setY(velocityY + 1.15);
+        vec.setY(velocityY + 1.15);
 
         Location spawn = plugin.getSpawn();
         spawn.setY(to.getY());
@@ -85,10 +85,10 @@ public class PushToSpawnListener implements Listener {
         double inverseZ = -to.getZ();
         
         Vector horizontalPushingVector = new Vector(inverseX, 0, inverseZ).normalize().multiply(horizontalPushingSpeed);
-        velocity.add(horizontalPushingVector);
+        vec.add(horizontalPushingVector);
 
         try {
-            player.setVelocity(velocity);
+            player.setVelocity(vec);
         } catch (Throwable e) {
             return;
         }

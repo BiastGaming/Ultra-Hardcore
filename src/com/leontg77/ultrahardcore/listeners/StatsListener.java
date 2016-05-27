@@ -29,6 +29,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -348,6 +349,20 @@ public class StatsListener implements Listener {
         if (proj instanceof Egg) {
             user.increaseStat(Stat.EGGSTHROWN);
         }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void on(EntityRegainHealthEvent event) {
+        Entity entity = event.getEntity();
+        
+        if (!(entity instanceof Player)) {
+            return;
+        }
+        
+        Player player = (Player) entity;
+        User user = plugin.getUser(player);
+
+        user.setStat(Stat.HEARTSHEALED, user.getStat(Stat.HEARTSHEALED) + event.getAmount());
     }
 
     @EventHandler(ignoreCancelled = true)

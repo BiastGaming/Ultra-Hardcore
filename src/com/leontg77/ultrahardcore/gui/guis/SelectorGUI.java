@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.IntUnaryOperator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -99,43 +100,35 @@ public class SelectorGUI extends GUI implements Listener {
             return;
         }
 
-        int page = currentPage.get(player.getName());
+        int oldPlayerPage = currentPage.get(player.getName());
+        IntUnaryOperator op = null;
 
         if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNext page")) {
-            page++;
+            op = oldPage -> oldPage + 1;
+        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aPrevious page")) {
+            op = oldPage -> oldPage - 1;
+        } else {
+            player.closeInventory();
 
-            if (!inventories.containsKey(page)) {
+            Player target = Bukkit.getPlayer(item.getItemMeta().getDisplayName().substring(2));
+
+            if (target == null) {
+                player.sendMessage(Main.PREFIX + "The player you clicked is not online.");
                 return;
             }
 
+            player.sendMessage(Main.PREFIX + "You teleported to §a" + target.getName() + "§7.");
+            player.teleport(target);
+            return;
+        }
+
+        int newPlayerPage = op.applyAsInt(oldPlayerPage);
+        
+        inventories.computeIfPresent(newPlayerPage, (page, inventory) -> {
             currentPage.put(player.getName(), page);
-            player.openInventory(get(page));
-            return;
-        }
-
-        if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aPrevious page")) {
-            page--;
-
-            if (!inventories.containsKey(page)) {
-                return;
-            }
-
-            currentPage.put(player.getName(), page);
-            player.openInventory(get(page));
-            return;
-        }
-
-        player.closeInventory();
-
-        Player target = Bukkit.getPlayer(item.getItemMeta().getDisplayName().substring(2));
-
-        if (target == null) {
-            player.sendMessage(Main.PREFIX + "The player you clicked is not online.");
-            return;
-        }
-
-        player.sendMessage(Main.PREFIX + "You teleported to §a" + target.getName() + "§7.");
-        player.teleport(target);
+            player.openInventory(inventory);
+            return inventory;
+        });
     }
 
     /**

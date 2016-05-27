@@ -131,6 +131,7 @@ public class PermissionsManager {
             perm.setPermission("uhc.prelist", true);
             perm.setPermission("uhc.info.ip", true);
             perm.setPermission("uhc.info", true);
+            perm.setPermission("uhc.infoip", true);
         }
 
         if (rank == Rank.DEFAULT) {

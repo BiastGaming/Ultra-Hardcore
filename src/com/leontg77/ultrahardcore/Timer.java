@@ -329,7 +329,7 @@ public class Timer {
                 }
 
                 for (Player online : Bukkit.getOnlinePlayers()) {
-                    PacketUtils.sendAction(online, "§7Final heal is given in §8» §a" + DateUtils.ticksToString(20));
+                    PacketUtils.sendAction(online, "§7Final heal is given in §8» §a" + DateUtils.secondsToString(20));
 
                     online.playSound(online.getLocation(), Sound.SUCCESSFUL_HIT, 1, 1);
 
@@ -556,7 +556,7 @@ public class Timer {
                     }
 
                     for (Player online : Bukkit.getOnlinePlayers()) {
-                        PacketUtils.sendAction(online, "§7Final heal is given in §8» §a" + DateUtils.ticksToString(finalHeal));
+                        PacketUtils.sendAction(online, "§7Final heal is given in §8» §a" + DateUtils.secondsToString(finalHeal));
                     }
                 } else if (pvpInSeconds > 0) {
                     if (TimerCommand.isRunning()) {
@@ -564,7 +564,7 @@ public class Timer {
                     }
 
                     for (Player online : Bukkit.getOnlinePlayers()) {
-                        PacketUtils.sendAction(online, "§7PvP is enabled in §8» §a" + DateUtils.ticksToString(pvpInSeconds));
+                        PacketUtils.sendAction(online, "§7PvP is enabled in §8» §a" + DateUtils.secondsToString(pvpInSeconds));
                     }
                 } else if (meetupInSeconds > 0) {
                     if (TimerCommand.isRunning()) {
@@ -573,9 +573,9 @@ public class Timer {
 
                     for (Player online : Bukkit.getOnlinePlayers()) {
                         if (scen.getScenario(DragonRush.class).isEnabled()) {
-                            PacketUtils.sendAction(online, "§7Dragon wins in §8» §a" + DateUtils.ticksToString(meetupInSeconds));
+                            PacketUtils.sendAction(online, "§7Dragon wins in §8» §a" + DateUtils.secondsToString(meetupInSeconds));
                         } else {
-                            PacketUtils.sendAction(online, "§7Meetup is in §8» §a" + DateUtils.ticksToString(meetupInSeconds));
+                            PacketUtils.sendAction(online, "§7Meetup is in §8» §a" + DateUtils.secondsToString(meetupInSeconds));
                         }
                     }
                 } else {

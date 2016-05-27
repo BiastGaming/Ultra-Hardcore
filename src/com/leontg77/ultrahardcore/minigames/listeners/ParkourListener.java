@@ -214,7 +214,7 @@ public class ParkourListener implements Listener {
 
             player.playSound(player.getLocation(), Sound.LEVEL_UP, 1, 1);
             
-            long best = settings.getConfig().getLong("parkour.best.time", System.currentTimeMillis());
+            long best = settings.getConfig().getLong("parkour.best", System.currentTimeMillis());
 
             if (parkour.getStartTime(player) != null) {
                 long newTime = System.currentTimeMillis() - parkour.getStartTime(player).getTime();
@@ -228,8 +228,11 @@ public class ParkourListener implements Listener {
                     if (sign.getBlock().getState() instanceof Sign) {
                         Sign text = (Sign) sign.getBlock().getState();
                         text.setLine(2, player.getName());
-                        text.setLine(3, DateUtils.ticksToString(newTime / 1000));
+                        text.setLine(3, DateUtils.secondsToString(newTime / 1000));
                     }
+                    
+                    settings.getConfig().set("parkour.best", newTime);
+                    settings.saveConfig();
                 }
             }
         }

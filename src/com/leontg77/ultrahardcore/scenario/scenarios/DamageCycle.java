@@ -206,7 +206,7 @@ public class DamageCycle extends Scenario implements Listener, CommandExecutor {
         }
 
         sender.sendMessage(PREFIX + "§6All damage from §7" + current.name().toLowerCase().replaceAll("_", " ") + "§6 will instant kill you!");
-        sender.sendMessage(PREFIX + "§6The damage type changes in §7" + DateUtils.ticksToString(seconds) + "§6.");
+        sender.sendMessage(PREFIX + "§6The damage type changes in §7" + DateUtils.secondsToString(seconds) + "§6.");
         return true;
     }
 }

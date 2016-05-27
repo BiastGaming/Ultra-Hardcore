@@ -226,11 +226,29 @@ public class ProtectionListener implements Listener {
         
         Entity entity = event.getEntity();
 
+        switch (entity.getType()) {
+        case ARROW:
+        case DROPPED_ITEM:
+        case EGG:
+        case EXPERIENCE_ORB:
+        case FALLING_BLOCK:
+        case LIGHTNING:
+        case PRIMED_TNT:
+        case SMALL_FIREBALL:
+        case SNOWBALL:
+        case SPLASH_POTION:
+        case THROWN_EXP_BOTTLE:
+        case WITHER_SKULL:
+            return;
+        default:
+            break;
+        }
+
         if (game.isState(State.SCATTER)) {
             event.setCancelled(true);
             return;
         }
-
+        
         World world = entity.getWorld();
         
         if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
@@ -248,19 +266,14 @@ public class ProtectionListener implements Listener {
             event.setCancelled(true);
             return;
         }
-
-        if (!(damager instanceof Player)) {
-            return;
-        }
         
-        Player player = (Player) damager;
-        World world = player.getWorld();
+        World world = entity.getWorld();
         
         if (game.getWorlds().contains(world) || world.getName().equals("arena")) {
             return;
         }
         
-        if (!(entity instanceof Player) && player.hasPermission("uhc.build")) {
+        if (!(entity instanceof Player) && damager instanceof Player && ((Player) damager).hasPermission("uhc.build")) {
             return;
         }
 

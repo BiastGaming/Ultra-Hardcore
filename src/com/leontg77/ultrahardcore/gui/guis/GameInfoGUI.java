@@ -579,10 +579,10 @@ public class GameInfoGUI extends GUI implements Listener {
         } else if (!game.isState(State.INGAME)) {
             lore.add("§8» §7The game has not started yet.");
         } else {
-            lore.add("§8» §7Time since start: §a" + DateUtils.ticksToString(timePassed));
-            lore.add("§8» " + (finalheal <= 0 ? "§eFinal heal has passed!" : "§7Final heal is given in: §a" + DateUtils.ticksToString(finalheal)));
-            lore.add("§8» " + (pvp <= 0 ? "§aPvP is enabled!" : "§7PvP enables in: §a" + DateUtils.ticksToString(pvp)));
-            lore.add("§8» " + (meetup <= 0 ? "§cMeetup is NOW!" : "§7Meetup in: §a" + DateUtils.ticksToString(meetup)));
+            lore.add("§8» §7Time since start: §a" + DateUtils.secondsToString(timePassed));
+            lore.add("§8» " + (finalheal <= 0 ? "§eFinal heal has passed!" : "§7Final heal is given in: §a" + DateUtils.secondsToString(finalheal)));
+            lore.add("§8» " + (pvp <= 0 ? "§aPvP is enabled!" : "§7PvP enables in: §a" + DateUtils.secondsToString(pvp)));
+            lore.add("§8» " + (meetup <= 0 ? "§cMeetup is NOW!" : "§7Meetup in: §a" + DateUtils.secondsToString(meetup)));
         }
 
         lore.add(" ");
@@ -617,7 +617,7 @@ public class GameInfoGUI extends GUI implements Listener {
         }
 
         lore.add(" ");
-        lore.add("§8» §aStaff:");
+        lore.add("§8» §6Staff:");
 
         for (String split : getRankList(Rank.STAFF).split("-")) {
             lore.add("§8» §7" + split);

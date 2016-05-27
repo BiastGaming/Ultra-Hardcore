@@ -36,7 +36,7 @@ public class DateUtils {
      * @param ticks the number of seconds
      * @return The converted version.
      */
-    public static String ticksToString(long ticks) {
+    public static String secondsToString(long ticks) {
         final int hours = (int) Math.floor(ticks / (double) SECONDS_PER_HOUR);
         ticks -= hours * SECONDS_PER_HOUR;
         

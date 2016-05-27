@@ -95,6 +95,7 @@ public class HallOfFameGUI extends GUI implements Listener {
         }
 
         int newPlayerPage = op.applyAsInt(oldPlayerPage);
+        
         hostPages.computeIfPresent(newPlayerPage, (page, inventory) -> {
             currentPage.put(player.getName(), page);
             player.openInventory(inventory);

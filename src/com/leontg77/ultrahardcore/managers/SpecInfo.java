@@ -305,7 +305,7 @@ public class SpecInfo implements Listener {
                 int duration = effect.getDuration() / 20;
 
                 if (duration > 0) {
-                    broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7D§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.ticksToString(duration) + "§8]");
+                    broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7D§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.secondsToString(duration) + "§8]");
                     continue;
                 }
 
@@ -345,7 +345,7 @@ public class SpecInfo implements Listener {
             int duration = effect.getDuration() / 20;
 
             if (duration > 0) {
-                broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7S§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.ticksToString(duration) + "§8]");
+                broadcast("§8(§5Potion§8) §7" + name(player) + "§8 -§7S§8» §d" + potName + " §8[§7T: §a" + pot.getLevel() + "§8] [§7D: §a" + DateUtils.secondsToString(duration) + "§8]");
                 continue;
             }
 

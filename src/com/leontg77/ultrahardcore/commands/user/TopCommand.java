@@ -43,7 +43,7 @@ public class TopCommand extends UHCCommand {
         }
 
         Player player = (Player) sender;
-        player.openInventory(gui.getGUI(TopStatsGUI.class).get());
+        player.openInventory(gui.getGUI(TopStatsGUI.class).get(1));
         return true;
     }
 

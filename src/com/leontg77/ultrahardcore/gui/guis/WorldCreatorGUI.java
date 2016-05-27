@@ -75,7 +75,7 @@ public class WorldCreatorGUI extends GUI implements Listener {
         if (inv.getViewers().isEmpty()) {
             newstone = false;
             antiStripmine = true;
-            orelimiter = false;
+            orelimiter = true;
 
             moved = false;
 

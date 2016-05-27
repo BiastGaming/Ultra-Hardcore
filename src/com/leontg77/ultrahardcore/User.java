@@ -278,7 +278,7 @@ public class User {
                 return "§4";
             }
         case STAFF:
-            return "§a";
+            return "§6";
         default:
             return "§7";
         }
@@ -811,48 +811,56 @@ public class User {
      * @author LeonTG77
      */
     public enum Stat {
-        WINS("Wins", false),
-        GAMESPLAYED("Games played", false),
+        GAMESPLAYED("Games Played", false),
+        WINS("Games Won", false),
         KILLS("Kills", false),
         DEATHS("Deaths", false),
-        DAMAGETAKEN("Damage taken", false),
         KILLSTREAK("Highest Killstreak", false),
+        
+        HEARTSHEALED("Hearts Healed", false),
         GOLDENAPPLESEATEN("Golden Apples Eaten", false),
         GOLDENHEADSEATEN("Golden Heads Eaten", false),
-        HEARTSHEALED("Hearts Healed", false),
+        DAMAGETAKEN("Damage taken", false),
+        
+        PVEDAMAGEDEALT("PvE Damage Dealt", false),
+        PVPDAMAGEDEALT("PvP Damage Dealt", false),
+        FALLDAMAGE("Fall Damage", false),
+        MELEEHITS("Melee Hits", false),
+        BOWHITS("Bow hits", false),
+        
+        BLOCKS("Blocks Mined", false),
+        PLACED("Blocks Placed", false),
+        GOLD("Mined gold", false),
+        DIAMONDS("Mined diamonds", false),
+        
+        HOSTILEMOBKILLS("Killed a monster", false),
+        ANIMALKILLS("Killed an animal", false),
         HORSESTAMED("Horses Tamed", false),
         WOLVESTAMED("Wolves Tamed", false),
         CATSTAMED("Cats Tamed", false),
-        POTIONS("Potions Drunk", false),
-        NETHER("Went to Nether", false),
-        BLOCKS("Blocks Mined", false),
-        DIAMONDS("Mined diamonds", false),
-        GOLD("Mined gold", false),
-        HOSTILEMOBKILLS("Killed a monster", false),
-        ANIMALKILLS("Killed an animal", false),
+        
         LONGESTSHOT("Longest Shot", false),
         ARROWSHOTS("Arrows Shot", false),
-        LEVELS("Levels Earned", false),
+        RODUSES("Rod Uses", false),
+        SNOWBALLSHOTS("Snowball shots", false),
+        EGGSTHROWN("Egg Throws", false),
+        
         IRONMAN("Iron Man", false),
         FIRSTBLOOD("First Blood", false),
         FIRSTDAMAGE("First Damage", false),
         FIRSTDEATH("First Death", false),
-        PVEDAMAGEDEALT("PvE Damage Dealth", false),
-        PVPDAMAGEDEALT("PvP Damage Dealth", false),
-        FALLDAMAGE("Fall Damage", false),
-        MELEEHITS("Melee Hits", false),
-        BOWHITS("Bow hits", false),
-        RODUSES("Rod Uses", false),
-        SNOWBALLSHOTS("Snowball shots", false),
-        EGGSTHROWN("Egg Throws", false),
-        GLOWSTONE("Mined glowstone", false),
-        PLACED("Blocks Placed", false),
-        // Minigame Stats....
+        
         BESTPARKOURTIME("Best Parkour Time", true),
         TIMES_KOTL("The King (Of the ladder)", true),
         ARENAKILLS("Arena Kills", true),
         ARENADEATHS("Arena Deaths", true),
-        ARENAKILLSTREAK("Highest Arena Killstreak", true);
+        ARENAKILLSTREAK("Highest Arena Killstreak", true),
+
+        LEVELS("Levels Earned", false),
+        NETHER("Went to Nether", false),
+        POTIONS("Potions Drunk", false),
+        GLOWSTONE("Mined glowstone", false);
+        
 
         private final boolean minigameStat;
         private final String name;

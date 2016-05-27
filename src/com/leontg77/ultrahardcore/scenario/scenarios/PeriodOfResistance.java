@@ -205,7 +205,7 @@ public class PeriodOfResistance extends Scenario implements Listener, CommandExe
         }
 
         sender.sendMessage(PREFIX + "§6All damage from §7" + current.name().toLowerCase().replaceAll("_", " ") + "§6 will not hurt you!");
-        sender.sendMessage(PREFIX + "§6The resistant period changes in §7" + DateUtils.ticksToString(seconds) + "§6.");
+        sender.sendMessage(PREFIX + "§6The resistant period changes in §7" + DateUtils.secondsToString(seconds) + "§6.");
         return true;
     }
 

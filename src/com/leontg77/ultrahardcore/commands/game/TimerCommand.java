@@ -79,7 +79,7 @@ public class TimerCommand extends UHCCommand {
                 }
 
                 for (Player online : Bukkit.getOnlinePlayers()) {
-                    PacketUtils.sendAction(online, message + " " + DateUtils.ticksToString(ticks));
+                    PacketUtils.sendAction(online, message + " " + DateUtils.secondsToString(ticks));
                 }
                 ticks--;
 

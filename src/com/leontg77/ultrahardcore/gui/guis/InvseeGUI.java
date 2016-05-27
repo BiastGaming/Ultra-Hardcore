@@ -131,7 +131,7 @@ public class InvseeGUI extends GUI implements Listener {
         }
 
         for (PotionEffect effects : target.getActivePotionEffects()) {
-            lore.add("§8» §7P:§6" + NameUtils.getPotionName(effects.getType()) + " §7T:§6" + (effects.getAmplifier() + 1) + " §7D:§6" + DateUtils.ticksToString(effects.getDuration() / 20));
+            lore.add("§8» §7P:§6" + NameUtils.getPotionName(effects.getType()) + " §7T:§6" + (effects.getAmplifier() + 1) + " §7D:§6" + DateUtils.secondsToString(effects.getDuration() / 20));
         }
 
         infoMeta.setLore(lore);

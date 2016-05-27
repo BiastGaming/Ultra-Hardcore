@@ -63,7 +63,7 @@ public class TextCommandsFeature extends Feature implements Listener {
             player.openInventory(gui.getGUI(StatsGUI.class).get(user));
             break;
         case "Top Stats":
-            player.openInventory(gui.getGUI(TopStatsGUI.class).get());
+            player.openInventory(gui.getGUI(TopStatsGUI.class).get(1));
             break;
         case "Hall of Fame":
             try {

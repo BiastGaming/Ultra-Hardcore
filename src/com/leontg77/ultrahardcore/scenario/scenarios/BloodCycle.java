@@ -223,7 +223,7 @@ public class BloodCycle extends Scenario implements Listener, CommandExecutor {
         }
 
         sender.sendMessage(PREFIX + "§a" + NameUtils.capitalizeString(current.name(), true) + "§7 has a chance of damaging you!");
-        sender.sendMessage(PREFIX + "§7The ore type changes in §6" + DateUtils.ticksToString(seconds) + "§7.");
+        sender.sendMessage(PREFIX + "§7The ore type changes in §6" + DateUtils.secondsToString(seconds) + "§7.");
         return true;
     }
 }

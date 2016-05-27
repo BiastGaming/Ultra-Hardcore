@@ -52,8 +52,9 @@ public abstract class GUI {
      * Fill the given inventory with class on every slot with no item.
      *
      * @param inv The inventory to fill.
+     * @param blackFirst Wether to start with the black glass or not.
      */
-    protected void glassify(Inventory inv) {
+    protected void glassify(Inventory inv, boolean blackFirst) {
         if (inv == null) {
             return;
         }
@@ -68,7 +69,7 @@ public abstract class GUI {
         grayMeta.setDisplayName("§0:>"); // hidden easter egg :>
         gray.setItemMeta(grayMeta);
 
-        boolean bool = true;
+        boolean bool = blackFirst;
 
         for (int i = 0; i < inv.getSize(); i++) {
             bool = !bool;
@@ -85,6 +86,15 @@ public abstract class GUI {
                 inv.setItem(i, black);
             }
         }
+    }
+
+    /**
+     * Fill the given inventory with class on every slot with no item.
+     *
+     * @param inv The inventory to fill.
+     */
+    protected void glassify(Inventory inv) {
+        glassify(inv, true);
     }
 
     /**

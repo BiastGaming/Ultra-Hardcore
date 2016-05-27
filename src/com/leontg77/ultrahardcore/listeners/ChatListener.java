@@ -1,14 +1,10 @@
 package com.leontg77.ultrahardcore.listeners;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,7 +18,6 @@ import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Rank;
-import com.leontg77.ultrahardcore.User.Stat;
 import com.leontg77.ultrahardcore.commands.game.VoteCommand;
 import com.leontg77.ultrahardcore.managers.SpecManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
@@ -98,8 +93,7 @@ public class ChatListener implements Listener {
             if (user.getMuteExpiration() == null) {
                 player.sendMessage(Main.PREFIX + "Your mute is permanent.");
             } else {
-                player.sendMessage(Main.PREFIX + "Your mute expires in: §a"
-                        + DateUtils.formatDateDiff(user.getMuteExpiration().getTime()));
+                player.sendMessage(Main.PREFIX + "Your mute expires in: §a" + DateUtils.formatDateDiff(user.getMuteExpiration().getTime()));
             }
         }
 
@@ -163,7 +157,7 @@ public class ChatListener implements Listener {
         }
 
         if (user.getRank() == Rank.STAFF) {
-            event.setFormat("§8[§aStaff§8] " + name + " §8» " + messageAndColor);
+            event.setFormat("§8[§6Staff§8] " + name + " §8» " + messageAndColor);
             return;
         }
 
@@ -219,35 +213,7 @@ public class ChatListener implements Listener {
             online.sendMessage("§e" + player.getName() + ": §7" + message);
         }
 
-        File folder = new File(plugin.getDataFolder() + File.separator + "users" + File.separator);
         String command = message.split(" ")[0].substring(1).toLowerCase();
-
-        if (command.startsWith("iamlate")) {
-            if (!player.isOp()) {
-                return;
-            }
-
-            for (File file : folder.listFiles()) {
-                FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-
-                config.set("stats", null);
-
-                for (Stat stats : Stat.values()) {
-                    config.set("stats." + stats.name().toLowerCase(), 0);
-                }
-
-                try {
-                    config.save(file);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-
-            player.sendMessage("RESET");
-            event.setCancelled(true);
-            return;
-        }
 
         if (command.equalsIgnoreCase("me") || command.startsWith("bukkit:") || command.startsWith("minecraft:")) {
             if (player.isOp()) {

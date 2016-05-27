@@ -1,6 +1,7 @@
 package com.leontg77.ultrahardcore.gui.guis;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,17 +10,22 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import com.leontg77.ultrahardcore.User.Stat;
+import com.leontg77.ultrahardcore.events.GameEndEvent;
 import com.leontg77.ultrahardcore.gui.GUI;
+import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.FileUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 
@@ -30,14 +36,12 @@ import com.leontg77.ultrahardcore.utils.NumberUtils;
  */
 public class TopStatsGUI extends GUI implements Listener {
 
-    /**
-     * Top Stats inventory GUI class constructor.
-     */
     public TopStatsGUI() {
         super("Top Stats", "A inventory containing all the top 10 players with a stat.");
     }
-
-    private final Inventory inv = Bukkit.createInventory(null, 54, "§4Top 10 Stats");
+    
+    private final Inventory invTwo = Bukkit.createInventory(null, 54, "§4Top 10 Stats, Page 2");
+    private final Inventory inv = Bukkit.createInventory(null, 54, "§4Top 10 Stats, Page 1");
 
     @Override
     public void onSetup() {
@@ -50,13 +54,27 @@ public class TopStatsGUI extends GUI implements Listener {
             return;
         }
         
+        Player player = (Player) event.getWhoClicked();
+
+        ItemStack item = event.getCurrentItem();
         Inventory inv = event.getInventory();
 
-        if (!this.inv.getTitle().equals(inv.getTitle())) {
+        if (!this.inv.getTitle().equals(inv.getTitle()) && !this.invTwo.getTitle().equals(inv.getTitle())) {
             return;
         }
 
         event.setCancelled(true);
+        
+        if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNext page")) {
+            player.openInventory(invTwo);
+        } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aPrevious page")) {
+            player.openInventory(this.inv);
+        }
+    }
+    
+    @EventHandler
+    public void on(GameEndEvent event) {
+        update();
     }
 
     /**
@@ -64,14 +82,40 @@ public class TopStatsGUI extends GUI implements Listener {
      *
      * @return The inventory.
      */
-    public Inventory get() {
-        return inv;
+    public Inventory get(int number) {
+        if (number == 1) {
+            return inv;
+        } 
+        else if (number == 2) {
+            return invTwo;
+        }
+        else {
+            return null;
+        }
     }
 
     /**
      * Update the top stats inventory.
      */
     public void update() {
+        glassify(invTwo);
+        glassify(inv);
+
+        ItemStack nextpage = new ItemStack (Material.ARROW);
+        ItemMeta pagemeta = nextpage.getItemMeta();
+        pagemeta.setDisplayName(ChatColor.GREEN + "Next page");
+        pagemeta.setLore(Arrays.asList("§7Switch to the next page."));
+        nextpage.setItemMeta(pagemeta);
+
+        ItemStack prevpage = new ItemStack (Material.ARROW);
+        ItemMeta prevmeta = prevpage.getItemMeta();
+        prevmeta.setDisplayName(ChatColor.GREEN + "Previous page");
+        prevmeta.setLore(Arrays.asList("§7Switch to the previous page."));
+        prevpage.setItemMeta(prevmeta);
+        
+        invTwo.setItem(47, prevpage);
+        inv.setItem(51, nextpage);
+        
         List<String> data = new ArrayList<String>();
         int slot = 0;
 
@@ -81,10 +125,6 @@ public class TopStatsGUI extends GUI implements Listener {
         Set<FileConfiguration> files = FileUtils.getUserFiles();
 
         for (Stat stat : Stat.values()) {
-            if (stat.isMinigameStat()) {
-                continue;
-            }
-            
             data.clear();
 
             for (FileConfiguration config : files) {
@@ -112,14 +152,7 @@ public class TopStatsGUI extends GUI implements Listener {
             });
 
             addItem(data, stat.getName(), slot);
-            slot++;
-
-            if (slot >= inv.getSize()) {
-                continue;
-            }
-            
-            inv.setItem(slot, new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 7));
-            slot++;
+            slot += 2;
         }
 
         data.clear();
@@ -141,14 +174,14 @@ public class TopStatsGUI extends GUI implements Listener {
 
         Collections.sort(data, new Comparator<String>() {
             public int compare(String a, String b) {
-                   double aVal = Double.parseDouble(a.split(" ")[0]);
-                   double bVal = Double.parseDouble(b.split(" ")[0]);
+                double aVal = Double.parseDouble(a.split(" ")[0]);
+                double bVal = Double.parseDouble(b.split(" ")[0]);
 
-                   return Double.compare(aVal, bVal);
+                return Double.compare(aVal, bVal);
             }
         });
 
-        addItem(data, "KDR", slot);
+        addItem(data, "KDR", 86);
         slot++;
     }
 
@@ -181,22 +214,39 @@ public class TopStatsGUI extends GUI implements Listener {
 
             double value = Double.parseDouble(line.split(" ")[0]);
             String name = line.split(" ")[1];
-
-            boolean isDamage = statName.equalsIgnoreCase("damage taken");
-
-            String sDamage = NumberUtils.makePercent(value);
-            int iDamage = Integer.parseInt(sDamage.substring(2));
+            
+            String text;
 
             if (number == 10) {
-                lore.add("§6#" + number + "§8 | §7" + name + " §8» §a" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
+                text = "§6#" + number + "§8 | §7" + name + " §8» §a";
             } else {
                 if (number == 1) {
                     meta.setOwner(name);
                 }
 
-                lore.add(" §6#" + number + "§8  | §7" + name + " §8» §a" + (isDamage ? NumberUtils.formatInt(iDamage) + "%" : NumberUtils.formatDouble(value)));
+                text = " §6#" + number + "§8  | §7" + name + " §8» §a";
+            }
+            
+            switch (statName.toLowerCase()) {
+            case "fall damage":
+            case "damage taken":
+            case "pve damage dealt":
+            case "pvp damage dealt":
+                String sDamage = NumberUtils.makePercent(value);
+                int iDamage = Integer.parseInt(sDamage.substring(2));
+                
+                text += NumberUtils.formatInt(iDamage) + "%";
+                break;
+            case "best parkour time":
+                text += DateUtils.secondsToString((int) value);
+                break;
+            default:
+                text += NumberUtils.formatInt((int) value);
+                break;
             }
 
+            lore.add(text);
+            
             number++;
         }
 
@@ -205,10 +255,10 @@ public class TopStatsGUI extends GUI implements Listener {
 
         item.setItemMeta(meta);
         
-        if (slot >= inv.getSize()) {
-            return;
+        if (slot >= (inv.getSize() - 9)) {
+            invTwo.setItem(slot - 46, item);
+        } else {
+            inv.setItem(slot, item);
         }
-        
-        inv.setItem(slot, item);
     }
 }
