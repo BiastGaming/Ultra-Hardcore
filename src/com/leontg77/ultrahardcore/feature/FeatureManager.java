@@ -32,6 +32,7 @@ import com.leontg77.ultrahardcore.feature.health.HealthRegenFeature;
 import com.leontg77.ultrahardcore.feature.horses.HorseArmorFeature;
 import com.leontg77.ultrahardcore.feature.horses.HorseFeature;
 import com.leontg77.ultrahardcore.feature.horses.HorseHealingFeature;
+import com.leontg77.ultrahardcore.feature.other.GameStatsFeature;
 import com.leontg77.ultrahardcore.feature.other.SpecLocationFixFeature;
 import com.leontg77.ultrahardcore.feature.other.TabUpdaterFeature;
 import com.leontg77.ultrahardcore.feature.other.TextCommandsFeature;
@@ -207,6 +208,7 @@ public class FeatureManager {
         addFeature(new HorseHealingFeature());
 
         // other
+        addFeature(new GameStatsFeature(timer));
         addFeature(new SpecLocationFixFeature(plugin));
         addFeature(new TabUpdaterFeature(plugin, game));
         addFeature(new TextCommandsFeature(gui));
