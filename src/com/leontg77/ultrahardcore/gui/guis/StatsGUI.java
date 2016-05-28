@@ -118,6 +118,11 @@ public class StatsGUI extends GUI implements Listener {
         lore.add(" ");
         lore.add("§8» §7Arena Kills: §a" + NumberUtils.formatInt(user.getStat(Stat.ARENAKILLS)));
         lore.add("§8» §7Arena Deaths: §a" + NumberUtils.formatInt(user.getStat(Stat.ARENADEATHS)));
+        if (user.getStat(Stat.ARENADEATHS) == 0) {
+            lore.add("§8» §7Arena KDR: §a" + NumberUtils.formatDouble(user.getStatDouble(Stat.ARENAKILLS)));
+        } else {
+            lore.add("§8» §7Arena KDR: §a" + NumberUtils.formatDouble(user.getStatDouble(Stat.ARENAKILLS) / user.getStatDouble(Stat.ARENADEATHS)));
+        }
         lore.add(" ");
         lore.add("§8» §7Best Parkour Time: §a" + DateUtils.secondsToString(user.getStat(Stat.BESTPARKOURTIME)));
         lore.add("§8» §7The King Of the Ladder: §a" + NumberUtils.formatInt(user.getStat(Stat.TIMES_KOTL)));
@@ -135,6 +140,11 @@ public class StatsGUI extends GUI implements Listener {
         lore.add(" ");
         lore.add("§8» §7Kills: §a" + NumberUtils.formatInt(user.getStat(Stat.KILLS)));
         lore.add("§8» §7Deaths: §a" + NumberUtils.formatInt(user.getStat(Stat.DEATHS)));
+        if (user.getStat(Stat.DEATHS) == 0) {
+            lore.add("§8» §7KDR: §a" + NumberUtils.formatDouble(user.getStatDouble(Stat.KILLS)));
+        } else {
+            lore.add("§8» §7KDR: §a" + NumberUtils.formatDouble(user.getStatDouble(Stat.KILLS) / user.getStatDouble(Stat.DEATHS)));
+        }
         lore.add(" ");
         lore.add("§8» §7Longest Shot: §a" + NumberUtils.formatDouble(user.getStatDouble(Stat.LONGESTSHOT)) + " blocks");
         lore.add("§8» §7Arrows shot: §a" + NumberUtils.formatInt(user.getStat(Stat.ARROWSHOTS)));
