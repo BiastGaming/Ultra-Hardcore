@@ -240,6 +240,12 @@ public class TopStatsGUI extends GUI implements Listener {
             case "best parkour time":
                 text += DateUtils.secondsToString((int) value);
                 break;
+            case "longest shot":
+                text += NumberUtils.formatDouble(value) + " blocks";
+                break;
+            case "kdr":
+                text += NumberUtils.formatDouble(value);
+                break;
             default:
                 text += NumberUtils.formatInt((int) value);
                 break;
