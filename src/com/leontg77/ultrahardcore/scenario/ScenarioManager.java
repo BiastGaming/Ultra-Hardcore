@@ -119,7 +119,8 @@ public class ScenarioManager {
         scenarios.add(new Achievements());
         scenarios.add(new AgarIO());
         scenarios.add(new AloneTogether(teams));
-        scenarios.add(new Anonymous(spec));
+//        scenarios.add(new Anonymous(spec));
+        scenarios.add(new AppleFamine());
         scenarios.add(new Armageddon());
         scenarios.add(new Assassins());
         scenarios.add(new AssaultAndBattery(teams));
@@ -156,6 +157,7 @@ public class ScenarioManager {
         scenarios.add(new CarrotCombo());
         scenarios.add(new CatsEyes());
         scenarios.add(new Chicken());
+        scenarios.add(new ChildrenLeftUnattended(teams));
         scenarios.add(new ChunkApocalypse(plugin));
         scenarios.add(new CityWorld());
         scenarios.add(new Cloud9());
@@ -163,6 +165,7 @@ public class ScenarioManager {
         scenarios.add(new CobbleWorld());
         scenarios.add(new Coco());
         scenarios.add(new Compensation(arena, teams, feat));
+        scenarios.add(new CraftableTP());
         scenarios.add(new Cripple());
         scenarios.add(new Cryophobia());
         scenarios.add(cc);
@@ -185,6 +188,7 @@ public class ScenarioManager {
         scenarios.add(new FlatWorld());
         scenarios.add(new Flooded());
         scenarios.add(new FlowerPower());
+        scenarios.add(new FrozenInTime());
         scenarios.add(new Genie());
         scenarios.add(new GlassWorld());
         scenarios.add(new Goldless(cc));
@@ -194,6 +198,7 @@ public class ScenarioManager {
         scenarios.add(new GoodGamePlus());
         scenarios.add(new GoToHell(settings, feat));
         scenarios.add(new Halloween());
+        scenarios.add(new HeadHunters());
         scenarios.add(new HundredHearts(feat));
         scenarios.add(new InfiniteEnchanter());
         scenarios.add(new Inventors());
@@ -254,11 +259,11 @@ public class ScenarioManager {
         scenarios.add(new VeinMiner());
         scenarios.add(new VengefulSpirits(settings, feat));
         scenarios.add(new Voidscape());
-        scenarios.add(new Webcage());
-        scenarios.add(new WTFIPTG(spec, board));
+        scenarios.add(new Webcage());           
+//        scenarios.add(new WTFIPTG(spec, board));
 
         for (Scenario scen : scenarios) {
-            scen.setupInstances(plugin, game, timer);
+            scen.onSetup(plugin, game, timer);
         }
         
         plugin.getLogger().info("All scenarios has been setup.");
