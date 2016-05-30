@@ -2,6 +2,7 @@ package com.leontg77.ultrahardcore.feature.other;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -75,28 +76,7 @@ public class GameStatsFeature extends Feature implements Listener {
         }
         
         Player player = (Player) entity;
-        
-        if (ironmans.contains(player.getUniqueId())) {
-            ironmans.remove(player.getUniqueId());
-            
-            if (ironmans.size() == 1 && !isIronManTaken) {
-                UUID uuidIronman = ironmans.get(0);
-                OfflinePlayer ironMan = Bukkit.getOfflinePlayer(uuidIronman);
-                
-                PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + ironMan.getName() + " §7is the iron man.");
-                
-                for (Player online : Bukkit.getOnlinePlayers()) {
-                    online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
-                }
-                
-                isIronManTaken = true;
-                
-                try {
-                    User user = plugin.getUser(ironMan);
-                    user.increaseStat(Stat.IRONMAN);
-                } catch (Exception ignored) {}
-            }
-        }
+        handleIronman(player);
         
         if (!isFirstDamageTaken) {
             PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + player.getName() + " §7was the first to take damage.");
@@ -111,7 +91,7 @@ public class GameStatsFeature extends Feature implements Listener {
             user.increaseStat(Stat.FIRSTDAMAGE);
         }
     }
-    
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void on(PlayerDeathEvent event) {
         if (!game.isState(State.INGAME)) {
@@ -119,6 +99,7 @@ public class GameStatsFeature extends Feature implements Listener {
         }
         
         Player player = (Player) event.getEntity();
+        handleIronman(player);
         
         if (!isFirstDeathTaken) {
             PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + player.getName() + " §7was the first to die.");
@@ -151,5 +132,37 @@ public class GameStatsFeature extends Feature implements Listener {
             User user = plugin.getUser(killer);
             user.increaseStat(Stat.FIRSTBLOOD);
         }
+    }
+    
+    private void handleIronman(Player player) {
+        if (isIronManTaken || !ironmans.contains(player.getUniqueId())) return;
+
+        // Remove from the iron man list
+        ironmans.remove(player.getUniqueId());
+
+        // Grab a list of online iron men
+        List<Player> onlineIronMen = game
+                .getPlayers()
+                .stream()
+                .filter(it -> ironmans.contains(it.getUniqueId()))
+                .collect(Collectors.toList());
+
+        // If it's not the final player don't do anything else
+        if (onlineIronMen.size() != 1) return;
+
+        Player ironMan = onlineIronMen.get(0);
+
+        if (ironMan == null) return;
+
+        PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + ironMan.getName() + " §7is the iron man.");
+
+        Bukkit.getOnlinePlayers().forEach(it -> it.playSound(it.getLocation(), Sound.NOTE_PLING, 1, 1));
+
+        isIronManTaken = true;
+
+        try {
+            User user = plugin.getUser(ironMan);
+            user.increaseStat(Stat.IRONMAN);
+        } catch (Exception ignored) {}
     }
 }
