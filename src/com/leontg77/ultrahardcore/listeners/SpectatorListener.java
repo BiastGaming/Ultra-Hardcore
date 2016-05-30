@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -271,6 +272,21 @@ public class SpectatorListener implements Listener {
             player.sendMessage(Main.PREFIX + "Players in the nether:");
             player.sendMessage(Main.ARROW + nether.toString().trim());
 
+            event.setCancelled(true);
+        }
+    }
+    
+    @EventHandler
+    public void on(EntityDamageEvent event) {
+        Entity entity = event.getEntity();
+        
+        if (!(entity instanceof Player)) {
+            return;
+        }
+        
+        Player player = (Player) entity;
+        
+        if (spec.isSpectating(player)) {
             event.setCancelled(true);
         }
     }
