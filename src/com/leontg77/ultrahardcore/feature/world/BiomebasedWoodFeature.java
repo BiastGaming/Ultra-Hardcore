@@ -48,6 +48,8 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
                 for (int y = 0; y < 256; y++) {
                     for (int x = 0; x < 16; x++) {
                         for (int z = 0; z < 17; z++) {
+                            chunk.load();
+                            
                             handleBlock(chunk.getBlock(x, y, z));
                         }
                     }

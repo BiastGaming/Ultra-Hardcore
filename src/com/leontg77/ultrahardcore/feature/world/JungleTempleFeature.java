@@ -63,6 +63,7 @@ public class JungleTempleFeature extends Feature implements Listener {
     @EventHandler
     public void on(ChunkPopulateEvent event) {
         Chunk chunk = event.getChunk();
+        chunk.load();
 
         final int x = rand.nextInt(16);
         final int z = rand.nextInt(16);

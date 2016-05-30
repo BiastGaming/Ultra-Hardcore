@@ -49,7 +49,9 @@ public class OreLimiter implements Listener {
         }
 
         Set<Block> checked = Sets.newHashSet();
+        
         Chunk chunk = event.getChunk();
+        chunk.load();
 
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 256; y++) {

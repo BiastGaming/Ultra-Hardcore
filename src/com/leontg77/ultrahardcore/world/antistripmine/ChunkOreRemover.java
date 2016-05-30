@@ -135,6 +135,7 @@ public class ChunkOreRemover implements Runnable {
         Set<Block> allowed = new HashSet<Block>();
 
         Chunk chunk = data.getWorld().getChunkAt(chunkX, chunkZ);
+        chunk.load();
 
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
