@@ -27,7 +27,7 @@ public class ChildrenLeftUnattended extends Scenario implements Listener {
     private final ItemStack potion;
 
     public ChildrenLeftUnattended(TeamManager teams) {
-        super("ChildrenLeftUnattended", "When one teammate dies the other(s) will get a speed potion (espresso) and a tamed wolf (free puppy).");
+        super("ChildrenLeftUnattended", "This is taken from the signs in restaurants and stores that say \"Children left unattended will be given espresso and a free puppy.\" When one teammate dies the other(s) will get a speed potion (espresso) and a tamed wolf (free puppy).");
         
         this.teams = teams;
         
