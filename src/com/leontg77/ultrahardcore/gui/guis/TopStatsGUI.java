@@ -59,11 +59,19 @@ public class TopStatsGUI extends GUI implements Listener {
         ItemStack item = event.getCurrentItem();
         Inventory inv = event.getInventory();
 
+        if (item == null) {
+            return;
+        }
+
         if (!this.inv.getTitle().equals(inv.getTitle()) && !this.invTwo.getTitle().equals(inv.getTitle())) {
             return;
         }
 
         event.setCancelled(true);
+
+        if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
+            return;
+        }
         
         if (item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNext page")) {
             player.openInventory(invTwo);
