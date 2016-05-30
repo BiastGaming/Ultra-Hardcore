@@ -55,6 +55,7 @@ import com.leontg77.ultrahardcore.feature.xp.NerfedXPFeature;
 import com.leontg77.ultrahardcore.gui.GUI;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.AchievementHunters;
+import com.leontg77.ultrahardcore.scenario.scenarios.HeadHunters;
 import com.leontg77.ultrahardcore.scenario.scenarios.Moles;
 import com.leontg77.ultrahardcore.scenario.scenarios.PotentialMoles;
 import com.leontg77.ultrahardcore.scenario.scenarios.PotentialPermanent;
@@ -459,7 +460,11 @@ public class GameInfoGUI extends GUI implements Listener {
         }
         lore.add("§8» §7Notch Apples: " + (feat.getFeature(NotchApplesFeature.class).isEnabled() ? "§aEnabled." : "§cDisabled."));
         lore.add(" ");
-        if (feat.getFeature(GoldenHeadsFeature.class).isEnabled()) {
+        if (scen.getScenario(HeadHunters.class).isEnabled()) {
+            lore.add("§8» §7Golden Heads: §aEnabled. §8(§7Chest on the surface in 75 radius§8)");
+            lore.add("§8» §7Heads Heal: §6" + heal + " hearts.");
+        }
+        else if (feat.getFeature(GoldenHeadsFeature.class).isEnabled()) {
             lore.add("§8» §7Golden Heads: §aEnabled. §8(§7On a head post§8)");
             lore.add("§8» §7Heads Heal: §6" + heal + " hearts.");
         }
