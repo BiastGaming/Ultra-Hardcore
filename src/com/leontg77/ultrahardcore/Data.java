@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.google.common.collect.Sets;
+import com.leontg77.ultrahardcore.feature.FeatureManager;
+import com.leontg77.ultrahardcore.feature.other.GameStatsFeature;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
@@ -40,11 +42,18 @@ public class Data {
      * @param teams The team manager for team saving.
      * @param scens The scenario manager for team saving.
      */
-    public void store(TeamManager teams, ScenarioManager scens) {
+    public void store(FeatureManager feat, TeamManager teams, ScenarioManager scens) {
         clearData();
 
         saveUUIDSet("bestbtc", scens.getScenario(BestBTC.class).getBTCList());
         saveUUIDSet("bestpve", scens.getScenario(BestPvE.class).getPvEList());
+        
+        GameStatsFeature stats = feat.getFeature(GameStatsFeature.class);
+
+        saveBoolean("gamestats.firstdamage", stats.isFirstDamageTaken);
+        saveBoolean("gamestats.firstblood", stats.isFirstBloodTaken);
+        saveBoolean("gamestats.firstdeath", stats.isFirstDeathTaken);
+        saveBoolean("gamestats.ironman", stats.isIronManTaken);
 
         List<String> scenarios = new ArrayList<String>();
 
@@ -67,9 +76,16 @@ public class Data {
      * @param teams The team manager for team saving.
      * @param scens The scenario manager for team saving.
      */
-    public void restore(TeamManager teams, ScenarioManager scens) {
+    public void restore(FeatureManager feat, TeamManager teams, ScenarioManager scens) {
         restoreUUIDSet("bestbtc", scens.getScenario(BestBTC.class).getBTCList());
         restoreUUIDSet("bestpve", scens.getScenario(BestPvE.class).getPvEList());
+        
+        GameStatsFeature stats = feat.getFeature(GameStatsFeature.class);
+
+        restoreBoolean("gamestats.firstdamage", stats.isFirstDamageTaken);
+        restoreBoolean("gamestats.firstblood", stats.isFirstBloodTaken);
+        restoreBoolean("gamestats.firstdeath", stats.isFirstDeathTaken);
+        restoreBoolean("gamestats.ironman", stats.isIronManTaken);
 
         try {
             for (String name : settings.getData().getConfigurationSection("teams.data").getKeys(false)) {
@@ -99,6 +115,27 @@ public class Data {
         }
 
         settings.saveData();
+    }
+
+    /**
+     * Save the given boolean into the data file.
+     *
+     * @param name The name for the path.
+     * @param bool The boolean to save.
+     */
+    private void saveBoolean(String name, boolean bool) {
+        settings.getData().set("booleans." + name, bool);
+        settings.saveData();
+    }
+
+    /**
+     * Restore the given path name's boolean into the given booleant.
+     *
+     * @param name The name for the path.
+     * @param bool The boolean to restore to.
+     */
+    private void restoreBoolean(String name, boolean bool) {
+        bool = settings.getData().getBoolean("booleans." + name);
     }
 
     /**
