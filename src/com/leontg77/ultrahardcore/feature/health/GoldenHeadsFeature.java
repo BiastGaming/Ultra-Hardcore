@@ -35,6 +35,7 @@ import com.leontg77.ultrahardcore.feature.ToggleableFeature;
 import com.leontg77.ultrahardcore.minigames.Arena;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.AchievementHunters;
+import com.leontg77.ultrahardcore.scenario.scenarios.HeadHunters;
 import com.leontg77.ultrahardcore.scenario.scenarios.VengefulSpirits;
 import com.leontg77.ultrahardcore.scenario.scenarios.WTFIPTG;
 
@@ -56,6 +57,8 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
 
     private final AchievementHunters ach;
     private final VengefulSpirits spirit;
+    
+    private final HeadHunters hunt;
     private final WTFIPTG wtf;
 
     private final Arena arena;
@@ -85,6 +88,8 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
 
         this.spirit = scen.getScenario(VengefulSpirits.class);
         this.ach = scen.getScenario(AchievementHunters.class);
+        
+        this.hunt = scen.getScenario(HeadHunters.class);
         this.wtf = scen.getScenario(WTFIPTG.class);
 
         this.arena = arena;
@@ -116,7 +121,7 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
 
     @EventHandler
     public void on(PlayerDeathEvent event) {
-        if (!isEnabled()) {
+        if (!isEnabled() || hunt.isEnabled()) {
             return;
         }
 
