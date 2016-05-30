@@ -31,19 +31,18 @@ public class KingOfTheLadderListener implements Listener {
         this.plugin = plugin;
     }
     
-    protected static final double KOTL_CENTER_X = 11.5;
-    protected static final double KOTL_CENTER_Z = -14.5;
+    protected static final double KOTL_CENTER_X = -42.5;
+    protected static final double KOTL_CENTER_Z = 42.5;
     
     protected static final Predicate<Entity> IS_IN_KOTL = player -> {
         if (!player.getWorld().getName().equals("lobby")) {
             return false;
         }
         
-        Location loc = player.getLocation().clone();
-        loc.setY(0);
+        Location loc = new Location(player.getWorld(), KOTL_CENTER_X, player.getLocation().getY(), KOTL_CENTER_Z);
         
-        double distance = loc.distance(new Location(loc.getWorld(), KOTL_CENTER_X, 0, KOTL_CENTER_Z));
-        return distance < 3.5d;
+        double distance = loc.distance(player.getLocation());
+        return distance < 4.5d;
     };
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
