@@ -147,7 +147,13 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
     public void on(PlayerDeathEvent event) {
         Player player = event.getEntity();
         MysteryTeam team = getTeam(player);
-
+        
+        for (ItemStack drop : event.getDrops()) {
+            if (drop.getType() == mode) {
+                drop.setType(Material.AIR);
+            }
+        }
+        
         if (team == null) {
             return;
         }
@@ -523,7 +529,7 @@ public class MysteryTeams extends Scenario implements Listener, CommandExecutor,
     public ItemStack getItem(MysteryTeam team) {
         switch (mode) {
         case FIREWORK:
-            ItemStack firework = new ItemStack(mode, 1);
+            ItemStack firework = new ItemStack(mode, 64);
             FireworkMeta fireworkMeta = (FireworkMeta) firework.getItemMeta();
             fireworkMeta.addEffect(FireworkEffect.builder().withColor(team.getDyeColor().getColor()).build());
 
