@@ -133,16 +133,16 @@ public class EndCommand extends UHCCommand {
         PlayerUtils.broadcast(Main.PREFIX + "Thanks for playing and congrats to the winners!");
         PlayerUtils.broadcast(Main.PREFIX + "Remember to check out the hall of fame by using §6/hof§7.");
 
-        String host = game.getHostHOFName();
-
         Bukkit.getPluginManager().callEvent(new GameEndEvent());
-
-        DateFormat dateFormat = new SimpleDateFormat("dd. MMM, yyyy", Locale.US);
-        Date date = new Date();
 
         FileUtils.updateUserFiles(plugin);
 
         if (!game.isRecordedRound()) {
+            String host = game.getHostHOFName();
+
+            DateFormat dateFormat = new SimpleDateFormat("dd. MMM, yyyy", Locale.US);
+            Date date = new Date();
+            
             int matchcount = 1;
 
             if (settings.getHOF().contains(host) && settings.getHOF().contains(host + ".games")) {
@@ -155,9 +155,9 @@ public class EndCommand extends UHCCommand {
             settings.getHOF().set(host + ".games." + matchcount + ".teamsize", game.getAdvancedTeamSize(false, false).trim());
             settings.getHOF().set(host + ".games." + matchcount + ".scenarios", game.getScenarios());
             settings.saveHOF();
+            
+            gui.getGUI(HallOfFameGUI.class).update(host);
         }
-
-        gui.getGUI(HallOfFameGUI.class).update(host);
 
         for (Scenario scens : scen.getEnabledScenarios()) {
             scens.disable();
