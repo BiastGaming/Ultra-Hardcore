@@ -53,6 +53,10 @@ public class ChildrenLeftUnattended extends Scenario implements Listener {
         teams.leaveTeam(player, false);
         
         for (OfflinePlayer teammate : teams.getPlayers(team)) {
+            if (teammate == player) {
+                continue;
+            }
+            
             Player online = teammate.getPlayer();
             
             if (online != null) {
