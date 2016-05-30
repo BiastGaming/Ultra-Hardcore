@@ -54,6 +54,7 @@ import com.leontg77.ultrahardcore.protocol.EnchantPreview;
 import com.leontg77.ultrahardcore.protocol.HardcoreHearts;
 import com.leontg77.ultrahardcore.protocol.OnlineCount;
 import com.leontg77.ultrahardcore.protocol.SaturationConcealer;
+import com.leontg77.ultrahardcore.protocol.ShadowBans;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.ubl.UBLListener;
@@ -248,10 +249,15 @@ public class Main extends JavaPlugin {
         
         game.setTimer(timer);
         
+        ShadowBans shadow = new ShadowBans(this, settings.getConfig(), settings::saveConfig);
+        shadow.loadData();
+        
         protocol.addPacketListener(new SaturationConcealer(this));
+        protocol.addPacketListener(shadow);
         counter.enable();
 
         // register all listeners.
+        manager.registerEvents(shadow, this);
         manager.registerEvents(new KingOfTheLadderListener(this), this);
         
         manager.registerEvents(new AnvilListener(this), this);

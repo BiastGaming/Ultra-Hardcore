@@ -82,10 +82,10 @@ public class Data {
         
         GameStatsFeature stats = feat.getFeature(GameStatsFeature.class);
 
-        restoreBoolean("gamestats.firstdamage", stats.isFirstDamageTaken);
-        restoreBoolean("gamestats.firstblood", stats.isFirstBloodTaken);
-        restoreBoolean("gamestats.firstdeath", stats.isFirstDeathTaken);
-        restoreBoolean("gamestats.ironman", stats.isIronManTaken);
+        stats.isFirstDamageTaken = getBoolean("gamestats.firstdamage");
+        stats.isFirstBloodTaken = getBoolean("gamestats.firstblood");
+        stats.isFirstDeathTaken = getBoolean("gamestats.firstdeath");
+        stats.isIronManTaken = getBoolean("gamestats.ironman");
 
         try {
             for (String name : settings.getData().getConfigurationSection("teams.data").getKeys(false)) {
@@ -132,10 +132,9 @@ public class Data {
      * Restore the given path name's boolean into the given booleant.
      *
      * @param name The name for the path.
-     * @param bool The boolean to restore to.
      */
-    private void restoreBoolean(String name, boolean bool) {
-        bool = settings.getData().getBoolean("booleans." + name);
+    private boolean getBoolean(String name) {
+        return settings.getData().getBoolean("booleans." + name);
     }
 
     /**
