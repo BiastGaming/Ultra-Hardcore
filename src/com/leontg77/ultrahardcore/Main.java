@@ -129,7 +129,7 @@ public class Main extends JavaPlugin {
         getLogger().info(file.getName() + " is now disabled.");
 
         PLAYER_CONNECTION_LOGGER.removeAppender(pcAppender);
-        data.store(teams, scen);
+        data.store(feat, teams, scen);
 
         try {
             swap.resetBiomes();
@@ -244,7 +244,7 @@ public class Main extends JavaPlugin {
         cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter, ubl, antiSM);
         gui.registerGUIs(game, timer, settings, feat, scen, worlds);
 
-        data.restore(teams, scen);
+        data.restore(feat, teams, scen);
         
         game.setTimer(timer);
         

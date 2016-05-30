@@ -57,8 +57,6 @@ public class PotionHealing extends Scenario implements Listener {
         int potionLevel = isGoldenHead ? 2 : 1;
         
         Potion potion = new Potion(PotionType.INSTANT_HEAL, potionLevel);
-        ItemStack potionItemStack = potion.toItemStack(1);
-        
-        inv.setResult(potionItemStack);
+        inv.setResult(potion.toItemStack(1));
     }
 }
