@@ -284,6 +284,10 @@ public class Game {
             return "Mystery " + teamsize.substring(1) + seperator;
         }
 
+        if (teamsize.startsWith("wTo")) {
+            return "Wished " + teamsize.substring(1) + seperator;
+        }
+
         if (teamsize.startsWith("pTo")) {
             return "Picked " + teamsize.substring(1) + seperator;
         }
