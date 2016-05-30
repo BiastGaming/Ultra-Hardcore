@@ -44,7 +44,7 @@ public class Flooded extends Scenario implements CommandExecutor, Listener {
     public static final String PREFIX = "§9Flooded §8» §7";
 
     public Flooded() {
-        super("Flooded", "All air blocks between y32 -> y70 are filled with water. Everyone gets permanent water breathing & night vision, and start with a depth strider 3 book, some sugar cane, and spawn eggs for a bunch of useful animals. It will also have permanent rain.");
+        super("Flooded", "All air blocks between y32 -> y70 are filled with water. Everyone gets permanent water breathing & night vision, and start with a depth strider 3 book and a aqua affinity book, some sugar cane, and spawn eggs for a bunch of useful animals. It will also have permanent rain.");
 
         plugin.getCommand("flood").setExecutor(this);
     }
@@ -84,16 +84,21 @@ public class Flooded extends Scenario implements CommandExecutor, Listener {
 
         ItemStack cane = new ItemStack(Material.SUGAR_CANE, NumberUtils.randomIntBetween(3, 6));
 
-        ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
-        EnchantmentStorageMeta meta = (EnchantmentStorageMeta) book.getItemMeta();
+        ItemStack depth = new ItemStack(Material.ENCHANTED_BOOK);
+        EnchantmentStorageMeta meta = (EnchantmentStorageMeta) depth.getItemMeta();
         meta.addStoredEnchant(Enchantment.DEPTH_STRIDER, 3, true);
-        book.setItemMeta(meta);
+        depth.setItemMeta(meta);
+
+        ItemStack aqua = new ItemStack(Material.ENCHANTED_BOOK);
+        EnchantmentStorageMeta aquaMeta = (EnchantmentStorageMeta) aqua.getItemMeta();
+        aquaMeta.addStoredEnchant(Enchantment.WATER_WORKER, 3, true);
+        aqua.setItemMeta(aquaMeta);
 
         for (Player online : game.getPlayers()) {
             online.addPotionEffect(vision);
             online.addPotionEffect(water);
 
-            PlayerUtils.giveItem(online, chicken, cow, cane, book);
+            PlayerUtils.giveItem(online, chicken, cow, cane, aqua, depth);
         }
 
         for (World world : game.getWorlds()) {
