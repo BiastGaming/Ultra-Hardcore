@@ -10,6 +10,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -111,7 +112,7 @@ public class GameStatsFeature extends Feature implements Listener {
         }
     }
     
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void on(PlayerDeathEvent event) {
         if (!game.isState(State.INGAME)) {
             return;
