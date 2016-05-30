@@ -88,7 +88,7 @@ public class AppleRatesFeature extends Feature implements Listener {
         block.setType(Material.AIR);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onLeavesDecay(LeavesDecayEvent event) {
         final Block block = event.getBlock();
 
