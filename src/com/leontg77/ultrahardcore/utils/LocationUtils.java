@@ -1,3 +1,4 @@
+
 package com.leontg77.ultrahardcore.utils;
 
 import org.bukkit.Location;
