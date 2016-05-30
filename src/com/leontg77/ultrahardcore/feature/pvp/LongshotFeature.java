@@ -14,10 +14,8 @@ import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.feature.Feature;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
-import com.leontg77.ultrahardcore.scenario.scenarios.Anonymous;
 import com.leontg77.ultrahardcore.scenario.scenarios.RewardingLongshots;
 import com.leontg77.ultrahardcore.scenario.scenarios.RewardingLongshotsPlus;
-import com.leontg77.ultrahardcore.scenario.scenarios.WTFIPTG;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -46,7 +44,7 @@ public class LongshotFeature extends Feature implements Listener {
         Entity attacked = event.getEntity();
         Entity attacker = event.getDamager();
 
-        if (game.isRecordedRound() || scen.getScenario(RewardingLongshots.class).isEnabled() || scen.getScenario(RewardingLongshotsPlus.class).isEnabled() || scen.getScenario(WTFIPTG.class).isEnabled() || scen.getScenario(Anonymous.class).isEnabled()) {
+        if (game.isRecordedRound() || scen.getScenario(RewardingLongshots.class).isEnabled() || scen.getScenario(RewardingLongshotsPlus.class).isEnabled()/* || scen.getScenario(WTFIPTG.class).isEnabled() || scen.getScenario(Anonymous.class).isEnabled()*/) {
             return;
         }
 

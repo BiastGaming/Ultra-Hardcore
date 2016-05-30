@@ -1,7 +1,5 @@
 package com.leontg77.ultrahardcore.feature.health;
 
-import java.util.Random;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -37,7 +35,6 @@ import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.AchievementHunters;
 import com.leontg77.ultrahardcore.scenario.scenarios.HeadHunters;
 import com.leontg77.ultrahardcore.scenario.scenarios.VengefulSpirits;
-import com.leontg77.ultrahardcore.scenario.scenarios.WTFIPTG;
 
 /**
  * Golden head feature class.
@@ -59,7 +56,7 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
     private final VengefulSpirits spirit;
     
     private final HeadHunters hunt;
-    private final WTFIPTG wtf;
+//    private final WTFIPTG wtf;
 
     private final Arena arena;
     private final Game game;
@@ -90,7 +87,7 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
         this.ach = scen.getScenario(AchievementHunters.class);
         
         this.hunt = scen.getScenario(HeadHunters.class);
-        this.wtf = scen.getScenario(WTFIPTG.class);
+//        this.wtf = scen.getScenario(WTFIPTG.class);
 
         this.arena = arena;
         this.game = game;
@@ -117,7 +114,7 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
         return ((double) healAmount) / 2;
     }
     
-    private final Random rand = new Random();
+//    private final Random rand = new Random();
 
     @EventHandler
     public void on(PlayerDeathEvent event) {
@@ -159,11 +156,11 @@ public class GoldenHeadsFeature extends ToggleableFeature implements Listener {
                 skull.setSkullType(SkullType.PLAYER);
                 skull.setRotation(getBlockDirection(player.getLocation()));
 
-                if (wtf.isEnabled()) {
-                    skull.setOwner(rand.nextLong() + "");
-                } else {
+//                if (wtf.isEnabled()) {
+//                    skull.setOwner(rand.nextLong() + "");
+//                } else {
                     skull.setOwner(player.getName());
-                }
+//                }
 
                 skull.update();
 
