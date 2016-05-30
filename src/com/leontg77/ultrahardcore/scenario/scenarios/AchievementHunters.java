@@ -385,7 +385,7 @@ public class AchievementHunters extends Scenario implements CommandExecutor, Lis
             return;
         }
         
-        if (!game.getPlayers().contains(player) || !game.getPlayers().contains(killer)) {
+        if (!game.getPlayers().contains(killer)) {
             return;
         }
         
