@@ -49,8 +49,8 @@ public class CityWorld extends Scenario implements CommandExecutor {
     }
 
     @Override
-    protected void setupInstances(Main plugin, Game game, Timer timer) {
-        super.setupInstances(plugin, game, timer);
+    protected void onSetup(Main plugin, Game game, Timer timer) {
+        super.onSetup(plugin, game, timer);
         
         plugin.getCommand("cityworld").setExecutor(this);
     }
@@ -98,7 +98,7 @@ public class CityWorld extends Scenario implements CommandExecutor {
 
         int totalChunks = locs.size();
 
-        PlayerUtils.broadcast(PREFIX + "Removing bugged diamond blocks in '§a" + world.getName() + "§7'.");
+        PlayerUtils.broadcast(PREFIX + "Removing bugged diamond blocks in '§a" + world.getName() + "§f'.");
 
         task = new BukkitRunnable() {
             public void run() {

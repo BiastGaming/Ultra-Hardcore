@@ -52,7 +52,7 @@ public abstract class Scenario extends Parser {
      * @param game The game instance
      * @param timer The timer instance.
      */
-    protected void setupInstances(Main plugin, Game game, Timer timer) {
+    protected void onSetup(Main plugin, Game game, Timer timer) {
         this.plugin = plugin;
         
         this.timer = timer;
