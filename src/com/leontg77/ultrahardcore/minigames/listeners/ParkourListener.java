@@ -2,6 +2,7 @@ package com.leontg77.ultrahardcore.minigames.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Sign;
@@ -162,6 +163,17 @@ public class ParkourListener implements Listener {
 
         if (!parkour.isParkouring(player)) {
             return;
+        }
+
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            player.sendMessage(Parkour.PREFIX + "§cNo creative mode in the Parkour.");
+            player.setGameMode(GameMode.SURVIVAL);
+        }
+
+        if (player.isFlying() || player.getAllowFlight()) {
+            player.sendMessage(Parkour.PREFIX + "§cNo fly mode in the Parkour.");
+            player.setAllowFlight(false);
+            player.setFlying(false);
         }
 
         String date = DateUtils.formatDateDiff(parkour.getStartTime(player).getTime());

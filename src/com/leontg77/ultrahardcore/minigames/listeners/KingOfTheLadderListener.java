@@ -3,6 +3,7 @@ package com.leontg77.ultrahardcore.minigames.listeners;
 import java.util.function.Predicate;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -12,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
@@ -42,11 +44,31 @@ public class KingOfTheLadderListener implements Listener {
         Location loc = new Location(player.getWorld(), KOTL_CENTER_X, player.getLocation().getY(), KOTL_CENTER_Z);
         
         double distance = loc.distance(player.getLocation());
-        return distance < 4.5d;
+        return distance < 5d;
     };
 
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void on(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+
+        if (!IS_IN_KOTL.test(player)) {
+            return;
+        }
+
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            player.sendMessage(PREFIX + "§cNo creative mode in the KOTL.");
+            player.setGameMode(GameMode.SURVIVAL);
+        }
+
+        if (player.isFlying() || player.getAllowFlight()) {
+            player.sendMessage(PREFIX + "§cNo fly mode in the KOTL.");
+            player.setAllowFlight(false);
+            player.setFlying(false);
+        }
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
-    protected void on(EntityDamageByEntityEvent event) {
+    public void on(EntityDamageByEntityEvent event) {
         Entity damaged = event.getEntity();
         
         if (!(damaged instanceof Player)) {
@@ -74,7 +96,7 @@ public class KingOfTheLadderListener implements Listener {
     private String currentKing = "";
     
     @EventHandler
-    protected void on(PlayerInteractEvent event) {
+    public void on(PlayerInteractEvent event) {
         if (event.getAction() != Action.PHYSICAL) {
             return;
         }

@@ -3,6 +3,7 @@ package com.leontg77.ultrahardcore.minigames.listeners;
 import java.util.Arrays;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ExperienceOrb;
@@ -17,6 +18,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EnchantingInventory;
 import org.bukkit.inventory.Inventory;
@@ -47,6 +49,26 @@ public class ArenaListener implements Listener {
     public ArenaListener(Main plugin, Arena arena) {
         this.plugin = plugin;
         this.arena = arena;
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void on(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+
+        if (!arena.hasPlayer(player)) {
+            return;
+        }
+
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            player.sendMessage(Arena.PREFIX + "§cNo creative mode in the Arena.");
+            player.setGameMode(GameMode.SURVIVAL);
+        }
+
+        if (player.isFlying() || player.getAllowFlight()) {
+            player.sendMessage(Arena.PREFIX + "§cNo fly mode in the Arena.");
+            player.setAllowFlight(false);
+            player.setFlying(false);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
