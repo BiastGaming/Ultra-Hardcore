@@ -35,6 +35,8 @@ public class BigTreesInForestsFeature extends Feature implements Listener {
 
         new BukkitRunnable() {
             public void run() {
+                chunk.load();
+                
                 for (int x = 0; x < 16; x++) {
                     for (int z = 0; z < 16; z++) {
                         Block block = chunk.getBlock(x, 0, z);
