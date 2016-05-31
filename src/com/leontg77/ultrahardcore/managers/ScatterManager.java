@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -86,7 +87,7 @@ public class ScatterManager {
             Material.ENDER_STONE
     );
 
-    private final Map<String, Location> lateScatters = new HashMap<String, Location>();
+    private final Map<UUID, Location> lateScatters = new HashMap<UUID, Location>();
 
     private boolean scattering = true;
     private boolean scatterTeams;
@@ -134,7 +135,7 @@ public class ScatterManager {
      * @return True if he needs it, false otherwise.
      */
     public boolean needsLateScatter(Player player) {
-        return lateScatters.containsKey(player.getName());
+        return lateScatters.containsKey(player.getUniqueId());
     }
 
     /**
@@ -156,7 +157,7 @@ public class ScatterManager {
         User user = plugin.getUser(toScatter);
         user.increaseStat(Stat.GAMESPLAYED);
 
-        toScatter.teleport(lateScatters.get(toScatter.getName()));
+        toScatter.teleport(lateScatters.get(toScatter.getUniqueId()));
         lateScatters.remove(toScatter.getName());
     }
 
@@ -269,7 +270,7 @@ public class ScatterManager {
                                                 }
 
                                                 if (toScatter == null) {
-                                                    lateScatters.put(teammate.getName(), scatterLocation);
+                                                    lateScatters.put(teammate.getUniqueId(), scatterLocation);
                                                 } else {
                                                     if (game.isState(State.SCATTER)) {
                                                         for (PotionEffect effect : FREEZE_EFFECTS) {
@@ -296,7 +297,7 @@ public class ScatterManager {
                                             }
 
                                             if (toScatter == null) {
-                                                lateScatters.put(scatter, scatterLocation);
+                                                lateScatters.put(PlayerUtils.getOfflinePlayer(scatter).getUniqueId(), scatterLocation);
                                                 scatterLocs.remove(scatter);
                                             } else {
                                                 if (game.isState(State.SCATTER)) {
