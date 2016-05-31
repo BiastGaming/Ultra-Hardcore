@@ -179,14 +179,14 @@ public class BestPvE extends Scenario implements Listener, CommandExecutor, TabC
             return;
         }
 
-        invulnerable.add(player.getUniqueId());
-        pveList.add(player.getUniqueId());
+        invulnerable.add(killer.getUniqueId());
+        pveList.add(killer.getUniqueId());
         
-        PlayerUtils.broadcast(ChatColor.GREEN + player.getName() + " got a kill and is back on the Best PvE List!");
+        PlayerUtils.broadcast(ChatColor.GREEN + killer.getName() + " got a kill and is back on the Best PvE List!");
 
         new BukkitRunnable() {
             public void run() {
-                invulnerable.remove(player.getUniqueId());
+                invulnerable.remove(killer.getUniqueId());
             }
         }.runTaskLater(plugin, 40);
     }
