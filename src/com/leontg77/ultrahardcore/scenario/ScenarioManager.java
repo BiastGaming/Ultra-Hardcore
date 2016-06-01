@@ -197,6 +197,7 @@ public class ScenarioManager {
         scenarios.add(new GoodGame());
         scenarios.add(new GoodGamePlus());
         scenarios.add(new GoToHell(settings, feat));
+        scenarios.add(new Grandpas());
         scenarios.add(new Halloween());
         scenarios.add(new HeadHunters());
         scenarios.add(new HundredHearts(feat));
@@ -234,6 +235,7 @@ public class ScenarioManager {
         scenarios.add(new RewardingLongshots());
         scenarios.add(new RewardingLongshotsPlus());
         scenarios.add(new Rodless());
+        scenarios.add(new SecretTeams(teams));
         scenarios.add(new SelectFire());
         scenarios.add(new SelfDiagnosis(board));
         scenarios.add(new SharedHealth(teams));
@@ -244,6 +246,7 @@ public class ScenarioManager {
         scenarios.add(new SlimyCrack());
         scenarios.add(new Snowday());
         scenarios.add(new SoulBrothers(teams, scatter));
+        scenarios.add(new StockUp());
         scenarios.add(new Superheroes(teams));
         scenarios.add(new Swingers(teams));
         scenarios.add(new Switcheroo());
@@ -259,6 +262,7 @@ public class ScenarioManager {
         scenarios.add(new VeinMiner());
         scenarios.add(new VengefulSpirits(settings, feat));
         scenarios.add(new Voidscape());
+        scenarios.add(new WeakestLink());       
         scenarios.add(new Webcage());           
 //        scenarios.add(new WTFIPTG(spec, board));
 
