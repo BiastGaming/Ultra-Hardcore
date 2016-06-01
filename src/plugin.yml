@@ -300,3 +300,5 @@ commands:
     description: Generate the underground parallel scenario.
   voidscape:
     description: Generate voidscape.
+  lowest:
+    description: View the current lowest player by health.
