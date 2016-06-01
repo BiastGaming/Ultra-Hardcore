@@ -30,6 +30,7 @@ import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User;
 import com.leontg77.ultrahardcore.User.Stat;
 import com.leontg77.ultrahardcore.minigames.Arena;
+import com.leontg77.ultrahardcore.utils.BlockUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
@@ -86,13 +87,13 @@ public class ArenaListener implements Listener {
             return;
         }
 
-        if (block == null || block.getType() != Material.COBBLESTONE) {
+        if (block == null || (block.getType() != Material.COBBLESTONE && block.getType() != Material.WOOD)) {
             return;
         }
 
         new BukkitRunnable() {
             public void run() {
-                PlayerUtils.giveItem(player, new ItemStack(block.getType()));
+                PlayerUtils.giveItem(player, new ItemStack(block.getType(), 1, (short) BlockUtils.getDurability(block)));
             }
         }.runTask(plugin);
     }
