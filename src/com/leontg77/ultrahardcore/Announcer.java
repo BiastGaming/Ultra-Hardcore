@@ -6,7 +6,6 @@ import java.util.Random;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.collect.ImmutableList;
-import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
@@ -61,11 +60,20 @@ public class Announcer {
     public void startAnnouncer() {
         new BukkitRunnable() {
             public void run() {
-                if (game.isRecordedRound() || game.isPrivateGame() || !game.isState(State.INGAME)) {
+                if (game.isRecordedRound() || game.isPrivateGame()) {
                     return;
                 }
 
-                PlayerUtils.broadcast(Main.INFO_PREFIX + ANNOUNCEMENTS.get(rand.nextInt(ANNOUNCEMENTS.size())));
+                switch (game.getState()) {
+                case CLOSED:
+                case ENDING:
+                case INGAME:
+                case OPEN:
+                    PlayerUtils.broadcast(Main.INFO_PREFIX + ANNOUNCEMENTS.get(rand.nextInt(ANNOUNCEMENTS.size())));
+                    break;
+                default:
+                    break;
+                }
             }
         }.runTaskTimer(plugin, 10000, 10000);
 
