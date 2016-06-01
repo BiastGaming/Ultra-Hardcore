@@ -61,7 +61,6 @@ public class KingOfTheLadderListener implements Listener {
         }
 
         if (player.isFlying() || player.getAllowFlight()) {
-            
             if (player.getGameMode() == GameMode.SPECTATOR) {
                 return;
             }
@@ -121,7 +120,7 @@ public class KingOfTheLadderListener implements Listener {
         User user = plugin.getUser(player);
         user.increaseStat(Stat.TIMES_KOTL);
 
-        String message = PREFIX + "§a" + player.getName() + " §7is now the King of the ladder.";
+        String message = PREFIX + "§a" + player.getName() + " §7is now the King of The Ladder.";
         Bukkit.getOnlinePlayers().stream()
                 .filter(IS_IN_KOTL)
                 .forEach(kotlPlayer -> kotlPlayer.sendMessage(message));
