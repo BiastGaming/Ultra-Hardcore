@@ -22,6 +22,7 @@ import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.TeamManager;
 import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.scenario.scenarios.Paranoia;
+import com.leontg77.ultrahardcore.scenario.scenarios.SecretTeams;
 import com.leontg77.ultrahardcore.scenario.scenarios.SelfDiagnosis;
 import com.leontg77.ultrahardcore.scenario.scenarios.TeamHealth;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
@@ -69,6 +70,10 @@ public class TeamCommand extends UHCCommand {
         }
 
         if (args[0].equalsIgnoreCase("info")) {
+            if (scen.getScenario(SecretTeams.class).isEnabled()) {
+                throw new CommandException("You can't do this in secret teams.");
+            }
+            
             OfflinePlayer target;
 
             if (args.length == 1) {
@@ -145,6 +150,10 @@ public class TeamCommand extends UHCCommand {
         }
 
         if (args[0].equalsIgnoreCase("list")) {
+            if (scen.getScenario(SecretTeams.class).isEnabled()) {
+                throw new CommandException("You can't do this in secret teams.");
+            }
+            
             if (teams.getSavedTeams().isEmpty() || teams.getSavedTeams().keySet().toString().equalsIgnoreCase("[spec]")) {
                 sender.sendMessage(PREFIX + "There are no teams.");
                 return true;
@@ -558,6 +567,10 @@ public class TeamCommand extends UHCCommand {
         }
 
         if (args[0].equalsIgnoreCase("color")) {
+            if (scen.getScenario(SecretTeams.class).isEnabled()) {
+                throw new CommandException("You can't do this in secret teams.");
+            }
+            
             if (!sender.hasPermission(ADMIN_PERM)) {
                 return helpMenu(sender);
             }
@@ -682,6 +695,8 @@ public class TeamCommand extends UHCCommand {
                 teams.sendMessage(team, PREFIX + "Names in §cred §7are offline, but have been whitelisted.");
                 teams.sendMessage(team, PREFIX + "Mistake? Immediately '§a/helpop WRONG TEAM!§7'.");
             }
+            
+            sender.sendMessage(PREFIX + "Team has been created.");
             return true;
         }
 
