@@ -220,7 +220,7 @@ public class Arena {
 //                        return;
 //                    }
 //
-//                    int newRadius = Math.min(40 + (players.size() * 10), 400);
+//                    ;
 //
 //                    world.getWorldBorder().setSize(newRadius, 25); // Thanks @D4mnX for this
 //                }
@@ -358,8 +358,9 @@ public class Arena {
      */
     public void addPlayer(Player player) {
         World world = Bukkit.getWorld("arena");
-
-        List<Location> locs = scatter.findScatterLocations(world, (int) world.getWorldBorder().getSize() / 3, 1);
+        
+        int radius = Math.min(40 + (players.size() * 10), 400) / 2;
+        List<Location> locs = scatter.findScatterLocations(world, radius, 1);
 
         if (locs.isEmpty()) {
             player.sendMessage(ChatColor.RED + "Could not teleport you to the arena.");
@@ -428,6 +429,8 @@ public class Arena {
     public boolean hasPlayer(Player player) {
         return players.contains(player.getUniqueId());
     }
+    
+    private final Random rand = new Random();
 
     /**
      * Gives the arena kit to the given player.
@@ -459,6 +462,15 @@ public class Arena {
                 item = new ItemStack(Material.AIR);
             }
 
+            if (item.getType() == Material.COBBLESTONE || item.getType() == Material.WOOD) {
+                if (rand.nextDouble() < 0.1666) {
+                    item.setType(Material.COBBLESTONE);
+                } else {
+                    item.setType(Material.WOOD);
+                    item.setDurability((short) rand.nextInt(6));
+                }
+            }
+            
             player.getInventory().setItem(i, item);
         }
 
@@ -491,6 +503,11 @@ public class Arena {
 
         ItemStack gapple = new ItemStack(Material.GOLDEN_APPLE);
         ItemStack food = new ItemStack(Material.COOKED_BEEF, 32);
+        
+        if (rand.nextDouble() >= 0.1666) {
+            cobble.setType(Material.WOOD);
+            cobble.setDurability((short) rand.nextInt(6));
+        }
 
         player.getInventory().setItem(0, sword);
         player.getInventory().setItem(1, bow);
