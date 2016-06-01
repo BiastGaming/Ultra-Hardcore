@@ -158,7 +158,7 @@ public class ScatterManager {
         user.increaseStat(Stat.GAMESPLAYED);
 
         toScatter.teleport(lateScatters.get(toScatter.getUniqueId()));
-        lateScatters.remove(toScatter.getName());
+        lateScatters.remove(toScatter.getUniqueId());
     }
 
     /**

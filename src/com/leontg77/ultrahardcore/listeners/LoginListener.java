@@ -162,10 +162,14 @@ public class LoginListener implements Listener {
                 }
             }
         }
+        
+        boolean scattered = false;
 
         if (scatter.needsLateScatter(player) && !scatter.isScattering()) {
             PlayerUtils.broadcast(Main.ARROW + "§8- §a" + player.getName() + " §7scheduled scatter.");
             scatter.handleLateScatter(player);
+            
+            scattered = true;
         }
 
         // incase they join with freeze effects.
@@ -199,6 +203,10 @@ public class LoginListener implements Listener {
             }
 
             player.sendMessage("§8» §m---------------------------------§8 «");
+        }
+        
+        if (scattered) {
+            return;
         }
 
         if (game.isState(State.INGAME) || game.isState(State.SCATTER) || game.isState(State.ENDING)) {
