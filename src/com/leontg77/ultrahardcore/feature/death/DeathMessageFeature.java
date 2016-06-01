@@ -65,7 +65,11 @@ public class DeathMessageFeature extends Feature implements Listener {
         String deathMessage = event.getDeathMessage();
         event.setDeathMessage(null);
 
-        if (!game.isState(State.INGAME) || !worlds.contains(player.getWorld())) {
+        if (!game.isState(State.INGAME) && !game.isState(State.ENDING)) {
+            return;
+        }
+
+        if (!worlds.contains(player.getWorld())) {
             return;
         }
 

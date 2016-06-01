@@ -67,7 +67,11 @@ public class DeathLightningFeature extends ToggleableFeature implements Listener
         player.setWhitelisted(false);
         user.setDeathLoc(player.getLocation());
 
-        if (!game.isState(State.INGAME) || !worlds.contains(player.getWorld())) {
+        if (!game.isState(State.INGAME) && !game.isState(State.ENDING)) {
+            return;
+        }
+
+        if (!worlds.contains(player.getWorld())) {
             return;
         }
 
