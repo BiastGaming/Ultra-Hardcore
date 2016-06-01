@@ -61,6 +61,11 @@ public class KingOfTheLadderListener implements Listener {
         }
 
         if (player.isFlying() || player.getAllowFlight()) {
+            
+            if (player.getGameMode() == GameMode.SPECTATOR) {
+                return;
+            }
+            
             player.sendMessage(PREFIX + "§cNo fly mode in the KOTL.");
             player.setAllowFlight(false);
             player.setFlying(false);
