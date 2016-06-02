@@ -173,6 +173,7 @@ public class ScenarioManager {
         scenarios.add(new DamageDodgers());
         scenarios.add(new DeathSentence());
         scenarios.add(new Depths());
+        scenarios.add(new DetailedWorld());
         scenarios.add(new Diamondless(cc));
         scenarios.add(new DoubleOrNothing(cc));
         scenarios.add(new DragonRush(spec));
@@ -262,7 +263,7 @@ public class ScenarioManager {
         scenarios.add(new VeinMiner());
         scenarios.add(new VengefulSpirits(settings, feat));
         scenarios.add(new Voidscape());
-        scenarios.add(new WeakestLink());       
+        scenarios.add(new WeakestLink(getScenario(Paranoia.class)));       
         scenarios.add(new Webcage());           
 //        scenarios.add(new WTFIPTG(spec, board));
 
