@@ -70,13 +70,9 @@ public class TeamCommand extends UHCCommand {
         }
 
         if (args[0].equalsIgnoreCase("info")) {
-            if (scen.getScenario(SecretTeams.class).isEnabled()) {
-                throw new CommandException("You can't do this in secret teams.");
-            }
-            
             OfflinePlayer target;
 
-            if (args.length == 1) {
+            if (args.length == 1 || scen.getScenario(SecretTeams.class).isEnabled()) {
                 if (!(sender instanceof Player)) {
                     throw new CommandException("Only players can view their own team info.");
                 }
