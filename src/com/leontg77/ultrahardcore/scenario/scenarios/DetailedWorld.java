@@ -153,7 +153,12 @@ public class DetailedWorld extends Scenario implements CommandExecutor, Listener
                             }
                             
                             if (block.getType() == Material.SAND && BlockUtils.getDurability(block) == 0 && rand.nextInt(8) == 0) {
-                                block.setType(rand.nextInt(8) == 0 ? Material.SANDSTONE_STAIRS : Material.SANDSTONE);
+                                if (rand.nextBoolean()) {
+                                    block.setType(Material.SANDSTONE);
+                                } else {
+                                    block.setType(Material.SANDSTONE_STAIRS);
+                                    block.setData((byte) rand.nextInt(4));
+                                }
                             }
                             
                             if (block.getType() == Material.ICE && rand.nextInt(8) == 0) {
@@ -182,29 +187,31 @@ public class DetailedWorld extends Scenario implements CommandExecutor, Listener
                                 block.setData((byte) (rand.nextBoolean() ? 5 : 13));
                             }
 
-                            if (block.getType() == Material.STONE && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
-                                block.setType(Material.STAINED_GLASS);
-                                block.setData((byte) 8);
-                                
-                                block.getRelative(BlockFace.DOWN).setType(Material.GLOWSTONE);
+                            if (block.getLocation().getBlockY() > 60) {
+                                if (block.getType() == Material.STONE && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
+                                    block.setType(Material.STAINED_GLASS);
+                                    block.setData((byte) 8);
+                                    
+                                    block.getRelative(BlockFace.DOWN).setType(Material.GLOWSTONE);
+                                }
+
+                                if (block.getType() == Material.DIRT && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
+                                    block.setType(Material.STAINED_GLASS);
+                                    block.setData((byte) 12);
+                                    
+                                    block.getRelative(BlockFace.DOWN).setType(Material.GLOWSTONE);
+                                }
+
+                                if (block.getType() == Material.GRASS && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
+                                    block.setType(Material.STAINED_GLASS);
+                                    block.setData((byte) 13);
+                                    
+                                    block.getRelative(BlockFace.DOWN).setType(Material.GLOWSTONE);
+                                }
                             }
 
-                            if (block.getType() == Material.DIRT && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
-                                block.setType(Material.STAINED_GLASS);
-                                block.setData((byte) 12);
-                                
-                                block.getRelative(BlockFace.DOWN).setType(Material.GLOWSTONE);
-                            }
-
-                            if (block.getType() == Material.GRASS && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
-                                block.setType(Material.STAINED_GLASS);
-                                block.setData((byte) 13);
-                                
-                                block.getRelative(BlockFace.DOWN).setType(Material.GLOWSTONE);
-                            }
-
-                            if (LocationUtils.hasBlockNearby(Material.LAVA, block.getLocation()) && rand.nextInt(4) == 0 && !block.isLiquid()) {
-                                block.setType(Material.SOUL_SAND);
+                            if (LocationUtils.hasBlockNearby(Material.LAVA, block.getLocation()) && rand.nextInt(3) == 0 && !block.isLiquid()) {
+                                block.setType(rand.nextBoolean() ? Material.NETHER_BRICK : Material.SOUL_SAND);
                             }
 
                             if (LocationUtils.hasBlockNearby(Material.LOG, block.getLocation()) && rand.nextInt(8) == 0 && block.isEmpty()) {
@@ -247,7 +254,7 @@ public class DetailedWorld extends Scenario implements CommandExecutor, Listener
                                     block.setData((byte) 2);
                                 }
                                 
-                                if (block.getType() == Material.STAINED_CLAY) {
+                                if (block.getType() == Material.STAINED_CLAY && block.getLocation().getBlockY() > 60) {
                                     block.setType(Material.GRASS);
                                 }
                                 break;
@@ -255,8 +262,8 @@ public class DetailedWorld extends Scenario implements CommandExecutor, Listener
                             case SAVANNA_MOUNTAINS:
                             case SAVANNA_PLATEAU:
                             case SAVANNA_PLATEAU_MOUNTAINS:
-                                if (block.getType() == Material.SPRUCE_FENCE) {
-                                    block.setType(Material.ACACIA_FENCE);
+                                if (block.getType() == Material.LEAVES_2 || block.getType() == Material.LEAVES) {
+                                    break;
                                 }
                                 
                                 if (!block.isEmpty() && !block.isLiquid() && rand.nextInt(1000) == 0) {
@@ -283,11 +290,19 @@ public class DetailedWorld extends Scenario implements CommandExecutor, Listener
                                 break;
                             case SUNFLOWER_PLAINS:
                             case PLAINS:
-                                if (!block.isEmpty() && !block.isLiquid() && rand.nextInt(100) == 0) {
-                                    block.getRelative(BlockFace.UP).setType(Material.FENCE);
-                                    
+                                if (block.getType() == Material.LONG_GRASS || block.getType() == Material.DOUBLE_PLANT || block.getType() == Material.YELLOW_FLOWER || block.getType() == Material.RED_ROSE) {
+                                    break;
+                                }
+                                
+                                if (!block.isEmpty() && !block.isLiquid() && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
                                     if (rand.nextBoolean()) {
-                                        block.getRelative(BlockFace.UP, 2).setType(Material.WOOD_STEP);
+                                        block.getRelative(BlockFace.UP).setType(Material.WOOD_STEP);
+                                    } else {
+                                        block.getRelative(BlockFace.UP).setType(Material.FENCE);
+                                        
+                                        if (rand.nextBoolean()) {
+                                            block.getRelative(BlockFace.UP, 2).setType(Material.WOOD_STEP);
+                                        }
                                     }
                                 }
                                 break;
