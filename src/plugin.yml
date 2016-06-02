@@ -272,6 +272,8 @@ commands:
     aliases: [mt]
   dodge:
     description: Check the current needed death amount in damage dodgers.
+  detail:
+    description: Generate the detailed world scenario.
   status:
     description: Check the current resistance type.
   genpyro:
