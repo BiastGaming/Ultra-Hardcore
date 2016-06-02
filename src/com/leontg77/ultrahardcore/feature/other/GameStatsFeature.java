@@ -80,10 +80,7 @@ public class GameStatsFeature extends Feature implements Listener {
         
         if (!isFirstDamageTaken) {
             PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + player.getName() + " §7was the first to take damage.");
-            
-            for (Player online : Bukkit.getOnlinePlayers()) {
-                online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
-            }
+            Bukkit.getOnlinePlayers().forEach(online -> online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1));
             
             isFirstDamageTaken = true;
             
@@ -103,10 +100,7 @@ public class GameStatsFeature extends Feature implements Listener {
         
         if (!isFirstDeathTaken) {
             PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + player.getName() + " §7was the first to die.");
-            
-            for (Player online : Bukkit.getOnlinePlayers()) {
-                online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
-            }
+            Bukkit.getOnlinePlayers().forEach(online -> online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1));
             
             isFirstDeathTaken = true;
             
@@ -122,10 +116,7 @@ public class GameStatsFeature extends Feature implements Listener {
         
         if (!isFirstBloodTaken) {
             PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + killer.getName() + " §7got the first kill.");
-            
-            for (Player online : Bukkit.getOnlinePlayers()) {
-                online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1);
-            }
+            Bukkit.getOnlinePlayers().forEach(online -> online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1));
             
             isFirstBloodTaken = true;
             
@@ -155,8 +146,7 @@ public class GameStatsFeature extends Feature implements Listener {
         if (ironMan == null) return;
 
         PlayerUtils.broadcast(Main.PREFIX + ChatColor.RED + ironMan.getName() + " §7is the iron man.");
-
-        Bukkit.getOnlinePlayers().forEach(it -> it.playSound(it.getLocation(), Sound.NOTE_PLING, 1, 1));
+        Bukkit.getOnlinePlayers().forEach(online -> online.playSound(online.getLocation(), Sound.NOTE_PLING, 1, 1));
 
         isIronManTaken = true;
 

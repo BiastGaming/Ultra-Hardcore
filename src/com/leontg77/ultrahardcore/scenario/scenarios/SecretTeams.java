@@ -1,8 +1,9 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
+import java.util.function.Consumer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Team;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -20,10 +21,10 @@ import com.leontg77.ultrahardcore.scenario.Scenario;
  * @author LeonTG77
  */
 public class SecretTeams extends Scenario {
-    private final TeamDisablePacket packet;
-    private final ProtocolManager manager;
+    protected final TeamDisablePacket packet;
+    protected final ProtocolManager manager;
 
-    private final TeamManager teams;
+    protected final TeamManager teams;
     
     public SecretTeams(TeamManager teams) {
         super("SecretTeams", "It starts out as teams of 2 but they're mixed together and forms a to4, however no one know who is on what team.");
@@ -33,29 +34,23 @@ public class SecretTeams extends Scenario {
         
         this.teams = teams;
     }
+
+    protected static final Consumer<Player> KICK_PLAYER = online -> online.kickPlayer("Kicked to update tab colors and sorting...");
     
     @Override
     public void onDisable() {
         manager.removePacketListener(packet);
         
-        for (Player online : Bukkit.getOnlinePlayers()) {
-            online.kickPlayer("Updating teams...");
-        }
-        
+        Bukkit.getOnlinePlayers().forEach(KICK_PLAYER);
         teams.setup();
     }
     
     @Override
     public void onEnable() {
-        for (Player online : Bukkit.getOnlinePlayers()) {
-            online.kickPlayer("Updating tab team sorting and color...");
-        }
-        
-        for (Team team : teams.getTeams()) {
-            team.setPrefix("§f");
-        }
-        
         manager.addPacketListener(packet);
+        
+        Bukkit.getOnlinePlayers().forEach(KICK_PLAYER);
+        teams.getTeams().forEach(team -> team.setPrefix("§f"));
     }
     
     /**
