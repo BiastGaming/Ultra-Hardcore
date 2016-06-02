@@ -2,6 +2,7 @@ package com.leontg77.ultrahardcore.scenario.scenarios;
 
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,8 +30,12 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
 public class WeakestLink extends Scenario implements Listener, CommandExecutor, TabCompleter {
     public static final String PREFIX = "§aWeakest Link §8» §f";
 
-    public WeakestLink() {
+    protected final Paranoia para;
+    
+    public WeakestLink(Paranoia para) {
         super("WeakestLink", "Every 10 minutes the person with the least health will perish. If everyone is at the same health no one will die. Will be disabled at meetup");
+        
+        this.para = para;
     }
    
     private BukkitRunnable task;
@@ -75,6 +80,11 @@ public class WeakestLink extends Scenario implements Listener, CommandExecutor, 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!isEnabled()) {
             sender.sendMessage(PREFIX + "Weakest Link is currenly disabled.");
+            return true;
+        }
+        
+        if (para.isEnabled()) {
+            sender.sendMessage(ChatColor.RED + "You can't use this in paranoia.");
             return true;
         }
         
