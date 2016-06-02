@@ -24,6 +24,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
+import com.leontg77.ultrahardcore.utils.LocationUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -181,114 +182,117 @@ public class DetailedWorld extends Scenario implements CommandExecutor, Listener
                                 block.setData((byte) (rand.nextBoolean() ? 5 : 13));
                             }
 
-                            if (block.getType() == Material.STONE && rand.nextInt(100) == 0) {
+                            if (block.getType() == Material.STONE && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
                                 block.setType(Material.STAINED_GLASS);
                                 block.setData((byte) 8);
                                 
                                 block.getRelative(BlockFace.DOWN).setType(Material.GLOWSTONE);
                             }
 
-                            if (block.getType() == Material.DIRT && rand.nextInt(100) == 0) {
+                            if (block.getType() == Material.DIRT && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
                                 block.setType(Material.STAINED_GLASS);
                                 block.setData((byte) 12);
                                 
                                 block.getRelative(BlockFace.DOWN).setType(Material.GLOWSTONE);
                             }
 
-                            if (block.getType() == Material.GRASS && rand.nextInt(100) == 0) {
+                            if (block.getType() == Material.GRASS && rand.nextInt(100) == 0 && block.getRelative(BlockFace.UP).isEmpty()) {
                                 block.setType(Material.STAINED_GLASS);
                                 block.setData((byte) 13);
                                 
                                 block.getRelative(BlockFace.DOWN).setType(Material.GLOWSTONE);
                             }
+
+                            if (LocationUtils.hasBlockNearby(Material.LAVA, block.getLocation()) && rand.nextInt(4) == 0 && !block.isLiquid()) {
+                                block.setType(Material.SOUL_SAND);
+                            }
+
+                            if (LocationUtils.hasBlockNearby(Material.LOG, block.getLocation()) && rand.nextInt(8) == 0 && block.isEmpty()) {
+                                block.setType(Material.SPRUCE_FENCE);
+                            }
+
+                            if (LocationUtils.hasBlockNearby(Material.LOG_2, block.getLocation()) && rand.nextInt(8) == 0 && block.isEmpty()) {
+                                block.setType(Material.SPRUCE_FENCE);
+                            }
                             
                             switch (block.getBiome()) {
-                            case COLD_BEACH:
-                            case BEACH:
-                                break;
                             case BIRCH_FOREST:
                             case BIRCH_FOREST_HILLS:
                             case BIRCH_FOREST_HILLS_MOUNTAINS:
                             case BIRCH_FOREST_MOUNTAINS:
-                                break;
-                            case COLD_TAIGA:
-                            case COLD_TAIGA_HILLS:
-                            case COLD_TAIGA_MOUNTAINS:
-                                break;
-                            case DESERT:
-                            case DESERT_HILLS:
-                            case DESERT_MOUNTAINS:
+                                if (block.getType() == Material.SPRUCE_FENCE) {
+                                    block.setType(Material.BIRCH_FENCE);
+                                }
                                 break;
                             case EXTREME_HILLS:
                             case EXTREME_HILLS_MOUNTAINS:
                             case EXTREME_HILLS_PLUS:
                             case EXTREME_HILLS_PLUS_MOUNTAINS:
-                                break;
-                            case FLOWER_FOREST:
-                            case FOREST:
-                            case FOREST_HILLS:
-                                break;
-                            case FROZEN_OCEAN:
-                            case FROZEN_RIVER:
-                                break;
-                            case HELL:
-                                break;
-                            case ICE_MOUNTAINS:
-                            case ICE_PLAINS:
-                            case ICE_PLAINS_SPIKES:
+                            case MUSHROOM_ISLAND:
+                            case MUSHROOM_SHORE:
+                                if (block.getType() == Material.GRASS && rand.nextInt(8) == 0) {
+                                    block.setType(Material.DIRT);
+                                    block.setData((byte) 1);
+                                }
                                 break;
                             case JUNGLE:
                             case JUNGLE_EDGE:
                             case JUNGLE_EDGE_MOUNTAINS:
                             case JUNGLE_HILLS:
                             case JUNGLE_MOUNTAINS:
-                                break;
-                            case MESA:
-                            case MESA_BRYCE:
-                            case MESA_PLATEAU:
-                            case MESA_PLATEAU_FOREST:
-                            case MESA_PLATEAU_FOREST_MOUNTAINS:
-                            case MESA_PLATEAU_MOUNTAINS:
-                                break;
-                            case MUSHROOM_ISLAND:
-                            case MUSHROOM_SHORE:
-                                break;
-                            case DEEP_OCEAN:
-                            case OCEAN:
-                                break;
-                            case RIVER:
-                                break;
-                            case ROOFED_FOREST:
-                            case ROOFED_FOREST_MOUNTAINS:
+                            case SWAMPLAND:
+                            case SWAMPLAND_MOUNTAINS:
+                                if (block.getType() == Material.GRASS && rand.nextInt(8) == 0) {
+                                    block.setType(Material.DIRT);
+                                    block.setData((byte) 2);
+                                }
+                                
+                                if (block.getType() == Material.STAINED_CLAY) {
+                                    block.setType(Material.GRASS);
+                                }
                                 break;
                             case SAVANNA:
                             case SAVANNA_MOUNTAINS:
                             case SAVANNA_PLATEAU:
                             case SAVANNA_PLATEAU_MOUNTAINS:
-                                break;
-                            case SKY:
-                                break;
-                            case SMALL_MOUNTAINS:
-                            case STONE_BEACH:
+                                if (block.getType() == Material.SPRUCE_FENCE) {
+                                    block.setType(Material.ACACIA_FENCE);
+                                }
+                                
+                                if (!block.isEmpty() && !block.isLiquid() && rand.nextInt(1000) == 0) {
+                                    Block up = block.getRelative(BlockFace.UP);
+                                    
+                                    if (up.isEmpty()) {
+                                        up.setType(Material.FIRE);
+                                        
+                                        block.setType(Material.NETHERRACK);
+
+                                        up.getRelative(BlockFace.NORTH).setType(Material.STEP);
+                                        up.getRelative(BlockFace.NORTH).setData((byte) 3);
+
+                                        up.getRelative(BlockFace.EAST).setType(Material.STEP);
+                                        up.getRelative(BlockFace.EAST).setData((byte) 3);
+
+                                        up.getRelative(BlockFace.WEST).setType(Material.STEP);
+                                        up.getRelative(BlockFace.WEST).setData((byte) 3);
+
+                                        up.getRelative(BlockFace.SOUTH).setType(Material.STEP);
+                                        up.getRelative(BlockFace.SOUTH).setData((byte) 3);
+                                    }
+                                }
                                 break;
                             case SUNFLOWER_PLAINS:
                             case PLAINS:
-                                break;
-                            case SWAMPLAND:
-                            case SWAMPLAND_MOUNTAINS:
-                                break;
-                            case TAIGA:
-                            case TAIGA_HILLS:
-                            case TAIGA_MOUNTAINS:
-                                break;
-                            case MEGA_SPRUCE_TAIGA:
-                            case MEGA_SPRUCE_TAIGA_HILLS:
-                            case MEGA_TAIGA:
-                            case MEGA_TAIGA_HILLS:
+                                if (!block.isEmpty() && !block.isLiquid() && rand.nextInt(100) == 0) {
+                                    block.getRelative(BlockFace.UP).setType(Material.FENCE);
+                                    
+                                    if (rand.nextBoolean()) {
+                                        block.getRelative(BlockFace.UP, 2).setType(Material.WOOD_STEP);
+                                    }
+                                }
                                 break;
                             default:
                                 break;
-                            
                             }
                         }
                     }
