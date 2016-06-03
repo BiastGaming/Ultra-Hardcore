@@ -1,19 +1,21 @@
 package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -29,16 +31,15 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author audicymc
  */
 public class Assassins extends Scenario implements Listener, CommandExecutor {
+    private static final String PREFIX = "§cAssassins §8» §7";
 
     public Assassins() {
         super("Assassins", "Each player has a target that they must kill. Killing anyone that is not your target or assassin will result in no items dropping. When your target dies, you get their target.");
 
-        Bukkit.getPluginCommand("target").setExecutor(this);
+        plugin.getCommand("target").setExecutor(this);
     }
 
-    private static final String PREFIX = "§cAssassins §8» §7";
-
-    private final Map<String, String> assassins = new HashMap<String, String>();
+    private final Map<UUID, UUID> assassins = new HashMap<UUID, UUID>();
 
     @Override
     public void onDisable() {
@@ -47,7 +48,7 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
 
     @Override
     public void onEnable() {
-        if (!game.isState(State.INGAME) && timer.getPvP() > 0) {
+        if (!game.isState(State.INGAME) || timer.getPvP() > 0) {
             return;
         }
 
@@ -55,38 +56,52 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
     }
 
     @EventHandler
-    public void on(final PvPEnableEvent event) {
-        PlayerUtils.broadcast(PREFIX + "Assigning targets...");
+    public void on(PvPEnableEvent event) {
+        PlayerUtils.broadcast(PREFIX + "Targets are being assigned...");
 
-        final List<Player> players = new ArrayList<Player>(Bukkit.getOnlinePlayers());
+        List<OfflinePlayer> players = game.getOfflinePlayers();
         Collections.shuffle(players);
 
         for (int i = 0; i < players.size(); i++) {
-            final Player assassin = players.get(i);
-            final Player target = players.get(i < players.size() - 1 ? i + 1 : 0);
+            OfflinePlayer assassin = players.get(i);
+            OfflinePlayer target = players.get(i < players.size() - 1 ? i + 1 : 0);
 
-            setTarget(assassin.getName(), target.getName());
+            setTarget(assassin, target);
         }
     }
 
-    @EventHandler
-    public void on(final PlayerDeathEvent event) {
-        final Player player = event.getEntity();
-        final Player killer = player.getKiller();
-
-        if (!game.getPlayers().contains(player) || !game.getPlayers().contains(killer)) {
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void on(PlayerDeathEvent event) {
+        if (!game.isState(State.INGAME)) {
             return;
         }
+        
+        Player player = event.getEntity();
+
+        if (!game.getWorlds().contains(player.getWorld())) {
+            return;
+        }
+
+        
 
         if (!assassins.containsKey(player.getName())) {
             return;
         }
 
-        final String assassin = getAssassin(player.getName());
-        final String target = getTarget(player.getName());
+        OfflinePlayer assassin = getAssassin(player);
+        OfflinePlayer target = getTarget(player);
 
-        if (killer != null && !killer.getName().equals(assassin) && !player.getName().equals(target)) {
-            event.getDrops().clear();
+        
+        Player killer = player.getKiller();
+
+        if (killer != null) {
+            if (!game.getPlayers().contains(killer)) {
+                return;
+            }
+            
+            if (!killer.getUniqueId().equals(assassin.getUniqueId()) && !player.getUniqueId().equals(target.getUniqueId())) {
+                event.getDrops().clear();
+            }
         }
 
         setTarget(assassin, target);
@@ -98,79 +113,77 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
 
     @EventHandler
     public void on(PlayerMoveEvent event) {
-        final Player player = event.getPlayer();
-        final String target = getAssassin(player.getName());
+        Player player = event.getPlayer();
+        OfflinePlayer assassin = getAssassin(player);
 
         if (!game.getPlayers().contains(player)) {
             return;
         }
 
-        if (target == null) {
+        if (!assassin.isOnline()) {
             return;
         }
 
-        final Player assassin = Bukkit.getPlayer(target);
-
-        if (assassin == null) {
-            return;
-        }
-
-        assassin.setCompassTarget(player.getLocation());
+        assassin.getPlayer().setCompassTarget(player.getLocation());
     }
 
     @Override
-    public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only players can have assassins targets.");
+            sender.sendMessage(ChatColor.RED + "Only players can execute /target.");
             return true;
         }
 
-        final Player player = (Player) sender;
+        Player player = (Player) sender;
 
         if (!isEnabled()) {
-            player.sendMessage(PREFIX + "Assassins is not enabled.");
+            player.sendMessage(PREFIX + "Assassins is currently disabled.");
             return true;
         }
 
-        final String target = getTarget(player.getName());
+        OfflinePlayer target = getTarget(player);
 
         if (target == null) {
-            player.sendMessage(PREFIX + "Could not find your target.");
+            player.sendMessage(PREFIX + "You do not have a target.");
             return true;
         }
 
-        player.sendMessage(PREFIX + "Your target: §a" + getTarget(player.getName()));
+        player.sendMessage(PREFIX + "Your target is: §a" + target.getName());
         return true;
     }
 
     /**
-     * Set a new target for the assassin.
-     *
-     * @param assassin the assassin.
-     * @param target the new target.
+     * Set the target of the given assassin to the given target.
+     * 
+     * @param assassin The assassin to set for.
+     * @param target The target to give the assassin.
      */
-    private void setTarget(final String assassin, final String target) {
-        assassins.put(assassin, target);
-
-        final Player player = Bukkit.getPlayer(assassin);
-
-        if (player == null) {
+    private void setTarget(OfflinePlayer assassin, OfflinePlayer target) {
+        if (assassin == null || target == null) {
             return;
         }
-
-        player.sendMessage(PREFIX + "Your new target: §a" + target);
+        
+        assassins.put(assassin.getUniqueId(), target.getUniqueId());
+        
+        if (assassin.isOnline()) {
+            assassin.getPlayer().sendMessage(PREFIX + "Your new target is: §a" + target.getName());
+        }
     }
 
     /**
-     * Get the assassin that has the target.
-     *
-     * @param target the target.
-     * @return the assassin.
+     * Get the assassin who has the given target.
+     * 
+     * @param target The target to use.
+     * @return The assassin.
      */
-    private String getAssassin(String target) {
-        for (Entry<String, String> entry : assassins.entrySet()) {
-            if (entry.getValue().equalsIgnoreCase(target)) {
-                return entry.getKey();
+    private OfflinePlayer getAssassin(OfflinePlayer target) {
+        if (target == null) {
+            return null;
+        }
+        
+        for (Entry<UUID, UUID> entry : assassins.entrySet()) {
+            if (entry.getValue().equals(target.getUniqueId())) {
+                return Bukkit.getOfflinePlayer(entry.getKey());
             }
         }
 
@@ -178,15 +191,19 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
     }
 
     /**
-     * Get the target for an assassin
-     *
-     * @param assassin the assassin.
-     * @return the target of the assassin
+     * Get the assassin who has the given target.
+     * 
+     * @param target The target to use.
+     * @return The assassin.
      */
-    private String getTarget(String assassin) {
-        for (Entry<String, String> entry : assassins.entrySet()) {
-            if (entry.getKey().equalsIgnoreCase(assassin)) {
-                return entry.getValue();
+    private OfflinePlayer getTarget(OfflinePlayer assassin) {
+        if (assassin == null) {
+            return null;
+        }
+        
+        for (Entry<UUID, UUID> entry : assassins.entrySet()) {
+            if (entry.getKey().equals(assassin.getUniqueId())) {
+                return Bukkit.getOfflinePlayer(entry.getValue());
             }
         }
 
@@ -194,11 +211,9 @@ public class Assassins extends Scenario implements Listener, CommandExecutor {
     }
 
     /**
-     * Get the assassins map
-     *
-     * @return the Assassins map
+     * @return The map of the assassins and targets.
      */
-    public Map<String, String> getAssassinsMap() {
+    public Map<UUID, UUID> getAssassinsAndTargets() {
         return assassins;
     }
 }
