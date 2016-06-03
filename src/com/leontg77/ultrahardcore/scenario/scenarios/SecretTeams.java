@@ -27,7 +27,7 @@ public class SecretTeams extends Scenario {
     protected final TeamManager teams;
     
     public SecretTeams(TeamManager teams) {
-        super("SecretTeams", "It starts out as teams of 2 but they're mixed together and forms a to4, however no one know who is on what team.");
+        super("SecretTeams", "There are no teams colors and all teams are unknown for other players.");
         
         this.manager = ProtocolLibrary.getProtocolManager();
         this.packet = new TeamDisablePacket(plugin);

@@ -1,21 +1,13 @@
  package com.leontg77.ultrahardcore.scenario.scenarios;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.block.Block;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.LeavesDecayEvent;
@@ -24,50 +16,86 @@ import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.leontg77.ultrahardcore.Game.State;
-import com.leontg77.ultrahardcore.Main;
-import com.leontg77.ultrahardcore.scenario.Scenario;
+import com.leontg77.ultrahardcore.scenario.GeneratorScenario;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
-import com.leontg77.ultrahardcore.utils.PacketUtils;
+import com.leontg77.ultrahardcore.utils.NumberUtils;
 
 /**
- * Pyrophobia scenario class
+ * Pyrophobia scenario class.
  * 
- * @author Bergasms
+ * @author LeonTG77
  */
-public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
-    private static final String PREFIX = "§4Pyrophobia §8» §7";
-
-    private ArrayList<Location> locations;
-    private int generateTaskID;
-    private int totalChunks;
+public class Pyrophobia extends GeneratorScenario {
+    private static final PotionEffect FIRE_RES = new PotionEffect(PotionEffectType.FIRE_RESISTANCE, NumberUtils.TICKS_IN_999_DAYS, 2);
 
     public Pyrophobia() {
-        super("Pyrophobia", "All water and ice is replaced with lava, redstone and lapis is replaced by obsidian and leaves drop sugar canes.");
-
-        this.locations = new ArrayList<Location>();
-        this.generateTaskID = -1;
-        this.totalChunks = 0;
-
-        plugin.getCommand("genpyro").setExecutor(this);
+        super(
+            "Pyrophobia", 
+            "All water and ice is replaced with lava, 50% of redstone and lapis is replaced by obsidian, leaves has a 2% chance to drop sugar cane and mobs are fire resistant.", 
+            ChatColor.DARK_RED, 
+            "genpyro", 
+            false, 
+            false,
+            true,
+            true
+        );
     }
 
-    private final Random rand = new Random();
+    @Override
+    public void handleBlock(Block block) {
+        if (block.getType() == Material.STATIONARY_WATER) {
+            block.setType(Material.OBSIDIAN);
+        }
+        
+        if (block.getType() == Material.ICE) {
+            block.setType(Material.OBSIDIAN);
+        }
+        
+        if (block.getType() == Material.PACKED_ICE) {
+            block.setType(Material.OBSIDIAN);
+        }
+        
+        if (block.getType() == Material.WATER) {
+            block.setType(Material.OBSIDIAN);
+        }
+
+        WorldBorder border = block.getWorld().getWorldBorder();
+        
+        new BukkitRunnable() {
+            public void run() {
+                if (block.getType() == Material.OBSIDIAN) {
+                    block.setType(Material.STATIONARY_LAVA);
+                }
+                
+                if (block.getType() == Material.LAPIS_ORE || block.getType() == Material.REDSTONE_ORE) {
+                    if (rand.nextBoolean()) {
+                        block.setType(Material.OBSIDIAN);
+                    }
+                }
+            }
+        }.runTaskLater(plugin, ((int) border.getSize()) / 10);
+    }
 
     @EventHandler
-    public void onPlayerBucketFill(PlayerBucketFillEvent event) {
+    public void on(PlayerBucketFillEvent event) {
+        ItemStack item = event.getItemStack();
         Player player = event.getPlayer();
 
-        if (event.getItemStack().getType() == Material.WATER_BUCKET) {
-            player.sendMessage(Main.PREFIX.replace("UHC", "Pyrophobia") + ChatColor.RED + "You cannot have water in PyroPhobia.");
-            event.setItemStack(new ItemStack (Material.BUCKET));
-            event.setCancelled(true);
+        if (item.getType() != Material.WATER_BUCKET) {
+            return;
         }
+        
+        player.sendMessage(PREFIX + "You can't pick up water in Pyrophobia.");
+        
+        event.setItemStack(new ItemStack(Material.BUCKET));
+        event.setCancelled(true);
     }
 
     @EventHandler
-    public void onBlockIgnite(BlockIgniteEvent event) {
+    public void on(BlockIgniteEvent event) {
         IgniteCause cause = event.getCause();
 
         if (cause == IgniteCause.LAVA) {
@@ -81,8 +109,9 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
     }
 
     @EventHandler
-    public void CreatureSpawnEvent(CreatureSpawnEvent event) {
-        event.getEntity().addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 1726272000, 2));
+    public void on(CreatureSpawnEvent event) {
+        LivingEntity entity = event.getEntity();
+        entity.addPotionEffect(FIRE_RES);
     }
 
     @EventHandler
@@ -96,149 +125,6 @@ public class Pyrophobia extends Scenario implements Listener, CommandExecutor {
 
         if (rand.nextInt(100) < 2) {
             BlockUtils.dropItem(loc, new ItemStack(Material.SUGAR_CANE, 1 + rand.nextInt(1)));
-        }
-    }
-
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only players can generate pyrophobia.");
-            return true;
-        }
-
-        Player player = (Player) sender;
-
-        if (cmd.getName().equalsIgnoreCase("genpyro")) {
-            if (!sender.hasPermission("uhc.pyrophobia")) {
-                return true;
-            }
-
-            if (args.length == 0) {
-                player.sendMessage(PREFIX + "Starting PyroPhobia convertion.");
-                convertToPyro(player.getWorld(), 1100);
-                return true;
-            }
-
-            int radius;
-
-            try {
-                radius = Integer.parseInt(args[0]);
-            } catch (Exception e) {
-                player.sendMessage(ChatColor.RED + "Invaild radius.");
-                return true;
-            }
-
-            player.sendMessage(PREFIX + "Starting PyroPhobia convertion.");
-            convertToPyro(player.getWorld(), radius);
-        }
-        return true;
-    }
-
-    private void completedPyro(final World w, int radius) {
-        Bukkit.getServer().getScheduler().cancelTask(this.generateTaskID);
-        this.generateTaskID = -1;
-        Bukkit.getServer().broadcastMessage(PREFIX + "World mid Converted");
-
-        this.locations = new ArrayList<Location>();
-        for (int i = -1 * radius; i < radius; i += 16) {
-            for (int j = -1 * radius; j < radius; j += 16) {
-                this.locations.add(new Location(w, i, 1.0D, j));
-            }
-        }
-        this.totalChunks = this.locations.size();
-
-        this.generateTaskID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            public void run() {
-                if (locations.size() > 0) {
-                    Location l = (Location) locations.remove(locations.size() - 1);
-                    postPyronChunk(w.getChunkAt(l));
-                } else {
-                    completedForReal();
-                }
-            }
-        }, 1L, 1L);
-    }
-
-    protected void completedForReal() {
-        Bukkit.getServer().getScheduler().cancelTask(this.generateTaskID);
-        this.generateTaskID = -1;
-        Bukkit.getServer().broadcastMessage(PREFIX + "World Converted");
-    }
-
-    private void convertToPyro(final World w, final int radius) {
-        if (this.generateTaskID != -1) {
-            Bukkit.getServer().getScheduler().cancelTask(this.generateTaskID);
-        }
-        this.locations = new ArrayList<Location>();
-        for (int i = -1 * radius; i < radius; i += 16) {
-            for (int j = -1 * radius; j < radius; j += 16) {
-                this.locations.add(new Location(w, i, 1.0D, j));
-            }
-        }
-        this.totalChunks = this.locations.size();
-
-        this.generateTaskID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            public void run() {
-                if (locations.size() > 0) {
-                    Location l = locations.remove(locations.size() - 1);
-                    pyroChunk(w.getChunkAt(l));
-                } else {
-                    completedPyro(w, radius);
-                }
-            }
-        }, 1L, 1L);
-    }
-
-    protected void postPyronChunk(Chunk chunkAt) {
-        Random r = new Random();
-        for (int y = 0; y < 128; y++) {
-            for (int x = 0; x < 16; x++) {
-                for (int z = 0; z < 17; z++) {
-                    Block b = chunkAt.getBlock(x, y, z);
-                    if (b.getType() == Material.OBSIDIAN) {
-                        chunkAt.getBlock(x, y, z).setType(Material.STATIONARY_LAVA);
-                    }
-                    if ((b.getType() == Material.LAPIS_ORE) && (r.nextInt(50) < 4)) {
-                        chunkAt.getBlock(x, y, z).setType(Material.OBSIDIAN);
-                    }
-                    if ((b.getType() == Material.REDSTONE_ORE) && (r.nextInt(50) < 24)) {
-                        chunkAt.getBlock(x, y, z).setType(Material.OBSIDIAN);
-                    }
-                }
-            }
-        }
-
-        int one = ((this.totalChunks - this.locations.size())*100 / totalChunks);
-
-        for (Player online : Bukkit.getOnlinePlayers()) {
-            PacketUtils.sendAction(online, PREFIX + "Processed: §6" + ((one / 2) + 50) + "%");
-        }
-    }
-
-    protected void pyroChunk(Chunk chunkAt) {
-        for (int y = 0; y < 128; y++) {
-            for (int x = 0; x < 16; x++) {
-                for (int z = 0; z < 17; z++) {
-                    Block b = chunkAt.getBlock(x, y, z);
-                    if (b.getType() == Material.STATIONARY_WATER) {
-                        chunkAt.getBlock(x, y, z).setType(Material.OBSIDIAN);
-                    }
-                    if (b.getType() == Material.ICE) {
-                        chunkAt.getBlock(x, y, z).setType(Material.OBSIDIAN);
-                    }
-                    if (b.getType() == Material.PACKED_ICE) {
-                        chunkAt.getBlock(x, y, z).setType(Material.OBSIDIAN);
-                    }
-                    if (b.getType() == Material.WATER) {
-                        chunkAt.getBlock(x, y, z).setType(Material.OBSIDIAN);
-                    }
-                }
-            }
-        }
-
-        int one = ((totalChunks - locations.size())*100 / totalChunks);
-
-        for (Player online : Bukkit.getOnlinePlayers()) {
-            PacketUtils.sendAction(online, PREFIX + "Processed: §6" + (one / 2) + "%");
         }
     }
 }

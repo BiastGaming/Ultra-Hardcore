@@ -3,7 +3,6 @@ package com.leontg77.ultrahardcore.scenario.scenarios;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -17,7 +16,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.collect.ImmutableList;
 import com.leontg77.ultrahardcore.Game.State;
-import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.events.GameStartEvent;
 import com.leontg77.ultrahardcore.scenario.Scenario;
 import com.leontg77.ultrahardcore.utils.DateUtils;
@@ -25,19 +23,16 @@ import com.leontg77.ultrahardcore.utils.NameUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 
 /**
- * Birds scenario class
+ * BloodCycle scenario class.
  * 
  * @author LeonTG77
  */
 public class BloodCycle extends Scenario implements Listener, CommandExecutor {
-    private final Main plugin;
 
-    public BloodCycle(Main plugin) {
+    public BloodCycle() {
         super("BloodCycle", "Every 10 minutes it will cycle to a new ore, these ores consist of Emerald, Diamond, Gold, Iron, Coal, Lapis, and Redstone. If it cycles to one of these ores, when you mine it; it has a chance of damaging you by half-a-heart, but you could it lucky and it will cycle to no ore.");
 
         plugin.getCommand("ore").setExecutor(this);
-
-        this.plugin = plugin;
     }
 
     private static final List<Material> ORES = ImmutableList.of(
@@ -54,11 +49,12 @@ public class BloodCycle extends Scenario implements Listener, CommandExecutor {
 
     @Override
     public void onDisable() {
-        if (task != null && Bukkit.getScheduler().isCurrentlyRunning(task.getTaskId())) {
+        if (task != null) {
             task.cancel();
         }
 
         task = null;
+        
         current = null;
         seconds = 600;
     }
