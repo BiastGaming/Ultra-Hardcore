@@ -108,41 +108,69 @@ public class TeamManager {
      * Leaves the current team of the given player.
      * <p>
      * If the team is null nothing will happen.
+     * <p>
+     * This method waits 5 ticks by default to allow
+     * removing players from teams in events without messing up
+     * other event listeners on higher priorities.
+     * See {@link #leaveTeam(OfflinePlayer, boolean, long)} for more details.
      *
      * @param player the player thats leaving the team.
      * @param unsave Wether to unsave the player from the team.
      */
     public void leaveTeam(final OfflinePlayer player, final boolean unsave) {
-        new BukkitRunnable() { // wait 5 ticks, incase they got removed after death but other events with higher priority wants to use the team.
-            public void run() {
-                Team team = getTeam(player);
+        leaveTeam(player, unsave, 5);
+    }
 
-                if (team == null) {
-                    return;
-                }
 
-                team.removePlayer(player);
+    /**
+     * Leaves the current team of the given player.
+     * <p>
+     * If the team is null nothing will happen.
+     *
+     * @param player the player thats leaving the team.
+     * @param unsave Wether to unsave the player from the team.
+     * @param delay How many ticks to wait before actually removing the player from the team. Any non-positive value will remove the player instantly.
+     */
+    public void leaveTeam(final OfflinePlayer player, final boolean unsave, final long delay) {
+        Runnable remove = () -> {
+            Team team = getTeam(player);
 
-                Bukkit.getPluginManager().callEvent(new TeamLeaveEvent(team, player));
-
-                if (!unsave) {
-                    return;
-                }
-
-                if (!savedTeams.containsKey(team.getName())) {
-                    Set<String> players = new HashSet<String>(team.getEntries());
-
-                    savedTeams.put(team.getName(), players);
-                    return;
-                }
-
-                savedTeams.get(team.getName()).remove(player.getName());
-
-                if (savedTeams.get(team.getName()).isEmpty()) {
-                    savedTeams.remove(team.getName());
-                }
+            if (team == null) {
+                return;
             }
-        }.runTaskLater(plugin, 5);
+
+            team.removePlayer(player);
+
+            Bukkit.getPluginManager().callEvent(new TeamLeaveEvent(team, player));
+
+            if (!unsave) {
+                return;
+            }
+
+            if (!savedTeams.containsKey(team.getName())) {
+                Set<String> players = new HashSet<String>(team.getEntries());
+
+                savedTeams.put(team.getName(), players);
+                return;
+            }
+
+            savedTeams.get(team.getName()).remove(player.getName());
+
+            if (savedTeams.get(team.getName()).isEmpty()) {
+                savedTeams.remove(team.getName());
+            }
+        };
+
+        if (delay <= 0) {
+            remove.run();
+        } else {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    remove.run();
+                }
+            }.runTaskLater(plugin, delay);
+        }
     }
 
     /**
