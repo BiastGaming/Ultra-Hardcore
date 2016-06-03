@@ -175,6 +175,7 @@ public class ScenarioManager {
         scenarios.add(new Depths());
         scenarios.add(new DetailedWorld());
         scenarios.add(new Diamondless(cc));
+        scenarios.add(new DoubleDates(teams));
         scenarios.add(new DoubleOrNothing(cc));
         scenarios.add(new DragonRush(spec));
         scenarios.add(new Eggs());

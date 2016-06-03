@@ -274,6 +274,8 @@ commands:
     description: Check the current needed death amount in damage dodgers.
   detail:
     description: Generate the detailed world scenario.
+  doubledates:
+    description: Combine 2 and 2 teams.
   status:
     description: Check the current resistance type.
   genpyro:

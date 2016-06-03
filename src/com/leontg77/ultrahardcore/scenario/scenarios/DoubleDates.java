@@ -31,6 +31,7 @@ public class DoubleDates extends Scenario implements CommandExecutor {
 
     public DoubleDates(TeamManager teamManager) {
         super("DoubleDates", "2 and 2 teams are combined together to create a larger team.");
+        
         this.teamManager = teamManager;
 
         plugin.getCommand("doubledates").setExecutor(this);
