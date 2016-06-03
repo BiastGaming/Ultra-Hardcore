@@ -12,7 +12,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -41,9 +40,9 @@ public class BlockUtils {
      */
     public static void setPlugin(Main plugin) {
         Preconditions.checkArgument(plugin != null, "Plugin cannot be null");
-         Preconditions.checkState(BlockUtils.plugin == null, "BlockUtils already has a plugin instance set");
+        Preconditions.checkState(BlockUtils.plugin == null, "BlockUtils already has a plugin instance set");
 
-         BlockUtils.plugin = plugin;
+        BlockUtils.plugin = plugin;
     }
 
     private static final Random RANDOM = new Random();

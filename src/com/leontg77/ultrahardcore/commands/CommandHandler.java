@@ -111,7 +111,6 @@ import com.leontg77.ultrahardcore.scenario.ScenarioManager;
 import com.leontg77.ultrahardcore.ubl.UBL;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
 import com.leontg77.ultrahardcore.world.WorldManager;
-import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
 
 /**
  * Command handler class.
