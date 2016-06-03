@@ -11,8 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import com.google.common.collect.Sets;
-import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
 import com.leontg77.ultrahardcore.Settings;
+import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
 import com.leontg77.ultrahardcore.utils.BlockUtils;
 
 import gnu.trove.map.TObjectDoubleMap;
@@ -30,6 +30,7 @@ public class OreLimiter implements Listener {
         ORE_RATES = new TObjectDoubleHashMap<>();
         ORE_RATES.put(Material.GOLD_ORE, 0.35d);
         ORE_RATES.put(Material.DIAMOND_ORE, 0.5d);
+        ORE_RATES.put(Material.REDSTONE_ORE, 0.25d);
     }
 
     private final Random random = new Random();
