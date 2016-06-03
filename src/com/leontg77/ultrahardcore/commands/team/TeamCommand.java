@@ -641,9 +641,8 @@ public class TeamCommand extends UHCCommand {
                 teams.joinTeam(team, target);
             }
 
-            if (team.getSize() > 1) {
+            if (team.getSize() > 0) {
                 teams.sendMessage(team, PREFIX + "You have been put on a team with the following people:" );
-
 
                 for (OfflinePlayer entry : teams.getPlayers(team)) {
                     Player player = entry.getPlayer();
