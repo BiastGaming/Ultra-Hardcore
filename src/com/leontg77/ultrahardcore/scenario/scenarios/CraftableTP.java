@@ -61,6 +61,7 @@ public class CraftableTP extends Scenario implements Listener {
         
         if (target == null || !game.getPlayers().contains(target)) {
             player.sendMessage(PREFIX + "There are no players called '§a" + name + "§7'.");
+            event.setCancelled(true);
             return;
         }
         
