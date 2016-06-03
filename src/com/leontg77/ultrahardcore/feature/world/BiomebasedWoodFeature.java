@@ -7,10 +7,8 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPhysicsEvent;
-import org.bukkit.event.world.ChunkPopulateEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
 import com.leontg77.ultrahardcore.feature.Feature;
 
 /**
@@ -20,12 +18,8 @@ import com.leontg77.ultrahardcore.feature.Feature;
  */
 @SuppressWarnings("deprecation")
 public class BiomebasedWoodFeature extends Feature implements Listener {
-    private final Main plugin;
-    
-    public BiomebasedWoodFeature(Main plugin) {
+    public BiomebasedWoodFeature() {
         super("Biomebased Wood", "Makes all natural wood in the world be the type that fits the biome.");
-
-        this.plugin = plugin;
     }
     
     private boolean physics = true;
@@ -38,26 +32,19 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
     }
     
     @EventHandler
-    public void on(ChunkPopulateEvent event) {
+    public void on(ChunkModifiableEvent event) {
         final Chunk chunk = event.getChunk();
+        physics = false; // for doors not to pop off during setting
 
-        new BukkitRunnable() {
-            public void run() {
-                physics = false; // for doors not to pop off during setting
-                
-                for (int y = 0; y < 256; y++) {
-                    for (int x = 0; x < 16; x++) {
-                        for (int z = 0; z < 17; z++) {
-                            chunk.load();
-                            
-                            handleBlock(chunk.getBlock(x, y, z));
-                        }
-                    }
+        for (int y = 0; y < 256; y++) {
+            for (int x = 0; x < 16; x++) {
+                for (int z = 0; z < 17; z++) {
+                    handleBlock(chunk.getBlock(x, y, z));
                 }
-                
-                physics = true;
             }
-        }.runTaskLater(plugin, 100);
+        }
+
+        physics = true;
     }
 
     /**

@@ -266,8 +266,8 @@ public class FeatureManager {
 
         // world
         addFeature(new BigTreesInForestsFeature());
-        addFeature(new BiomebasedWoodFeature(plugin));
-        addFeature(new JungleTempleFeature(plugin));
+        addFeature(new BiomebasedWoodFeature());
+        addFeature(new JungleTempleFeature());
         addFeature(new WeatherFeature(game, timer, scen));
         
         WorldUpdaterFeature updater = new WorldUpdaterFeature(timer);

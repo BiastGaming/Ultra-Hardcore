@@ -63,8 +63,6 @@ import com.leontg77.ultrahardcore.utils.FileUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.world.WorldManager;
 import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
-import com.leontg77.ultrahardcore.world.antistripmine.listener.ChunkPopulateListener;
-import com.leontg77.ultrahardcore.world.antistripmine.listener.WorldInitListener;
 import com.leontg77.ultrahardcore.world.biomeswap.BiomeSwap;
 import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 
@@ -185,11 +183,7 @@ public class Main extends JavaPlugin {
         swap.setup();
 
         oreLimiter = new OreLimiter(settings);
-        manager.registerEvents(oreLimiter, this);
-
-        antiSM = new AntiStripmine(this);
-        manager.registerEvents(new ChunkPopulateListener(this, antiSM), this);
-        manager.registerEvents(new WorldInitListener(settings, antiSM), this);
+        antiSM = new AntiStripmine(settings);
 
         worlds = new WorldManager(settings);
         worlds.loadWorlds();
@@ -217,10 +211,10 @@ public class Main extends JavaPlugin {
 
         parkour = new Parkour(this, game, settings, spec);
         parkour.setup();
-        
+
         arena = new Arena(this, game, board, scatter, worlds);
         arena.setup();
-        
+
         announcer = new Announcer(this, game);
         announcer.startAnnouncer();
 
@@ -242,7 +236,7 @@ public class Main extends JavaPlugin {
         scen.registerScenarios(arena, game, timer, teams, spec, settings, feat, scatter, board);
         feat.registerFeatures(arena, game, timer, board, teams, spec, enchPreview, hardHearts, scen, gui);
         
-        cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter, ubl, antiSM);
+        cmd.registerCommands(game, data, arena, parkour, settings, gui, board, spec, feat, scen, worlds, timer, teams, firework, scatter, ubl);
         gui.registerGUIs(game, timer, settings, feat, scen, worlds);
 
         data.restore(feat, teams, scen);
@@ -269,8 +263,11 @@ public class Main extends JavaPlugin {
         manager.registerEvents(new PushToSpawnListener(this, parkour), this);
         manager.registerEvents(new SpectatorListener(this, game, spec, gui, feat.getFeature(NetherFeature.class)), this);
         manager.registerEvents(new StatsListener(this, arena, game, board, teams, feat.getFeature(GoldenHeadsFeature.class)), this);
-        manager.registerEvents(new WorldListener(game, arena), this);
+        manager.registerEvents(new WorldListener(this, game, arena), this);
         manager.registerEvents(new UBLListener(ubl, game), this);
+
+        manager.registerEvents(oreLimiter, this);
+        manager.registerEvents(antiSM, this);
 
         manager.registerEvents(quitMsg, this);
         pcAppender = quitMsg;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -142,7 +144,7 @@ public class BlockUtils {
         return block.getState().getData().toItemStack().getDurability();
     }
 
-    private static final int VEIN_LIMIT = 100;
+    private static final int DEFAULT_VEIN_LIMIT = 100;
 
     /**
      * Get the ore vein at the given starting block's location.
@@ -151,43 +153,47 @@ public class BlockUtils {
      * @return A list of the vein blocks.
      */
     public static List<Block> getVein(Block start) {
+        Function<Block, Material> getType = block -> {
+            Material type = block.getType();
+            if (type == Material.GLOWING_REDSTONE_ORE) {
+                type = Material.REDSTONE_ORE;
+            }
+            return type;
+        };
+
+        Material startType = getType.apply(start);
+        return getVein(start, relative -> startType == getType.apply(relative), DEFAULT_VEIN_LIMIT);
+    }
+
+    /**
+     * Get the ore vein at the given starting block's location.
+     *
+     * @param start The block to start from.
+     * @return A list of the vein blocks.
+     */
+    public static List<Block> getVein(Block start, Predicate<Block> predicate, int maxVeinSize) {
         LinkedList<Block> toCheck = Lists.newLinkedList();
         ArrayList<Block> vein = Lists.newArrayList();
-        
+
         toCheck.add(start);
         vein.add(start);
-        
-        Material startType = start.getType();
-        
-        if (startType == Material.GLOWING_REDSTONE_ORE) {
-            startType = Material.REDSTONE_ORE;
-        }
-        
+
         while (!toCheck.isEmpty()) {
             Block check = toCheck.poll();
-            
-            for (BlockFace blockFace : BlockFace.values()) {
-                Block relative = check.getRelative(blockFace);
-                
-                if (vein.contains(relative)) {
+
+            for (Block nearbyBlock : getNearby(check)) {
+                if (vein.contains(nearbyBlock)) {
                     continue;
                 }
 
-                Material relativeType = relative.getType();
-                
-                if (relativeType == Material.GLOWING_REDSTONE_ORE) {
-                    relativeType = Material.REDSTONE_ORE;
-                }
-
-                if (!relativeType.equals(startType)) {
+                if (!predicate.test(nearbyBlock)) {
                     continue;
                 }
 
-                toCheck.add(relative);
-                vein.add(relative);
+                toCheck.add(nearbyBlock);
+                vein.add(nearbyBlock);
 
-                if (vein.size() > VEIN_LIMIT) {
-                    plugin.getLogger().warning("Tried to get a vein at " + start.getLocation().toString() + "(block type: " + relativeType + ") but hit the vein max size!");
+                if (vein.size() > maxVeinSize) {
                     return vein;
                 }
             }
@@ -195,4 +201,22 @@ public class BlockUtils {
 
         return vein;
     }
+
+    public static List<Block> getNearby(Block block) {
+        List<Block> nearby = Lists.newArrayList();
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    if (dx == 0 && dy == 0 && dz == 0) {
+                        continue;
+                    }
+
+                    nearby.add(block.getRelative(dx, dy, dz));
+                }
+            }
+        }
+        return nearby;
+    }
+
+
 }

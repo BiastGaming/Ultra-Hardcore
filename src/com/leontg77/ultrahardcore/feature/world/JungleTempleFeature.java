@@ -17,12 +17,10 @@ import org.bukkit.block.Dispenser;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.world.ChunkPopulateEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import com.leontg77.ultrahardcore.Main;
+import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
 import com.leontg77.ultrahardcore.feature.Feature;
 import com.leontg77.ultrahardcore.utils.LocationUtils;
 
@@ -39,9 +37,7 @@ public class JungleTempleFeature extends Feature implements Listener {
     private final Location start;
     private final Location end;
 
-    private final Main plugin;
-
-    public JungleTempleFeature(Main plugin) {
+    public JungleTempleFeature() {
         super("Jungle Temples", "Generates jungle temples in the modified arctic jungles.");
 
         World world = Bukkit.getWorld("lobby");
@@ -56,14 +52,11 @@ public class JungleTempleFeature extends Feature implements Listener {
                 }
             }
         }
-
-        this.plugin = plugin;
     }
 
     @EventHandler
-    public void on(ChunkPopulateEvent event) {
+    public void on(ChunkModifiableEvent event) {
         Chunk chunk = event.getChunk();
-        chunk.load();
 
         final int x = rand.nextInt(16);
         final int z = rand.nextInt(16);
@@ -88,12 +81,7 @@ public class JungleTempleFeature extends Feature implements Listener {
         }
 
         final Location loc = block.getLocation();
-
-        new BukkitRunnable() {
-            public void run() {
-                generateTemple(loc.clone().subtract(x, 3, z));
-            }
-        }.runTaskLater(plugin, 100);
+        generateTemple(loc.clone().subtract(x, 3, z));
     }
 
     @SuppressWarnings("deprecation")
