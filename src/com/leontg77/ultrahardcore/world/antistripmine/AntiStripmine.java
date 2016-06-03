@@ -1,18 +1,19 @@
 package com.leontg77.ultrahardcore.world.antistripmine;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-import com.leontg77.ultrahardcore.Settings;
-import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
-import com.leontg77.ultrahardcore.utils.BlockUtils;
+import java.util.List;
+import java.util.Set;
+
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.List;
-import java.util.Set;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import com.leontg77.ultrahardcore.Settings;
+import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
+import com.leontg77.ultrahardcore.utils.BlockUtils;
 
 public class AntiStripmine implements Listener {
 
@@ -22,8 +23,7 @@ public class AntiStripmine implements Listener {
     );
 
     protected static final Set<Material> EXCLUDED_ORES = ImmutableSet.of(
-            Material.COAL_ORE, Material.IRON_ORE,
-            Material.REDSTONE_ORE, Material.EMERALD_ORE
+            Material.COAL_ORE, Material.IRON_ORE, Material.EMERALD_ORE
     );
 
     private final Settings settings;
