@@ -144,7 +144,7 @@ public class ScenarioManager {
         scenarios.add(new Blocked());
         scenarios.add(new BlockRush());
         scenarios.add(new BloodAnvils());
-        scenarios.add(new BloodCycle(plugin));
+        scenarios.add(new BloodCycle());
         scenarios.add(new BloodDiamonds());
         scenarios.add(new BloodEnchants());
         scenarios.add(new BloodEnchantsPlus());
@@ -158,7 +158,7 @@ public class ScenarioManager {
         scenarios.add(new CatsEyes());
         scenarios.add(new Chicken());
         scenarios.add(new ChildrenLeftUnattended(teams));
-        scenarios.add(new ChunkApocalypse(plugin));
+        scenarios.add(new ChunkApocalypse());
         scenarios.add(new CityWorld());
         scenarios.add(new Cloud9());
         scenarios.add(new Cobblehaters());
