@@ -119,7 +119,7 @@ public class ScenarioManager {
         scenarios.add(new Achievements());
         scenarios.add(new AgarIO());
         scenarios.add(new AloneTogether(teams));
-//        scenarios.add(new Anonymous(spec));
+        scenarios.add(new Anonymous(spec));
         scenarios.add(new AppleFamine());
         scenarios.add(new Armageddon());
         scenarios.add(new Assassins());
