@@ -11,9 +11,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.world.ChunkPopulateEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
+import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
 import com.leontg77.ultrahardcore.feature.Feature;
 
 /**
@@ -29,32 +28,26 @@ public class BigTreesInForestsFeature extends Feature implements Listener {
     }
 
     @EventHandler
-    public void on(ChunkPopulateEvent event) {
+    public void on(ChunkModifiableEvent event) {
         World world = event.getWorld();
         Chunk chunk = event.getChunk();
 
-        new BukkitRunnable() {
-            public void run() {
-                chunk.load();
-                
-                for (int x = 0; x < 16; x++) {
-                    for (int z = 0; z < 16; z++) {
-                        Block block = chunk.getBlock(x, 0, z);
-                        block = world.getHighestBlockAt(block.getLocation()).getRelative(BlockFace.UP);
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                Block block = chunk.getBlock(x, 0, z);
+                block = world.getHighestBlockAt(block.getLocation()).getRelative(BlockFace.UP);
 
-                        if (block.getBiome() != Biome.FOREST && block.getBiome() != Biome.FOREST_HILLS) {
-                            return;
-                        }
-
-                        if (rand.nextInt(100) >= 30) {
-                            return;
-                        }
-
-                        Location loc = block.getLocation();
-                        loc.getWorld().generateTree(loc, TreeType.BIG_TREE);
-                    }
+                if (block.getBiome() != Biome.FOREST && block.getBiome() != Biome.FOREST_HILLS) {
+                    return;
                 }
+
+                if (rand.nextInt(100) >= 30) {
+                    return;
+                }
+
+                Location loc = block.getLocation();
+                loc.getWorld().generateTree(loc, TreeType.BIG_TREE);
             }
-        }.runTaskLater(plugin, 100);
+        }
     }
 }

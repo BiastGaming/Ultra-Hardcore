@@ -18,8 +18,6 @@ import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.gui.GUIManager;
 import com.leontg77.ultrahardcore.gui.guis.WorldCreatorGUI;
 import com.leontg77.ultrahardcore.world.WorldManager;
-import com.leontg77.ultrahardcore.world.antistripmine.AntiStripmine;
-import com.leontg77.ultrahardcore.world.antistripmine.WorldData;
 
 /**
  * World command class.
@@ -27,18 +25,14 @@ import com.leontg77.ultrahardcore.world.antistripmine.WorldData;
  * @author LeonTG77
  */
 public class WorldCommand extends UHCCommand {
-    private final AntiStripmine antiSM;
-
     private final Settings settings;
     private final Game game;
 
     private final WorldManager manager;
     private final GUIManager gui;
 
-    public WorldCommand(Game game, Settings settings, AntiStripmine antiSM, GUIManager gui, WorldManager manager) {
+    public WorldCommand(Game game, Settings settings, GUIManager gui, WorldManager manager) {
         super("world", "");
-
-        this.antiSM = antiSM;
 
         this.settings = settings;
         this.game = game;
@@ -208,28 +202,6 @@ public class WorldCommand extends UHCCommand {
                 manager.unloadWorld(world);
                 return true;
             }
-
-            if (args[0].equalsIgnoreCase("data")) {
-                if (args.length > 1) {
-                    World world = Bukkit.getWorld(args[1]);
-
-                    if (world == null) {
-                        throw new CommandException("The world '" + args[1] + "' does not exist.");
-                    }
-
-                    WorldData data = antiSM.getWorldData(world);
-                    
-                    if (data == null) {
-                        throw new CommandException("No data found for world '" + world.getName() + "'.");
-                    }
-                    
-                    data.displayStats(sender);
-                    return true;
-                }
-
-                antiSM.displayStats(sender);
-                return true;
-            }
         }
 
         sender.sendMessage(Main.PREFIX + "World management help:");
@@ -239,7 +211,6 @@ public class WorldCommand extends UHCCommand {
         sender.sendMessage("§8» §a/world unload §8- §7§oUnload a world.");
         sender.sendMessage("§8» §a/world list §8- §7§oList all worlds.");
         sender.sendMessage("§8» §a/world tp §8- §7§oTeleport to a world.");
-        sender.sendMessage("§8» §a/world data [world] §8- §7§oDisplay AntiStripmine info.");
         return true;
     }
 
@@ -254,7 +225,6 @@ public class WorldCommand extends UHCCommand {
             toReturn.add("tp");
             toReturn.add("load");
             toReturn.add("unload");
-            toReturn.add("data");
         }
 
         if (args.length == 2) {
@@ -268,7 +238,6 @@ public class WorldCommand extends UHCCommand {
             case "unload":
             case "tp":
             case "delete":
-            case "data":
                 for (World world : Bukkit.getWorlds()) {
                     toReturn.add(world.getName());
                 }
