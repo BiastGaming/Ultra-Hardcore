@@ -27,6 +27,10 @@ public class CombatLogCommand extends UHCCommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (game.isPrivateGame() || game.isRecordedRound()) {
+            throw new CommandException("Combat Tag is disabled in rr's/private games.");
+        }
+        
         if (!(sender instanceof Player)) {
             throw new CommandException("Only players can be in combat.");
         }

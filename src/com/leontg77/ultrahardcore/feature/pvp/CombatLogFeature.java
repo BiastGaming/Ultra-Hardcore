@@ -50,6 +50,10 @@ public class CombatLogFeature extends Feature implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void on(PlayerDeathEvent event) {
+        if (game.isPrivateGame() || game.isRecordedRound()) {
+            return;
+        }
+        
         Player player = event.getEntity();
 
         if (!combat.containsKey(player.getUniqueId())) {
@@ -63,6 +67,10 @@ public class CombatLogFeature extends Feature implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void on(PlayerLeaveEvent event) {
+        if (game.isPrivateGame() || game.isRecordedRound()) {
+            return;
+        }
+        
         Player player = event.getPlayer();
 
         if (game.isState(State.INGAME) && event.getLogoutReason() != LogoutReason.LEFT) {
@@ -94,6 +102,10 @@ public class CombatLogFeature extends Feature implements Listener {
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void on(EntityDamageByEntityEvent event) {
+        if (game.isPrivateGame() || game.isRecordedRound()) {
+            return;
+        }
+        
         if (event.isCancelled()) {
             return;
         }
@@ -167,6 +179,10 @@ public class CombatLogFeature extends Feature implements Listener {
      * @param uuid The UUID.
      */
     private void handle(UUID uuid) {
+        if (game.isPrivateGame() || game.isRecordedRound()) {
+            return;
+        }
+        
         combat.put(uuid, 15);
 
         if (!combatTask.containsKey(uuid)) {
