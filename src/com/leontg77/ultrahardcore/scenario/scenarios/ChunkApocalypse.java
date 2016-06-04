@@ -23,7 +23,7 @@ public class ChunkApocalypse extends GeneratorScenario {
             true, 
             true, 
             false, 
-            true
+            false
         );
     }
 

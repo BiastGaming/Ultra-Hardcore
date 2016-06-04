@@ -34,7 +34,7 @@ public class Flooded extends GeneratorScenario {
             ChatColor.AQUA, 
             "flood", 
             false, 
-            false, 
+            true, 
             false, 
             true
         );
