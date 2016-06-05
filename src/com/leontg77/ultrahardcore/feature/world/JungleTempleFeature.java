@@ -58,8 +58,8 @@ public class JungleTempleFeature extends Feature implements Listener {
     public void on(ChunkModifiableEvent event) {
         Chunk chunk = event.getChunk();
 
-        final int x = rand.nextInt(16);
-        final int z = rand.nextInt(16);
+        int x = rand.nextInt(16);
+        int z = rand.nextInt(16);
 
         Block block = chunk.getBlock(x, 0, z);
         block = LocationUtils.getHighestBlock(block.getLocation()).getBlock();
@@ -80,7 +80,7 @@ public class JungleTempleFeature extends Feature implements Listener {
             }
         }
 
-        final Location loc = block.getLocation();
+        Location loc = block.getLocation();
         generateTemple(loc.clone().subtract(x, 3, z));
     }
 
@@ -93,7 +93,7 @@ public class JungleTempleFeature extends Feature implements Listener {
         int i = 0;
 
         for (int x = 0; x <= diffX; x++) {
-            for (int y = 0; y <= diffY; y++) {
+            for (int y = diffY; y >= 0; y--) {
                 for (int z = 0; z <= diffZ; z++) {
                     Location current = new Location(loc.getWorld(), loc.getBlockX() + x, loc.getBlockY() + y, loc.getBlockZ() + z);
                     Location tLoc = templeBlocks.get(i);
