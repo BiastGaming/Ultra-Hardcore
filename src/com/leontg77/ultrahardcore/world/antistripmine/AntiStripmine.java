@@ -22,9 +22,7 @@ public class AntiStripmine implements Listener {
             Material.DIAMOND_ORE, Material.GOLD_ORE, Material.LAPIS_ORE
     );
 
-    protected static final Set<Material> EXCLUDED_ORES = ImmutableSet.of(
-            Material.COAL_ORE, Material.IRON_ORE, Material.EMERALD_ORE
-    );
+    protected static final Set<Material> EXCLUDED_ORES = ImmutableSet.of();
 
     private final Settings settings;
 
