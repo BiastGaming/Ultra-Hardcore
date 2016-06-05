@@ -57,6 +57,7 @@ public class WorldListener implements Listener {
         Chunk chunk = event.getChunk();
 
         String worldName = world.getName();
+        
         int chunkX = chunk.getX();
         int chunkZ = chunk.getZ();
 
@@ -64,6 +65,7 @@ public class WorldListener implements Listener {
             @Override
             public void run() {
                 World world = Bukkit.getWorld(worldName);
+                
                 if (world == null) {
                     return; // World was unloaded
                 }
