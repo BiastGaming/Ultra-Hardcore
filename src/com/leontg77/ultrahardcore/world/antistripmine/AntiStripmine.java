@@ -45,12 +45,13 @@ public class AntiStripmine implements Listener {
             for (int z = 0; z < 16; z++) {
                 for (int y = 0; y < 32; y++) {
                     Block block = chunk.getBlock(x, y, z);
-                    Material type = block.getType();
-                    if (!DEFAULT_ORES.contains(type)) {
+
+                    if (checked.contains(block)) {
                         continue;
                     }
 
-                    if (checked.contains(block)) {
+                    Material type = block.getType();
+                    if (!DEFAULT_ORES.contains(type)) {
                         continue;
                     }
 
@@ -59,9 +60,16 @@ public class AntiStripmine implements Listener {
 
                     checked.addAll(anyOreVein);
 
-                    boolean nearbyEmptyOrLiquid = anyOreVein.stream()
+                    Set<Block> nearbyBlocks = Sets.newHashSet();
+                    anyOreVein.stream()
                             .map(BlockUtils::getNearby)
-                            .flatMap(List::stream)
+                            .forEach(nearbyBlocks::addAll);
+
+                    // BlockUtils#getNearby on a vein will obviously catch the other vein blocks too,
+                    // so remove all vein blocks from the nearby block set.
+                    nearbyBlocks.removeAll(anyOreVein);
+
+                    boolean nearbyEmptyOrLiquid = nearbyBlocks.stream()
                             .anyMatch(near -> near.isEmpty() || near.isLiquid());
 
                     if (nearbyEmptyOrLiquid) {
