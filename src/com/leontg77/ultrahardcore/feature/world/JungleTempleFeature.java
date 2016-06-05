@@ -93,7 +93,7 @@ public class JungleTempleFeature extends Feature implements Listener {
         int i = 0;
 
         for (int x = 0; x <= diffX; x++) {
-            for (int y = diffY; y >= 0; y--) {
+            for (int y = 0; y <= diffY; y++) {
                 for (int z = 0; z <= diffZ; z++) {
                     Location current = new Location(loc.getWorld(), loc.getBlockX() + x, loc.getBlockY() + y, loc.getBlockZ() + z);
                     Location tLoc = templeBlocks.get(i);
