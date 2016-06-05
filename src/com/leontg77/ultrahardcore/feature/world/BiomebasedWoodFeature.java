@@ -10,6 +10,7 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 
 import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
 import com.leontg77.ultrahardcore.feature.Feature;
+import com.leontg77.ultrahardcore.utils.BlockUtils;
 
 /**
  * Biomebased Wood feature class.
@@ -60,6 +61,12 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
                     // but I don't think the JVM inlines so long methods
 
                     block = chunk.getBlock(x, y, z);
+                    
+                    if (block.getType() == Material.DOUBLE_STEP && BlockUtils.getDurability(block) == 0) {
+                        block.setType(Material.ANVIL);
+                        continue;
+                    }
+                    
                     biome = block.getBiome();
                     oldData = block.getData();
                     oldMaterial = block.getType();
