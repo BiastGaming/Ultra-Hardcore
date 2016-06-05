@@ -51,6 +51,7 @@ public class AntiStripmine implements Listener {
                     }
 
                     Material type = block.getType();
+                    
                     if (!DEFAULT_ORES.contains(type)) {
                         continue;
                     }

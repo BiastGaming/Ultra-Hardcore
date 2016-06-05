@@ -45,6 +45,7 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
 
         byte logData;
         byte woodData;
+        
         Material logMaterial;
         Material fenceMaterial;
         Material fenceGateMaterial;
@@ -130,7 +131,7 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
                         case DESERT:
                         case DESERT_HILLS:
                         case DESERT_MOUNTAINS:
-                            if (block.getType() == Material.LOG) {
+                            if (block.getType() == Material.LOG || block.getType() == Material.WOOD) {
                                 block.setType(Material.SANDSTONE);
                                 continue;
                             }
@@ -175,6 +176,8 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
                         case WOOD_STAIRS:
                             block.setType(stairMaterial);
                             block.setData(oldData);
+                            break;
+                        default:
                             break;
                     }
                 }
