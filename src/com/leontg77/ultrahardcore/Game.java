@@ -607,7 +607,11 @@ public class Game {
         }
 
         if (enable) {
-            board.getKillsObjective().setDisplayName("§8» §6" + getRRName() + "§8 §");
+            if (getRRName().equals("killlist")) {
+                board.getKillsObjective().setDisplayName("Kills");
+            } else {
+                board.getKillsObjective().setDisplayName("§8» §6" + getRRName() + "§8 «");
+            }
         } else {
             board.getKillsObjective().setDisplayName("§4Arctic §8» §7§o" + getHost().substring(0, Math.min(getHost().length(), 13)) + "§r");
         }
@@ -632,7 +636,11 @@ public class Game {
         settings.saveConfig();
 
         if (isRecordedRound()) {
-            board.getKillsObjective().setDisplayName("§8» §6" + getRRName() + "§8 §");
+            if (getRRName().equals("killlist")) {
+                board.getKillsObjective().setDisplayName("Kills");
+            } else {
+                board.getKillsObjective().setDisplayName("§8» §6" + getRRName() + "§8 «");
+            }
         }
     }
 
