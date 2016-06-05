@@ -64,6 +64,10 @@ public class AntiStripmine implements Listener {
                             .map(BlockUtils::getNearby)
                             .forEach(nearbyBlocks::addAll);
 
+                    // BlockUtils#getNearby on a vein will obviously catch the other vein blocks too,
+                    // so remove all vein blocks from the nearby block set.
+                    nearbyBlocks.removeAll(anyOreVein);
+
                     boolean nearbyEmptyOrLiquid = nearbyBlocks.stream()
                             .anyMatch(near -> near.isEmpty() || near.isLiquid());
 
