@@ -59,9 +59,12 @@ public class AntiStripmine implements Listener {
 
                     checked.addAll(anyOreVein);
 
-                    boolean nearbyEmptyOrLiquid = anyOreVein.stream()
+                    Set<Block> nearbyBlocks = Sets.newHashSet();
+                    anyOreVein.stream()
                             .map(BlockUtils::getNearby)
-                            .flatMap(List::stream)
+                            .forEach(nearbyBlocks::addAll);
+
+                    boolean nearbyEmptyOrLiquid = nearbyBlocks.stream()
                             .anyMatch(near -> near.isEmpty() || near.isLiquid());
 
                     if (nearbyEmptyOrLiquid) {

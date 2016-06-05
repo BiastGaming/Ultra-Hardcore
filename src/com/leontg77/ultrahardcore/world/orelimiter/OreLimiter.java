@@ -50,7 +50,7 @@ public class OreLimiter implements Listener {
         Set<Block> checked = Sets.newHashSet();
 
         for (int x = 0; x < 16; x++) {
-            for (int y = 0; y < 256; y++) {
+            for (int y = 0; y < 32; y++) {
                 for (int z = 0; z < 16; z++) {
                     Block block = chunk.getBlock(x, y, z);
 
