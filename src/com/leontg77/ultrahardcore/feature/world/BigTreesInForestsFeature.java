@@ -4,8 +4,8 @@ import java.util.Random;
 
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.TreeType;
-import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 
 import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
 import com.leontg77.ultrahardcore.feature.Feature;
+import com.leontg77.ultrahardcore.utils.LocationUtils;
 
 /**
  * Big Trees In Forests feature class.
@@ -29,25 +30,30 @@ public class BigTreesInForestsFeature extends Feature implements Listener {
 
     @EventHandler
     public void on(ChunkModifiableEvent event) {
-        World world = event.getWorld();
         Chunk chunk = event.getChunk();
 
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
-                Block block = chunk.getBlock(x, 0, z);
-                block = world.getHighestBlockAt(block.getLocation()).getRelative(BlockFace.UP);
+        int x = rand.nextInt(16);
+        int z = rand.nextInt(16);
 
-                if (block.getBiome() != Biome.FOREST && block.getBiome() != Biome.FOREST_HILLS) {
-                    return;
-                }
-
-                if (rand.nextInt(100) >= 30) {
-                    return;
-                }
-
-                Location loc = block.getLocation();
-                loc.getWorld().generateTree(loc, TreeType.BIG_TREE);
-            }
+        Block block = chunk.getBlock(x, 60, z);
+        
+        if (block.getBiome() != Biome.FOREST && block.getBiome() != Biome.FOREST_HILLS) {
+            return;
         }
+        
+        block = LocationUtils.getHighestBlock(block.getLocation()).getBlock();
+        
+        if (block.getType() != Material.GRASS) {
+            return;
+        }
+        
+        block = block.getRelative(BlockFace.UP);
+
+        if (rand.nextBoolean()) {
+            return;
+        }
+
+        Location loc = block.getLocation();
+        loc.getWorld().generateTree(loc, TreeType.BIG_TREE);
     }
 }
