@@ -28,9 +28,9 @@ public class OreLimiter implements Listener {
     
     static {
         ORE_RATES = new TObjectDoubleHashMap<>();
-        ORE_RATES.put(Material.GOLD_ORE, 0.35d);
-        ORE_RATES.put(Material.DIAMOND_ORE, 0.5d);
-        ORE_RATES.put(Material.REDSTONE_ORE, 0.25d);
+        ORE_RATES.put(Material.GOLD_ORE, 0.45d);
+        ORE_RATES.put(Material.DIAMOND_ORE, 0.60d);
+        ORE_RATES.put(Material.REDSTONE_ORE, 0.35d);
     }
 
     private final Random random = new Random();
