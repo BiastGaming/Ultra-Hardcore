@@ -59,13 +59,17 @@ public class GameStatsFeature extends Feature implements Listener {
         }
     }
     
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void on(EntityDamageEvent event) {
         if (!game.isState(State.INGAME)) {
             return;
         }
         
         if (timer.getTimeSinceStartInSeconds() < 20) {
+            return;
+        }
+      
+        if (event.getFinalDamage() == 0) {
             return;
         }
       
