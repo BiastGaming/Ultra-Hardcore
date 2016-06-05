@@ -185,7 +185,7 @@ public class StatsGUI extends GUI implements Listener {
         ItemMeta healingMeta = healing.getItemMeta();
         healingMeta.setDisplayName("§8» §6Healing Stats §8«");
         lore.add(" ");
-        lore.add("§8» §7Hearts Healed: §a" + NumberUtils.formatInt(user.getStat(Stat.HEARTSHEALED)));
+        lore.add("§8» §7Hearts Healed: §a" + NumberUtils.formatDouble(((double) user.getStat(Stat.HEARTSHEALED)) / 2));
         lore.add(" ");
         lore.add("§8» §7Golden Apples eaten: §a" + NumberUtils.formatInt(user.getStat(Stat.GOLDENAPPLESEATEN)));
         lore.add("§8» §7Golden Heads eaten: §a" + NumberUtils.formatInt(user.getStat(Stat.GOLDENHEADSEATEN)));

@@ -254,6 +254,9 @@ public class TopStatsGUI extends GUI implements Listener {
             case "kdr":
                 text += NumberUtils.formatDouble(value);
                 break;
+            case "hearts healed":
+                text += NumberUtils.formatDouble(value / 2);
+                break;
             default:
                 text += NumberUtils.formatInt((int) value);
                 break;
