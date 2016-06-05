@@ -278,7 +278,7 @@ public class User {
                 return "§4";
             }
         case STAFF:
-            return "§6";
+            return "§c";
         default:
             return "§7";
         }

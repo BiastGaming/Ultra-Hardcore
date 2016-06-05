@@ -157,7 +157,7 @@ public class ChatListener implements Listener {
         }
 
         if (user.getRank() == Rank.STAFF) {
-            event.setFormat("§8[§6Staff§8] " + name + " §8» " + messageAndColor);
+            event.setFormat("§8[§cStaff§8] " + name + " §8» " + messageAndColor);
             return;
         }
 
