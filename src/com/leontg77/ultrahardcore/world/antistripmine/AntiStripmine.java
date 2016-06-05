@@ -45,12 +45,13 @@ public class AntiStripmine implements Listener {
             for (int z = 0; z < 16; z++) {
                 for (int y = 0; y < 32; y++) {
                     Block block = chunk.getBlock(x, y, z);
-                    Material type = block.getType();
-                    if (!DEFAULT_ORES.contains(type)) {
+
+                    if (checked.contains(block)) {
                         continue;
                     }
 
-                    if (checked.contains(block)) {
+                    Material type = block.getType();
+                    if (!DEFAULT_ORES.contains(type)) {
                         continue;
                     }
 
