@@ -63,8 +63,8 @@ public class AppleRatesFeature extends Feature implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void on(BlockBreakEvent event) {
-        final Player player = event.getPlayer();
-        final Block block = event.getBlock();
+        Player player = event.getPlayer();
+        Block block = event.getBlock();
 
         // breaking leaves in creative shouldn't drop anything...
         if (player.getGameMode() == GameMode.CREATIVE) {
@@ -89,8 +89,8 @@ public class AppleRatesFeature extends Feature implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onLeavesDecay(LeavesDecayEvent event) {
-        final Block block = event.getBlock();
+    public void on(LeavesDecayEvent event) {
+        Block block = event.getBlock();
 
         if (block.getType() != Material.LEAVES && block.getType() != Material.LEAVES_2) {
             return;
@@ -113,11 +113,11 @@ public class AppleRatesFeature extends Feature implements Listener {
      * @return True if the event that called this should be cancelled, false otherwise.
      */
     private boolean handleLeafBreak(BlockEvent event) {
-        final Block block = event.getBlock();
-        final int damage = BlockUtils.getDurability(block);
+        Block block = event.getBlock();
+        int damage = BlockUtils.getDurability(block);
 
-        final TreeType tree = TreeUtils.getTree(block.getType(), damage);
-        final Random rand = new Random();
+        TreeType tree = TreeUtils.getTree(block.getType(), damage);
+        Random rand = new Random();
 
         if (tree == TreeType.UNKNOWN) {
             return false;

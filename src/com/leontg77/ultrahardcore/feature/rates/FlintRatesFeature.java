@@ -58,21 +58,21 @@ public class FlintRatesFeature extends Feature implements Listener {
 
     @EventHandler
     public void on(BlockBreakEvent event) {
-        final Player player = event.getPlayer();
-        final Block block = event.getBlock();
+        Player player = event.getPlayer();
+        Block block = event.getBlock();
 
         // no drops if they're in creative.
         if (player.getGameMode() == GameMode.CREATIVE) {
             return;
         }
 
-        final Random rand = new Random();
+        Random rand = new Random();
 
         if (block.getType() != Material.GRAVEL) {
             return;
         }
 
-        final Location toDrop = block.getLocation().add(0.5, 0.7, 0.5);
+        Location toDrop = block.getLocation().add(0.5, 0.7, 0.5);
 
         BlockUtils.blockBreak(player, block);
         BlockUtils.degradeDurabiliy(player);
