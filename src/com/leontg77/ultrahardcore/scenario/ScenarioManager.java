@@ -120,6 +120,7 @@ public class ScenarioManager {
         scenarios.add(new AgarIO());
         scenarios.add(new AloneTogether(teams));
         scenarios.add(new Anonymous(spec));
+        scenarios.add(new AppleCycle(feat));
         scenarios.add(new AppleFamine());
         scenarios.add(new Armageddon());
         scenarios.add(new Assassins());
@@ -193,6 +194,7 @@ public class ScenarioManager {
         scenarios.add(new FrozenInTime());
         scenarios.add(new Genie());
         scenarios.add(new GlassWorld());
+        scenarios.add(new GoldenAnvil());
         scenarios.add(new Goldless(cc));
         scenarios.add(new GoldRush());
         scenarios.add(new GoneFishing());

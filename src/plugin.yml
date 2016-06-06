@@ -207,6 +207,8 @@ commands:
     description: View available achievements to hunt for.
   target:
     description: View your assassins target.
+  appletree:
+    description: View the current tree that drops apples.
   class:
     description: View your AssaultAndBarrery type.
   listclass:
