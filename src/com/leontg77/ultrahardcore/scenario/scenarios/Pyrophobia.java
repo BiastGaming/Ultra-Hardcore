@@ -1,6 +1,7 @@
  package com.leontg77.ultrahardcore.scenario.scenarios;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.WorldBorder;
@@ -61,24 +62,36 @@ public class Pyrophobia extends GeneratorScenario {
         if (block.getType() == Material.WATER) {
             block.setType(Material.OBSIDIAN);
         }
+    }
 
-        WorldBorder border = block.getWorld().getWorldBorder();
-        
+    @Override
+    public void handleChunk(Chunk chunk) {
+        WorldBorder border = chunk.getWorld().getWorldBorder();
+
         new BukkitRunnable() {
             public void run() {
-                if (block.getType() == Material.OBSIDIAN) {
-                    block.setType(Material.STATIONARY_LAVA);
-                }
-                
-                if (block.getType() == Material.LAPIS_ORE || block.getType() == Material.REDSTONE_ORE) {
-                    if (rand.nextBoolean()) {
-                        block.setType(Material.OBSIDIAN);
+                for (int y = 256; y >= 0; y--) {
+                    for (int x = 0; x < 16; x++) {
+                        for (int z = 0; z < 16; z++) {
+                            Block block = chunk.getBlock(x, y, z);
+                            chunk.load();
+                            
+                            if (block.getType() == Material.OBSIDIAN) {
+                                block.setType(Material.STATIONARY_LAVA);
+                            }
+                            
+                            if (block.getType() == Material.LAPIS_ORE || block.getType() == Material.REDSTONE_ORE) {
+                                if (rand.nextBoolean()) {
+                                    block.setType(Material.OBSIDIAN);
+                                }
+                            }
+                        }
                     }
-                }
+                }  
             }
         }.runTaskLater(plugin, ((int) border.getSize()) / 10);
     }
-
+    
     @EventHandler
     public void on(PlayerBucketFillEvent event) {
         ItemStack item = event.getItemStack();
