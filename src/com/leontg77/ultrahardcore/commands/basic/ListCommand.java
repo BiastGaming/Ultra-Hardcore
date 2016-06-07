@@ -8,11 +8,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.User.Rank;
 import com.leontg77.ultrahardcore.commands.UHCCommand;
 import com.leontg77.ultrahardcore.exceptions.CommandException;
+import com.leontg77.ultrahardcore.scenario.ScenarioManager;
+import com.leontg77.ultrahardcore.scenario.scenarios.Anonymous;
 
 /**
  * List command class.
@@ -20,18 +21,20 @@ import com.leontg77.ultrahardcore.exceptions.CommandException;
  * @author LeonTG77
  */
 public class ListCommand extends UHCCommand {
-    private final Main plugin;
-    private final Game game;
+    private final ScenarioManager scen;
 
-    public ListCommand(Main plugin, Game game) {
+    public ListCommand(ScenarioManager scen) {
         super("list", "");
 
-        this.plugin = plugin;
-        this.game = game;
+        this.scen = scen;
     }
 
     @Override
-    public boolean execute(final CommandSender sender, final String[] args) throws CommandException {
+    public boolean execute(CommandSender sender, String[] args) throws CommandException {
+        if (scen.getScenario(Anonymous.class).isEnabled()) {
+            throw new CommandException("You can't view players in anonymous.");
+        }
+        
         if (Bukkit.getOnlinePlayers().isEmpty()) {
             throw new CommandException("There are no players online.");
         }
@@ -75,7 +78,7 @@ public class ListCommand extends UHCCommand {
     }
 
     @Override
-    public List<String> tabComplete(final CommandSender sender, final String[] args) {
+    public List<String> tabComplete(CommandSender sender, String[] args) {
         return new ArrayList<String>();
     }
 
