@@ -142,6 +142,7 @@ public class ScenarioManager {
         scenarios.add(new Birds());
         scenarios.add(new BlastMining());
         scenarios.add(new Blitz());
+        scenarios.add(new BlockBattle());
         scenarios.add(new Blocked());
         scenarios.add(new BlockRush());
         scenarios.add(new BloodAnvils());
