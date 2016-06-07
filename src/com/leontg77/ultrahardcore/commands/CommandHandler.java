@@ -230,7 +230,7 @@ public class CommandHandler implements CommandExecutor, TabCompleter {
         cmds.add(new EditCommand());
         cmds.add(new FireCommand(firework));
         cmds.add(new IgnoreCommand(plugin));
-        cmds.add(new ListCommand(plugin, game));
+        cmds.add(new ListCommand(scen));
         cmds.add(new ParkourCommand(plugin, settings, parkour));
         cmds.add(new SetspawnCommand(settings));
         cmds.add(new SkullCommand());
