@@ -272,7 +272,7 @@ public class GameInfoGUI extends GUI implements Listener {
             lore.add("§8» §7No game world has been set yet");
             lore.add("§8» §7for the rule to come up.");
         } else if (settings.getWorlds().getBoolean(game.getWorld().getName() + ".antiStripmine", true)) {
-            lore.add("§8» §7Gold, diamonds and lapis only spawns near caves.");
+            lore.add("§8» §7Ores can only spawn in caves or behind ores in caves.");
             lore.add(" ");
             lore.add("§8» §7Stripmining: §aAllowed.");
             lore.add("§8» §7Branchmining: §aAllowed.");
