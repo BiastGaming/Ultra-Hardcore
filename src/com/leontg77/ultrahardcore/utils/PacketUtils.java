@@ -79,7 +79,7 @@ public class PacketUtils {
         IChatBaseComponent headerJSON = ChatSerializer.a(
               "{text:'§4§lArctic UHC§r §8- §a§o@ArcticUHC§r\n" +
             "§7Follow us for games and updates!\n" +
-            "\n§7TPS: " + color + (tps >= 21 ? "§cCatching up after lag" : tps) + " §8- §7Your ping: §a" + pingColor + (ping == 0 ? "§cNot calculated" : ping) + " §8- §7Time: §a" + dateStr + "\n'}"
+            "\n§7TPS: " + color + (tps > 20.0 ? "§6§o" + tps : tps) + " §8- §7Your ping: §a" + pingColor + (ping <= 0 ? "§c§oCalculating..." : ping) + " §8- §7Time: §a" + dateStr + "\n'}"
         );
 
         String gamemode = game.getAdvancedTeamSize(false, true).replaceAll("-", "§8-§7") + game.getScenarios().replaceAll(",", "§8,§7");
