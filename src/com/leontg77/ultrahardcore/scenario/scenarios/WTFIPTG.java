@@ -27,13 +27,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.leontg77.ultrahardcore.managers.BoardManager;
 import com.leontg77.ultrahardcore.managers.SpecManager;
-import com.leontg77.ultrahardcore.protocol.wtfiptg.DisableScoreboardUpdateAdapter;
-import com.leontg77.ultrahardcore.protocol.wtfiptg.DisableTabCompletionAdapter;
-import com.leontg77.ultrahardcore.protocol.wtfiptg.DisguisePlayersAdapter;
-import com.leontg77.ultrahardcore.protocol.wtfiptg.FixedOnlineCountInPingAdapter;
-import com.leontg77.ultrahardcore.protocol.wtfiptg.HidePlayersInSpecificWorldsAdapter;
-import com.leontg77.ultrahardcore.protocol.wtfiptg.ReplacePlayerNamesInChatAdapter;
 import com.leontg77.ultrahardcore.scenario.Scenario;
+import com.leontg77.ultrahardcore.scenario.scenarios.wtfiptg.DisableScoreboardUpdateAdapter;
+import com.leontg77.ultrahardcore.scenario.scenarios.wtfiptg.DisableTabCompletionAdapter;
+import com.leontg77.ultrahardcore.scenario.scenarios.wtfiptg.DisguisePlayersAdapter;
+import com.leontg77.ultrahardcore.scenario.scenarios.wtfiptg.FixedOnlineCountInPingAdapter;
+import com.leontg77.ultrahardcore.scenario.scenarios.wtfiptg.HidePlayersInSpecificWorldsAdapter;
+import com.leontg77.ultrahardcore.scenario.scenarios.wtfiptg.ReplacePlayerNamesInChatAdapter;
 
 /**
  * WTFIPTG scenario class.
