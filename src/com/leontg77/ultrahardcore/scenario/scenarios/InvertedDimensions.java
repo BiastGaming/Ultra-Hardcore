@@ -3,6 +3,7 @@ package com.leontg77.ultrahardcore.scenario.scenarios;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -43,7 +44,7 @@ public class InvertedDimensions extends GeneratorScenario {
     public InvertedDimensions() {
         super(
             "InvertedDimensions", 
-            "The overworld surface is how nether would look like and vice versa. Also leaves drop sugar canes and water can be placed in the nether but not the overworld, 30% of the lapis you mine will drop obsidian.",
+            "The overworld surface is how nether would look like and vice versa. Also leaves drop sugar canes and water can be placed in the nether but not the overworld, lapis and redstone drops obsidian as well as their normal drops.",
             ChatColor.RED,
             "invert",
             true,
@@ -141,29 +142,41 @@ public class InvertedDimensions extends GeneratorScenario {
         default:
             break;
         }
+    }
 
-        WorldBorder border = block.getWorld().getWorldBorder();
-        
+    @Override
+    public void handleChunk(Chunk chunk) {
+        WorldBorder border = chunk.getWorld().getWorldBorder();
+
         new BukkitRunnable() {
             public void run() {
-                if (block.getType() == Material.OBSIDIAN) {
-                    block.setType(Material.STATIONARY_LAVA);
-                }
-                
-                if (block.getType() == Material.LAPIS_ORE || block.getType() == Material.REDSTONE_ORE) {
-                    if (rand.nextBoolean()) {
-                        block.setType(Material.OBSIDIAN);
+                for (int y = 256; y >= 0; y--) {
+                    for (int x = 0; x < 16; x++) {
+                        for (int z = 0; z < 16; z++) {
+                            Block block = chunk.getBlock(x, y, z);
+                            chunk.load();
+                            
+                            if (block.getType() == Material.OBSIDIAN) {
+                                block.setType(Material.STATIONARY_LAVA);
+                            }
+                            
+                            if (block.getType() == Material.LAPIS_ORE || block.getType() == Material.REDSTONE_ORE) {
+                                if (rand.nextBoolean()) {
+                                    block.setType(Material.OBSIDIAN);
+                                }
+                            }
+                            
+                            if (block.getType() == Material.BARRIER) {
+                                block.setType(Material.STATIONARY_WATER);
+                            }
+                            
+                            if (block.getType() == Material.QUARTZ_ORE) {
+                                Material type = ORES.get(rand.nextInt(ORES.size()));
+                                BlockUtils.getVein(block).forEach(loopBlock -> loopBlock.setType(type));
+                            }
+                        }
                     }
-                }
-                
-                if (block.getType() == Material.BARRIER) {
-                    block.setType(Material.STATIONARY_WATER);
-                }
-                
-                if (block.getType() == Material.QUARTZ_ORE) {
-                    Material type = ORES.get(rand.nextInt(ORES.size()));
-                    BlockUtils.getVein(block).forEach(block -> block.setType(type));
-                }
+                }  
             }
         }.runTaskLater(plugin, ((int) border.getSize()) / 10);
     }

@@ -38,8 +38,8 @@ public class Pyrophobia extends GeneratorScenario {
             "All water and ice is replaced with lava, 50% of redstone and lapis is replaced by obsidian, leaves has a 2% chance to drop sugar cane and mobs are fire resistant.", 
             ChatColor.DARK_RED, 
             "genpyro", 
-            false, 
-            false,
+            true, 
+            true,
             true,
             true
         );
@@ -48,7 +48,7 @@ public class Pyrophobia extends GeneratorScenario {
     @Override
     public void handleBlock(Block block) {
         if (block.getType() == Material.STATIONARY_WATER) {
-            block.setType(Material.OBSIDIAN);
+            block.setType(Material.LAVA, false);
         }
         
         if (block.getType() == Material.ICE) {
