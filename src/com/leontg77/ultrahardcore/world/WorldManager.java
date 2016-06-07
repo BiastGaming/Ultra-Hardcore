@@ -1,5 +1,6 @@
 package com.leontg77.ultrahardcore.world;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
@@ -11,8 +12,10 @@ import org.bukkit.WorldBorder;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.world.WorldInitEvent;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
 import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.utils.FileUtils;
@@ -65,10 +68,10 @@ public class WorldManager {
      * @param antiStripmine Wether antistripmine should be enabled.
      * @param oreLimiter Wether ore limiter should be enabled.
      * @param newStone Wether the world should have the new 1.8 stone.
-     * @param x The world X center.
-     * @param z The world Z center.
+     * @param centerX The world X center.
+     * @param centerZ The world Z center.
      */
-    public void createWorld(String name, int diameter, long seed, Environment environment, WorldType type, boolean antiStripmine, boolean oreLimiter, boolean newStone, double x, double z) {
+    public void createWorld(String name, int diameter, long seed, Environment environment, WorldType type, boolean antiStripmine, boolean oreLimiter, boolean newStone, double centerX, double centerZ) {
         settings.getWorlds().set(name + ".name", name);
         settings.getWorlds().set(name + ".radius", diameter);
         settings.getWorlds().set(name + ".seed", seed);
@@ -80,47 +83,31 @@ public class WorldManager {
         settings.getWorlds().set(name + ".antiStripmine", antiStripmine);
         settings.getWorlds().set(name + ".oreLimiter", oreLimiter);
         settings.getWorlds().set(name + ".newStone", newStone);
-        settings.getWorlds().set(name + ".center.x", x);
-        settings.getWorlds().set(name + ".center.z", z);
+        settings.getWorlds().set(name + ".center.x", centerX);
+        settings.getWorlds().set(name + ".center.z", centerZ);
 
         settings.saveWorlds();
 
-        WorldCreator creator = new WorldCreator(name);
-        creator.generateStructures(true);
-        creator.environment(environment);
-        creator.type(type);
-        creator.seed(seed);
-
-        if (type == WorldType.FLAT) {
-            creator.generatorSettings("3;minecraft:bedrock,2*minecraft:dirt,minecraft:grass;1;village(size=65535 distance=9)");
-        } else {
-            if (newStone) {
-                creator.generatorSettings("{\"useMonuments\":false}");
-            } else {
-                creator.generatorSettings("{\"useMonuments\":false,\"graniteSize\":1,\"graniteCount\":0,\"graniteMinHeight\":0,\"graniteMaxHeight\":0,\"dioriteSize\":1,\"dioriteCount\":0,\"dioriteMinHeight\":0,\"dioriteMaxHeight\":0,\"andesiteSize\":1,\"andesiteCount\":0,\"andesiteMinHeight\":0,\"andesiteMaxHeight\":0}");
-            }
+        World world;
+        try {
+            world = loadWorld(name);
+        } catch (CommandException e) {
+            throw new AssertionError(e);
         }
 
-        World world = creator.createWorld();
-        world.setDifficulty(Difficulty.HARD);
-
-        int y = LocationUtils.highestTeleportableYAtLocation(new Location(world, x, 0, z)) + 2;
-        world.setSpawnLocation((int) x, y, (int) z);
-
         world.setGameRuleValue("doDaylightCycle", "false");
+        world.setSpawnFlags(false, true);
+
+        int y = LocationUtils.highestTeleportableYAtLocation(new Location(world, centerX, 0, centerX)) + 2;
+        world.setSpawnLocation((int) centerX, y, (int) centerZ);
 
         WorldBorder border = world.getWorldBorder();
-
         border.setSize(diameter);
         border.setWarningDistance(0);
         border.setWarningTime(60);
         border.setDamageAmount(0.1);
         border.setDamageBuffer(0);
-        border.setCenter(x, z);
-
-        world.setSpawnFlags(false, true);
-
-        world.save();
+        border.setCenter(centerX, centerZ);
     }
 
     /**
@@ -146,42 +133,59 @@ public class WorldManager {
      * Loads the world with the given world name.
      * 
      * @param name The name of the world.
-     * @param game The game class.
      * @throws CommandException If the world name isn't a existing world.
      */
-    public void loadWorld(String name) throws CommandException {
+    public World loadWorld(String name) throws CommandException {
         Set<String> worlds = settings.getWorlds().getKeys(false);
 
         if (!worlds.contains(name)) {
             throw new CommandException("The world '" + name + "' does not exist.");
         }
 
+        Environment environment = Environment.valueOf(settings.getWorlds().getString(name + ".environment", Environment.NORMAL.name()));
+        WorldType type = WorldType.valueOf(settings.getWorlds().getString(name + ".worldtype", WorldType.NORMAL.name()));
+        long seed = settings.getWorlds().getLong(name + ".seed", 2347862349786234l);
+        boolean newStone = settings.getWorlds().getBoolean(name + ".newStone", true);
+        boolean oreLimiter = settings.getWorlds().getBoolean(name + ".oreLimiter", false);
+
         WorldCreator creator = new WorldCreator(name);
         creator.generateStructures(true);
-
-        long seed = settings.getWorlds().getLong(name + ".seed", 2347862349786234l);
-        Environment environment = Environment.valueOf(settings.getWorlds().getString(name + ".environment", Environment.NORMAL.name()));
-        WorldType worldtype = WorldType.valueOf(settings.getWorlds().getString(name + ".worldtype", WorldType.NORMAL.name()));
-
         creator.environment(environment);
-        creator.type(worldtype);
+        creator.type(type);
         creator.seed(seed);
+        creator.generatorSettings(getGeneratorSettings(type, newStone, oreLimiter));
 
-        if (worldtype == WorldType.FLAT) {
-            creator.generatorSettings("3;minecraft:bedrock,2*minecraft:dirt,minecraft:grass;1;village(size=65535 distance=9)");
-        } else {
-            if (settings.getWorlds().getBoolean(name + ".newStone", true)) {
-                creator.generatorSettings("{\"useMonuments\":false}");
-            } else {
-                creator.generatorSettings("{\"useMonuments\":false,\"graniteSize\":1,\"graniteCount\":0,\"graniteMinHeight\":0,\"graniteMaxHeight\":0,\"dioriteSize\":1,\"dioriteCount\":0,\"dioriteMinHeight\":0,\"dioriteMaxHeight\":0,\"andesiteSize\":1,\"andesiteCount\":0,\"andesiteMinHeight\":0,\"andesiteMaxHeight\":0}");
-            }
-        }
-        
         World world = creator.createWorld();
         world.setDifficulty(Difficulty.HARD);
+
         world.save();
-        
-        Bukkit.getPluginManager().callEvent(new WorldInitEvent(world));
+        return world;
+    }
+
+    protected String getGeneratorSettings(WorldType worldtype, boolean newStone, boolean oreLimiter) {
+        if (worldtype == WorldType.FLAT) {
+            return "3;minecraft:bedrock,2*minecraft:dirt,minecraft:grass;1;village(size=65535 distance=9";
+        }
+
+        Map<String, Object> generatorSettings = Maps.newHashMap();
+        generatorSettings.put("useMonuments", false);
+
+        if (!newStone) {
+            for (String stoneName : ImmutableList.of("granite", "diorite", "andesite")) {
+                generatorSettings.put(stoneName + "Size", 1);
+                generatorSettings.put(stoneName + "Count", 0);
+                generatorSettings.put(stoneName + "MinHeight", 0);
+                generatorSettings.put(stoneName + "MaxHeight", 0);
+            }
+        }
+
+        if (oreLimiter) {
+            generatorSettings.put("goldSize", 4);
+            generatorSettings.put("redstoneSize", 4);
+            generatorSettings.put("diamondSize", 4);
+        }
+
+        return new Gson().toJson(generatorSettings);
     }
 
     /**

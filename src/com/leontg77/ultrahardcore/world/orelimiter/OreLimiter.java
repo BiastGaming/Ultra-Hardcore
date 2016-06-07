@@ -1,19 +1,11 @@
 package com.leontg77.ultrahardcore.world.orelimiter;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import org.bukkit.Chunk;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+import org.bukkit.WorldType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import com.google.common.collect.Sets;
-import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.events.ChunkModifiableEvent;
-import com.leontg77.ultrahardcore.utils.BlockUtils;
 
 import gnu.trove.map.TObjectDoubleMap;
 import gnu.trove.map.hash.TObjectDoubleHashMap;
@@ -33,15 +25,21 @@ public class OreLimiter implements Listener {
         ORE_RATES.put(Material.REDSTONE_ORE, 0.35d);
     }
 
-    private final Random random = new Random();
-    private final Settings settings;
+//    private final Random random = new Random();
+//    private final Settings settings;
+//
+//    public OreLimiter(Settings settings) {
+//        this.settings = settings;
+//    }
 
-    public OreLimiter(Settings settings) {
-        this.settings = settings;
-    }
-
+    /**
+     * Temporarly disabled and moved into generator settings.
+     * See {@link com.leontg77.ultrahardcore.world.WorldManager#getGeneratorSettings(WorldType, boolean, boolean)}.
+     */
     @EventHandler
     public void on(ChunkModifiableEvent event) {
+        /*
+
         if (!settings.getWorlds().getBoolean(event.getWorld().getName() + ".oreLimiter", true)) {
             return;
         }
@@ -75,5 +73,7 @@ public class OreLimiter implements Listener {
                 }
             }
         }
+
+        */
     }
 }
