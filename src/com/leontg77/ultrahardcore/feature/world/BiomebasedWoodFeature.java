@@ -4,6 +4,7 @@ import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPhysicsEvent;
@@ -62,7 +63,7 @@ public class BiomebasedWoodFeature extends Feature implements Listener {
 
                     block = chunk.getBlock(x, y, z);
                     
-                    if (block.getType() == Material.DOUBLE_STEP && BlockUtils.getDurability(block) == 0) {
+                    if (block.getRelative(BlockFace.DOWN).getType() == Material.COBBLESTONE && block.getType() == Material.DOUBLE_STEP && BlockUtils.getDurability(block) == 0) {
                         block.setType(Material.ANVIL);
                         continue;
                     }
