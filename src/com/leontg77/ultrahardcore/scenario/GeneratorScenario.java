@@ -72,7 +72,7 @@ public abstract class GeneratorScenario extends Scenario implements CommandExecu
 
     private final List<Location> locs = new ArrayList<Location>();
 
-    private BukkitRunnable task = null;
+    protected BukkitRunnable task = null;
     private double totalChunks = 0;
     
     protected final Random rand = new Random();
@@ -246,13 +246,6 @@ public abstract class GeneratorScenario extends Scenario implements CommandExecu
                     for (int x = 0; x < 16; x++) {
                         for (int z = 0; z < 16; z++) {
                             Block block = chunk.getBlock(x, y, z);
-                            
-                            if (killDrops) {
-                                if (GENERATION_DROPS.contains(block.getType())) {
-                                    block.setType(Material.AIR);
-                                }
-                            }
-                            
                             handleBlock(block);
                         }
                     }
