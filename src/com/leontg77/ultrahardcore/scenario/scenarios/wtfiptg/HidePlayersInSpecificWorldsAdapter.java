@@ -1,4 +1,4 @@
-package com.leontg77.ultrahardcore.protocol.wtfiptg;
+package com.leontg77.ultrahardcore.scenario.scenarios.wtfiptg;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
