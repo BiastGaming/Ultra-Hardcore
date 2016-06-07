@@ -26,7 +26,7 @@ public class BlockRush extends Scenario implements Listener {
     private final Set<String> minedBlocks = new HashSet<String>();
 
     private static final ItemStack ITEM_TO_DROP = new ItemStack(Material.GOLD_INGOT);
-    private static final String PREFIX = "§6§lBlockRush §8» §e";
+    private static final String PREFIX = "§6BlockRush §8» §e";
 
     public BlockRush() {
         super("BlockRush", "Mining a specific block type for the first time drops 1 gold ingot.");

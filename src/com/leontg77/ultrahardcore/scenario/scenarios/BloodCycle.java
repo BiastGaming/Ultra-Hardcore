@@ -40,7 +40,7 @@ public class BloodCycle extends Scenario implements Listener, CommandExecutor {
             Material.REDSTONE_ORE, Material.DIAMOND_ORE, Material.EMERALD_ORE
     );
 
-    private static final String PREFIX = "§4§lBloodCycle §8» §7";
+    private static final String PREFIX = "§4BloodCycle §8» §7";
 
     private BukkitRunnable task;
     private Material current;
