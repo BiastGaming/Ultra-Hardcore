@@ -274,7 +274,11 @@ public class User {
         case OWNER:
             if (uuid.toString().equals("02dc5178-f7ec-4254-8401-1a57a7442a2f")) {
                 return "§3";
-            } else {
+            } 
+            else if (uuid.toString().equals("679021a8-67c1-4317-8323-4b2b839a01f6")) {
+                return "§6";
+            }
+            else {
                 return "§4";
             }
         case STAFF:

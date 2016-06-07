@@ -134,7 +134,11 @@ public class ChatListener implements Listener {
 
             if (uuid.equals("02dc5178-f7ec-4254-8401-1a57a7442a2f")) {
                 prefix = "§3Owner";
-            } else {
+            }
+            else if (uuid.equals("679021a8-67c1-4317-8323-4b2b839a01f6")) {
+                prefix = "§6Co Owner";
+            }
+            else {
                 prefix = "§4Owner";
             }
 
