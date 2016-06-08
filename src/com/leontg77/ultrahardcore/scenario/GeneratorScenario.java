@@ -29,6 +29,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.google.common.collect.ImmutableSet;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.utils.DateUtils;
+import com.leontg77.ultrahardcore.utils.LocationUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
@@ -39,7 +40,7 @@ import com.leontg77.ultrahardcore.utils.PlayerUtils;
  * @author LeonTG77
  */
 public abstract class GeneratorScenario extends Scenario implements CommandExecutor, TabCompleter, Listener {
-    private static final Set<Material> GENERATION_DROPS = ImmutableSet.of(Material.SEEDS, Material.DOUBLE_PLANT, Material.RED_ROSE, Material.YELLOW_FLOWER, Material.SUGAR_CANE, Material.LONG_GRASS, Material.WATER_LILY);
+    protected static final Set<Material> GENERATION_DROPS = ImmutableSet.of(Material.SEEDS, Material.DOUBLE_PLANT, Material.RED_ROSE, Material.YELLOW_FLOWER, Material.SUGAR_CANE, Material.LONG_GRASS, Material.WATER_LILY);
 
     protected final String PREFIX;
     private final String commandName;
@@ -246,6 +247,11 @@ public abstract class GeneratorScenario extends Scenario implements CommandExecu
                     for (int x = 0; x < 16; x++) {
                         for (int z = 0; z < 16; z++) {
                             Block block = chunk.getBlock(x, y, z);
+                            
+                            if (LocationUtils.isOutsideOfBorder(block.getLocation())) {
+                                continue;
+                            }
+                            
                             handleBlock(block);
                         }
                     }
