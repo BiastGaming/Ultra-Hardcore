@@ -37,6 +37,8 @@ public class WorldUpdaterFeature extends Feature {
                         if (world.getTime() != 18000) {
                             world.setTime(18000);
                         }
+                        
+                        world.getPlayers().forEach(player -> player.setFireTicks(0));
                         continue;
                     }
 
