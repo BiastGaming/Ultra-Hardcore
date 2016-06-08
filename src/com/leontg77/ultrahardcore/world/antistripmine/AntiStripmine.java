@@ -18,8 +18,8 @@ import com.leontg77.ultrahardcore.utils.BlockUtils;
 public class AntiStripmine implements Listener {
 
     protected static final Set<Material> DEFAULT_ORES = ImmutableSet.of(
-            Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.EMERALD_ORE,
-            Material.DIAMOND_ORE, Material.GOLD_ORE, Material.LAPIS_ORE
+            Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.GLOWING_REDSTONE_ORE, 
+            Material.EMERALD_ORE, Material.DIAMOND_ORE, Material.GOLD_ORE, Material.LAPIS_ORE
     );
 
     protected static final Set<Material> EXCLUDED_ORES = ImmutableSet.of();
@@ -36,9 +36,9 @@ public class AntiStripmine implements Listener {
             return;
         }
 
-        Chunk chunk = event.getChunk();
-
         Set<Block> checked = Sets.newHashSet();
+        Chunk chunk = event.getChunk();
+        
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 for (int y = 0; y < 128; y++) {
