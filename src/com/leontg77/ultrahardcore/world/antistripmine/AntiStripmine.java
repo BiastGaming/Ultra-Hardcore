@@ -41,7 +41,7 @@ public class AntiStripmine implements Listener {
         Set<Block> checked = Sets.newHashSet();
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                for (int y = 0; y < 32; y++) {
+                for (int y = 0; y < 128; y++) {
                     Block block = chunk.getBlock(x, y, z);
 
                     if (checked.contains(block)) {
