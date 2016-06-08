@@ -25,7 +25,7 @@ public class BarrierWorld extends GeneratorScenario implements CommandExecutor, 
             false, 
             false, 
             false, 
-            false
+            true
         );
     }
 
