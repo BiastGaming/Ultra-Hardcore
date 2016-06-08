@@ -38,13 +38,13 @@ public class InvertedDimensions extends GeneratorScenario {
     
     private static final List<Material> ORES = ImmutableList.of(
             Material.COAL_ORE, Material.IRON_ORE, Material.REDSTONE_ORE, Material.EMERALD_ORE,
-            Material.DIAMOND_ORE, Material.GOLD_ORE, Material.LAPIS_ORE, Material.QUARTZ_ORE
+            Material.GOLD_ORE, Material.LAPIS_ORE, Material.QUARTZ_ORE
     );
     
     public InvertedDimensions() {
         super(
             "InvertedDimensions", 
-            "The overworld surface is how nether would look like and vice versa. Also leaves drop sugar canes and water can be placed in the nether but not the overworld, lapis and redstone drops obsidian as well as their normal drops.",
+            "The overworld surface is how nether would look like and vice versa. Also leaves drop sugar canes and water can be placed in the nether but not the overworld, some lapis and redstone is replaced with obsidian.",
             ChatColor.RED,
             "invert",
             true,
@@ -56,6 +56,8 @@ public class InvertedDimensions extends GeneratorScenario {
 
     @Override
     public void handleBlock(Block block) {
+        byte id = block.getData();
+        
         switch (block.getWorld().getEnvironment()) {
         case NETHER:
             switch (block.getType()) {
@@ -87,7 +89,6 @@ public class InvertedDimensions extends GeneratorScenario {
                 block.setType(Material.SPRUCE_FENCE);
                 break;
             case NETHER_BRICK_STAIRS:
-                byte id = block.getData();
                 block.setType(Material.SPRUCE_WOOD_STAIRS);
                 block.setData(id);
                 break;
@@ -95,17 +96,26 @@ public class InvertedDimensions extends GeneratorScenario {
             case LAVA:
                 block.setType(Material.BARRIER);
                 break;
+            case SNOW:
+            case SNOW_BLOCK:
+            case WATER_LILY:
+                block.setType(Material.AIR);
+                break;
             default:
                 break;
             }
             break;
         case NORMAL:
-            switch (block.getType()) {
-            case LONG_GRASS:
+            if (GENERATION_DROPS.contains(block.getType())) {
                 if (rand.nextInt(8) == 0) {
                     block.setType(Material.FIRE);
+                } else {
+                    block.setType(Material.AIR);
                 }
-                break;
+                return;
+            }
+            
+            switch (block.getType()) {
             case GRASS:
             case DIRT:
                 block.setType(Material.NETHERRACK);
@@ -118,6 +128,11 @@ public class InvertedDimensions extends GeneratorScenario {
                 block.setType(Material.NETHER_BRICK);
                 break;
             case FENCE:
+            case SPRUCE_FENCE:
+            case BIRCH_FENCE:
+            case JUNGLE_FENCE:
+            case ACACIA_FENCE:
+            case DARK_OAK_FENCE:
                 block.setType(Material.NETHER_FENCE);
                 break;
             case WOOD_STAIRS:
@@ -126,12 +141,17 @@ public class InvertedDimensions extends GeneratorScenario {
             case JUNGLE_WOOD_STAIRS:
             case ACACIA_STAIRS:
             case DARK_OAK_STAIRS:
-                byte id = block.getData();
                 block.setType(Material.NETHER_BRICK_STAIRS);
                 block.setData(id);
                 break;
             case STATIONARY_WATER:
+                block.setType(Material.STATIONARY_LAVA);
+                block.setData(id);
+                break;
             case WATER:
+                block.setType(Material.LAVA);
+                block.setData(id);
+                break;
             case ICE:
                 block.setType(Material.OBSIDIAN);
                 break;

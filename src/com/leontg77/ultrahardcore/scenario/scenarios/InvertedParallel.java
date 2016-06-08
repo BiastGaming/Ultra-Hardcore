@@ -135,6 +135,11 @@ public class InvertedParallel extends GeneratorScenario {
             block.setType(Material.NETHER_BRICK);
             break;
         case FENCE:
+        case SPRUCE_FENCE:
+        case BIRCH_FENCE:
+        case JUNGLE_FENCE:
+        case ACACIA_FENCE:
+        case DARK_OAK_FENCE:
             block.setType(Material.NETHER_FENCE);
             break;
         case WOOD_STAIRS:
@@ -148,7 +153,6 @@ public class InvertedParallel extends GeneratorScenario {
             block.setData(id);
             break;
         case STATIONARY_WATER:
-        case WATER:
         case ICE:
         case OBSIDIAN:
             block.setType(Material.LAVA);
