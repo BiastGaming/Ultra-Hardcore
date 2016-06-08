@@ -89,6 +89,7 @@ public class WorldManager {
         settings.saveWorlds();
 
         World world;
+        
         try {
             world = loadWorld(name);
         } catch (CommandException e) {
@@ -180,9 +181,9 @@ public class WorldManager {
         }
 
         if (oreLimiter) {
-            generatorSettings.put("goldSize", 4);
+            generatorSettings.put("goldSize", 6);
             generatorSettings.put("redstoneSize", 4);
-            generatorSettings.put("diamondSize", 4);
+            generatorSettings.put("diamondSize", 5);
         }
 
         return new Gson().toJson(generatorSettings);
