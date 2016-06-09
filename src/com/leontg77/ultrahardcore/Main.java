@@ -182,7 +182,7 @@ public class Main extends JavaPlugin {
         swap = new BiomeSwap(this, settings);
         swap.setup();
 
-        oreLimiter = new OreLimiter();
+        oreLimiter = new OreLimiter(settings);
         antiSM = new AntiStripmine(settings);
 
         worlds = new WorldManager(settings);

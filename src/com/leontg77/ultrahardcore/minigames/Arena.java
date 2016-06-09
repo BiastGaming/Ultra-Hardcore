@@ -36,6 +36,7 @@ import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.minigames.listeners.ArenaListener;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
+import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 import com.leontg77.ultrahardcore.world.WorldManager;
 
 /**
@@ -309,7 +310,7 @@ public class Arena {
         World world = Bukkit.getWorld("arena");
 
         manager.deleteWorld(world);
-        manager.createWorld("arena", 400, SEEDS.get(new Random().nextInt(SEEDS.size())), Environment.NORMAL, WorldType.NORMAL, false, false, false, 0.0, 0.0);
+        manager.createWorld("arena", 400, SEEDS.get(new Random().nextInt(SEEDS.size())), Environment.NORMAL, WorldType.NORMAL, false, OreLimiter.Type.NONE, false, 0.0, 0.0);
 
         world = Bukkit.getWorld("arena");
 
