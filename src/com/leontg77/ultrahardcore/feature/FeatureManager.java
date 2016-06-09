@@ -232,7 +232,7 @@ public class FeatureManager {
 
         // pvp
         addFeature(new AntiIPvPFeature(game, team, spec, scen));
-        addFeature(new CombatLogFeature(plugin, team, spec));
+        addFeature(new CombatLogFeature(team, spec));
         addFeature(new LongshotFeature(game, scen, team));
         addFeature(new ShootHealthFeature(plugin, game, scen, team));
         addFeature(new StalkingFeature(settings));

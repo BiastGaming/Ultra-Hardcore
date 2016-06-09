@@ -27,8 +27,12 @@ public class CombatLogCommand extends UHCCommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) throws CommandException {
-        if (game.isPrivateGame() || game.isRecordedRound()) {
-            throw new CommandException("Combat Tag is disabled in rr's/private games.");
+        if (game.isRecordedRound()) {
+            throw new CommandException("Combat Tag is disabled in Recorded Rounds.");
+        }
+        
+        if (game.isPrivateGame()) {
+            throw new CommandException("Combat Tag is disabled in Private Games.");
         }
         
         if (!(sender instanceof Player)) {
@@ -36,9 +40,10 @@ public class CombatLogCommand extends UHCCommand {
         }
 
         Player player = (Player) sender;
-
-        if (ct.combat.containsKey(player.getUniqueId())) {
-            player.sendMessage(Main.PREFIX + "You are still in combat for §a" + ct.combat.get(player.getUniqueId()) + " §7seconds, do not log out.");
+        long combatTicksLeft = ct.getCombatTicksLeft(player);
+        
+        if (combatTicksLeft > 0) {
+            player.sendMessage(Main.PREFIX + "You are still in combat for §a" + (((double) combatTicksLeft) / 20) + " §7seconds, do not log out.");
         } else {
             player.sendMessage(Main.PREFIX + "You are not in combat, you may log out if you want.");
         }
