@@ -20,6 +20,7 @@ import com.leontg77.ultrahardcore.Settings;
 import com.leontg77.ultrahardcore.exceptions.CommandException;
 import com.leontg77.ultrahardcore.utils.FileUtils;
 import com.leontg77.ultrahardcore.utils.LocationUtils;
+import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 
 /**
  * World management class.
@@ -71,7 +72,7 @@ public class WorldManager {
      * @param centerX The world X center.
      * @param centerZ The world Z center.
      */
-    public void createWorld(String name, int diameter, long seed, Environment environment, WorldType type, boolean antiStripmine, boolean oreLimiter, boolean newStone, double centerX, double centerZ) {
+    public void createWorld(String name, int diameter, long seed, Environment environment, WorldType type, boolean antiStripmine, OreLimiter.Type oreLimiter, boolean newStone, double centerX, double centerZ) {
         settings.getWorlds().set(name + ".name", name);
         settings.getWorlds().set(name + ".radius", diameter);
         settings.getWorlds().set(name + ".seed", seed);
@@ -81,7 +82,7 @@ public class WorldManager {
         settings.getWorlds().set(name + ".diameter", diameter);
 
         settings.getWorlds().set(name + ".antiStripmine", antiStripmine);
-        settings.getWorlds().set(name + ".oreLimiter", oreLimiter);
+        settings.getWorlds().set(name + ".oreLimiter", oreLimiter.name());
         settings.getWorlds().set(name + ".newStone", newStone);
         settings.getWorlds().set(name + ".center.x", centerX);
         settings.getWorlds().set(name + ".center.z", centerZ);
@@ -145,9 +146,9 @@ public class WorldManager {
 
         Environment environment = Environment.valueOf(settings.getWorlds().getString(name + ".environment", Environment.NORMAL.name()));
         WorldType type = WorldType.valueOf(settings.getWorlds().getString(name + ".worldtype", WorldType.NORMAL.name()));
+        OreLimiter.Type oreLimiter = OreLimiter.Type.valueOf(settings.getWorlds().getString(name + ".oreLimiter", OreLimiter.Type.NONE.name()));
         long seed = settings.getWorlds().getLong(name + ".seed", 2347862349786234l);
         boolean newStone = settings.getWorlds().getBoolean(name + ".newStone", true);
-        boolean oreLimiter = settings.getWorlds().getBoolean(name + ".oreLimiter", false);
 
         WorldCreator creator = new WorldCreator(name);
         creator.generateStructures(true);
@@ -163,7 +164,7 @@ public class WorldManager {
         return world;
     }
 
-    protected String getGeneratorSettings(WorldType worldtype, boolean newStone, boolean oreLimiter) {
+    protected String getGeneratorSettings(WorldType worldtype, boolean newStone, OreLimiter.Type oreLimiter) {
         if (worldtype == WorldType.FLAT) {
             return "3;minecraft:bedrock,2*minecraft:dirt,minecraft:grass;1;village(size=65535 distance=9";
         }
@@ -180,10 +181,10 @@ public class WorldManager {
             }
         }
 
-        if (oreLimiter) {
+        if (oreLimiter == OreLimiter.Type.SMALLER_VEINS) {
             generatorSettings.put("goldSize", 6);
-            generatorSettings.put("redstoneSize", 4);
-            generatorSettings.put("diamondSize", 5);
+            generatorSettings.put("redstoneSize", 6);
+            generatorSettings.put("diamondSize", 6);
         }
 
         return new Gson().toJson(generatorSettings);

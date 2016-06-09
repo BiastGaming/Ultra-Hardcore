@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.google.common.collect.Lists;
 import com.leontg77.ultrahardcore.Game;
 import com.leontg77.ultrahardcore.Game.State;
 import com.leontg77.ultrahardcore.Main;
@@ -64,6 +65,7 @@ import com.leontg77.ultrahardcore.utils.DateUtils;
 import com.leontg77.ultrahardcore.utils.FileUtils;
 import com.leontg77.ultrahardcore.utils.NameUtils;
 import com.leontg77.ultrahardcore.utils.NumberUtils;
+import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 
 /**
  * GameInfo inventory GUI class.
@@ -536,9 +538,18 @@ public class GameInfoGUI extends GUI implements Listener {
         lore.add(" ");
         lore.add("§8» §7Nerfed XP: " + (feat.getFeature(NerfedXPFeature.class).isEnabled() ? "§aEnabled." : "§cDisabled."));
         lore.add(" ");
-        lore.add("§8» §7Ore Limiter: §6" + (game.getWorld() == null ? "§cN/A" : settings.getWorlds().getBoolean(game.getWorld().getName() + ".oreLimiter", false) ? "§aEnabled." : "§cDisabled."));
         lore.add("§8» §71.8 Stone: §6" + (game.getWorld() == null ? "§cN/A" : settings.getWorlds().getBoolean(game.getWorld().getName() + ".newStone", false) ? "§aEnabled." : "§cDisabled."));
-        lore.add(" ");
+
+        if (game.getWorld() == null) {
+            lore.add("§8» §7Ore Limiter: §cN/A");
+        } else{
+            OreLimiter.Type oreLimiter = OreLimiter.Type.valueOf(settings.getWorlds().getString(
+                    game.getWorld().getName() + ".oreLimiter", OreLimiter.Type.NONE.name()));
+            lore.add("§8» §7Ore Limiter: " + oreLimiter.getShortDescription());
+            lore.addAll(Lists.transform(oreLimiter.getAdditionalLore(), "   §8» "::concat));
+            lore.add(" ");
+        }
+
         miscIMeta.setLore(lore);
         misc.setItemMeta(miscIMeta);
         lore.clear();

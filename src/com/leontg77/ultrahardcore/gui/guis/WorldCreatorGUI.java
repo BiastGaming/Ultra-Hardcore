@@ -18,9 +18,11 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.google.common.collect.Lists;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.gui.GUI;
 import com.leontg77.ultrahardcore.utils.NameUtils;
+import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 import com.leontg77.ultrahardcore.world.WorldManager;
 
 /**
@@ -57,7 +59,7 @@ public class WorldCreatorGUI extends GUI implements Listener {
 
     private boolean newstone = false;
     private boolean antiStripmine = true;
-    private boolean orelimiter = true;
+    private OreLimiter.Type orelimiter = OreLimiter.Type.MINOR;
 
     private boolean moved = true;
 
@@ -75,7 +77,7 @@ public class WorldCreatorGUI extends GUI implements Listener {
         if (inv.getViewers().isEmpty()) {
             newstone = false;
             antiStripmine = true;
-            orelimiter = true;
+            orelimiter = OreLimiter.Type.MINOR;
 
             moved = false;
 
@@ -142,7 +144,20 @@ public class WorldCreatorGUI extends GUI implements Listener {
             update();
             break;
         case "ore limiter":
-            orelimiter = !orelimiter;
+            switch (orelimiter) {
+                case MINOR:
+                    orelimiter = OreLimiter.Type.LESS_VEINS;
+                    break;
+                case LESS_VEINS:
+                    orelimiter = OreLimiter.Type.SMALLER_VEINS;
+                    break;
+                case SMALLER_VEINS:
+                    orelimiter = OreLimiter.Type.MINOR;
+                    break;
+                default:
+                    return;
+            }
+
             update();
             break;
         case "world type":
@@ -252,11 +267,10 @@ public class WorldCreatorGUI extends GUI implements Listener {
 
         oreLimiterMeta.setDisplayName("§8» §6Ore Limiter §8«");
         lore.add(" ");
-        lore.add("§8» §7Currently: " + (orelimiter ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled"));
+        lore.add("§8» §7Currently: " + orelimiter.getShortDescription());
         lore.add(" ");
         lore.add("§8» §cDescription:");
-        lore.add("§8» §7Limit the amount of cave ores.");
-        lore.add(" ");
+        lore.addAll(Lists.transform(orelimiter.getAdditionalLore(), "§8» "::concat));
         oreLimiterMeta.setLore(lore);
         oreLimiter.setItemMeta(oreLimiterMeta);
 
