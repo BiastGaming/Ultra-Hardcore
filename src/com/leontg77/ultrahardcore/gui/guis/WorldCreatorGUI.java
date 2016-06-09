@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,8 +22,8 @@ import com.google.common.collect.Lists;
 import com.leontg77.ultrahardcore.Main;
 import com.leontg77.ultrahardcore.gui.GUI;
 import com.leontg77.ultrahardcore.utils.NameUtils;
-import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 import com.leontg77.ultrahardcore.world.WorldManager;
+import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 
 /**
  * World Creator inventory GUI class.

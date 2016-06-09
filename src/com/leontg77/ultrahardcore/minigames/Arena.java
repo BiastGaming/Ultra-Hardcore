@@ -36,8 +36,8 @@ import com.leontg77.ultrahardcore.managers.ScatterManager;
 import com.leontg77.ultrahardcore.minigames.listeners.ArenaListener;
 import com.leontg77.ultrahardcore.utils.PacketUtils;
 import com.leontg77.ultrahardcore.utils.PlayerUtils;
-import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 import com.leontg77.ultrahardcore.world.WorldManager;
+import com.leontg77.ultrahardcore.world.orelimiter.OreLimiter;
 
 /**
  * PvP Arena class.
