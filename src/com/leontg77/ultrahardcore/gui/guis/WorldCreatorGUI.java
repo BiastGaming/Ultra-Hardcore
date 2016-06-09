@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -264,10 +265,9 @@ public class WorldCreatorGUI extends GUI implements Listener {
 
         ItemStack oreLimiter = new ItemStack(Material.DIAMOND_ORE);
         ItemMeta oreLimiterMeta = oreLimiter.getItemMeta();
-
         oreLimiterMeta.setDisplayName("§8» §6Ore Limiter §8«");
         lore.add(" ");
-        lore.add("§8» §7Currently: " + orelimiter.getShortDescription());
+        lore.add("§8» §7Currently: " + orelimiter.getShortDescription().replace(".", ""));
         lore.add(" ");
         lore.add("§8» §cDescription:");
         lore.addAll(Lists.transform(orelimiter.getAdditionalLore(), "§8» "::concat));

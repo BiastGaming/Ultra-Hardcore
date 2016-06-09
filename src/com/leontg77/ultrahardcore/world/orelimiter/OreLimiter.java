@@ -35,15 +35,15 @@ public class OreLimiter implements Listener {
          * Hosts shall not be able to use this type
          * from the world creator GUI / related.
          */
-        NONE(0.0d, ""),
+        NONE(0.0d, "§cDisabled.", "§7Ores are not limited."),
         /**
          * Impl. note:
-         * Minor is displayed as "None" as players will keep complaining.
+         * Minor is displayed as "Disabled" as players will keep complaining.
          * Make sure to only limit within realm of "not noticable"
          */
-        MINOR(0.2d, "§aNone", "§7Ores are not limited."),
-        LESS_VEINS(0.5d, "§eLess veins", "§e50% §7of gold, diamond and", "§7redstone veins are §eremoved§7."),
-        SMALLER_VEINS(0.0d, "§eSmaller veins", "§7Gold, diamond and redstone", "§7spawn in veins of §e6 or less", "§7(instead of 8 or less).");
+        MINOR(0.2d, "§cDisabled.", "§7Ores are not limited."),
+        LESS_VEINS(0.5d, "§aEnabled. §e(Less veins)", "§e50% §7of gold, diamond and", "§7redstone veins are §eremoved§7."),
+        SMALLER_VEINS(0.0d, "§aEnabled. §e(Smaller veins)", "§7Gold, diamond and redstone", "§7spawn in veins of §e6 or less", "§7(instead of 8 or less).");
 
         private final double oreRemovalChance;
         private final String shortDescription;

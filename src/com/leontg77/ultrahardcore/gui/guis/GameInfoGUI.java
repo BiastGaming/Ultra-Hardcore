@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -545,8 +546,14 @@ public class GameInfoGUI extends GUI implements Listener {
         } else{
             OreLimiter.Type oreLimiter = OreLimiter.Type.valueOf(settings.getWorlds().getString(
                     game.getWorld().getName() + ".oreLimiter", OreLimiter.Type.NONE.name()));
+            List<String> additionalLore = oreLimiter.getAdditionalLore();
+            if (oreLimiter == OreLimiter.Type.MINOR) {
+                // Hide lore in info GUI for MINOR type
+                additionalLore = ImmutableList.of();
+            }
+
             lore.add("§8» §7Ore Limiter: " + oreLimiter.getShortDescription());
-            lore.addAll(Lists.transform(oreLimiter.getAdditionalLore(), "   §8» "::concat));
+            lore.addAll(Lists.transform(additionalLore, "   §8» "::concat));
             lore.add(" ");
         }
 
